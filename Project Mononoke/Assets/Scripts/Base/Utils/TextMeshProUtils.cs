@@ -3,50 +3,61 @@ using UnityEngine;
 
 namespace Base.Utils
 {
-    public struct TextStyle
+    /// <summary>
+    /// Represents the style properties for text elements.
+    /// </summary>
+    public record TextStyle(float FontSize = 40f, Color? Color = null, TextAlignmentOptions TextAlignment = TextAlignmentOptions.Left)
     {
-        public float FontSize { get; }
-        public Color Color { get; }
-        public TextAlignmentOptions TextAlignment { get; }
-
-        public TextStyle(float fontSize, Color? color = null, TextAlignmentOptions textAlignment = TextAlignmentOptions.Left)
+        public float FontSize { get; } = FontSize;
+        public Color? Color { get; } = Color ?? UnityEngine.Color.white;
+        public TextAlignmentOptions TextAlignment { get; } = TextAlignment;
+        
+        /// <summary>
+        /// Returns a custom string representation of the text style.
+        /// </summary>
+        /// <returns>
+        /// A string format "Style of text:\nFont size - {FontSize}.\nColor - {Color}.\nText Alignment - {TextAlignment}.".
+        /// </returns>
+        public override string ToString()
         {
-            FontSize = fontSize;
-            Color = color ?? Color.white;
-            TextAlignment = textAlignment;
-        }
-
-        public static TextStyle Default()
-        {
-            return new TextStyle(40f);
+            return $"Style of text:\nFont size - {FontSize}.\nColor - {Color}.\nText Alignment - {TextAlignment}.";
         }
     }
 
-    public struct TextProperties
+    /// <summary>
+    /// Represents the properties for configuring and creating TextMeshPro objects.
+    /// </summary>
+    public record TextProperties (TextStyle Style, Transform Parent = null, Vector3 LocalPosition = default, int SortingOrder = 5000)
     {
-        private const int DEFAULT_SORTING_ORDER = 5000;
+        public TextStyle Style { get; } = Style;
+        public Transform Parent { get; } = Parent;
+        public Vector3 LocalPosition { get; } = LocalPosition;
+        public int SortingOrder { get; } = SortingOrder;
         
-        public TextStyle Style { get; }
-        public Transform Parent { get; }
-        public Vector3 LocalPosition { get; }
-        public int SortingOrder { get; }
-        
-        public TextProperties(TextStyle textStyle, Transform parent = null, Vector3 localPosition = default, int sortingOrder = DEFAULT_SORTING_ORDER)
+        /// <summary>
+        /// Returns a custom string representation of the text properties.
+        /// </summary>
+        /// <returns>
+        /// A string format "Properties of text:\nStyle - {Style}.\nParent - {Parent}.\nText local position - {LocalPosition}\nSorting order - {SortingOrder}."
+        /// </returns>
+        public override string ToString()
         {
-            Style = textStyle;
-            Parent = parent;
-            LocalPosition = localPosition;
-            SortingOrder = sortingOrder;
-        }
-
-        public static TextProperties Default()
-        {
-            return new TextProperties(TextStyle.Default());
+            return
+                $"Properties of text:\nStyle - {Style}.\nParent - {Parent}.\nText local position - {LocalPosition}\nSorting order - {SortingOrder}.";
         }
     }
     
+    /// <summary>
+    /// A utility class for creating TextMeshPro objects in a Unity scene.
+    /// </summary>
     public static class TextMeshProFabric
     {
+        /// <summary>
+        /// Creates a TextMeshPro object in the Unity scene with the specified text and properties.
+        /// </summary>
+        /// <param name="text">The text content of the TextMeshPro object.</param>
+        /// <param name="properties">The properties for configuring the TextMeshPro object.</param>
+        /// <returns>The created TextMeshPro object.</returns>
         public static TextMeshPro CreateTextInWorld(string text, TextProperties properties)
         {
             var gameObject = new GameObject("World_Text", typeof(TextMeshPro));
@@ -59,16 +70,16 @@ namespace Base.Utils
         {
             var textMesh = gameObject.GetComponent<TextMeshPro>();
             textMesh.text = text;
-            ConfigureTextStyle(text, properties, textMesh);
+            ConfigureTextStyle(properties, textMesh);
             textMesh.sortingOrder = properties.SortingOrder;
             return textMesh;
         }
 
-        private static void ConfigureTextStyle(string text, TextProperties properties, TextMeshPro textMesh)
+        private static void ConfigureTextStyle(TextProperties properties, TextMeshPro textMesh)
         {
             textMesh.alignment = properties.Style.TextAlignment;
             textMesh.fontSize = properties.Style.FontSize;
-            textMesh.color = properties.Style.Color;
+            textMesh.color = (Color) properties.Style!.Color;
         }
 
         private static void ConfigureTransform(TextProperties properties, GameObject gameObject)

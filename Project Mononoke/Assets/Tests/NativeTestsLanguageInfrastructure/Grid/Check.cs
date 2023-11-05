@@ -12,7 +12,7 @@ namespace Tests.NativeTestsLanguageInfrastructure
 
         public static void IsCellCountMatchesWith(int countPattern)
         {
-            new {CellCount = TestParameter.Grid.CellCount()}.Should().Be(new {CellCount = countPattern});
+            new {CellCount = TestParameter.Grid.CellCount}.Should().Be(new {CellCount = countPattern});
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Tests.TextMeshProFabricTests
             // Arrange.
             SetUp.FontSizePatternWith(40f);
             // Act.
-            Create.TextMeshProWith(TextProperties.Default());
+            Create.TextMeshProWith(new TextProperties(new TextStyle()));
             // Assert.
             Check.TextFrontSizeShouldMatchWith(TestParameter.FontSizePattern);
         }
@@ -25,7 +25,7 @@ namespace Tests.TextMeshProFabricTests
             // Arrange.
             SetUp.ColorPatternWith(Color.white);
             // Act.
-            Create.TextMeshProWith(TextProperties.Default());
+            Create.TextMeshProWith(new TextProperties(new TextStyle()));
             // Assert.
             Check.TextColorShouldMatchWith(TestParameter.ColorPattern);
         }
@@ -36,7 +36,7 @@ namespace Tests.TextMeshProFabricTests
             // Arrange.
             SetUp.TextAlignmentPatternWith(TextAlignmentOptions.Left);
             // Act.
-            Create.TextMeshProWith(TextProperties.Default());
+            Create.TextMeshProWith(new TextProperties(new TextStyle()));
             // Assert.
             Check.TextAlignmentShouldMatchWith(TestParameter.TextAlignmentPattern);
         }
@@ -47,7 +47,7 @@ namespace Tests.TextMeshProFabricTests
             // Arrange.
             SetUp.TextParentPatternWith(Create.GameObjectWithEmptyParent().parent);
             // Act.
-            Create.TextMeshProWith(TextProperties.Default());
+            Create.TextMeshProWith(new TextProperties(new TextStyle()));
             // Assert.
             Check.TextParentShouldMatchWith(TestParameter.TextParentPattern);
         }
@@ -58,7 +58,7 @@ namespace Tests.TextMeshProFabricTests
             // Arrange.
             SetUp.TextLocalPositionPatternWith(default);
             // Act.
-            Create.TextMeshProWith(TextProperties.Default());
+            Create.TextMeshProWith(new TextProperties(new TextStyle()));
             // Assert.
             Check.TextLocalPositionShouldMatchWith(TestParameter.TextLocalPositionPattern);
         }
@@ -69,7 +69,7 @@ namespace Tests.TextMeshProFabricTests
             // Arrange.
             SetUp.TextSortingOrderPatternWith(5000);
             // Act.
-            Create.TextMeshProWith(TextProperties.Default());
+            Create.TextMeshProWith(new TextProperties(new TextStyle()));
             // Assert.
             Check.TextSortingOrderShouldMatchWith(TestParameter.TextSortingOrderPattern);
         }
