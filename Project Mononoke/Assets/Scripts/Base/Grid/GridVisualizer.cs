@@ -17,7 +17,7 @@ namespace Base.Grid
         private const TextAlignmentOptions TEXT_AGLIMENT = TextAlignmentOptions.Center;
         private readonly TextStyle TEXT_STYLE = new (FONT_SIZE, TextAlignment: TEXT_AGLIMENT);
         
-        public void VisualizeTextOn(Grid grid)
+        public void Visualize(Grid grid)
         {
             if (grid == null) throw new GridVisualizationException("You can't visualize null grid.");
             
@@ -35,7 +35,7 @@ namespace Base.Grid
             TextMeshProFabric.CreateTextInWorld(GetDisplayableStringRepresentationOfCoordinate(coordinate),
                 new TextProperties(TEXT_STYLE,
                     _cellTextContainer,
-                    GetWorldPosition(coordinate)));
+                    GetCellCenterWorldPosition(coordinate)));
         }
 
         private static string GetDisplayableStringRepresentationOfCoordinate(InPlaneCoordinateInt coordinate)
@@ -95,6 +95,23 @@ namespace Base.Grid
         private void DrawVerticalLine(Grid grid, Color gizmosColor, float gizmosDurationTime)
         {
             Debug.DrawLine(GetWorldPosition(new InPlaneCoordinateInt(0, grid.Sizes.Y)), GetWorldPosition(grid.Sizes), gizmosColor, gizmosDurationTime);
+        }
+
+        public Vector3 GetCellCenterWorldPosition(InPlaneCoordinateInt coordinate)
+        {
+            const float CENTER_OFFSET = 0.5f;
+
+            return GetWorldPosition(coordinate) + GetCellCenterWorldOffset(CENTER_OFFSET);
+        }
+
+        private Vector3 GetCellCenterWorldOffset(float centerOffset)
+        {
+            return GetCellSizes() * centerOffset;
+        }
+
+        private Vector3 GetCellSizes()
+        {
+            return new Vector3(_cellSize, _cellSize);
         }
 
         public Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate)

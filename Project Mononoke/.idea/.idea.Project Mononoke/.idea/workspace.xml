@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test Location.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/GridVisualizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/GridVisualizer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/GameManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +94,7 @@
       <updated>1699098131194</updated>
       <workItem from="1699098133394" duration="6000" />
       <workItem from="1699098341650" duration="3343000" />
-      <workItem from="1699168080523" duration="10561000" />
+      <workItem from="1699168080523" duration="11668000" />
     </task>
     <servers />
   </component>

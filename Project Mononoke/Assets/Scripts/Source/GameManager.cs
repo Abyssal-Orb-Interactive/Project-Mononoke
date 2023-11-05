@@ -17,7 +17,7 @@ namespace Source
 
         private void Start()
         {
-            _gridVisualizer.VisualizeTextOn(new Grid(new InPlaneCoordinateInt(10, 10)));
+            _gridVisualizer.Visualize(new Grid(new InPlaneCoordinateInt(10, 10)));
         }
     }
 }
