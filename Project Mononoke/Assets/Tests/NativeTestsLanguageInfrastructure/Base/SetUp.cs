@@ -1,3 +1,6 @@
+using TMPro;
+using UnityEngine;
+
 namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class SetUp

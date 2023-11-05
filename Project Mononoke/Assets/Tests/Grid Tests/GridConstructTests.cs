@@ -27,7 +27,7 @@ namespace Tests.GridTests
             Check.IsThereAnGridConstructionError();
         }
         
-        //[Test]
+        [Test]
         public void WhenGridConstructing_AndSizeIsNegative1_Positive1_ThenShouldBeGridConstructionException()
         {
             // Arrange.
@@ -38,7 +38,7 @@ namespace Tests.GridTests
             Check.IsThereAnGridConstructionError();
         }
         
-        //[Test]
+        [Test]
         public void WhenGridConstructing_AndSizeIsPositive1_Negative1_ThenShouldBeGridConstructionException()
         {
             // Arrange.
