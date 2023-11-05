@@ -2,6 +2,7 @@ using System;
 using Base.Math;
 using Base.Utils;
 using TMPro;
+using UnityEditor.Graphs;
 using UnityEngine;
 
 namespace Base.Grid
@@ -10,6 +11,11 @@ namespace Base.Grid
     public class GridVisualizer : MonoBehaviour
     {
         [SerializeField] private float _cellSize = 10f;
+        [SerializeField] private Transform _cellTextContainer;
+
+        private const float FONT_SIZE = 20f;
+        private const TextAlignmentOptions TEXT_AGLIMENT = TextAlignmentOptions.Center;
+        private readonly TextStyle TEXT_STYLE = new (FONT_SIZE, TextAlignment: TEXT_AGLIMENT);
         
         public void VisualizeTextOn(Grid grid)
         {
@@ -17,12 +23,78 @@ namespace Base.Grid
             
             foreach (var coordinate in grid.GetCellsCoordinates())
             {
-                TextMeshProFabric.CreateTextInWorld(new string($"{coordinate.X} , {coordinate.Y}"),
-                    new TextProperties(new TextStyle(20,
-                            TextAlignment: TextAlignmentOptions.Center),
-                        null,
-                        GetWorldPosition(coordinate)));
+                InstantiateTextOnCoordinate(coordinate);
+                DrawCornerCellWithGizmosWhiteLinesOn100Seconds(coordinate);
             }
+            
+            DrawGridUpperRightCornerWithGizmosWhiteLinesOn100Seconds(grid);
+        }
+
+        private void InstantiateTextOnCoordinate(InPlaneCoordinateInt coordinate)
+        {
+            TextMeshProFabric.CreateTextInWorld(GetDisplayableStringRepresentationOfCoordinate(coordinate),
+                new TextProperties(TEXT_STYLE,
+                    _cellTextContainer,
+                    GetWorldPosition(coordinate)));
+        }
+
+        private static string GetDisplayableStringRepresentationOfCoordinate(InPlaneCoordinateInt coordinate)
+        {
+            return $"{coordinate.X} , {coordinate.Y}";
+        }
+
+        private void DrawCornerCellWithGizmosWhiteLinesOn100Seconds(InPlaneCoordinateInt coordinate)
+        {
+            const float GIZMOS_DURATION_TIME = 100f;
+            var GIZMOS_COLOR = Color.white;
+            
+            DrawVerticalLine(coordinate, GIZMOS_COLOR, GIZMOS_DURATION_TIME);
+            DrawHorizontalLine(coordinate, GIZMOS_COLOR, GIZMOS_DURATION_TIME);
+        }
+
+        private void DrawHorizontalLine(InPlaneCoordinateInt coordinate, Color gizmosColor, float gizmosDurationTime)
+        {
+            Debug.DrawLine(GetWorldPosition(coordinate),
+                GetWorldPosition(GetNextHorizontalCoordinate(coordinate)),
+                gizmosColor,
+                gizmosDurationTime);
+        }
+
+        private void DrawVerticalLine(InPlaneCoordinateInt coordinate, Color gizmosColor, float gizmosDurationTime)
+        {
+            Debug.DrawLine(GetWorldPosition(coordinate),
+                GetWorldPosition(GetNextVerticalCoordinate(coordinate)),
+                gizmosColor,
+                gizmosDurationTime);
+        }
+
+        private static InPlaneCoordinateInt GetNextHorizontalCoordinate(InPlaneCoordinateInt coordinate)
+        {
+            return new InPlaneCoordinateInt(coordinate.X + 1, coordinate.Y);
+        }
+
+        private InPlaneCoordinateInt GetNextVerticalCoordinate(InPlaneCoordinateInt coordinate)
+        {
+            return new InPlaneCoordinateInt(coordinate.X, coordinate.Y + 1);
+        }
+        
+        private void DrawGridUpperRightCornerWithGizmosWhiteLinesOn100Seconds(Grid grid)
+        {
+            const float GIZMOS_DURATION_TIME = 100f;
+            var GIZMOS_COLOR = Color.white;
+            
+            DrawVerticalLine(grid, GIZMOS_COLOR, GIZMOS_DURATION_TIME);
+            DrawHorizontalLine(grid, GIZMOS_COLOR, GIZMOS_DURATION_TIME);
+        }
+
+        private void DrawHorizontalLine(Grid grid, Color gizmosColor, float gizmosDurationTime)
+        {
+            Debug.DrawLine(GetWorldPosition(new InPlaneCoordinateInt(grid.Sizes.X, 0)), GetWorldPosition(grid.Sizes), gizmosColor, gizmosDurationTime);
+        }
+
+        private void DrawVerticalLine(Grid grid, Color gizmosColor, float gizmosDurationTime)
+        {
+            Debug.DrawLine(GetWorldPosition(new InPlaneCoordinateInt(0, grid.Sizes.Y)), GetWorldPosition(grid.Sizes), gizmosColor, gizmosDurationTime);
         }
 
         public Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate)
