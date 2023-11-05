@@ -14,7 +14,7 @@ namespace Base.Math
         /// <returns>A string in the format "Coordinate is X: [X], Y: [Y]".</returns>
         public override string ToString()
         {
-            return $"Coordinate is X: {X}, Y: {Y}";
+            return $"Coordinate is X: {X}, Y: {Y}.";
         }
     }
 }

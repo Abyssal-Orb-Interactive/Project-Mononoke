@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test Location.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/InPlaneCoordinateInt.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Math/InPlaneCoordinateInt.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Check.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Check.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/TextMeshProFabricTests/TMPtFabricCreatingTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/TextMeshProFabricTests/TMPtFabricCreatingTests.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,10 +18,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10871f9e312b442cb78b9b97db88fdcb172a00/92/9a0e539f/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grid.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Tests/TextMeshProFabricTests/CreationTest.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -97,7 +94,7 @@
       <updated>1699098131194</updated>
       <workItem from="1699098133394" duration="6000" />
       <workItem from="1699098341650" duration="3343000" />
-      <workItem from="1699168080523" duration="6632000" />
+      <workItem from="1699168080523" duration="8337000" />
     </task>
     <servers />
   </component>
