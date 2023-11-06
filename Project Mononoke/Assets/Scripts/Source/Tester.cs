@@ -23,7 +23,12 @@ namespace Source
 
         private void Update()
         {
-            if(Input.GetMouseButtonDown(0)) _gridVisualizer.SetCellValue(MouseUtils.GetMouseWorldPosWithoutZ(), 56);
+            if (Input.GetMouseButtonDown(0))
+            {
+                var mousePos = MouseUtils.GetMouseWorldPosWithoutZ();
+                var gridValue = _gridVisualizer.GetCellValue(mousePos);
+                _gridVisualizer.SetCellValue(mousePos, gridValue + 5);
+            }
             if(Input.GetMouseButtonDown(1)) Debug.Log( _gridVisualizer.GetCellValue(MouseUtils.GetMouseWorldPosWithoutZ()));
             
         }

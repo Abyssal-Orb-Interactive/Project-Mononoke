@@ -13,6 +13,9 @@ namespace Base.Grid
     /// </summary>
     public class Grid
     {
+        private const int GRID_MAX_VAlUE = 100;
+        private const int GRID_MIN_VAlUE = 0;
+        
         /// <summary>
         /// Gets the size of the grid.
         /// </summary>
@@ -102,7 +105,7 @@ namespace Base.Grid
         public bool TrySetValue(InPlaneCoordinateInt coordinate, int value)
         {
             if (!_gridDictionary.Keys.Contains(coordinate)) return false;
-            if (value < 0) return false;
+            if (value is < GRID_MIN_VAlUE or > GRID_MAX_VAlUE) return false;
             
             SetCellValue(coordinate, value);
 
