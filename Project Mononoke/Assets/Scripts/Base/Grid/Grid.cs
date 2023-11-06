@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Base.Math;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Base.Grid
 {
@@ -12,8 +13,15 @@ namespace Base.Grid
     /// </summary>
     public class Grid
     {
-        private const int GRID_MAX_VAlUE = 100;
-        private const int GRID_MIN_VAlUE = 0;
+        public const int GRID_MAX_VAlUE = 100;
+        public const int GRID_MIN_VAlUE = 0;
+
+        private event EventHandler<OnGridValueChangedEventArgs> OnGridValueChanged;
+
+        public class OnGridValueChangedEventArgs : EventArgs
+        {
+            public InPlaneCoordinateInt Coordinate;
+        }
         
         /// <summary>
         /// Gets the size of the grid.
@@ -114,8 +122,49 @@ namespace Base.Grid
         private void SetCellValue(InPlaneCoordinateInt coordinate, int value)
         {
             _gridDictionary[coordinate] = value;
+            OnGridValueChanged?.Invoke(this, new OnGridValueChangedEventArgs{Coordinate = coordinate});
         }
 
+        private void AddValueToCell(InPlaneCoordinateInt coordinate, int value)
+        {
+            SetCellValue(coordinate, GetCellValue(coordinate) + value);
+        }
+        
+        private void AddValueToCellSilently(InPlaneCoordinateInt coordinate, int value)
+        {
+            SetCellValueSilently(coordinate, GetCellValue(coordinate) + value);
+        }
+        
+        private void SetCellValueSilently(InPlaneCoordinateInt coordinate, int value)
+        {
+            _gridDictionary[coordinate] = value;
+        }
+
+        public void AddValueToCells(InPlaneCoordinateInt coordinate, int value, int fullValueRange, int totalRange)
+        {
+            if(totalRange < fullValueRange) return;
+            
+            var lowerValueAmount = Mathf.RoundToInt((float)value / (totalRange - fullValueRange));
+            
+            for (var x = 0; x < totalRange; x++)
+            {
+                for (var y = 0; y < totalRange - x; y++)
+                {
+                    var radius = x + y;
+                    var addValueAmount = value;
+
+                    if (radius > fullValueRange) addValueAmount -= lowerValueAmount * (radius - fullValueRange);
+                    
+                    AddValueToCellSilently(new InPlaneCoordinateInt(coordinate.X + x, coordinate.Y + y), addValueAmount);
+                    if(x != 0) AddValueToCellSilently(new InPlaneCoordinateInt(coordinate.X - x, coordinate.Y + y), addValueAmount);
+                    if(y != 0) AddValueToCellSilently(new InPlaneCoordinateInt(coordinate.X + x, coordinate.Y - y), addValueAmount);
+                    if(x != 0 && y != 0) AddValueToCellSilently(new InPlaneCoordinateInt(coordinate.X - x, coordinate.Y - y), addValueAmount);
+                }
+            }
+            
+            OnGridValueChanged?.Invoke(this, new OnGridValueChangedEventArgs{Coordinate = coordinate});
+        }
+        
         /// <summary>
         /// Returns a string representation of the grid, including its sizes, the number of cells, and the coordinates of all cells.
         /// </summary>
@@ -163,6 +212,16 @@ namespace Base.Grid
         public override int GetHashCode()
         {
             return HashCode.Combine(_gridDictionary, Sizes);
+        }
+        
+        public void SubscribeOnCellValueChanged(EventHandler<OnGridValueChangedEventArgs> handler)
+        {
+            OnGridValueChanged += handler;
+        }
+
+        public void UnsubscribeOnCellValueChanged(EventHandler<OnGridValueChangedEventArgs> handler)
+        {
+            OnGridValueChanged -= handler;
         }
     }
     

@@ -2,45 +2,35 @@ using UnityEngine;
 
 namespace Base.Math
 {
-    public class GridPositionConverter
+    public static class GridPositionConverter
     {
-        private readonly float _cellSize;
-        private readonly Vector3 _gridOriginPosition;
-
-        private GridPositionConverter(){}
-
-        public GridPositionConverter(float cellSize, Vector3 gridOriginPosition)
+        public static Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate, Grid.Grid grid)
         {
-            _cellSize = cellSize;
-            _gridOriginPosition = gridOriginPosition;
+            return CoordinateToVectorConverter.ConvertInPlaneCoordinateIntToVector3(coordinate) * grid.CellSize + CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(grid.OriginPosition);
         }
         
-        public Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate)
-        {
-            return CoordinateToVectorConverter.ConvertInPlaneCoordinateIntToVector3(coordinate) * _cellSize + _gridOriginPosition;
-        }
-        
-        public Vector3 GetCellCenterWorldPosition(InPlaneCoordinateInt coordinate)
+        public static Vector3 GetCellCenterWorldPosition(InPlaneCoordinateInt coordinate, Grid.Grid grid)
         {
             const float CENTER_OFFSET = 0.5f;
 
-            return GetWorldPosition(coordinate) + GetCellCenterWorldOffset(CENTER_OFFSET);
+            return GetWorldPosition(coordinate, grid) + GetCellCenterWorldOffset(CENTER_OFFSET, grid);
         }
 
-        private Vector3 GetCellCenterWorldOffset(float centerOffset)
+        private static Vector3 GetCellCenterWorldOffset(float centerOffset, Grid.Grid grid)
         {
-            return GetCellSizes() * centerOffset;
+            return GetCellSizes(grid) * centerOffset;
         }
 
-        private Vector3 GetCellSizes()
+        private static Vector3 GetCellSizes(Grid.Grid grid)
         {
-            return new Vector3(_cellSize, _cellSize);
+            return new Vector3(grid.CellSize, grid.CellSize);
         }
 
-        public InPlaneCoordinateInt GetCoordinateInGrid(Vector3 worldPosition)
+        public static InPlaneCoordinateInt GetCoordinateInGrid(Vector3 worldPosition, Grid.Grid grid)
         {
-            var x = Mathf.FloorToInt((worldPosition.x - _gridOriginPosition.x) / _cellSize);
-            var y = Mathf.FloorToInt((worldPosition.y - _gridOriginPosition.y)/ _cellSize);
+            var originPos = CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(grid.OriginPosition);
+            var x = Mathf.FloorToInt((worldPosition.x - originPos.x) / grid.CellSize);
+            var y = Mathf.FloorToInt((worldPosition.y - originPos.y)/ grid.CellSize);
 
             return new InPlaneCoordinateInt(x, y);
         }

@@ -10,22 +10,24 @@ namespace Base.Grid
    
     public class GridVisualizer : MonoBehaviour
     {
-        [SerializeField] private Transform _cellTextContainer;
+        [SerializeField] private GameObject _cellTextContainer;
+        [SerializeField] private bool _debugMode = false;
 
         private const float FONT_SIZE = 20f;
         private const TextAlignmentOptions TEXT_AGLIMENT = TextAlignmentOptions.Center;
         private readonly TextStyle TEXT_STYLE = new (FONT_SIZE, TextAlignment: TEXT_AGLIMENT);
 
         private Grid _grid;
-        private GridPositionConverter _positionConverter;
         private Dictionary<InPlaneCoordinateInt, TextMeshPro> _debugTexts;
 
         public void Visualize(Grid grid)
         {
             _grid = grid ?? throw new GridVisualizationException("You can't visualize null grid.");
             _debugTexts?.Clear();
+            
+            if(!_debugMode) return;
+            
             _debugTexts = new Dictionary<InPlaneCoordinateInt, TextMeshPro>();
-            _positionConverter = new GridPositionConverter(_grid.CellSize, CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(_grid.OriginPosition));
             
             foreach (var coordinate in grid.GetCellsCoordinates())
             {
@@ -41,8 +43,8 @@ namespace Base.Grid
                 TextMeshProFabric.CreateTextInWorld(_grid.GetCellValue(coordinate)
                         .ToString(),
                     new TextProperties(TEXT_STYLE,
-                        _cellTextContainer,
-                        _positionConverter.GetCellCenterWorldPosition(coordinate))));
+                        _cellTextContainer.transform,
+                        GridPositionConverter.GetCellCenterWorldPosition(coordinate, _grid))));
         }
 
         private void DrawCornerCellWithGizmosWhiteLinesOn100Seconds(InPlaneCoordinateInt coordinate)
@@ -56,16 +58,16 @@ namespace Base.Grid
 
         private void DrawHorizontalLine(InPlaneCoordinateInt coordinate, Color gizmosColor, float gizmosDurationTime)
         {
-            Debug.DrawLine(_positionConverter.GetWorldPosition(coordinate),
-                _positionConverter.GetWorldPosition(GetNextHorizontalCoordinate(coordinate)),
+            Debug.DrawLine(GridPositionConverter.GetWorldPosition(coordinate, _grid),
+                GridPositionConverter.GetWorldPosition(GetNextHorizontalCoordinate(coordinate), _grid),
                 gizmosColor,
                 gizmosDurationTime);
         }
 
         private void DrawVerticalLine(InPlaneCoordinateInt coordinate, Color gizmosColor, float gizmosDurationTime)
         {
-            Debug.DrawLine(_positionConverter.GetWorldPosition(coordinate),
-                _positionConverter.GetWorldPosition(GetNextVerticalCoordinate(coordinate)),
+            Debug.DrawLine(GridPositionConverter.GetWorldPosition(coordinate, _grid),
+                GridPositionConverter.GetWorldPosition(GetNextVerticalCoordinate(coordinate), _grid),
                 gizmosColor,
                 gizmosDurationTime);
         }
@@ -92,38 +94,15 @@ namespace Base.Grid
         private void DrawHorizontalLine(Color gizmosColor, float gizmosDurationTime)
         {
             var startPosition = new InPlaneCoordinateInt(_grid.Sizes.X, 0);
-            Debug.DrawLine(_positionConverter.GetWorldPosition(startPosition),
-                _positionConverter.GetWorldPosition(_grid.Sizes), gizmosColor, gizmosDurationTime);
+            Debug.DrawLine(GridPositionConverter.GetWorldPosition(startPosition, _grid),
+                GridPositionConverter.GetWorldPosition(_grid.Sizes, _grid), gizmosColor, gizmosDurationTime);
         }
 
         private void DrawVerticalLine(Color gizmosColor, float gizmosDurationTime)
         {
             var startPosition = new InPlaneCoordinateInt(0, _grid.Sizes.Y);
-            Debug.DrawLine(_positionConverter.GetWorldPosition(startPosition),
-                _positionConverter.GetWorldPosition(_grid.Sizes), gizmosColor, gizmosDurationTime);
-        }
-
-        private void SetCellValue(InPlaneCoordinateInt coordinate,int value)
-        {
-            if (_grid.TrySetValue(coordinate, value))
-                _debugTexts[coordinate].GetComponent<TMP_Text>().text = value.ToString();
-        }
-
-        public void SetCellValue(Vector3 worldPosition, int value)
-        {
-            var coordinate = _positionConverter.GetCoordinateInGrid(worldPosition);
-            SetCellValue(coordinate, value);
-        }
-
-        public int GetCellValue(Vector3 worldPosition)
-        {
-            var coordinate = _positionConverter.GetCoordinateInGrid(worldPosition);
-            return GetCellValue(coordinate);
-        }
-        
-        private int GetCellValue(InPlaneCoordinateInt coordinate)
-        {
-            return _grid.GetCellValue(coordinate);
+            Debug.DrawLine(GridPositionConverter.GetWorldPosition(startPosition, _grid),
+                GridPositionConverter.GetWorldPosition(_grid.Sizes, _grid), gizmosColor, gizmosDurationTime);
         }
     }
     
