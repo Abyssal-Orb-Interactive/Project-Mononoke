@@ -10,9 +10,9 @@ namespace Tests.NativeTestsLanguageInfrastructure
             return new InPlaneCoordinateInt(x, y);
         }
 
-        public static Grid Grid(InPlaneCoordinateInt size)
+        public static Grid Grid(InPlaneCoordinateInt size, float cellSize = 10f)
         {
-            return new Grid(size);
+            return new Grid(size, cellSize: cellSize);
         }
     }
 }

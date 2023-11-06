@@ -5,11 +5,11 @@ namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class Try
     {
-        public static void CatchConstructionExceptionWhileConstructingGridWith(InPlaneCoordinateInt size)
+        public static void CatchConstructionExceptionWhileConstructingGridWith(InPlaneCoordinateInt size, float cellSize = 10f)
         {
             try
             {
-                Create.Grid(size);
+                Create.Grid(size, cellSize);
             }
             catch (GridConstructionException e)
             {

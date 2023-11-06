@@ -48,5 +48,27 @@ namespace Tests.GridTests
             // Assert.
             Check.IsThereAnGridConstructionError();
         }
+        
+        [Test]
+        public void WhenGridConstructing_AndCellSizeIsNegative_ThenShouldBeGridConstructionException()
+        {
+            // Arrange.
+            SetUp.CellSizeWithError(-1f);
+            // Act.
+            Try.CatchConstructionExceptionWhileConstructingGridWith(TestParameter.Size, TestParameter.CellSize);
+            // Assert.
+            Check.IsThereAnGridConstructionError();
+        }
+        
+        [Test]
+        public void WhenGridConstructing_AndCellSizeIsZero_ThenShouldBeGridConstructionException()
+        {
+            // Arrange.
+            SetUp.CellSizeWithError(0f);
+            // Act.
+            Try.CatchConstructionExceptionWhileConstructingGridWith(TestParameter.Size, TestParameter.CellSize);
+            // Assert.
+            Check.IsThereAnGridConstructionError();
+        }
     }
 }

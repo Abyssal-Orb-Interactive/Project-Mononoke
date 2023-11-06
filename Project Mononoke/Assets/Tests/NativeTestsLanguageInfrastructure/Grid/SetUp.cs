@@ -10,6 +10,11 @@ namespace Tests.NativeTestsLanguageInfrastructure
             TestParameter.Size = Create.InPlaneCoordinateInt(x, y);
         }
 
+        public static void CellSizeWith(float cellSize)
+        {
+            TestParameter.CellSize = cellSize;
+        }
+
         public static void GridWith(InPlaneCoordinateInt size)
         {
             TestParameter.Grid = Create.Grid(size);
@@ -30,6 +35,13 @@ namespace Tests.NativeTestsLanguageInfrastructure
         {
             SizeWith(x, y);
             CountPatternWith(countPattern);
+        }
+        
+        public static void CellSizeWithError(float cellSize)
+        {
+            SizeWith(10, 10);
+            CellSizeWith(cellSize);
+            TestParameter.ConstructionException = null;
         }
     }
 }
