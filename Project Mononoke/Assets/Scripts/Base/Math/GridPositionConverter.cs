@@ -17,7 +17,7 @@ namespace Base.Math
         
         public Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate)
         {
-            return new Vector3(coordinate.X, coordinate.Y) * _cellSize + _gridOriginPosition;
+            return CoordinateToVectorConverter.ConvertInPlaneCoordinateIntToVector3(coordinate) * _cellSize + _gridOriginPosition;
         }
         
         public Vector3 GetCellCenterWorldPosition(InPlaneCoordinateInt coordinate)

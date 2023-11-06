@@ -25,7 +25,7 @@ namespace Base.Grid
             _grid = grid ?? throw new GridVisualizationException("You can't visualize null grid.");
             _debugTexts?.Clear();
             _debugTexts = new Dictionary<InPlaneCoordinateInt, TextMeshPro>();
-            _positionConverter = new GridPositionConverter(_grid.CellSize, _grid.OriginPosition);
+            _positionConverter = new GridPositionConverter(_grid.CellSize, CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(_grid.OriginPosition));
             
             foreach (var coordinate in grid.GetCellsCoordinates())
             {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Base.Math;
 using JetBrains.Annotations;
-using UnityEngine;
 
 namespace Base.Grid
 {
@@ -21,7 +20,7 @@ namespace Base.Grid
         /// </summary>
         public InPlaneCoordinateInt Sizes { get; }
         
-        public Vector3 OriginPosition { get; }
+        public InSpaceCoordinate OriginPosition { get; }
         
         public float CellSize { get; }
 
@@ -36,13 +35,13 @@ namespace Base.Grid
         /// <exception cref="GridConstructionException">
         /// Thrown if the size in either dimension is negative or both dimensions are zero.
         /// </exception>
-        public Grid(InPlaneCoordinateInt sizes, [CanBeNull] Vector3? originPosition = null, float cellSize = 10f)
+        public Grid(InPlaneCoordinateInt sizes, [CanBeNull] InSpaceCoordinate originPosition = null, float cellSize = 10f)
         {
             ValidateSizes(sizes);
             ValidateCellSize(cellSize);
 
             Sizes = sizes;
-            OriginPosition = originPosition ?? Vector3.zero;
+            OriginPosition = originPosition?? new InSpaceCoordinate();
             CellSize = cellSize;
             _gridDictionary = new Dictionary<InPlaneCoordinateInt, int>();
 
