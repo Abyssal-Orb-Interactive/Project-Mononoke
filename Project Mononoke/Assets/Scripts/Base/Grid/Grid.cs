@@ -63,8 +63,8 @@ namespace Base.Grid
         }
 
         public void ValidateCellSize(float cellSize)
-        {
-            if (CellSize <= 0f) throw new GridConstructionException("Size of cell must be bigger then 0");
+        { 
+            if (cellSize <= 0f) throw new GridConstructionException("Size of cell must be bigger then 0");
         }
 
         private void FillGridWithCoordinates()
