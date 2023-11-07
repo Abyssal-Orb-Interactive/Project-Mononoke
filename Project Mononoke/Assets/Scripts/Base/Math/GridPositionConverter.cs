@@ -4,33 +4,33 @@ namespace Base.Math
 {
     public static class GridPositionConverter
     {
-        public static Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate, Grid.Grid grid)
+        public static Vector3 GetWorldPosition(InPlaneCoordinateInt coordinate, float cellSize, InSpaceCoordinate gridOriginPosition)
         {
-            return CoordinateToVectorConverter.ConvertInPlaneCoordinateIntToVector3(coordinate) * grid.CellSize + CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(grid.OriginPosition);
+            return CoordinateToVectorConverter.ConvertInPlaneCoordinateIntToVector3(coordinate) * cellSize + CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(gridOriginPosition);
         }
         
-        public static Vector3 GetCellCenterWorldPosition(InPlaneCoordinateInt coordinate, Grid.Grid grid)
+        public static Vector3 GetCellCenterWorldPosition(InPlaneCoordinateInt coordinate, float cellSize, InSpaceCoordinate gridOriginPosition)
         {
             const float CENTER_OFFSET = 0.5f;
 
-            return GetWorldPosition(coordinate, grid) + GetCellCenterWorldOffset(CENTER_OFFSET, grid);
+            return GetWorldPosition(coordinate, cellSize, gridOriginPosition) + GetCellCenterWorldOffset(CENTER_OFFSET, cellSize);
         }
 
-        private static Vector3 GetCellCenterWorldOffset(float centerOffset, Grid.Grid grid)
+        private static Vector3 GetCellCenterWorldOffset(float centerOffset, float cellSize)
         {
-            return GetCellSizes(grid) * centerOffset;
+            return GetCellSizes(cellSize) * centerOffset;
         }
 
-        private static Vector3 GetCellSizes(Grid.Grid grid)
+        private static Vector3 GetCellSizes(float cellSize)
         {
-            return new Vector3(grid.CellSize, grid.CellSize);
+            return new Vector3(cellSize, cellSize);
         }
 
-        public static InPlaneCoordinateInt GetCoordinateInGrid(Vector3 worldPosition, Grid.Grid grid)
+        public static InPlaneCoordinateInt GetCoordinateInGrid(Vector3 worldPosition, float cellSize, InSpaceCoordinate gridOriginPosition)
         {
-            var originPos = CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(grid.OriginPosition);
-            var x = Mathf.FloorToInt((worldPosition.x - originPos.x) / grid.CellSize);
-            var y = Mathf.FloorToInt((worldPosition.y - originPos.y)/ grid.CellSize);
+            var originPosition = CoordinateToVectorConverter.ConvertInSpaceCoordinateToVector3(gridOriginPosition);
+            var x = Mathf.FloorToInt((worldPosition.x - originPosition.x) / cellSize);
+            var y = Mathf.FloorToInt((worldPosition.y - originPosition.y)/ cellSize);
 
             return new InPlaneCoordinateInt(x, y);
         }

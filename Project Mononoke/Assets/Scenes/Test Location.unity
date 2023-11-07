@@ -352,6 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 866429934}
   - component: {fileID: 866429936}
+  - component: {fileID: 866429941}
   - component: {fileID: 866429939}
   - component: {fileID: 866429935}
   - component: {fileID: 866429938}
@@ -391,7 +392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridVisualizer: {fileID: 866429936}
-  _heatMapVisualizer: {fileID: 866429939}
+  _intHeatMapVisualizer: {fileID: 866429939}
+  _boolHeatMapVisualizer: {fileID: 866429941}
   _meshFilter: {fileID: 866429940}
 --- !u!114 &866429936
 MonoBehaviour:
@@ -406,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cellTextContainer: {fileID: 1859984093}
-  _debugMode: 0
+  _debugMode: 1
 --- !u!23 &866429938
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -469,6 +471,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866429933}
   m_Mesh: {fileID: 0}
+--- !u!114 &866429941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866429933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30125b370d6a3e41beecfd7b0aa0a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1859984093
 GameObject:
   m_ObjectHideFlags: 0

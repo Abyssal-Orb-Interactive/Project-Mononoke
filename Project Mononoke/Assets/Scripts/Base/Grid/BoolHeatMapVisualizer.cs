@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Base.Grid
 {
-    public class HeatMapVisualizer : MonoBehaviour
+    public class BoolHeatMapVisualizer : MonoBehaviour
     {
-        private Grid _grid;
+        private Grid<bool> _grid;
         private Mesh _mesh;
         private bool _updatedDesired;
 
-        public void Initialize(Grid grid, MeshFilter meshFilter)
+        public void Initialize(Grid<bool> grid, MeshFilter meshFilter)
         {
-            _grid = grid ?? new Grid(new InPlaneCoordinateInt(1,1));
+            _grid = grid ?? new Grid<bool>(new InPlaneCoordinateInt(1,1));
             _mesh = new Mesh();
             meshFilter.mesh = _mesh;
             UpdateMapVisual();
@@ -20,7 +20,7 @@ namespace Base.Grid
             _grid.SubscribeOnCellValueChanged(OnGridValueChanged);
         }
 
-        private void OnGridValueChanged(object sender, Grid.OnGridValueChangedEventArgs e)
+        private void OnGridValueChanged(object sender, Grid<bool>.OnGridValueChangedEventArgs e)
         {
             _updatedDesired = true;
         }
@@ -35,10 +35,10 @@ namespace Base.Grid
                 {
                     var cellIndex = x * _grid.Sizes.Y + y;
                     var cellVectorSize = Vector3.one * _grid.CellSize;
-                    var cellWorldPosition = GridPositionConverter.GetWorldPosition(new InPlaneCoordinateInt(x, y), _grid) + cellVectorSize * 0.5f;
+                    var cellWorldPosition = GridPositionConverter.GetWorldPosition(new InPlaneCoordinateInt(x, y), _grid.CellSize, _grid.OriginPosition) + cellVectorSize * 0.5f;
 
                     var gridValue = _grid.GetCellValue(new InPlaneCoordinateInt(x, y));
-                    var normalizedGridValue = (float)gridValue / Grid.GRID_MAX_VAlUE;
+                    var normalizedGridValue = gridValue ? 1f : 0f;
                     var gridValueUV = new Vector2(normalizedGridValue, 0);
                     
                     MeshPropertiesFabric.AddToMeshArrays(properties, cellIndex, cellWorldPosition, 0f, cellVectorSize, gridValueUV, gridValueUV);
