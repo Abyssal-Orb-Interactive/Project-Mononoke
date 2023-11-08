@@ -33,6 +33,11 @@ namespace Base.Grid
             FillGridWithCoordinates(valueCreationStrategy);
         }
 
+        public InPlaneCoordinateInt GetCoordinateOfCell(TCellValue cellValue)
+        {
+            return _gridDictionary.Where(pair => pair.Value.GetValue().Equals(cellValue)).Select(pair => pair.Key).FirstOrDefault();
+        }
+        
         private void ValidateSizes(InPlaneCoordinateInt sizes)
         {
             if (sizes.X < 0)
