@@ -353,7 +353,6 @@ GameObject:
   - component: {fileID: 866429934}
   - component: {fileID: 866429936}
   - component: {fileID: 866429941}
-  - component: {fileID: 866429939}
   - component: {fileID: 866429935}
   - component: {fileID: 866429938}
   - component: {fileID: 866429940}
@@ -392,8 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridVisualizer: {fileID: 866429936}
-  _intHeatMapVisualizer: {fileID: 866429939}
-  _boolHeatMapVisualizer: {fileID: 866429941}
+  _heatMapVisualizer: {fileID: 866429941}
   _meshFilter: {fileID: 866429940}
 --- !u!114 &866429936
 MonoBehaviour:
@@ -451,18 +449,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &866429939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866429933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034df28508a84cf8a15a1c1dca00e86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &866429940
 MeshFilter:
   m_ObjectHideFlags: 0

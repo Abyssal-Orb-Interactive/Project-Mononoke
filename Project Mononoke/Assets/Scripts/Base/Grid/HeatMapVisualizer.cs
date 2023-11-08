@@ -1,18 +1,19 @@
+using Base.Grid.CellContent;
 using Base.Math;
 using Base.MeshBuilder;
 using UnityEngine;
 
 namespace Base.Grid
 {
-    public class BoolHeatMapVisualizer : MonoBehaviour
+    public class HeatMapVisualizer : MonoBehaviour
     {
-        private Grid<bool> _grid;
+        private FillableGrid<IFillableCellContent> _grid;
         private Mesh _mesh;
         private bool _updatedDesired;
 
-        public void Initialize(Grid<bool> grid, MeshFilter meshFilter)
+        public void Initialize(FillableGrid<IFillableCellContent> grid, MeshFilter meshFilter)
         {
-            _grid = grid ?? new Grid<bool>(new InPlaneCoordinateInt(1,1));
+            _grid = grid ?? new FillableGrid<IFillableCellContent>(new InPlaneCoordinateInt(1,1), default);
             _mesh = new Mesh();
             meshFilter.mesh = _mesh;
             UpdateMapVisual();
@@ -20,7 +21,7 @@ namespace Base.Grid
             _grid.SubscribeOnCellValueChanged(OnGridValueChanged);
         }
 
-        private void OnGridValueChanged(object sender, Grid<bool>.OnGridValueChangedEventArgs e)
+        private void OnGridValueChanged(object sender, Grid<IFillableCellContent>.OnGridValueChangedEventArgs e)
         {
             _updatedDesired = true;
         }
@@ -34,11 +35,10 @@ namespace Base.Grid
                 for (var y = 0; y < _grid.Sizes.Y; y++)
                 {
                     var cellIndex = x * _grid.Sizes.Y + y;
-                    var cellVectorSize = Vector3.one * _grid.CellSize;
-                    var cellWorldPosition = GridPositionConverter.GetWorldPosition(new InPlaneCoordinateInt(x, y), _grid.CellSize, _grid.OriginPosition) + cellVectorSize * 0.5f;
+                    var cellVectorSize = Vector3.one * _grid.CellArea;
+                    var cellWorldPosition = GridPositionConverter.GetWorldPosition(new InPlaneCoordinateInt(x, y), _grid.CellArea, _grid.OriginPosition) + cellVectorSize * 0.5f;
 
-                    var gridValue = _grid.GetCellValue(new InPlaneCoordinateInt(x, y));
-                    var normalizedGridValue = gridValue ? 1f : 0f;
+                    var normalizedGridValue = _grid.GetCellValueInPercents(new InPlaneCoordinateInt(x, y));
                     var gridValueUV = new Vector2(normalizedGridValue, 0);
                     
                     MeshPropertiesFabric.AddToMeshArrays(properties, cellIndex, cellWorldPosition, 0f, cellVectorSize, gridValueUV, gridValueUV);

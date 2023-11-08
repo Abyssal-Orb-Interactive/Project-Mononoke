@@ -22,13 +22,13 @@ namespace Base.Grid
         private InSpaceCoordinate _gridOrigin;
         private float _cellSize;
         
-        public void Visualize<TCellValue>(Grid<TCellValue> grid)
+        public void Visualize<TCellValue>(IGrid<TCellValue> grid)
         {
              if(grid == null) throw new GridVisualizationException("You can't visualize null grid.");
              
              _gridSizes = grid.Sizes;
              _gridOrigin = grid.OriginPosition;
-             _cellSize = grid.CellSize;
+             _cellSize = grid.CellArea;
              
             _debugTexts?.Clear();
             

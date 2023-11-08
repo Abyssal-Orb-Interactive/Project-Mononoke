@@ -12,7 +12,7 @@ namespace Tests.NativeTestsLanguageInfrastructure
 
         public static Grid<int> Grid(InPlaneCoordinateInt size, float cellSize = 10f)
         {
-            return new Grid<int>(size, cellSize: cellSize);
+            return new Grid<int>(size, () => 0 ,cellArea: cellSize);
         }
     }
 }
