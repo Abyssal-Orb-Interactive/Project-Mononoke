@@ -7,32 +7,27 @@ using Grid = Base.Grid.Grid<bool>;
 namespace Source
 {
     [RequireComponent(typeof(GridVisualizer))]
-    [RequireComponent(typeof(IntHeatMapVisualizer))]
-    [RequireComponent(typeof(BoolHeatMapVisualizer))]
+    [RequireComponent(typeof(HeatMapVisualizer))]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
     public class Tester : MonoBehaviour
     {
         [SerializeField] private GridVisualizer _gridVisualizer;
-        [SerializeField] private IntHeatMapVisualizer _intHeatMapVisualizer;
-        [SerializeField] private BoolHeatMapVisualizer _boolHeatMapVisualizer;
         [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private HeatMapVisualizer _heatMapVisualizer;
 
-        private Grid _grid;
+        private PathFinder _pathFinder;
         private void Start()
         {
-            _grid = new Grid(new InPlaneCoordinateInt(20, 10));
-            _gridVisualizer.Visualize(_grid);
-            //intHeatMapVisualizer.Initialize(_grid, _meshFilter);
-            _boolHeatMapVisualizer.Initialize(_grid, _meshFilter);
+            _pathFinder = new PathFinder(new InPlaneCoordinateInt(10, 10));
+            _gridVisualizer.Visualize(_pathFinder.GetGrid());
         }
 
         private void OnValidate()
         {
             _gridVisualizer ??= GetComponent<GridVisualizer>();
-            _intHeatMapVisualizer ??= GetComponent<IntHeatMapVisualizer>();
+            _heatMapVisualizer ??= GetComponent<HeatMapVisualizer>();
             _meshFilter ??= GetComponent<MeshFilter>();
-            _boolHeatMapVisualizer ??= GetComponent<BoolHeatMapVisualizer>();
         }
 
         private void Update()
@@ -40,15 +35,12 @@ namespace Source
             if (Input.GetMouseButtonDown(0))
             {
                 var mousePos = MouseUtils.GetMouseWorldPosWithoutZ();
-                var mouseInGridPos = GridPositionConverter.GetCoordinateInGrid(mousePos, _grid.CellSize, _grid.OriginPosition);
-                _grid.TrySetValue(mouseInGridPos, true);
+                var mouseInGridPos = GridPositionConverter.GetCoordinateInGrid(mousePos, _pathFinder.GetGrid().CellArea, _pathFinder.GetGrid().OriginPosition);
             }
         }
 
         private void LateUpdate()
         {
-            _intHeatMapVisualizer.UpdateInTheEndOfFrame();
-            _boolHeatMapVisualizer.UpdateInTheEndOfFrame();
         }
     }
 }
