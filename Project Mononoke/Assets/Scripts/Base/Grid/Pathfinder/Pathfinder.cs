@@ -4,19 +4,22 @@ using Base.Grid.CellContent;
 using Base.Math;
 using UnityEngine;
 
-namespace Base.Grid
+namespace Base.Grid.Pathfinder
 {
-    public class PathFinder
+    public class Pathfinder
     {
         private const int MOVE_STRAIGHT_COST = 10;
         private const int MOVE_DIAGONAL_COST = 14;
+        
+        public static Pathfinder Instance { get; private set; }
         
         private readonly Grid<PathNode> _grid;
         private List<PathNode> _openedList;
         private List<PathNode> _closedList;
 
-        public PathFinder(InPlaneCoordinateInt Sizes)
+        public Pathfinder(InPlaneCoordinateInt Sizes)
         {
+            Instance = this;
             _grid = new Grid<PathNode>(Sizes, () => new PathNode());
         }
 
@@ -25,43 +28,68 @@ namespace Base.Grid
             return _grid;
         }
 
+        public List<Vector3> FindPath(Vector3 startWorldPosition, Vector3 endWorldPosition)
+        {
+            var start= GridPositionConverter.GetCoordinateInGrid(startWorldPosition, _grid.CellArea, _grid.OriginPosition);
+            var end = GridPositionConverter.GetCoordinateInGrid(endWorldPosition, _grid.CellArea, _grid.OriginPosition);
+
+            var path = FindPath(start, end);
+            return path?.Select(pathNode => _grid.GetCoordinateOfCell(pathNode)).Select(pathNodeCoordinate => new Vector3(pathNodeCoordinate.X, pathNodeCoordinate.Y) * _grid.CellArea + Vector3.one * _grid.CellArea * .5f).ToList();
+        }
+        
         public List<PathNode> FindPath(InPlaneCoordinateInt start, InPlaneCoordinateInt end)
         {
             var startNode = _grid.GetCellValue(start);
             var endNode = _grid.GetCellValue(end);
 
+            if (startNode == null || endNode == null) return null;
+            
             _openedList = new List<PathNode> { startNode };
             _closedList = new List<PathNode>();
 
             InitializePathNodes();
             InitializeStartNode(start, end, startNode);
+            SetUpPathfindingDebugStepVisual(startNode);
 
             while (_openedList.Count > 0)
             {
                 var currentNode = GetLowestFCostNode(_openedList);
-                if (currentNode == endNode) return CalculatePath(endNode);
+                if (currentNode == endNode)
+                {
+                    PathfindingDebugStepVisual.Instance.TakeSnapshot(_grid, currentNode, _openedList, _closedList);
+                    PathfindingDebugStepVisual.Instance.TakeSnapshotFinalPath(_grid, CalculatePath(endNode));
+                    return CalculatePath(endNode);
+                }
 
                 _openedList.Remove(currentNode);
                 _closedList.Add(currentNode);
 
                 var currentNodeCoordinate = _grid.GetCoordinateOfCell(currentNode);
-                foreach (var neighbourNode in GetNeighboursNodes(currentNodeCoordinate))
+                foreach (var neighbourCoordinate in GetNeighboursNodes(currentNodeCoordinate))
                 {
-                    if(_closedList.Contains(neighbourNode)) continue;
-                    if (!neighbourNode.IsWalkable)
+                    var neighbour = _grid.GetCellValue(neighbourCoordinate);
+                    if(_closedList.Contains(neighbour)) continue;
+                    if (!neighbour.IsWalkable)
                     {
-                        _closedList.Add(neighbourNode);
+                        _closedList.Add(neighbour);
                         continue;
                     }
-
-                    var neighbourNodeCoordinate = _grid.GetCoordinateOfCell(neighbourNode); 
-                    var tentativeGCost = currentNode.GCost + CalculateDistance(currentNodeCoordinate, neighbourNodeCoordinate);
-                    if (tentativeGCost >= neighbourNode.GCost) continue;
                     
-                    UpdateShorterPath(end, neighbourNode, currentNode, tentativeGCost, neighbourNodeCoordinate);
+                    var tentativeGCost = currentNode.GCost +
+                                         CalculateDistance(currentNodeCoordinate, neighbourCoordinate);
+                    if (tentativeGCost >= neighbour.GCost) continue;
+                    
+                    UpdateShorterPath(end, neighbour, currentNode, tentativeGCost, neighbourCoordinate);
+                    PathfindingDebugStepVisual.Instance.TakeSnapshot(_grid, currentNode, _openedList, _closedList);
                 }
             }
             return null;
+        }
+
+        private void SetUpPathfindingDebugStepVisual(PathNode startNode)
+        {
+            PathfindingDebugStepVisual.Instance.ClearSnapshots();
+            PathfindingDebugStepVisual.Instance.TakeSnapshot(_grid, startNode, _openedList, _closedList);
         }
 
         private void UpdateShorterPath(InPlaneCoordinateInt end, PathNode neighbourNode, PathNode currentNode,
@@ -117,7 +145,7 @@ namespace Base.Grid
         private List<PathNode> CalculatePath(PathNode endNode)
         {
             var path = new List<PathNode> { endNode };
-            var currentNode = endNode.PrecedingNode;
+            var currentNode = endNode;
 
             while (currentNode.PrecedingNode != null)
             {
@@ -129,54 +157,54 @@ namespace Base.Grid
             return path;
         }
 
-        private List<PathNode> GetNeighboursNodes(InPlaneCoordinateInt nodeCoordinate)
+        private List<InPlaneCoordinateInt> GetNeighboursNodes(InPlaneCoordinateInt nodeCoordinate)
         {
-            var neighboursList = new List<PathNode>();
+            var neighboursCoordinatesList = new List<InPlaneCoordinateInt>();
             
             if (HasLefterNeighbours(nodeCoordinate))
             {
                 var leftNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X - 1, nodeCoordinate.Y);
-                neighboursList.Add(GetNode((leftNodeCoordinate)));
+                neighboursCoordinatesList.Add(leftNodeCoordinate);
                 if (HasLowerNeighbours(nodeCoordinate))
                 {
                     var lowerLeftNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X - 1, nodeCoordinate.Y - 1);
-                    neighboursList.Add(_grid.GetCellValue(lowerLeftNodeCoordinate));
+                    neighboursCoordinatesList.Add(lowerLeftNodeCoordinate);
                 }
                 if(HasUpperNeighbours(nodeCoordinate))
                 {
                     var upperLeftNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X - 1, nodeCoordinate.Y + 1);
-                    neighboursList.Add(_grid.GetCellValue(upperLeftNodeCoordinate));
+                    neighboursCoordinatesList.Add(upperLeftNodeCoordinate);
                 }
             }
 
             if (HasRighterNeighbours(nodeCoordinate))
             {
                 var righterNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X + 1, nodeCoordinate.Y);
-                neighboursList.Add(_grid.GetCellValue(righterNodeCoordinate));
+                neighboursCoordinatesList.Add(righterNodeCoordinate);
                 if (HasLowerNeighbours(nodeCoordinate))
                 {
                     var lowerRightNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X + 1, nodeCoordinate.Y - 1);
-                    neighboursList.Add(_grid.GetCellValue(lowerRightNodeCoordinate));
+                    neighboursCoordinatesList.Add(lowerRightNodeCoordinate);
                 }
                 if(HasUpperNeighbours(nodeCoordinate))
                 {
                     var upperRightNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X + 1, nodeCoordinate.Y + 1);
-                    neighboursList.Add(_grid.GetCellValue(upperRightNodeCoordinate));
+                    neighboursCoordinatesList.Add(upperRightNodeCoordinate);
                 }
             }
 
             if (HasLowerNeighbours(nodeCoordinate))
             {
                 var lowerNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X, nodeCoordinate.Y - 1);
-                neighboursList.Add(_grid.GetCellValue(lowerNodeCoordinate));
+                neighboursCoordinatesList.Add(lowerNodeCoordinate);
             }
             if(HasUpperNeighbours(nodeCoordinate))
             {
                 var upperNodeCoordinate = new InPlaneCoordinateInt(nodeCoordinate.X, nodeCoordinate.Y + 1);
-                neighboursList.Add(_grid.GetCellValue(upperNodeCoordinate));
+                neighboursCoordinatesList.Add(upperNodeCoordinate);
             }
 
-            return neighboursList;
+            return neighboursCoordinatesList;
         }
 
         private bool HasRighterNeighbours(InPlaneCoordinateInt nodeCoordinate)
@@ -199,7 +227,7 @@ namespace Base.Grid
             return nodeCoordinate.X - 1 >= 0;
         }
 
-        private PathNode GetNode(InPlaneCoordinateInt coordinate)
+        public PathNode GetNode(InPlaneCoordinateInt coordinate)
         {
             return _grid.GetCellValue(coordinate);
         }

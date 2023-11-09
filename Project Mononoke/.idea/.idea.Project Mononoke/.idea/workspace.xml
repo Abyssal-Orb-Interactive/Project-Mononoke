@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingDebugStepVisual.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingDebugStepVisual.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingVisual.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingVisual.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/ColorUtil.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/ColorUtil.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/PathNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/PathNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/Grid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/Grid.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/PathFinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/PathFinder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test Location.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/PathFinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/Pathfinder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/PathFinder.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Tester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Tester.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,15 +27,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Grid/BoolHeatMapVisualizer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grid.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Project-Poseidon/Project Poseidon/Assets/Scripts/Source/Battle Field/Grid.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2Xi3ZDweyvkgZ3KHizrAGYoMGjx" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -105,7 +114,8 @@
       <workItem from="1699293844201" duration="1680000" />
       <workItem from="1699375127165" duration="10327000" />
       <workItem from="1699427558290" duration="3909000" />
-      <workItem from="1699435257729" duration="3463000" />
+      <workItem from="1699435257729" duration="4073000" />
+      <workItem from="1699517231801" duration="8431000" />
     </task>
     <servers />
   </component>
