@@ -226,10 +226,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 288330036}
+  - component: {fileID: 288330038}
   - component: {fileID: 288330035}
   - component: {fileID: 288330034}
   - component: {fileID: 288330037}
-  - component: {fileID: 288330038}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -280,7 +280,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.1953125
+  orthographic size: 2.5664062
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
