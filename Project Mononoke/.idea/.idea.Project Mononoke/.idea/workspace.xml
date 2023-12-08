@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/MouseUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/MouseUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Scripts.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Scripts.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +21,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/MousePointerMover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Project-Poseidon/Project Poseidon/Assets/Scripts/Source/Battle Field/Grid.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -39,7 +40,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Isometric-Grid-Feature",
+    "git-widget-placeholder": "Grid-based-mouse-position-detection-feature",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -58,7 +59,7 @@
 }]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\Apps\Unity3D\2022.3.8f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -66,7 +67,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\Apps\Unity3D\2022.3.8f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -111,6 +112,7 @@
       <workItem from="1699435257729" duration="4073000" />
       <workItem from="1699517231801" duration="8431000" />
       <workItem from="1701967076130" duration="602000" />
+      <workItem from="1702023960384" duration="4856000" />
     </task>
     <servers />
   </component>

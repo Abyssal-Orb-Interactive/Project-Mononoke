@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Base.Utils
 {
@@ -9,7 +10,7 @@ namespace Base.Utils
 
         public static Vector3 GetMouseWorldPosWithoutZ(Vector3? screenPosition = null, Camera worldCamera = null)
         {
-            var position = GetMouseWorldPosition();
+            var position = GetMouseWorldPosition(screenPosition, worldCamera);
             position.z = 0f;
             return position;
         }
@@ -21,6 +22,22 @@ namespace Base.Utils
             
             var worldPosition = worldCamera.ScreenToWorldPoint((Vector3)screenPosition);
             return worldPosition;
+        }
+        
+        public static Vector3 GetMouseWorldPosWithoutZUsingNewInputSystem(Vector3? screenPosition = null, Camera worldCamera = null)
+        {
+            var position = GetMouseWorldPosition(screenPosition, worldCamera);
+            position.z = 0f;
+            return position;
+        }
+        
+        public static Vector3 GetMouseWorldPositionUsingNewInputSystem(Vector3? screenPosition = null, Camera worldCamera = null)
+        {
+            worldCamera ??= MainCamera;
+            var mousePosition = Mouse.current.position.ReadValue();
+            screenPosition ??= new Vector3(mousePosition.x, mousePosition.y, worldCamera.nearClipPlane);
+            
+            return GetMouseWorldPosition(screenPosition, worldCamera);
         }
     }
 }
