@@ -230,7 +230,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.4140625
+  orthographic size: 2.6171875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -341,10 +341,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mouse Selected Cell Indicator
       objectReference: {fileID: 0}
-    - target: {fileID: 2082882850564934033, guid: ac189f89b07701545972b4e583cacbd0, type: 3}
-      propertyPath: _grid
-      value: 
-      objectReference: {fileID: 284054490}
     - target: {fileID: 4032663832321110189, guid: ac189f89b07701545972b4e583cacbd0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
