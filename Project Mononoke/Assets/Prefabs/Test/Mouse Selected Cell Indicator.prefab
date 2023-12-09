@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4032663832321110189}
   - component: {fileID: 6845967271297040416}
+  - component: {fileID: 2082882850564934033}
   m_Layer: 0
   m_Name: Mouse Selected Cell Indicator
   m_TagString: Untagged
@@ -84,3 +85,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2082882850564934033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390761256589536984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1194a5edd2271479ca0e2a38730074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grid: {fileID: 0}
