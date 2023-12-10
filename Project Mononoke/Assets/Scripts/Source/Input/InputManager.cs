@@ -10,9 +10,9 @@ namespace Source.Input
         private event InputAction OnPlayerClick;
         private event InputAction OnPlayerExit;
 
-        public void Initialize(TestActions input)
+        public void Start()
         {
-            _input = input;
+            _input = new TestActions();
             StartInputHandling();
         }
 
@@ -72,6 +72,8 @@ namespace Source.Input
 
         private void StartInputHandling()
         {
+            if(_input == null) return;
+            
             _input.Enable();
             SubscribeToClick();
             SubscribeToExit();
@@ -79,6 +81,8 @@ namespace Source.Input
         
         private void StopInputHandling()
         {
+            if(_input == null) return;
+            
             _input.Disable();
             UnsubscribeToClick();
             UnsubscribeToExit();

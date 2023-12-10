@@ -17,9 +17,9 @@ namespace Source.Building_System
         public void StartPlacement(int id)
         {
             _selectedBuildingID = _database.BuildingsData.First(data => data.ID == id).ID;
-            if (_selectedBuildingID == 0)
+            if (_selectedBuildingID == -1)
             {
-                Debug.LogError($"No ID found {id} in buildings database {_database}");
+                Debug.LogError($"No {id} found in buildings database {_database}");
                 return;
             }
             _inputManager.AddClickAction(PlaceStructure);
