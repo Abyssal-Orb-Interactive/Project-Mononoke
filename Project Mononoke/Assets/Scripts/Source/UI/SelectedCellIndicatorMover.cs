@@ -1,7 +1,7 @@
 using Base.Utils;
 using UnityEngine;
 
-namespace Source
+namespace Source.UI
 {
     public class SelectedCellIndicatorMover : MonoBehaviour
     {
