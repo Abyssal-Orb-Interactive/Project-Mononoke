@@ -771,6 +771,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4880175109682044553, guid: 451e6b7980e2ea44ea2ba9f6f49d246e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4880175109682044553, guid: 451e6b7980e2ea44ea2ba9f6f49d246e, type: 3}
       propertyPath: m_CellLayout
       value: 3
       objectReference: {fileID: 0}
@@ -817,6 +821,10 @@ PrefabInstance:
     - target: {fileID: -791056073287674906, guid: 451e6b7980e2ea44ea2ba9f6f49d246e, type: 3}
       propertyPath: m_Name
       value: Tets Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 99719394133946232, guid: 451e6b7980e2ea44ea2ba9f6f49d246e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2613596314333019660, guid: 451e6b7980e2ea44ea2ba9f6f49d246e, type: 3}
       propertyPath: m_TileOrientation
