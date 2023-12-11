@@ -1,38 +1,62 @@
 using System;
+using Base.Utils;
 using UnityEngine;
 
 namespace Source.Input
 {
     public delegate void InputAction();
-    public class InputManager : MonoBehaviour, IDisposable
+    public partial class InputManager : MonoBehaviour, IDisposable
     {
-        private TestActions _input;
-        private event InputAction OnPlayerClick;
-        private event InputAction OnPlayerExit;
+        private TestActions _input = null;
+        private Vector2 _movementVectorInIsometric = Vector2.zero;
 
-        public void Start()
+        private EventHandler<OnMovementInputChangedEventArgs> _onMovementInputChanged;
+        
+        public void Initialize()
         {
             _input = new TestActions();
             StartInputHandling();
         }
 
-        public void AddClickAction(InputAction action)
+        public void AddMovementInputChangedHandler(EventHandler<OnMovementInputChangedEventArgs> handler)
         {
-            OnPlayerClick += action;
+            _onMovementInputChanged += handler;
         }
-        public void RemoveClickAction(InputAction action)
+        
+        public void RemoveMovementInputChangedHandler(EventHandler<OnMovementInputChangedEventArgs> handler)
         {
-            OnPlayerClick -= action;
+            _onMovementInputChanged -= handler;
         }
-        public void AddExitAction(InputAction action)
+        
+        private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
-            OnPlayerExit += action;
+            var movementVectorInCartesian = movementDirection.ReadValue<Vector2>();
+            _movementVectorInIsometric = VectorUtils.ConvertFromCartesianToIsometric(movementVectorInCartesian);
+            _onMovementInputChanged?.Invoke(this, new OnMovementInputChangedEventArgs(_movementVectorInIsometric));
         }
-        public void RemoveExitAction(InputAction action)
-        {
-            OnPlayerExit -= action;
+        
+        private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
+        { 
+            _movementVectorInIsometric = Vector2.zero;
+            _onMovementInputChanged?.Invoke(this, new OnMovementInputChangedEventArgs(_movementVectorInIsometric));
         }
 
+        private void StartInputHandling()
+        {
+            if (_input == null) return;
+            _input.Enable();
+            _input.PlayerActions.Movement.performed += OnMovementPerformed;
+            _input.PlayerActions.Movement.canceled += OnMovementCancelled;
+        }
+
+        private void StopInputHandling()
+        {
+            if (_input == null) return;
+            _input.Disable();
+            _input.PlayerActions.Movement.performed -= OnMovementPerformed;
+            _input.PlayerActions.Movement.canceled -= OnMovementCancelled;
+        }
+        
         private void OnEnable()
         {
             StartInputHandling();
@@ -43,57 +67,16 @@ namespace Source.Input
             StopInputHandling();
         }
 
-        private void OnClickPerformed(UnityEngine.InputSystem.InputAction.CallbackContext player)
+        private void OnDestroy()
         {
-            OnPlayerClick?.Invoke();
-        }
-        
-        private void OnExitPerformed(UnityEngine.InputSystem.InputAction.CallbackContext player)
-        {
-            OnPlayerExit?.Invoke();
+            Dispose();
         }
 
-        private void SubscribeToClick()
-        {
-            _input.TestMap.Click.performed += OnClickPerformed;
-        }
-        private void UnsubscribeToClick()
-        {
-            _input.TestMap.Click.performed -= OnClickPerformed;
-        }
-        private void SubscribeToExit()
-        {
-            _input.TestMap.Exit.performed += OnExitPerformed;
-        }
-        private void UnsubscribeToExit()
-        {
-            _input.TestMap.Exit.performed -= OnExitPerformed;
-        }
-
-        private void StartInputHandling()
-        {
-            if(_input == null) return;
-            
-            _input.Enable();
-            SubscribeToClick();
-            SubscribeToExit();
-        }
-        
-        private void StopInputHandling()
-        {
-            if(_input == null) return;
-            
-            _input.Disable();
-            UnsubscribeToClick();
-            UnsubscribeToExit();
-            OnPlayerClick = null;
-            OnPlayerExit = null;
-        }
-        
         public void Dispose()
         {
             StopInputHandling();
-            _input?.Dispose();
+            _input.Dispose();
+            _onMovementInputChanged = null;
             _input = null;
             GC.SuppressFinalize(this);
         }

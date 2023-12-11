@@ -22,15 +22,15 @@ namespace Source.Building_System
                 Debug.LogError($"No {id} found in buildings database {_database}");
                 return;
             }
-            _inputManager.AddClickAction(PlaceStructure);
-            _inputManager.AddExitAction(StopPlacement);
+            //_inputManager.AddClickAction(PlaceStructure);
+            //_inputManager.AddExitAction(StopPlacement);
         }
 
         private void StopPlacement()
         {
             _selectedBuildingID = -1;
-            _inputManager.RemoveClickAction(PlaceStructure);
-            _inputManager.RemoveExitAction(StopPlacement);
+            //_inputManager.RemoveClickAction(PlaceStructure);
+            //_inputManager.RemoveExitAction(StopPlacement);
         }
 
         private void PlaceStructure()
