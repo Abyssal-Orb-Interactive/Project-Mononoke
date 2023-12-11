@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/VectorUtils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/VectorUtils.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Test Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Test Database.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
