@@ -17,12 +17,12 @@ namespace Source.Input
             StartInputHandling();
         }
 
-        public void AddMovementInputChangedHandler(EventHandler<InputActionEventArgs> handler)
+        public void AddInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
             _onMovementInputChanged += handler;
         }
         
-        public void RemoveMovementInputChangedHandler(EventHandler<InputActionEventArgs> handler)
+        public void RemoveInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
             _onMovementInputChanged -= handler;
         }

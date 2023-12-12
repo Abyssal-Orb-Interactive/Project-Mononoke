@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4e9e271e3a1974397c340de80bcad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputManager: {fileID: 1165733520}
+  inputHandler: {fileID: 1165733520}
   _grid: {fileID: 1035345517}
   _database: {fileID: 11400000, guid: 1a827bd5c89b5b845be670222eb2972e, type: 2}
 --- !u!4 &265117283
@@ -366,7 +366,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.4140625
+  orthographic size: 2.609375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1136,7 +1136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9ca1c70eee4d0283bda6388e82daa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputManager: {fileID: 1165733520}
+  inputHandler: {fileID: 1165733520}
+  _speed: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

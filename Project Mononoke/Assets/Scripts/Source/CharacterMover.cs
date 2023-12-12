@@ -20,22 +20,26 @@ namespace Source
             StartInputHandling();
         }
 
+        private void Update()
+        {
+            _transform.Translate(_moveDirection * (_speed * Time.deltaTime));
+        }
+
         private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
         {
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
             _moveDirection = (Vector2) args.ActionData;
-            Debug.Log(_moveDirection);
-            _transform.Translate(_moveDirection);
+           
         }
 
         private void StartInputHandling()
         {
-            inputHandler.AddMovementInputChangedHandler(OnMovementInputChange);
+            inputHandler.AddInputChangedHandler(OnMovementInputChange);
         }
         
         private void StopInputHandling()
         {
-            inputHandler.RemoveMovementInputChangedHandler(OnMovementInputChange);
+            inputHandler.RemoveInputChangedHandler(OnMovementInputChange);
         }
         
         private void OnEnable()
