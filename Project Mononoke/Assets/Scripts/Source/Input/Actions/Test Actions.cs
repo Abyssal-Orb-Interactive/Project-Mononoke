@@ -151,7 +151,7 @@ public partial class @TestActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Stick"",
                     ""id"": ""74b2b9cf-7a24-4b6e-8c20-45c874476017"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

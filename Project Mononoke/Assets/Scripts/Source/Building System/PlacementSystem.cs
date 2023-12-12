@@ -2,12 +2,13 @@ using System.Linq;
 using Base.Utils;
 using Source.Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Source.Building_System
 {
     public class PlacementSystem : MonoBehaviour
     {
-        [SerializeField] private InputManager _inputManager;
+        [FormerlySerializedAs("_inputManager")] [SerializeField] private InputHandler inputHandler;
         [SerializeField] private Grid _grid;
         [SerializeField] private BuildingsDatabaseSo _database;
 

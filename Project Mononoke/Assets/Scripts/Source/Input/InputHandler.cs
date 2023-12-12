@@ -4,26 +4,25 @@ using UnityEngine;
 
 namespace Source.Input
 {
-    public delegate void InputAction();
-    public partial class InputManager : MonoBehaviour, IDisposable
+    public partial class InputHandler : MonoBehaviour, IDisposable
     {
         private TestActions _input = null;
         private Vector2 _movementVectorInIsometric = Vector2.zero;
 
-        private EventHandler<OnMovementInputChangedEventArgs> _onMovementInputChanged;
+        private EventHandler<InputActionEventArgs> _onMovementInputChanged;
         
-        public void Initialize()
+        public void Initialize(TestActions inputSource)
         {
-            _input = new TestActions();
+            _input = inputSource;
             StartInputHandling();
         }
 
-        public void AddMovementInputChangedHandler(EventHandler<OnMovementInputChangedEventArgs> handler)
+        public void AddMovementInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
             _onMovementInputChanged += handler;
         }
         
-        public void RemoveMovementInputChangedHandler(EventHandler<OnMovementInputChangedEventArgs> handler)
+        public void RemoveMovementInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
             _onMovementInputChanged -= handler;
         }
@@ -32,13 +31,13 @@ namespace Source.Input
         {
             var movementVectorInCartesian = movementDirection.ReadValue<Vector2>();
             _movementVectorInIsometric = VectorUtils.ConvertFromCartesianToIsometric(movementVectorInCartesian);
-            _onMovementInputChanged?.Invoke(this, new OnMovementInputChangedEventArgs(_movementVectorInIsometric));
+            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
         }
         
         private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         { 
             _movementVectorInIsometric = Vector2.zero;
-            _onMovementInputChanged?.Invoke(this, new OnMovementInputChangedEventArgs(_movementVectorInIsometric));
+            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
         }
 
         private void StartInputHandling()

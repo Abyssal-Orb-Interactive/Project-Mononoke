@@ -1,45 +1,52 @@
 using System;
 using Source.Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Source
 {
     public class CharacterMover : MonoBehaviour, IDisposable
     {
-        [SerializeField] private InputManager _inputManager;
+        [FormerlySerializedAs("_inputManager")] [SerializeField] private InputHandler inputHandler;
+        [SerializeField] private float _speed = 10f;
+        private Transform _transform = null;
         private Vector2 _moveDirection = Vector2.zero;
 
         private void Start()
         {
-            if(_inputManager == null) return;
-            _inputManager.Initialize();
+            if(inputHandler == null) return;
+            _transform = gameObject.transform;
+            inputHandler.Initialize(new TestActions());
             StartInputHandling();
         }
-        
-        private void OnMovementInputChange(object sender, InputManager.OnMovementInputChangedEventArgs args)
+
+        private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
         {
-            _moveDirection = args.MovementVector;
+            if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
+            _moveDirection = (Vector2) args.ActionData;
+            Debug.Log(_moveDirection);
+            _transform.Translate(_moveDirection);
         }
 
         private void StartInputHandling()
         {
-            _inputManager.AddMovementInputChangedHandler(OnMovementInputChange);
+            inputHandler.AddMovementInputChangedHandler(OnMovementInputChange);
         }
         
         private void StopInputHandling()
         {
-            _inputManager.RemoveMovementInputChangedHandler(OnMovementInputChange);
+            inputHandler.RemoveMovementInputChangedHandler(OnMovementInputChange);
         }
         
         private void OnEnable()
         {
-            if(_inputManager == null) return;
+            if(inputHandler == null) return;
             StartInputHandling();
         }
 
         private void OnDisable()
         {
-            if(_inputManager == null) return;
+            if(inputHandler == null) return;
             StopInputHandling();
         }
 
@@ -51,7 +58,7 @@ namespace Source
         public void Dispose()
         {
             StopInputHandling();
-            _inputManager = null;
+            inputHandler = null;
         }
     }
 }
