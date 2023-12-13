@@ -50,3 +50,6 @@ TagManager:
   - name: Building
     uniqueID: 3746478251
     locked: 0
+  - name: Character
+    uniqueID: 895334887
+    locked: 0

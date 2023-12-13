@@ -4,17 +4,18 @@ using UnityEngine;
 
 namespace Source.Input
 {
-    public partial class InputHandler : MonoBehaviour, IDisposable
+    public partial class InputHandler : IDisposable
     {
         private TestActions _input = null;
         private Vector2 _movementVectorInIsometric = Vector2.zero;
 
         private EventHandler<InputActionEventArgs> _onMovementInputChanged;
-        
-        public void Initialize(TestActions inputSource)
+
+        private InputHandler(){}
+
+        public InputHandler(TestActions inputSource)
         {
             _input = inputSource;
-            StartInputHandling();
         }
 
         public void AddInputChangedHandler(EventHandler<InputActionEventArgs> handler)
@@ -40,7 +41,7 @@ namespace Source.Input
             _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
         }
 
-        private void StartInputHandling()
+        public void StartInputHandling()
         {
             if (_input == null) return;
             _input.Enable();
@@ -48,27 +49,12 @@ namespace Source.Input
             _input.PlayerActions.Movement.canceled += OnMovementCancelled;
         }
 
-        private void StopInputHandling()
+        public void StopInputHandling()
         {
             if (_input == null) return;
             _input.Disable();
             _input.PlayerActions.Movement.performed -= OnMovementPerformed;
             _input.PlayerActions.Movement.canceled -= OnMovementCancelled;
-        }
-        
-        private void OnEnable()
-        {
-            StartInputHandling();
-        }
-
-        private void OnDisable()
-        {
-            StopInputHandling();
-        }
-
-        private void OnDestroy()
-        {
-            Dispose();
         }
 
         public void Dispose()
