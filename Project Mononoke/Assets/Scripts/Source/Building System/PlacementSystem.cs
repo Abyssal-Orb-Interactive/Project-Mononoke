@@ -1,19 +1,25 @@
+using System;
 using System.Linq;
-using Base.Utils;
+using Base.UnityExtensions;
 using Source.Input;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.InputSystem;
 
 namespace Source.Building_System
 {
     public class PlacementSystem : MonoBehaviour
     {
-        [FormerlySerializedAs("_inputManager")] [SerializeField] private InputHandler inputHandler;
         [SerializeField] private Grid _grid;
         [SerializeField] private BuildingsDatabaseSo _database;
 
         private int _selectedBuildingID = -1;
+        private InputHandler _inputHandler;
+        private Mouse _cursor = null;
 
+        private void OnValidate()
+        {
+            _cursor ??= Mouse.current;
+        }
 
         public void StartPlacement(int id)
         {
@@ -23,20 +29,23 @@ namespace Source.Building_System
                 Debug.LogError($"No {id} found in buildings database {_database}");
                 return;
             }
-            //_inputManager.AddClickAction(PlaceStructure);
-            //_inputManager.AddExitAction(StopPlacement);
+            _inputHandler.AddInputChangedHandler(PlaceStructure);
+            _inputHandler.AddInputChangedHandler(StopPlacement);
         }
 
-        private void StopPlacement()
+        private void StopPlacement(object sender, InputHandler.InputActionEventArgs e)
         {
+            if(e.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
             _selectedBuildingID = -1;
-            //_inputManager.RemoveClickAction(PlaceStructure);
-            //_inputManager.RemoveExitAction(StopPlacement);
+            _inputHandler.RemoveInputChangedHandler(PlaceStructure);
+            _inputHandler.RemoveInputChangedHandler(StopPlacement);
         }
 
-        private void PlaceStructure()
+        private void PlaceStructure(object sender, InputHandler.InputActionEventArgs e)
         {
-            var gridPosition = _grid.WorldToCell(MouseUtils.GetMouseWorldPosWithoutZUsingNewInputSystem());
+            if(e.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
+            
+            var gridPosition = _grid.WorldToCell(_cursor.GetMouseWorldPosition());
             var building = Instantiate(_database.BuildingsData[_selectedBuildingID].Prefab);
             building.transform.position = _grid.CellToWorld(gridPosition);
         }

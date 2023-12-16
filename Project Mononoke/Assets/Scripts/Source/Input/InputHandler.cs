@@ -1,5 +1,5 @@
 using System;
-using Base.Utils;
+using Base.UnityExtensions;
 using UnityEngine;
 
 namespace Source.Input
@@ -31,7 +31,7 @@ namespace Source.Input
         private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
             var movementVectorInCartesian = movementDirection.ReadValue<Vector2>();
-            _movementVectorInIsometric = VectorUtils.ConvertFromCartesianToIsometric(movementVectorInCartesian);
+            _movementVectorInIsometric = movementVectorInCartesian.ConvertFromCartesianToIsometric();
             _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
         }
         

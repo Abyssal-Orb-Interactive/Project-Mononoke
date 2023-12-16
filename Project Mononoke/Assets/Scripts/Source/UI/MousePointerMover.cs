@@ -1,16 +1,23 @@
-using Base.Utils;
+using Base.UnityExtensions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace Source
+namespace Source.UI
 {
     public class MousePointerMover : MonoBehaviour
     {
         private GameObject _mousePointer = null;
+        private Mouse _cursor = null;
+
+        private void OnValidate()
+        {
+            _mousePointer ??= gameObject;
+            _cursor ??= Mouse.current;
+        }
 
         public void Update()
         {
-            _mousePointer ??= gameObject;
-            _mousePointer.transform.position = MouseUtils.GetMouseWorldPosWithoutZUsingNewInputSystem();
+            _mousePointer.transform.position = _cursor.GetMouseWorldPosition();
         }
     }
 }
