@@ -6,20 +6,17 @@ using UnityEngine;
 namespace Source.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(GroundChecker))]
     public class CharacterMover : MonoBehaviour, IDisposable
     {
         [SerializeField] private float _speed = 10f;
 
         private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
-        private GroundChecker _groundChecker = null;
         private Vector2 _moveDirection = Vector2.zero;
 
         private void OnValidate()
         {
             _rigidbody ??= GetComponent<Rigidbody2D>();
-            _groundChecker ??= GetComponent<GroundChecker>();
         }
 
         private void Start()
@@ -29,14 +26,13 @@ namespace Source.Movement
 
         private void FixedUpdate()
         {
-            MoveAlongSurface(_moveDirection, _groundChecker.Normal);
+            Move(_moveDirection);
         }
 
-        private void MoveAlongSurface(Vector3 direction, Vector3 surfaceNormal)
+        private void Move(Vector3 direction)
         {
             if(direction == Vector3.zero) return; 
-            var directionAlongSurface = MotionProjector.ProjectOnSurfaceNormal(direction,surfaceNormal);
-            var offset = directionAlongSurface * (_speed * Time.deltaTime);
+            var offset = direction * (_speed * Time.deltaTime);
             
             _rigidbody.MovePosition(_rigidbody.position + (Vector2)offset);
         }
