@@ -1,6 +1,6 @@
 using System;
-using Source.Input;
 using UnityEngine;
+using InputHandler = Base.Input.InputHandler;
 
 namespace Source.Movement
 {

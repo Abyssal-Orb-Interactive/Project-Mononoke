@@ -5,110 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/MouseExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/MouseExtension.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Check.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Check.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Create.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Create.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/SetUp.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/SetUp.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/TestParameter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/TestParameter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToIsometricTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToIsometricTests.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/BoolCellContent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/BoolCellContent.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/IFillableCellContent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/IFillableCellContent.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/IntCellContent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/IntCellContent.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/PathNode.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellContent/PathNode.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/Cell.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/Cell.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/FillablleCell.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/FillablleCell.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/ICell.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/ICell.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/IReadonlyCell.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cells/IReadonlyCell.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/GridVisualizer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/GridVisualizer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/FillableGrid.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/FillableGrid.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/Grid.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/Grid.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/IGrid.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/IGrid.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/OnGridValueChangedEventArgs.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Grids/OnGridValueChangedEventArgs.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/HeatMapVisualizer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/HeatMapVisualizer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/Pathfinder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/Pathfinder.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingDebugStepVisual.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingDebugStepVisual.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingVisual.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Pathfinder/PathfindingVisual.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/CoordinateToVectorConverter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/CoordinateToVectorConverter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/GridPositionConverter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/GridPositionConverter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/InPlaneCoordinateInt.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/InPlaneCoordinateInt.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/InSpaceCoordinate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Math/InSpaceCoordinate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder/MeshFabric.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder/MeshFabric.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder/MeshProperties.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder/MeshProperties.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder/MeshPropertiesFabric.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/MeshBuilder/MeshPropertiesFabric.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/ColorUtil.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/ColorUtil.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/MouseUtils.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/MouseUtils.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/VectorUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils/VectorUtils.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Utils.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/Actions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/Actions.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/Actions/Test Actions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/Actions/Test Actions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/Actions/Test Actions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/Actions/Test Actions.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputActionEventArgs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputActionEventArgs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputActionEventArgs.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputActionEventArgs.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Input/InputHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/CharacterMover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/CharacterMover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Tester.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Tester.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/UI/MousePointerMover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/UI/MousePointerMover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/UI/SelectedCellIndicatorMover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/UI/SelectedCellIndicatorMover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Test/Test Blocks 64.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Test Blocks 64.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/Grid Tests/GridCellCountTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/Grid Tests/GridCellCountTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/Grid Tests/GridConstructTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/Grid Tests/GridConstructTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Check.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Check.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Create.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Create.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/SetUp.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/SetUp.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/TestParameter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/TestParameter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Try.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Grid/Try.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/Check.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/Check.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/Create.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/Create.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/SetUp.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/SetUp.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/TestPaprameter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TextMeshProFabric/TestPaprameter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/TextMeshProFabricTests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/TextMeshProFabricTests/TMPtFabricCreatingTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/TextMeshProFabricTests/TMPtFabricCreatingTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Base/SetUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Base/SetUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Base/TestParameter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Base/TestParameter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Tests.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/Tests.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Tests.csproj.DotSettings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,16 +46,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Utils/TextMeshProUtils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Utils/Vector3Extension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Input/InputActionEventArgs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/Building System/BuildingsDatabaseSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/Debugging/ColliderTileMapHider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/Input/InputActionEventArgs.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Source/Input/InputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@14.0.8/Editor/Drawing/Views/MaterialGraphView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -140,27 +67,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "On-Grid-Character-Movement-System",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;On-Grid-Character-Movement-System&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\froll\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\froll\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Unity.exe" />
@@ -231,12 +158,15 @@
       <workItem from="1702486052719" duration="11000" />
       <workItem from="1702486078759" duration="2589000" />
       <workItem from="1702715528675" duration="210000" />
+      <workItem from="1702804737076" duration="237000" />
+      <workItem from="1702805019104" duration="12040000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">

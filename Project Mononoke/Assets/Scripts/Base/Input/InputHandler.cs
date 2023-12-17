@@ -2,7 +2,7 @@ using System;
 using Base.UnityExtensions;
 using UnityEngine;
 
-namespace Source.Input
+namespace Base.Input
 {
     public partial class InputHandler : IDisposable
     {
@@ -31,7 +31,7 @@ namespace Source.Input
         private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
             var movementVectorInCartesian = movementDirection.ReadValue<Vector2>();
-            _movementVectorInIsometric = movementVectorInCartesian.ConvertFromCartesianToIsometric();
+            _movementVectorInIsometric = movementVectorInCartesian.ToIsometric();
             _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
         }
         

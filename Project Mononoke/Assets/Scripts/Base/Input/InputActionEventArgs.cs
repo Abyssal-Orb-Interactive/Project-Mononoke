@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Input
+namespace Base.Input
 {
     public partial class InputHandler
     {
