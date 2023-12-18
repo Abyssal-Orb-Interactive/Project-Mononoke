@@ -7,7 +7,7 @@ namespace Base.Input
     public partial class InputHandler : IDisposable
     {
         private TestActions _input = null;
-        private Vector2 _movementVectorInIsometric = Vector2.zero;
+        private Vector2 _movementVector = Vector2.zero;
 
         private EventHandler<InputActionEventArgs> _onMovementInputChanged;
 
@@ -30,15 +30,14 @@ namespace Base.Input
         
         private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
-            var movementVectorInCartesian = movementDirection.ReadValue<Vector2>();
-            _movementVectorInIsometric = movementVectorInCartesian.ToIsometric();
-            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
+            _movementVector = movementDirection.ReadValue<Vector2>();
+            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
         }
         
         private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         { 
-            _movementVectorInIsometric = Vector2.zero;
-            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
+            _movementVector = Vector2.zero;
+            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
         }
 
         public void StartInputHandling()
