@@ -7,7 +7,7 @@ namespace Tests.NativeTestsLanguageInfrastructure
             TestParameter.AssumedVector2 = Create.Vector2With(x, y);
         }
         
-        public static void ExpectedVector2(float x, float y)
+        public static void ExpectedVector2With(float x, float y)
         {
             TestParameter.ExpectedVector2 = Create.Vector2With(x, y);
         }

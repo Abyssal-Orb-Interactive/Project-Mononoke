@@ -30,7 +30,8 @@ namespace Base.Input
         
         private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
-            _movementVector = movementDirection.ReadValue<Vector2>();
+            var cartesianNormalizedMovementVector =  movementDirection.ReadValue<Vector2>().normalized;
+            _movementVector = cartesianNormalizedMovementVector.ToIsometric();
             _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
         }
         

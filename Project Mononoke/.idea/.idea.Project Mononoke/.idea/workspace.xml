@@ -5,14 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToCartesianTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToCartesianTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/IReadonlyCell.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/IReadonlyCell.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/TileMapAnalyzer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/TileMapAnalyzer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Ground.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Ground.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Check.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Check.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Create.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Create.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/SetUp.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/SetUp.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/TestParameter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/TestParameter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToCartesianTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToCartesianTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToIsometricTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToIsometricTests.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Input Actions/Test Actions.inputactions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Input Actions/Test Actions.inputactions.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Test/Test Character.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Test Character.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Check.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Check.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/SetUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/SetUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToCartesianTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToCartesianTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToIsometricTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToIsometricTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Tests.csproj.DotSettings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,27 +69,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Isometric-Grid-Feature",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Isometric-Grid-Feature&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\froll\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\froll\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Apps\Unity3D\2022.3.8f1\Editor\Unity.exe" />
@@ -138,6 +163,11 @@
       <workItem from="1702804737076" duration="237000" />
       <workItem from="1702805019104" duration="12040000" />
       <workItem from="1702834852046" duration="5938000" />
+      <workItem from="1702915518131" duration="697000" />
+      <workItem from="1702916227326" duration="1008000" />
+      <workItem from="1702917263209" duration="144000" />
+      <workItem from="1702917528748" duration="4614000" />
+      <workItem from="1702985960311" duration="5535000" />
     </task>
     <servers />
   </component>

@@ -12,7 +12,7 @@ namespace Source.Building_System
         [SerializeField] private BuildingsDatabaseSo _database;
 
         private int _selectedBuildingID = -1;
-        private InputHandler _inputHandler;
+        private InputHandler _inputHandler = null;
         private Mouse _cursor = null;
 
         private void OnValidate()

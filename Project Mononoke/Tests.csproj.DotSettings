@@ -3,4 +3,5 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Ctests_005Cnativetestslanguageinfrastructure_005Cgrid/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Ctests_005Cnativetestslanguageinfrastructure_005Cmouse_0020extension/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Ctests_005Cnativetestslanguageinfrastructure_005Ctextmeshprofabric/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Ctests_005Cnativetestslanguageinfrastructure_005Cvector2_0020extension/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Ctests_005Cnativetestslanguageinfrastructure_005Cvector2_0020extension/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Ctests_005Cnativetestslanguageinfrastructure_005Cvector3_0020extension/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
