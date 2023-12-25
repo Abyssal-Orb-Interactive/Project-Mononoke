@@ -186,7 +186,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.640625
+  orthographic size: 4.7421875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -275,8 +275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 64
-  m_RefResolutionX: 480
-  m_RefResolutionY: 270
+  m_RefResolutionX: 640
+  m_RefResolutionY: 360
   m_CropFrame: 0
   m_GridSnapping: 0
   m_FilterMode: 0
@@ -2750,6 +2750,7 @@ GameObject:
   - component: {fileID: 2043708626}
   - component: {fileID: 2043708628}
   - component: {fileID: 2043708627}
+  - component: {fileID: 2043708629}
   m_Layer: 0
   m_Name: Ground Map
   m_TagString: Untagged
@@ -2792,7 +2793,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: de40d9e7bc03e814db81acf33107c899, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5307,6 +5308,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2043708629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043708625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3646788def40b0ab4bc02b101687aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundTileMap: {fileID: 2043708628}
 --- !u!1001 &5678693790991241678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5316,12 +5330,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 864828030}
     m_Modifications:
     - target: {fileID: 3741509872076570449, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741509872076570449, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741509872076570449, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 20011567295d99547993b66bc3b5e652, type: 3}
+    - target: {fileID: 3741509872076570449, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3741509872076570449, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_SortingLayerID
       value: 895334887
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741509872076570449, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Name

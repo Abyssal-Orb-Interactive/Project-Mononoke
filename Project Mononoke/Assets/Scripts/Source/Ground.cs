@@ -1,5 +1,5 @@
-using System;
 using Base.Grid;
+using Base.TileMap;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,7 +15,13 @@ namespace Source
         private void OnValidate()
         {
             _groundTileMap ??= GetComponent<Tilemap>();
-            _grid = new GroundGrid(new TileMapAnalyzer(_groundTileMap));
+            _grid = new GroundGrid(new TileMapAnalyzer(new UnityTileMapWrapper(_groundTileMap)));
+        }
+
+        private void Start()
+        {
+            Debug.Log(_grid.GetCellAt(new Vector3Int(0,0)).Type);
+            Debug.Log(_grid.GetCellAt(new Vector3Int(-2,0, -1)).Type);
         }
     }
 }
