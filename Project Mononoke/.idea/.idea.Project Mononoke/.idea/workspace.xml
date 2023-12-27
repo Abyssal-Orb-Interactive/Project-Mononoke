@@ -5,61 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/App.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ICellTypeSource.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ICellTypeSource.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ITileMapSource.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ITileMapSource.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/Itile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/Itile.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/TileMapAnalyzer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/UnityTileBaseWrapper.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/UnityTileBaseWrapper.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/UnityTileMapWrapper.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/UnityTileMapWrapper.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Materials.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Materials/Block Tile-sheet.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Materials/Block Tile-sheet.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Test Character 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Test/Test Character 1.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/Grid Tests/Ground Grid Tests.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/Grid Tests/Ground Grid Tests/GetCellAtTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/Grid Tests/Ground Grid Tests/GetCellAtTests.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/Check.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/Check.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/Create.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/Create.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/SetUp.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/SetUp.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/TestParameter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Ground Grid/TestParameter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/Check.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/Check.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/Create.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/Create.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/SetUp.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/SetUp.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/TestParameter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/TestParameter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/TileMapAnalyzerTests.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/TileMapAnalyzerTests/GetCellTypeAtTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Tests/TileMapAnalyzerTests/GetCellTypeAtTests.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Test/Test Character.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Test/Test Character.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Isometric Grid Test Location.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/CellType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/GroundGrid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/GroundGrid.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/TileMapAnalyzer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Grid/TileMapAnalyzer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/TileMapAnalyzer.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Ground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Ground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Test/Test Character.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Test/Test Character.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/Grid Tests.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/Grid Tests.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Tests.csproj.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,31 +38,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Isometric-Grid-Feature",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Isometric-Grid-Feature&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\froll\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\froll\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\froll\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Apps\Unity3D\2022.3.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -123,7 +70,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Apps\Unity3D\2022.3.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\froll\OneDrive\Документы\GitHub\Project-Mononoke\Project Mononoke" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -194,6 +141,8 @@
       <workItem from="1703054797701" duration="4457000" />
       <workItem from="1703157170143" duration="766000" />
       <workItem from="1703321109378" duration="20347000" />
+      <workItem from="1703683479590" duration="83000" />
+      <workItem from="1703683584109" duration="9650000" />
     </task>
     <servers />
   </component>

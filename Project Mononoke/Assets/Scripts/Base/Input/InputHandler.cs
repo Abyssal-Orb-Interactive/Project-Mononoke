@@ -9,7 +9,7 @@ namespace Base.Input
         private TestActions _input = null;
         private Vector2 _movementVector = Vector2.zero;
 
-        private EventHandler<InputActionEventArgs> _onMovementInputChanged;
+        private EventHandler<InputActionEventArgs> _onInputChangedHandlers;
 
         private InputHandler(){}
 
@@ -20,25 +20,25 @@ namespace Base.Input
 
         public void AddInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
-            _onMovementInputChanged += handler;
+            _onInputChangedHandlers += handler;
         }
         
         public void RemoveInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
-            _onMovementInputChanged -= handler;
+            _onInputChangedHandlers -= handler;
         }
         
         private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
             var cartesianNormalizedMovementVector =  movementDirection.ReadValue<Vector2>().normalized;
             _movementVector = cartesianNormalizedMovementVector.ToIsometric();
-            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
+            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
         }
         
         private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         { 
             _movementVector = Vector2.zero;
-            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
+            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
         }
 
         public void StartInputHandling()
@@ -61,7 +61,7 @@ namespace Base.Input
         {
             StopInputHandling();
             _input.Dispose();
-            _onMovementInputChanged = null;
+            _onInputChangedHandlers = null;
             _input = null;
             GC.SuppressFinalize(this);
         }
