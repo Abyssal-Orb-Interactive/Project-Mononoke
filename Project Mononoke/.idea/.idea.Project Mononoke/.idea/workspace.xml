@@ -5,8 +5,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f90a3489-cd3a-4c87-bee4-8479168a46cb" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputVectorToDirectionConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputVectorToDirectionConverter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/MovementDirection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/MovementDirection.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Math.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Math/Vector2Iso.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Math/Vector2Iso.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Math/Vector3Iso.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Math/Vector3Iso.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ITileCollection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/DirectionToVector3IsoConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/DirectionToVector3IsoConverter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project Mononoke/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputActionEventArgs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputActionEventArgs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ITileMapSource.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ITileMapSource.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/ITileCollection.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/TileMapAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/TileCollectionAnalyzer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/TileMapAnalyzer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/TileCollectionAnalyzer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/UnityTileMapWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/TileMap/UnityTileMapWrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/MouseExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/MouseExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector2Extension.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/UnityExtensions/Vector3Extension.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Building System/PlacementSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Ground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Ground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/CharacterMover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/IsoCharacterMover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/CharacterMover.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Source/Movement/IsoCharacterMover.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/Create.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/Create.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/SetUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/SetUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/TestParameter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/TileMapAnalyzer/TestParameter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Check.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Check.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Create.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/Create.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/SetUp.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/SetUp.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/TestParameter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector2 Extension/TestParameter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Check.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Check.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Create.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/Create.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/SetUp.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/SetUp.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/TestParameter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/NativeTestsLanguageInfrastructure/Vector3 Extension/TestParameter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/TileMapAnalyzerTests/GetCellTypeAtTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/TileMapAnalyzerTests/GetCellTypeAtTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToCartesianTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToCartesianTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToIsometricTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector2 Extension Tests/Vector2ToIsometricTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToCartesianTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToCartesianTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToIsometricTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/Unity Extensions Tests/Vector3 Extension Tests/Vector3ToIsometricTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/SuperTiled2Unity.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/SuperTiled2Unity.asset" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +86,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/Desktop/MotionProjector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Grid/Cell.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Input/InputActionEventArgs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Base/Input/InputHandler.cs" root0="FORCE_HIGHLIGHTING" />
@@ -140,9 +210,16 @@
       <workItem from="1702985960311" duration="5535000" />
       <workItem from="1703054797701" duration="4457000" />
       <workItem from="1703157170143" duration="766000" />
+<<<<<<< Updated upstream
       <workItem from="1703321109378" duration="20347000" />
       <workItem from="1703683479590" duration="83000" />
       <workItem from="1703683584109" duration="9650000" />
+=======
+      <workItem from="1703321109378" duration="20942000" />
+      <workItem from="1703749067346" duration="2000" />
+      <workItem from="1703750621190" duration="1378000" />
+      <workItem from="1703761032828" duration="16447000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

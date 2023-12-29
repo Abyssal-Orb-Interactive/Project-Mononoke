@@ -14,7 +14,7 @@ namespace Tests.TileMapAnalyzerTests
             SetUp.TilePositionAndTileWith(1, 1, 1, null);
             SetUp.TileMapAnalyzer();
             // Act.
-            var result = TestParameter.TileMapAnalyzer.GetCellTypeAt(TestParameter.CellPosition);
+            var result = TestParameter.TileCollectionAnalyzer.GetCellTypeAt(TestParameter.CellPosition);
             // Assert.
             Check.IsExpectedCellTypeMatchesWith(result);
         }
@@ -27,7 +27,7 @@ namespace Tests.TileMapAnalyzerTests
             SetUp.TilePositionAndTileNameWith(1,2,3, "Test Block Grass");
             SetUp.TileMapAnalyzer();
             // Act.
-            var result = TestParameter.TileMapAnalyzer.GetCellTypeAt(TestParameter.CellPosition);
+            var result = TestParameter.TileCollectionAnalyzer.GetCellTypeAt(TestParameter.CellPosition);
             // Assert.
             Check.IsExpectedCellTypeMatchesWith(result);
         }
@@ -40,7 +40,7 @@ namespace Tests.TileMapAnalyzerTests
             SetUp.TilePositionAndTileNameWith(-1,0,-1, "Test Block Water");
             SetUp.TileMapAnalyzer();
             // Act.
-            var result = TestParameter.TileMapAnalyzer.GetCellTypeAt(TestParameter.CellPosition);
+            var result = TestParameter.TileCollectionAnalyzer.GetCellTypeAt(TestParameter.CellPosition);
             // Assert.
             Check.IsExpectedCellTypeMatchesWith(result);
         }

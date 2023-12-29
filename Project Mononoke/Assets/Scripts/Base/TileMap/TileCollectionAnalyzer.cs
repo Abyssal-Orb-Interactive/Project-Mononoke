@@ -3,19 +3,18 @@ using UnityEngine;
 
 namespace Base.TileMap
 {
-    public class TileMapAnalyzer : ICellTypeSource
+    public class TileCollectionAnalyzer : ICellTypeSource
     {
-        private readonly ITileMapSource _tileMap = null;
+        private readonly ITileCollection _tileCollection = null;
 
-        public TileMapAnalyzer(ITileMapSource tileMap)
+        public TileCollectionAnalyzer(ITileCollection tileCollection)
         {
-            _tileMap = tileMap;
+            _tileCollection = tileCollection;
         }
 
         public CellType GetCellTypeAt(Vector3 coordinate)
         {
-            var cellPosition = _tileMap.WorldToCell(coordinate);
-            var tile = _tileMap.GetTile(cellPosition);
+            var tile = _tileCollection.GetTile(coordinate);
             
             if (tile == null) return CellType.Air;
             

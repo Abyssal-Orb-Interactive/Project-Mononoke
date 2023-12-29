@@ -6,18 +6,18 @@ namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class Create
     {
-        public static ITileMapSource TileMapSubstitute()
+        public static ITileCollection TileMapSubstitute()
         {
-            return Substitute.For<ITileMapSource>();
+            return Substitute.For<ITileCollection>();
         }
         public static Vector3Int Vector3IntWith(int x, int y, int z)
         {
             return new Vector3Int(x,y,z);
         }
 
-        public static TileMapAnalyzer TileMapAnalyzerWith(ITileMapSource tileMap)
+        public static TileCollectionAnalyzer TileMapAnalyzerWith(ITileCollection tileMap)
         {
-            return new TileMapAnalyzer(tileMap);
+            return new TileCollectionAnalyzer(tileMap);
         }
     }
 }

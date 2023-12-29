@@ -44,8 +44,8 @@ namespace Source.Building_System
         {
             if(e.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
             
-            var gridPosition = _grid.WorldToCell(_cursor.GetMouseWorldPosition());
-            var building = Instantiate(_database.BuildingsData[_selectedBuildingID].Prefab);
+            Vector3Int gridPosition = _grid.WorldToCell(_cursor.GetMouseWorldPosition());
+            GameObject building = Instantiate(_database.BuildingsData[_selectedBuildingID].Prefab);
             building.transform.position = _grid.CellToWorld(gridPosition);
         }
     }

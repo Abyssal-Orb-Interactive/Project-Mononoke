@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace Base.TileMap
 {
-    public class UnityTileMapWrapper : ITileMapSource
+    public class UnityTileMapWrapper : ITileCollection
     {
         private readonly Tilemap _tileMap = null;
 
@@ -12,14 +12,11 @@ namespace Base.TileMap
             _tileMap = tileMap;
         }
         
-        public Vector3Int WorldToCell(Vector3 position)
+        
+        public ITile GetTile(Vector3 position)
         {
-            return _tileMap.WorldToCell(position);
-        }
-
-        public ITile GetTile(Vector3Int position)
-        {
-            var tile = _tileMap.GetTile(position);
+            Vector3Int cellPosition = _tileMap.WorldToCell(position);
+            var tile = _tileMap.GetTile(cellPosition);
             return new UnityTileBaseWrapper(tile);
         }
     }

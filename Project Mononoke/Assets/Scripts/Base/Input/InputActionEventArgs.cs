@@ -14,7 +14,7 @@ namespace Base.Input
             public ActionType Action { get; }
             public object ActionData { get; }
 
-            public InputActionEventArgs(ActionType action, Vector2 actionData)
+            public InputActionEventArgs(ActionType action, MovementDirection actionData)
             {
                 Action = action;
                 ActionData = actionData;

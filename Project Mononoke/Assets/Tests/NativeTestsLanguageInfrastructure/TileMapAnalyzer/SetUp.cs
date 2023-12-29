@@ -9,7 +9,7 @@ namespace Tests.NativeTestsLanguageInfrastructure
     {
         public static void AssumedCellPositionAndExpectedCellTypeWith(int x, int y, int z, CellType type)
         {
-            TestParameter.CellPosition = Create.Vector3With(x,y,z);
+            TestParameter.CellPosition = new Vector3(x,y,z);
             TestParameter.ExpectedCellType = type;
         }
         
@@ -34,8 +34,7 @@ namespace Tests.NativeTestsLanguageInfrastructure
         public static void TileMapSubstitute()
         {
             TestParameter.TileMapSubstitute = Create.TileMapSubstitute();
-            TestParameter.TileMapSubstitute.WorldToCell(Arg.Any<Vector3>()).Returns(TestParameter.TilePosition);
-            TestParameter.TileMapSubstitute.GetTile(Arg.Any<Vector3Int>()).Returns(TestParameter.TileSubstitute);
+            TestParameter.TileMapSubstitute.GetTile(Arg.Any<Vector3>()).Returns(TestParameter.TileSubstitute);
         }
 
         public static void TilePositionAndTileNameWith(int x, int y, int z, string name)
@@ -47,7 +46,7 @@ namespace Tests.NativeTestsLanguageInfrastructure
         public static void TileMapAnalyzer()
         {
             TileMapSubstitute();
-            TestParameter.TileMapAnalyzer = Create.TileMapAnalyzerWith(TestParameter.TileMapSubstitute);
+            TestParameter.TileCollectionAnalyzer = Create.TileMapAnalyzerWith(TestParameter.TileMapSubstitute);
         }
     }
 }

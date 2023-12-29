@@ -1,17 +1,19 @@
 using System;
+using Base.Input;
+using Base.Math;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
 
 namespace Source.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class CharacterMover : MonoBehaviour, IDisposable
+    public class IsoCharacterMover : MonoBehaviour, IDisposable
     {
         [SerializeField] private float _speed = 10f;
 
         private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
-        private Vector2 _moveDirection = Vector2.zero;
+        private MovementDirection _moveDirection = MovementDirection.Stay;
 
         private void OnValidate()
         {
@@ -25,22 +27,24 @@ namespace Source.Movement
 
         private void FixedUpdate()
         {
-            Move(_moveDirection);
+            MoveTo(_moveDirection);
         }
 
-        private void Move(Vector3 direction)
+        private void MoveTo(MovementDirection direction)
         {
-            if(direction == Vector3.zero) return; 
-            var offset = direction * (_speed * Time.deltaTime);
+            if(direction == MovementDirection.Stay) return; 
+            var offset =  DirectionToVector3Converter.ToVector(direction) * (_speed * Time.deltaTime);
+            var isoOffset = new Vector2Iso(offset);
+            var position = _rigidbody.position;
+            var targetPosition = new Vector2(position.x + isoOffset.X, position.y + isoOffset.Y);
             
-            _rigidbody.MovePosition(_rigidbody.position + (Vector2)offset);
+            _rigidbody.MovePosition(targetPosition);
         }
 
         private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
         {
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
-            _moveDirection = (Vector2) args.ActionData;
-           
+            _moveDirection = (MovementDirection)args.ActionData;
         }
 
         private void StartInputHandling()

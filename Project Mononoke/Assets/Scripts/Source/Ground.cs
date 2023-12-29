@@ -15,7 +15,7 @@ namespace Source
         private void OnValidate()
         {
             _groundTileMap ??= GetComponent<Tilemap>();
-            _grid = new GroundGrid(new TileMapAnalyzer(new UnityTileMapWrapper(_groundTileMap)));
+            _grid = new GroundGrid(new TileCollectionAnalyzer(new UnityTileMapWrapper(_groundTileMap)));
         }
 
         private void Start()
