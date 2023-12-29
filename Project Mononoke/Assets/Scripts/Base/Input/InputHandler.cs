@@ -29,26 +29,15 @@ namespace Base.Input
         
         private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
-<<<<<<< Updated upstream
-            var cartesianNormalizedMovementVector =  movementDirection.ReadValue<Vector2>().normalized;
-            _movementVector = cartesianNormalizedMovementVector.ToIsometric();
-            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
-=======
             var cartesianNormalizedMovementVector = movementDirection.ReadValue<Vector2>();
             _movementDirection = InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianNormalizedMovementVector);
             _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection));
->>>>>>> Stashed changes
         }
         
         private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         { 
-<<<<<<< Updated upstream
-            _movementVector = Vector2.zero;
-            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVector));
-=======
             _movementDirection = MovementDirection.Stay;
             _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection));
->>>>>>> Stashed changes
         }
 
         public void StartInputHandling()
