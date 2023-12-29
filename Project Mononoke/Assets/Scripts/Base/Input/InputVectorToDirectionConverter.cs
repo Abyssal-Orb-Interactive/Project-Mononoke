@@ -10,17 +10,18 @@ namespace Base.Input
         private const float SEGMENT_HALF = 0.5f;
         private const float ZERO_ANGLE = 0f;
         
-        private static readonly int DIRECTIONS_COUNT = Enum.GetValues(typeof(MovementDirection)).Length - 1; // Minus 1 because Enum contains direction Stay. 
+        private static readonly int DIRECTIONS_COUNT = Enum.GetValues(typeof(MovementDirection)).Length - 1; // !WARNING: Minus 1 because Enum contains direction Stay. 
         private static readonly float DEGREES_PER_DIRECTION = FULL_CIRCLE_DEGREES / DIRECTIONS_COUNT;
 
         public static MovementDirection GetMovementDirectionFor(Vector2 directionVector)
         {
             if (ThresholdBiggerThen(directionVector)) return MovementDirection.Stay;
 
-            float angleFromXAxis = CalculateShiftedAngleFor(directionVector);
+            float angleFromXAxis = CalculateAngleFor(directionVector);
 
             if (ZeroAngleBiggerThan(angleFromXAxis)) Normalize(ref angleFromXAxis);
 
+           
             var segmentIndex = CalculateIndexOfDirectionsCircleSegmentFor(angleFromXAxis);
             return (MovementDirection)segmentIndex;
         }
@@ -30,15 +31,10 @@ namespace Base.Input
             return directionVector.magnitude < THRESHOLD;
         }
 
-        private static float CalculateShiftedAngleFor(Vector2 directionVector)
+        private static float CalculateAngleFor(Vector2 directionVector)
         {
-            float angle = Mathf.Atan2(directionVector.y, directionVector.x) * Mathf.Rad2Deg;
-            return ShiftAngle(angle);
-        }
+            return Mathf.Atan2(directionVector.y, directionVector.x) * Mathf.Rad2Deg;
         
-        private static float ShiftAngle(float angle)
-        {
-            return angle + DEGREES_PER_DIRECTION * SEGMENT_HALF;
         }
         
         private static bool ZeroAngleBiggerThan(float angleFromXAxis)
@@ -51,9 +47,9 @@ namespace Base.Input
             angleFromXAxis += FULL_CIRCLE_DEGREES;
         }
         
-        private static int CalculateIndexOfDirectionsCircleSegmentFor(float angleFromXAxis)
+        private static int CalculateIndexOfDirectionsCircleSegmentFor(float angle)
         {
-            return Mathf.FloorToInt(angleFromXAxis / DEGREES_PER_DIRECTION) % DIRECTIONS_COUNT;
+            return Mathf.FloorToInt(angle / DEGREES_PER_DIRECTION) % DIRECTIONS_COUNT;
         }
     }
 }
