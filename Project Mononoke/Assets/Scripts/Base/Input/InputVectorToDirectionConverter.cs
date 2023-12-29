@@ -11,7 +11,7 @@ namespace Base.Input
         private const float ZERO_ANGLE = 0f;
         
         private static readonly int DIRECTIONS_COUNT = Enum.GetValues(typeof(MovementDirection)).Length - 1; // Minus 1 because Enum contains direction Stay. 
-        private static readonly float DEGREESE_PER_DIRECTION = FULL_CIRCLE_DEGREES / DIRECTIONS_COUNT;
+        private static readonly float DEGREES_PER_DIRECTION = FULL_CIRCLE_DEGREES / DIRECTIONS_COUNT;
 
         public static MovementDirection GetMovementDirectionFor(Vector2 directionVector)
         {
@@ -38,7 +38,7 @@ namespace Base.Input
         
         private static float ShiftAngle(float angle)
         {
-            return angle + DEGREESE_PER_DIRECTION * SEGMENT_HALF;
+            return angle + DEGREES_PER_DIRECTION * SEGMENT_HALF;
         }
         
         private static bool ZeroAngleBiggerThan(float angleFromXAxis)
@@ -53,7 +53,7 @@ namespace Base.Input
         
         private static int CalculateIndexOfDirectionsCircleSegmentFor(float angleFromXAxis)
         {
-            return Mathf.FloorToInt(angleFromXAxis / DEGREESE_PER_DIRECTION) % DIRECTIONS_COUNT;
+            return Mathf.FloorToInt(angleFromXAxis / DEGREES_PER_DIRECTION) % DIRECTIONS_COUNT;
         }
     }
 }
