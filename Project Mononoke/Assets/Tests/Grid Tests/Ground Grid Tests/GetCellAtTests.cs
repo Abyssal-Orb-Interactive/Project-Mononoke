@@ -1,10 +1,6 @@
 using Base.Grid;
-using Base.TileMap;
-using FluentAssertions;
-using NSubstitute;
 using NUnit.Framework;
 using Tests.NativeTestsLanguageInfrastructure;
-using UnityEngine;
 
 namespace Tests.Grid_Tests.Ground_Grid_Tests
 {
