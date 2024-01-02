@@ -2,7 +2,7 @@ using Base.Input;
 using Base.Math;
 using UnityEngine;
 
-namespace Source.Movement
+namespace Source.Character.Movement
 {
     public static class DirectionToVector3Converter
     {

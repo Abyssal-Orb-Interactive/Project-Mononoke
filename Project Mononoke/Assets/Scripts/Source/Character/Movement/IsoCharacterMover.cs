@@ -4,7 +4,7 @@ using Base.Math;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
 
-namespace Source.Movement
+namespace Source.Character.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class IsoCharacterMover : MonoBehaviour, IDisposable

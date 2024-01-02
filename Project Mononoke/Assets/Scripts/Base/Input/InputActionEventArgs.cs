@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Base.Input
 {
     public partial class InputHandler
