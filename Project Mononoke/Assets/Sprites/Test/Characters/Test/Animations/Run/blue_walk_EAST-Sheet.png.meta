@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2bbd3099e710d5e42a7ef35302feb333
+guid: bf5a8bec640e90145bca962b1f3cd3d7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,6 +107,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -145,32 +158,45 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_0
+      name: blue_walk_EAST-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
         height: 48
-      alignment: 9
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a999e5b73615b7142a2f40dc6cd7df99
-      internalID: -2135014891
+      spriteID: 3c4643a100186ad4d9a034a7ea74188d
+      internalID: 1520013632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_1
+      name: blue_walk_EAST-Sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -184,14 +210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf8b210a027909c4f8537d5285f706f6
-      internalID: 1257173940
+      spriteID: 4ce2e0d20da2d154786cf5149767ab73
+      internalID: 1233017550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_2
+      name: blue_walk_EAST-Sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -205,14 +231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c57d37e15f60a484ebe44d112c3ed3bb
-      internalID: -407217347
+      spriteID: ebacc488c458cf84da1b42d3e8c275a7
+      internalID: -1556875251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_3
+      name: blue_walk_EAST-Sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -226,14 +252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 821fc24fcadcb8e4bb583f6eaf6346bb
-      internalID: -881925799
+      spriteID: 14791c8941dc7d24593a16010d634614
+      internalID: -954713344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_4
+      name: blue_walk_EAST-Sheet_4
       rect:
         serializedVersion: 2
         x: 128
@@ -247,14 +273,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e075811b73b42e47a0097573e84bfb4
-      internalID: 880513019
+      spriteID: d673e21cf38fcbe4bb0c8484a70148c7
+      internalID: 700316347
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_5
+      name: blue_walk_EAST-Sheet_5
       rect:
         serializedVersion: 2
         x: 160
@@ -268,14 +294,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36d22c688a06cb84aa04a7af76f274de
-      internalID: 1543570514
+      spriteID: fc5c322232980474a8d2d8533d7658e6
+      internalID: 617999857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_6
+      name: blue_walk_EAST-Sheet_6
       rect:
         serializedVersion: 2
         x: 192
@@ -289,14 +315,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60d7bf9555f1a8f4f8735db6321f06ae
-      internalID: 1577901107
+      spriteID: ad0892a2371861349ac32b7d4b9a58ff
+      internalID: -18299584
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue_8direction_standing-Sheet_7
+      name: blue_walk_EAST-Sheet_7
       rect:
         serializedVersion: 2
         x: 224
@@ -310,8 +336,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c22f5c0968e0ad4faf397454e870d19
-      internalID: -1998231205
+      spriteID: 5141e8a0b3d074242baf5187a7c25542
+      internalID: -1241224534
       vertices: []
       indices: 
       edges: []
@@ -327,14 +353,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      blue_8direction_standing-Sheet_0: -2135014891
-      blue_8direction_standing-Sheet_1: 1257173940
-      blue_8direction_standing-Sheet_2: -407217347
-      blue_8direction_standing-Sheet_3: -881925799
-      blue_8direction_standing-Sheet_4: 880513019
-      blue_8direction_standing-Sheet_5: 1543570514
-      blue_8direction_standing-Sheet_6: 1577901107
-      blue_8direction_standing-Sheet_7: -1998231205
+      blue_walk_EAST-Sheet_0: 1520013632
+      blue_walk_EAST-Sheet_1: 1233017550
+      blue_walk_EAST-Sheet_2: -1556875251
+      blue_walk_EAST-Sheet_3: -954713344
+      blue_walk_EAST-Sheet_4: 700316347
+      blue_walk_EAST-Sheet_5: 617999857
+      blue_walk_EAST-Sheet_6: -18299584
+      blue_walk_EAST-Sheet_7: -1241224534
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

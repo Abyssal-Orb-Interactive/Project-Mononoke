@@ -20,8 +20,6 @@ namespace Source
 
         private void Start()
         {
-            Debug.Log(_grid.GetCellAt(new Vector3Int(0,0)).Type);
-            Debug.Log(_grid.GetCellAt(new Vector3Int(-2,0, -1)).Type);
         }
     }
 }

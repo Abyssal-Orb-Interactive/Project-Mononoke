@@ -1,6 +1,7 @@
 using System;
 using Base.Input;
 using Base.Math;
+using Source.Character.Visual;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
 
@@ -10,6 +11,7 @@ namespace Source.Character.Movement
     public class IsoCharacterMover : MonoBehaviour, IDisposable
     {
         [SerializeField] private float _speed = 10f;
+        [SerializeField] private CharacterSpiteAnimationPlayer _animator;
 
         private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
@@ -18,11 +20,14 @@ namespace Source.Character.Movement
         private void OnValidate()
         {
             _rigidbody ??= GetComponent<Rigidbody2D>();
+            
         }
 
         private void Start()
         {
+            _inputHandler ??= new InputHandler(new TestActions());
             StartInputHandling();
+            _animator.Initialize(_inputHandler);
         }
 
         private void FixedUpdate()
@@ -49,7 +54,6 @@ namespace Source.Character.Movement
 
         private void StartInputHandling()
         {
-            _inputHandler ??= new InputHandler(new TestActions());
             _inputHandler.StartInputHandling();
             _inputHandler.AddInputChangedHandler(OnMovementInputChange);
         }

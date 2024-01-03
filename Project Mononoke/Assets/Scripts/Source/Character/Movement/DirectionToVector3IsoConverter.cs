@@ -26,7 +26,7 @@ namespace Source.Character.Movement
                 MovementDirection.SouthWest => POSSIBLE_MOVEMENT_VECTORS[6],
                 MovementDirection.West => POSSIBLE_MOVEMENT_VECTORS[3],
                 MovementDirection.NorthWest => POSSIBLE_MOVEMENT_VECTORS[0],
-                _ => POSSIBLE_MOVEMENT_VECTORS[4].normalized
+                _ => POSSIBLE_MOVEMENT_VECTORS[4]
             };
         }
     }
