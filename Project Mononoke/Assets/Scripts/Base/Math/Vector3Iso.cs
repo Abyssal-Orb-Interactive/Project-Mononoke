@@ -15,12 +15,24 @@ namespace Base.Math
             X = vector2Iso.X;
             Y = vector2Iso.Y;
         }
+
+        public Vector3Iso(float x, float y, float z)
+        {
+            Z = z;
+            X = x;
+            Y = y;
+        }
         public static Vector3 ToCartesian(Vector3Iso vector3Iso)
         {
             float z = vector3Iso.Z;
             var vector2Iso = new Vector2Iso(vector3Iso);
             var vector2 = vector2Iso.ToCartesian();
             return new Vector3(vector2.x, vector2.y, z);
+        }
+
+        public override string ToString()
+        {
+            return $"({X}, {Y}, {Z})";
         }
     }
 }

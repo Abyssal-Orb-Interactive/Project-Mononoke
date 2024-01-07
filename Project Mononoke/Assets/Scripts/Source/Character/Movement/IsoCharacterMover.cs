@@ -1,8 +1,6 @@
 using System;
-using System.Runtime.CompilerServices;
 using Base.Input;
 using Base.Math;
-using Source.Character.Visual;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
 using VContainer;
@@ -13,7 +11,6 @@ namespace Source.Character.Movement
     public class IsoCharacterMover : MonoBehaviour, IDisposable
     {
         [SerializeField] private float _speed = 10f;
-        [SerializeField] private CharacterSpiteAnimationPlayer _animator = null;
 
         private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
@@ -31,7 +28,6 @@ namespace Source.Character.Movement
             _gridAnalyzer = gridAnalyzer;
             _inputHandler = inputHandler;
             StartInputHandling();
-            _animator.Initialize(_inputHandler);
         }
 
         private void FixedUpdate()
@@ -41,7 +37,7 @@ namespace Source.Character.Movement
 
         private void MoveTo(MovementDirection direction)
         {
-            if(direction == MovementDirection.Stay) return; 
+            if(direction == MovementDirection.Stay || !_gridAnalyzer.IsNextCellMovable(transform.position, _moveDirection)) return; 
             var offset =  DirectionToVector3Converter.ToVector(direction) * (_speed * Time.deltaTime);
             var isoOffset = new Vector2Iso(offset);
             var position = _rigidbody.position;

@@ -36,8 +36,10 @@ namespace Base.Grid
         public bool IsCellPassableAt(Vector3Int coordinate)
         {
             if (HasBuildingAt(coordinate)) return false;
-            
-            return GetCellAt(coordinate).Type switch
+
+            var cell =  GetCellAt(coordinate);
+             
+            return cell.Type switch
             {
                 CellType.Grass => true,
                 _ => false

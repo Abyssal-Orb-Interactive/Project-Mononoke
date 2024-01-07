@@ -10,6 +10,6 @@ namespace Base.TileMap
         {
             _tile = tileBase;
         }
-        public string Name => _tile.name;
+        public string Name => _tile != null ? _tile.name : null;
     }
 }

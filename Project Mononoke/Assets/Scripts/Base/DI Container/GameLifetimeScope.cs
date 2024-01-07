@@ -13,7 +13,6 @@ namespace Base.DIContainer
     public class GameLifetimeScope : LifetimeScope
     {
         [SerializeField] private Tilemap _tileMap = null;
-        [SerializeField] private IsoCharacterMover _characterMover = null;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -27,7 +26,6 @@ namespace Base.DIContainer
             builder.Register<GridAnalyzer>(Lifetime.Singleton);
             builder.Register<TestActions>(Lifetime.Singleton);
             builder.Register<InputHandler>(Lifetime.Singleton);
-            builder.RegisterComponent<IsoCharacterMover>(_characterMover);
         }
     }
 }

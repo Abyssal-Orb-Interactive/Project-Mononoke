@@ -1,5 +1,6 @@
 using Base.Grid;
 using Base.Input;
+using Base.Math;
 using UnityEngine;
 
 namespace Source.Character
@@ -15,10 +16,11 @@ namespace Source.Character
 
         public bool IsNextCellMovable(Vector3 currentPosition, MovementDirection facing)
         {
-            var roundedCurrentPosition = new Vector3Int(Mathf.FloorToInt(currentPosition.x), Mathf.FloorToInt(currentPosition.y), Mathf.FloorToInt(currentPosition.z));
-            var unitVector = Vector3Int.zero;
+            var isometricPosition = new Vector3Iso(currentPosition.x, currentPosition.y, currentPosition.z);
+            var cartesianPosition = Vector3Iso.ToCartesian(isometricPosition);
+            var roundedCurrentPosition = new Vector3Int(Mathf.RoundToInt(cartesianPosition.x), Mathf.RoundToInt(cartesianPosition.y), Mathf.RoundToInt(cartesianPosition.z));
 
-            unitVector = facing switch
+            var unitVector = facing switch
             {
                 MovementDirection.North => new(0, 1),
                 MovementDirection.NorthEast => new(1, 1),

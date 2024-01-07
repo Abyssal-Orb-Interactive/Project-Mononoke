@@ -1,6 +1,7 @@
 using System;
 using Base.Input;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Character.Visual
 {
@@ -16,7 +17,7 @@ namespace Source.Character.Visual
             _animator ??= GetComponent<Animator>();
         }
 
-        public void Initialize(InputHandler inputHandler)
+        [Inject] public void Initialize(InputHandler inputHandler)
         {
             _inputHandler = inputHandler;
             StartInputHandling();
