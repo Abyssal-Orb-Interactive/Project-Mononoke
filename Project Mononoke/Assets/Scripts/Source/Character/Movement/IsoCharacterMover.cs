@@ -1,9 +1,11 @@
 using System;
+using System.Runtime.CompilerServices;
 using Base.Input;
 using Base.Math;
 using Source.Character.Visual;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
+using VContainer;
 
 namespace Source.Character.Movement
 {
@@ -11,11 +13,12 @@ namespace Source.Character.Movement
     public class IsoCharacterMover : MonoBehaviour, IDisposable
     {
         [SerializeField] private float _speed = 10f;
-        [SerializeField] private CharacterSpiteAnimationPlayer _animator;
+        [SerializeField] private CharacterSpiteAnimationPlayer _animator = null;
 
         private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
         private MovementDirection _moveDirection = MovementDirection.Stay;
+        private GridAnalyzer _gridAnalyzer = null;
 
         private void OnValidate()
         {
@@ -23,9 +26,10 @@ namespace Source.Character.Movement
             
         }
 
-        private void Start()
+        [Inject] private void Initialize(GridAnalyzer gridAnalyzer, InputHandler inputHandler)
         {
-            _inputHandler ??= new InputHandler(new TestActions());
+            _gridAnalyzer = gridAnalyzer;
+            _inputHandler = inputHandler;
             StartInputHandling();
             _animator.Initialize(_inputHandler);
         }
@@ -54,12 +58,14 @@ namespace Source.Character.Movement
 
         private void StartInputHandling()
         {
+            if(_inputHandler == null) return;
             _inputHandler.StartInputHandling();
             _inputHandler.AddInputChangedHandler(OnMovementInputChange);
         }
         
         private void StopInputHandling()
         {
+            if(_inputHandler == null) return;
             _inputHandler.StopInputHandling();
             _inputHandler.RemoveInputChangedHandler(OnMovementInputChange);
         }

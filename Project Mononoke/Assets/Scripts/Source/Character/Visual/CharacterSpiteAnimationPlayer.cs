@@ -5,10 +5,8 @@ using UnityEngine;
 namespace Source.Character.Visual
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(SpriteRenderer))]
     public class CharacterSpiteAnimationPlayer : MonoBehaviour, IDisposable
     {
-        private SpriteRenderer _sprite = null;
         private Animator _animator = null;
         private InputHandler _inputHandler = null;
         private MovementDirection _facing = MovementDirection.Stay;
@@ -16,7 +14,6 @@ namespace Source.Character.Visual
         private void OnValidate()
         {
             _animator ??= GetComponent<Animator>();
-            _sprite ??= GetComponent<SpriteRenderer>();
         }
 
         public void Initialize(InputHandler inputHandler)
@@ -29,9 +26,7 @@ namespace Source.Character.Visual
         {
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
             if((MovementDirection)args.ActionData == MovementDirection.Stay) return;
-            //FlipSpritByXIfNecessary((MovementDirection)args.ActionData);
             _facing = (MovementDirection)args.ActionData;
-            Debug.Log((float)_facing);
             SetAnimatorFacingParameter();
         }
 
@@ -88,43 +83,6 @@ namespace Source.Character.Visual
                 MovementDirection.NorthWest => 1f,
                 _ => 0f
             };
-        }
-
-
-        private void FlipSpritByXIfNecessary(MovementDirection newFacing)
-        {
-            if (IsHorizontalFacingChanges(newFacing))
-            {
-                _sprite.flipX = !_sprite.flipX;
-            }
-        }
-
-        private bool IsHorizontalFacingChanges(MovementDirection newFacing)
-        {
-            Debug.Log(_facing);
-            Debug.Log(FacedToEast());
-            Debug.Log(FacedToWestIs(newFacing));
-            return ((FacedToEast() && FacedToWestIs(newFacing)) || (FacedToWest() && FacedToEastIs(newFacing)));
-        }
-
-        private bool FacedToEast()
-        {
-            return _facing == MovementDirection.East || _facing == MovementDirection.NorthEast || _facing == MovementDirection.SouthEast || _facing == MovementDirection.Stay;
-        }
-
-        private bool FacedToWestIs(MovementDirection newFacing)
-        {
-            return newFacing == MovementDirection.West || newFacing == MovementDirection.NorthWest || newFacing == MovementDirection.SouthWest;
-        }
-
-        private bool FacedToWest()
-        {
-            return _facing == MovementDirection.West || _facing == MovementDirection.NorthWest || _facing == MovementDirection.SouthWest;
-        }
-
-         private bool FacedToEastIs(MovementDirection newFacing)
-        {
-            return newFacing == MovementDirection.East || newFacing == MovementDirection.NorthEast || newFacing == MovementDirection.SouthEast ||  newFacing == MovementDirection.Stay;
         }
     }
 }
