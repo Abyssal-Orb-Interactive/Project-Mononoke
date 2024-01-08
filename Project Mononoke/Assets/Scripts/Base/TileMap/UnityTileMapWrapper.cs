@@ -6,6 +6,7 @@ namespace Base.TileMap
     public class UnityTileMapWrapper : ITileCollection
     {
         private readonly Tilemap _tileMap = null;
+        private static readonly Vector3 CELL_CENTER_OFFSET = new(-0.25f, -0.25f, 0); 
 
         public UnityTileMapWrapper(Tilemap tileMap)
         {
@@ -15,7 +16,8 @@ namespace Base.TileMap
         
         public ITile GetTile(Vector3 position)
         {
-            Vector3Int cellPosition = _tileMap.WorldToCell(position);
+            var correctedPosition = position + CELL_CENTER_OFFSET;
+            Vector3Int cellPosition = _tileMap.WorldToCell(correctedPosition);
             Debug.Log($"Tilemap Cell Position {cellPosition}");
             var tile = _tileMap.GetTile(cellPosition);
             return new UnityTileBaseWrapper(tile);
