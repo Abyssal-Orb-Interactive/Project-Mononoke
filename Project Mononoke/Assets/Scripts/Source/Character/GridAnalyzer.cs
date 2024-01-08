@@ -14,13 +14,32 @@ namespace Source.Character
             _grid = grid;
         }
 
-        public bool IsNextCellMovable(Vector3 currentPosition, MovementDirection facing)
+        public bool IsNextCellMovable(Vector3 entityPosition, MovementDirection entityFacing)
         {
-            var isometricPosition = new Vector3Iso(currentPosition.x, currentPosition.y, currentPosition.z);
-            var cartesianPosition = Vector3Iso.ToCartesian(isometricPosition);
-            var roundedCurrentPosition = new Vector3Int(Mathf.RoundToInt(cartesianPosition.x), Mathf.RoundToInt(cartesianPosition.y), Mathf.RoundToInt(cartesianPosition.z));
+            Vector3Int NextCellCoordinate = GetNextCellCoordinate(entityPosition, entityFacing);
+            return _grid.IsCellPassableAt(NextCellCoordinate);
+        }
 
-            var unitVector = facing switch
+        private Vector3Int GetNextCellCoordinate(Vector3 entityCoordinate, MovementDirection entityFacing)
+        {
+            Vector3Int currentCellCoordinate = WorldToGrid(entityCoordinate);
+            Vector3Int unitVector = GetNextCellOffsetUsing(entityFacing);
+
+            var nextCellCoordinate = currentCellCoordinate + unitVector;
+            return nextCellCoordinate;
+        }
+
+        private Vector3Int WorldToGrid(Vector3 worldCoordinate)
+        {
+            var isometricCoordinate = new Vector3Iso(worldCoordinate.x, worldCoordinate.y, worldCoordinate.z);
+            var cartesianCoordinate = Vector3Iso.ToCartesian(isometricCoordinate);
+            var roundedCoordinate = new Vector3Int(Mathf.RoundToInt(cartesianCoordinate.x), Mathf.RoundToInt(cartesianCoordinate.y), Mathf.RoundToInt(cartesianCoordinate.z));
+            return roundedCoordinate;
+        }
+
+        private Vector3Int GetNextCellOffsetUsing(MovementDirection entityFacing)
+        {
+            return entityFacing switch
             {
                 MovementDirection.North => new(0, 1),
                 MovementDirection.NorthEast => new(1, 1),
@@ -32,9 +51,12 @@ namespace Source.Character
                 MovementDirection.NorthWest => new(-1, 1),
                 _ => Vector3Int.zero,
             };
+        }
 
-            var targetPosition = roundedCurrentPosition + unitVector;
-            return _grid.IsCellPassableAt(targetPosition);
+        public Vector3Iso GetNextCellSizes(Vector3 entityPosition, MovementDirection entityFacing)
+        {
+            Vector3Int nextCellCoordinate = GetNextCellCoordinate(entityPosition, entityFacing);
+            return new Vector3Iso(_grid.GetSizesOfCellAt(nextCellCoordinate));
         }
     }
 }

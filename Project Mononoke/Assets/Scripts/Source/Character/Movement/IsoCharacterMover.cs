@@ -37,12 +37,19 @@ namespace Source.Character.Movement
 
         private void MoveTo(MovementDirection direction)
         {
-            if(direction == MovementDirection.Stay || !_gridAnalyzer.IsNextCellMovable(transform.position, _moveDirection)) return; 
+            if(direction == MovementDirection.Stay) return; 
             var offset =  DirectionToVector3Converter.ToVector(direction) * (_speed * Time.deltaTime);
             var isoOffset = new Vector2Iso(offset);
             var position = _rigidbody.position;
-            var targetPosition = new Vector2(position.x + isoOffset.X, position.y + isoOffset.Y);
-            
+            var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
+            if(!_gridAnalyzer.IsNextCellMovable(transform.position, _moveDirection)) 
+            {
+                Vector3Iso isoCellSize = _gridAnalyzer.GetNextCellSizes(transform.position, direction);
+                if (targetPosition.x - position.x > isoCellSize.X / 2 || targetPosition.y - position.y > isoCellSize.Y / 2)
+                {
+                    return;
+                }
+            }
             _rigidbody.MovePosition(targetPosition);
         }
 

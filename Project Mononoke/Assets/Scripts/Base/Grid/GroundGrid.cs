@@ -45,5 +45,12 @@ namespace Base.Grid
                 _ => false
             };
         }
+
+        public Vector3 GetSizesOfCellAt(Vector3Int coordinate)
+        {
+            var cell = GetCellAt(coordinate);
+
+            return cell.Sizes;
+        }
     }
 }
