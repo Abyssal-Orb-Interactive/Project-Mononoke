@@ -42,10 +42,7 @@ namespace Source.Character.Movement
             var isoOffset = new Vector2Iso(offset);
             var position = _rigidbody.position;
             var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
-            if(!_gridAnalyzer.IsNextCellMovable(position, direction) && !_gridAnalyzer.IsWithinCellBounds(targetPosition)) 
-            {
-                return;
-            }
+            if(!_gridAnalyzer.IsCellMovableAt(targetPosition)) return;
             _rigidbody.MovePosition(targetPosition);
         }
 

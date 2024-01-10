@@ -1,7 +1,6 @@
 using Base.Grid;
 using Base.Input;
 using Base.Math;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Source.Character
@@ -60,12 +59,10 @@ namespace Source.Character
             return _grid.GetSizesOfCellAt(nextCellCoordinate);
         }
 
-        public bool IsWithinCellBounds(Vector3 entityPosition)
+        public bool IsCellMovableAt(Vector3 worldPosition)
         {
-            var currentCellCoordinate = WorldToGrid(entityPosition);
-            var currentCellSizes = _grid.GetSizesOfCellAt(currentCellCoordinate);
-            return entityPosition.x >= currentCellCoordinate.x && entityPosition.x < currentCellCoordinate.x + currentCellSizes.x
-                && entityPosition.y >= currentCellCoordinate.y && entityPosition.y < currentCellCoordinate.y + currentCellSizes.y;
+            var cellCoordinate = WorldToGrid(worldPosition);
+            return _grid.IsCellPassableAt(cellCoordinate);
         }
     }
 }
