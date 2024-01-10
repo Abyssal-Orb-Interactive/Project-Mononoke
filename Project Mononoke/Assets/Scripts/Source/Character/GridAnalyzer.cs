@@ -1,6 +1,7 @@
 using Base.Grid;
 using Base.Input;
 using Base.Math;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Source.Character
@@ -20,7 +21,7 @@ namespace Source.Character
             return _grid.IsCellPassableAt(NextCellCoordinate);
         }
 
-        private Vector3Int GetNextCellCoordinate(Vector3 entityCoordinate, MovementDirection entityFacing)
+        public Vector3Int GetNextCellCoordinate(Vector3 entityCoordinate, MovementDirection entityFacing)
         {
             Vector3Int currentCellCoordinate = WorldToGrid(entityCoordinate);
             Vector3Int unitVector = GetNextCellOffsetUsing(entityFacing);
@@ -53,10 +54,18 @@ namespace Source.Character
             };
         }
 
-        public Vector3Iso GetNextCellSizes(Vector3 entityPosition, MovementDirection entityFacing)
+        public Vector3 GetNextCellSizes(Vector3 entityPosition, MovementDirection entityFacing)
         {
             Vector3Int nextCellCoordinate = GetNextCellCoordinate(entityPosition, entityFacing);
-            return new Vector3Iso(_grid.GetSizesOfCellAt(nextCellCoordinate));
+            return _grid.GetSizesOfCellAt(nextCellCoordinate);
+        }
+
+        public bool IsWithinCellBounds(Vector3 entityPosition)
+        {
+            var currentCellCoordinate = WorldToGrid(entityPosition);
+            var currentCellSizes = _grid.GetSizesOfCellAt(currentCellCoordinate);
+            return entityPosition.x >= currentCellCoordinate.x && entityPosition.x < currentCellCoordinate.x + currentCellSizes.x
+                && entityPosition.y >= currentCellCoordinate.y && entityPosition.y < currentCellCoordinate.y + currentCellSizes.y;
         }
     }
 }

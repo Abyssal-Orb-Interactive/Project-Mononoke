@@ -18,7 +18,6 @@ namespace Base.TileMap
         {
             var correctedPosition = position + CELL_CENTER_OFFSET;
             Vector3Int cellPosition = _tileMap.WorldToCell(correctedPosition);
-            Debug.Log($"Tilemap Cell Position {cellPosition}");
             var tile = _tileMap.GetTile(cellPosition);
             return new UnityTileBaseWrapper(tile);
         }
