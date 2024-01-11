@@ -26,9 +26,15 @@ namespace Source.Character.Visual
         private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
         {
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
-            if((MovementDirection)args.ActionData == MovementDirection.Stay) return;
+            if((MovementDirection)args.ActionData == MovementDirection.Stay) 
+            {
+                _animator.SetBool("RunDesired", false);
+                return;
+            }
+
             _facing = (MovementDirection)args.ActionData;
             SetAnimatorFacingParameter();
+            _animator.SetBool("RunDesired", true);
         }
 
         private void StartInputHandling()
@@ -68,7 +74,7 @@ namespace Source.Character.Visual
 
         public void SetAnimatorFacingParameter()
         {
-            _animator.SetFloat("Facing", MovementDirectionToAnimatorParameter());   
+            _animator.SetFloat("Facing", MovementDirectionToAnimatorParameter());
         }
 
         private float MovementDirectionToAnimatorParameter(){
