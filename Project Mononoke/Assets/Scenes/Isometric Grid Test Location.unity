@@ -186,7 +186,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.8984375
+  orthographic size: 4.828125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -335,6 +335,37 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 824457668}
   _tileMap: {fileID: 1144202417}
+--- !u!1 &476726018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 476726019}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &476726019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476726018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &516025354
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +498,6 @@ GameObject:
   - component: {fileID: 1144202415}
   - component: {fileID: 1144202417}
   - component: {fileID: 1144202416}
-  - component: {fileID: 1144202418}
   m_Layer: 0
   m_Name: Ground Tilemap
   m_TagString: Untagged
@@ -691,21 +721,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1144202418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144202414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eb221350c692954683210c7d8dd8dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tilemap: {fileID: 1144202417}
-  _pos: {x: 0, y: 0, z: 0}
-  _brush: {fileID: 11400000, guid: 8f03ad9d6245a8d4c84d9d557fe334e1, type: 2}
 --- !u!1001 &5678693790991241678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -740,7 +755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7781497609147544520, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7781497609147544520, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -792,3 +807,4 @@ SceneRoots:
   - {fileID: 516025355}
   - {fileID: 864828030}
   - {fileID: 5678693790991241678}
+  - {fileID: 476726019}
