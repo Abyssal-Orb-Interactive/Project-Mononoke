@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Source.Building_System
+namespace Source.BuildingSystem
 {
     [CreateAssetMenu]
     public class BuildingsDatabaseSo : ScriptableObject
