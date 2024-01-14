@@ -4,6 +4,7 @@ using Base.Math;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
 using VContainer;
+using Base.Grid;
 
 namespace Source.Character.Movement
 {
@@ -15,7 +16,7 @@ namespace Source.Character.Movement
         private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
         private MovementDirection _moveDirection = MovementDirection.Stay;
-        private GridAnalyzer _gridAnalyzer = null;
+        private GroundGrid _grid = null;
 
         private void OnValidate()
         {
@@ -23,9 +24,9 @@ namespace Source.Character.Movement
             
         }
 
-        [Inject] private void Initialize(GridAnalyzer gridAnalyzer, InputHandler inputHandler)
+        [Inject] private void Initialize(GroundGrid grid, InputHandler inputHandler)
         {
-            _gridAnalyzer = gridAnalyzer;
+            _grid = grid;
             _inputHandler = inputHandler;
             StartInputHandling();
         }
@@ -42,7 +43,8 @@ namespace Source.Character.Movement
             var isoOffset = new Vector2Iso(offset);
             var position = _rigidbody.position;
             var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
-            if(!_gridAnalyzer.IsCellMovableAt(targetPosition)) return;
+            var inGridPosition = _grid.WorldToGrid(targetPosition);
+            if(!_grid.IsCellPassableAt(inGridPosition)) return;
             _rigidbody.MovePosition(targetPosition);
         }
 

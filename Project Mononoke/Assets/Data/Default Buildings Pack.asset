@@ -10,10 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14f36dadae7fcc44a86aa8d096174770, type: 3}
-  m_Name: Test Database
+  m_Name: Default Buildings Pack
   m_EditorClassIdentifier: 
-  buildingsData:
-  - <Name>k__BackingField: House
-    <ID>k__BackingField: 0
-    <Sizes>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 5689438685580937868, guid: 371b7b144a211a24bb9804953d71e1df, type: 3}
+  buildingsData: []

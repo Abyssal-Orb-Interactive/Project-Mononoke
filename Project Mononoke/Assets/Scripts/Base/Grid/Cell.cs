@@ -4,13 +4,18 @@ namespace Base.Grid
 {
     public class Cell : IReadonlyCell
     {
-        public Vector3 Sizes => new(1f, 0.5f, 1f);
-        public bool HasBuilding { get; private set; } = false;
+        private GameObject _building = null;
+        public bool HasBuilding { get {return _building != null;}}
         public CellType Type { get; private set; } = CellType.Air;
 
         public Cell(CellType type)
         {
             Type = type;
+        }
+        
+        public void AddBuilding(GameObject building)
+        {
+            _building = building;
         }
     }
 }

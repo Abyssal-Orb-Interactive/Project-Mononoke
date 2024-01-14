@@ -23,7 +23,6 @@ namespace Base.DIContainer
             builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GroundGrid>(Lifetime.Singleton);
-            builder.Register<GridAnalyzer>(Lifetime.Singleton);
             builder.Register<TestActions>(Lifetime.Singleton);
             builder.Register<InputHandler>(Lifetime.Singleton);
         }

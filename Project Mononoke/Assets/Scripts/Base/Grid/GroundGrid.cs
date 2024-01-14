@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Base.Math;
 using Base.TileMap;
 using UnityEngine;
 
@@ -46,11 +47,22 @@ namespace Base.Grid
             };
         }
 
-        public Vector3 GetSizesOfCellAt(Vector3Int coordinate)
+        public Vector3Int WorldToGrid(Vector3 worldCoordinate)
         {
-            var cell = GetCellAt(coordinate);
+            var isometricCoordinate = new Vector3Iso(worldCoordinate.x, worldCoordinate.y, worldCoordinate.z);
+            var cartesianCoordinate = Vector3Iso.ToCartesian(isometricCoordinate);
+            var roundedCoordinate = new Vector3Int(Mathf.RoundToInt(cartesianCoordinate.x), Mathf.RoundToInt(cartesianCoordinate.y), Mathf.RoundToInt(cartesianCoordinate.z));
+            return roundedCoordinate;
+        }
 
-            return cell.Sizes;
+        public bool TryAddBuilding(GameObject prefab, Vector3Int position)
+        {
+            var cell = _grid[position];
+
+            if(cell.HasBuilding) return false;
+
+            cell.AddBuilding(prefab);
+            return true;
         }
     }
 }

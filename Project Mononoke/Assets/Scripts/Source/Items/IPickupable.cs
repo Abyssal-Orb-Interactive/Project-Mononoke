@@ -2,7 +2,7 @@ namespace Source.Items
 {
     public interface IPickUpable
     {
-        public float GetWeight();
-        public float GetVolume();
+        public float Weight{get;}
+        public float Volume{get;}
     }
 }
