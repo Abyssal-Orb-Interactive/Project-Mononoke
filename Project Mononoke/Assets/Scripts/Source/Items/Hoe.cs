@@ -1,17 +1,25 @@
+using Source.BuildingSystem;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Items
 {
     public class Hoe : MonoBehaviour
     {
-       [SerializeField] private GameObject _seedBedPrefab = null;
-       [SerializeField] private Vector3 _targetPosition = Vector3.zero;
+       [SerializeField] private int _seedBedID = 0;
+
+       private OnGridBuilder _builder = null;
+       
+       [Inject] public void Initialize(OnGridBuilder builder)
+       {            
+            _builder = builder;
+       }
 
 
         [ContextMenu ("Plow")]
         public void Plow()
         {
-            Instantiate(_seedBedPrefab, _targetPosition, Quaternion.identity);
+            _builder?.TryBuildBuildingWith(_seedBedID, Vector3.zero);
         }
     }
 }
