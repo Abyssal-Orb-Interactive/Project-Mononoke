@@ -42,7 +42,9 @@ namespace Source.BuildingSystem
 
             var objectPlacementInformation = new ObjectPlacementInformation(buildingPrefab, position, Quaternion.identity, container);
 
-            _objectPlacer.PlaceObject(objectPlacementInformation);
+            var building = _objectPlacer.PlaceObject(objectPlacementInformation);
+        
+            _grid.TryAddBuilding(building, gridPosition);
 
             return true;
         }
