@@ -1,12 +1,12 @@
+using System;
 using System.Linq;
 using Base.Grid;
 using UnityEngine;
-using static Source.BuildingSystem.BuildRequestersRegister;
 using static Source.BuildingSystem.IBuildRequester;
 
 namespace Source.BuildingSystem
 {
-    public class OnGridBuilder
+    public class OnGridBuilder : IDisposable
     {
         private readonly OnGridObjectPlacer _objectPlacer = null;
         private readonly GroundGrid _grid = null;
@@ -19,8 +19,12 @@ namespace Source.BuildingSystem
             _grid = grid;
             _templatesDatabase = buildingsDatabase;
             _containerAssociator = containersAssociator;
-            BuildRequestersRegister.AddBuildRequesterRegisteredHandler(HandleBuildRequesterRegistered);
-            BuildRequestersRegister.AddBuildRequesterUnregisteredHandler(HandleBuildRequesterUnregistered);
+            BuildingRequestsBus.Subscribe(HandleBuildRequest);
+        }
+
+        public void Dispose()
+        {
+            BuildingRequestsBus.Unsubscribe(HandleBuildRequest);
         }
 
         public bool TryBuildBuildingWith(int ID, Vector3 position)
@@ -53,19 +57,9 @@ namespace Source.BuildingSystem
             return true;
         }
 
-        private void HandleBuildRequesterRegistered(object sender, BuildRequesterRegistrationEventArgs args)
+        private void HandleBuildRequest(BuildRequestEventArgs args)
         {
-            args.BuildRequester.AddBuildRequestHandler(HandleBuildRequest);
-        }
-
-        private void HandleBuildRequesterUnregistered(object sender, BuildRequesterRegistrationEventArgs args)
-        {
-            args.BuildRequester.RemoveBuildRequestHandler(HandleBuildRequest);
-        }
-
-        private void HandleBuildRequest(object sender, BuildRequestEventArgs args)
-        {
-            
+            TryBuildBuildingWith(args.BuildingID, args.Position);
         }
     }
 }
