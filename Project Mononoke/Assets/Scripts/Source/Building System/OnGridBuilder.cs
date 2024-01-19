@@ -1,6 +1,8 @@
 using System.Linq;
 using Base.Grid;
 using UnityEngine;
+using static Source.BuildingSystem.BuildRequestersRegister;
+using static Source.BuildingSystem.IBuildRequester;
 
 namespace Source.BuildingSystem
 {
@@ -17,6 +19,8 @@ namespace Source.BuildingSystem
             _grid = grid;
             _templatesDatabase = buildingsDatabase;
             _containerAssociator = containersAssociator;
+            BuildRequestersRegister.AddBuildRequesterRegisteredHandler(HandleBuildRequesterRegistered);
+            BuildRequestersRegister.AddBuildRequesterUnregisteredHandler(HandleBuildRequesterUnregistered);
         }
 
         public bool TryBuildBuildingWith(int ID, Vector3 position)
@@ -47,6 +51,21 @@ namespace Source.BuildingSystem
             _grid.TryAddBuilding(building, gridPosition);
 
             return true;
+        }
+
+        private void HandleBuildRequesterRegistered(object sender, BuildRequesterRegistrationEventArgs args)
+        {
+            args.BuildRequester.AddBuildRequestHandler(HandleBuildRequest);
+        }
+
+        private void HandleBuildRequesterUnregistered(object sender, BuildRequesterRegistrationEventArgs args)
+        {
+            args.BuildRequester.RemoveBuildRequestHandler(HandleBuildRequest);
+        }
+
+        private void HandleBuildRequest(object sender, BuildRequestEventArgs args)
+        {
+            
         }
     }
 }

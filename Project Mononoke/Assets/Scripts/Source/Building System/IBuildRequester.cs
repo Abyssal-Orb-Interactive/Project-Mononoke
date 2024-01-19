@@ -13,5 +13,15 @@ namespace Source.BuildingSystem
          {
             OnBuildRequested -= handler;
          }
+
+         protected void Enable()
+         {
+            BuildRequestersRegister.RegisterBuildRequester(this);
+         }
+
+         protected void Disable()
+         {
+            BuildRequestersRegister.UnregisterBuildRequester(this);
+         }
     }
 }

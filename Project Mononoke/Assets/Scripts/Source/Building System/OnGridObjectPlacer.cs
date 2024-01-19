@@ -20,6 +20,5 @@ namespace Source.BuildingSystem
         {
             return new Vector3(placementData.Position.x, placementData.Position.y + _gridYOffset, placementData.Position.z);
         }
-
     }
 }
