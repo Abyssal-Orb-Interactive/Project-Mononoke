@@ -1,25 +1,32 @@
 using Source.BuildingModule;
+using Source.ItemsModule;
 using UnityEngine;
-using VContainer;
 
 namespace Source.Items
 {
-    public class Hoe : MonoBehaviour
+    public class Hoe : ITool, IBuildRequester
     {
-       [SerializeField] private int _seedBedID = 0;
+        public float Durability { get; private set; }
 
-       private OnGridBuilder _builder = null;
-       
-       [Inject] public void Initialize(OnGridBuilder builder)
-       {            
-            _builder = builder;
-       }
+        public float Weight => throw new System.NotImplementedException();
 
+        public float Volume => throw new System.NotImplementedException();
 
-        [ContextMenu ("Plow")]
-        public void Plow()
+        public float Price => throw new System.NotImplementedException();
+
+        public void MakeRequest(IBuildRequester.BuildRequestEventArgs args)
         {
-            _builder?.TryBuildBuildingWith(_seedBedID, Vector3.zero);
+            BuildingRequestsBus.MakeRequest(this,args);
+        }
+
+        public void TakeDamage()
+        {
+            Durability--;
+        }
+
+        public void Use()
+        {
+            MakeRequest(new IBuildRequester.BuildRequestEventArgs(0, new Vector3(0,0,0)));
         }
     }
 }

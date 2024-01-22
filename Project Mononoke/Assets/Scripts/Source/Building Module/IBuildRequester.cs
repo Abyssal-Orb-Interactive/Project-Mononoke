@@ -2,9 +2,6 @@ namespace Source.BuildingModule
 {
     public partial interface IBuildRequester
     {
-        public void MakeRequest(BuildRequestEventArgs args)
-        {
-            BuildingRequestsBus.MakeRequest(this ,args);
-        }
+        public void MakeRequest(BuildRequestEventArgs args);
     }
 }
