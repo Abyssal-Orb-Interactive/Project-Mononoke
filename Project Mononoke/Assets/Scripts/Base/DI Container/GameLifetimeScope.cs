@@ -1,9 +1,7 @@
 using Base.Grid;
 using Base.Input;
 using Base.TileMap;
-using Source.BuildingSystem;
-using Source.Character;
-using Source.Character.Movement;
+using Source.BuildingModule;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;

@@ -1,4 +1,4 @@
-using Source.BuildingSystem;
+using Source.BuildingModule;
 using UnityEngine;
 using VContainer;
 

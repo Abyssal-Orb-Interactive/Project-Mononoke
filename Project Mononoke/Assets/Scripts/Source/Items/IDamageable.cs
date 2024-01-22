@@ -1,4 +1,4 @@
-namespace Source.Items
+namespace Source.ItemsModule
 {
     public interface IDamageable
     {

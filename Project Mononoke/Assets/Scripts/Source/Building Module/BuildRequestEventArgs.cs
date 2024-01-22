@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.BuildingSystem
+namespace Source.BuildingModule
 {
     public partial interface IBuildRequester
     {

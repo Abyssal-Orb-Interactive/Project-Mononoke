@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Source.BuildingSystem
+namespace Source.BuildingModule
 {
     public class ObjectContainersAssociator : MonoBehaviour
     {

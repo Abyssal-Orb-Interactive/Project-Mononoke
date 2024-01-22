@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using Base.Grid;
 using UnityEngine;
-using static Source.BuildingSystem.IBuildRequester;
+using static Source.BuildingModule.IBuildRequester;
 
-namespace Source.BuildingSystem
+namespace Source.BuildingModule
 {
     public class OnGridBuilder : IDisposable
     {

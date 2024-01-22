@@ -1,8 +1,7 @@
-namespace Source.Items
+namespace Source.ItemsModule
 {
     public interface IItem : IPickUpable, IDamageable, ISellable
     {
-        protected float Durability {get;}
-
+        public float Durability {get;}
     }
 }

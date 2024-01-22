@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static Source.BuildingSystem.IBuildRequester;
+using static Source.BuildingModule.IBuildRequester;
 
-namespace Source.BuildingSystem
+namespace Source.BuildingModule
 {
     public static class BuildingRequestsBus
     {

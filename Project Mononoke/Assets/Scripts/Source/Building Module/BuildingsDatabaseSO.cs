@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Source.BuildingSystem
+namespace Source.BuildingModule
 {
     [CreateAssetMenu]
     public class BuildingsDatabaseSo : ScriptableObject
     {
-        [SerializeField] private List<BuildingData> buildingsData;
+        [SerializeField] private List<BuildingData> buildingsData = null;
         public IReadOnlyList<BuildingData> BuildingsData => buildingsData;
     }
 

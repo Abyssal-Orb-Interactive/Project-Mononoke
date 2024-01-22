@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using InputHandler = Base.Input.InputHandler;
 
-namespace Source.BuildingSystem
+namespace Source.BuildingModule
 {
     public class PlacementSystem : MonoBehaviour
     {
