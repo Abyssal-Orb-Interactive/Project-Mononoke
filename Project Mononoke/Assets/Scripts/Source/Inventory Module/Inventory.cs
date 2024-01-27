@@ -1,14 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
 using Source.ItemsModule;
 
 namespace Source.InventoryModule
 {
-    public class Inventory
+    public class Inventory : IEnumerable<IPickUpable>
     {
         private float _weightCapacity = 0;
         private float _volumeCapacity = 0;
         private float _availableWeight = 0;
         private float _availableVolume = 0;
+
+        public int ItemCapacity => _items.Capacity;
 
         private List<IPickUpable> _items = null;
 
@@ -40,5 +43,15 @@ namespace Source.InventoryModule
       {
         _items.Remove(item);
       }
+
+        public IEnumerator<IPickUpable> GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace Source.BuildingModule
             GameObject buildingPrefab = buildingData.Prefab;
             Transform container = _containerAssociator.Associations[ID];
 
-            var objectPlacementInformation = new ObjectPlacementInformation(buildingPrefab, position, Quaternion.identity, container);
+            var objectPlacementInformation = new ObjectPlacementInformation<GameObject>(buildingPrefab, position, Quaternion.identity, container);
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
         

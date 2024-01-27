@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Source.ItemsModule
 {
@@ -10,14 +11,20 @@ namespace Source.ItemsModule
 
         public float Price { get; } = 0f;
 
-        public float Durability { get; } = 0f; 
+        public float Durability { get; } = 0f;
 
-        public Item(float weight, float volume, float price, float durability)
+        public Sprite Icon { get; } = null;
+
+        public string Description { get; } = null;
+
+        public Item(float weight, float volume, float price, float durability, Sprite icon, string description)
         {
             Weight = weight;
             Volume = volume;
             Price = price;
             Durability = durability;
+            Icon = icon;
+            Description = description;
         }
 
         public void TakeDamage()

@@ -8,15 +8,15 @@ namespace Source.BuildingModule
     {
         [SerializeField] private float _gridYOffset = -0.25f;
 
-        public GameObject PlaceObject(ObjectPlacementInformation placementData)
+        public T PlaceObject<T>(ObjectPlacementInformation<T> placementData) where T : Object
         {
             var correctedPosition = CorrectPosition(placementData);
-            GameObject placedObject = Instantiate(placementData.Prefab, correctedPosition, placementData.Rotation, placementData.Parent);
+            T placedObject = Instantiate(placementData.Prefab, correctedPosition, placementData.Rotation, placementData.Parent);
 
             return placedObject;
         }
 
-        private Vector3 CorrectPosition(ObjectPlacementInformation placementData)
+        private Vector3 CorrectPosition<T>(ObjectPlacementInformation<T> placementData) where T : Object
         {
             return new Vector3(placementData.Position.x, placementData.Position.y + _gridYOffset, placementData.Position.z);
         }

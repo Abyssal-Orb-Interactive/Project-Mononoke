@@ -14,6 +14,10 @@ namespace Source.Items
 
         public float Price => throw new System.NotImplementedException();
 
+        public Sprite Icon => throw new System.NotImplementedException();
+
+        public string Description => throw new System.NotImplementedException();
+
         public void MakeRequest(IBuildRequester.BuildRequestEventArgs args)
         {
             BuildingRequestsBus.MakeRequest(this,args);

@@ -7,7 +7,7 @@ namespace Source.ItemsModule
     public static class ItemsFabric
     {
         private static ItemsDatabaseSO _itemsDatabase = null;
-        [Inject] private static void Initialize(ItemsDatabaseSO itemsDatabase)
+        [Inject] public static void Initialize(ItemsDatabaseSO itemsDatabase)
         {
             _itemsDatabase = itemsDatabase;
         }
@@ -15,9 +15,11 @@ namespace Source.ItemsModule
         {
             if (_itemsDatabase == null) throw new InvalidOperationException("ItemsDatabaseSO has not been initialized. Call Initialize method first.");
 
-            ItemsDatabaseSO.ItemData itemData = _itemsDatabase.ItemsData.First(item => item.ID == ID) ?? throw new ArgumentException($"Item with ID {ID} not found in the database.");
+            ItemsDatabaseSO.ItemData itemData = null;
 
-            var item = new Item(itemData.Weight, itemData.Volume, itemData.Price, itemData.Durability);
+            if (!_itemsDatabase.TryGetItemDataBy(ID, ref itemData)) return new Item(0, 0, 0, 0, null, "Missing Item");
+
+            var item = new Item(itemData.Weight, itemData.Volume, itemData.Price, itemData.Durability, itemData.UIData.Icon, itemData.UIData.Description);
 
             return item;
         }
