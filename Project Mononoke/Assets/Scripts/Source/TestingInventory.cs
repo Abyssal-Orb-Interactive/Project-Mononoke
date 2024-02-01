@@ -15,9 +15,9 @@ namespace Scripts.Source
         {
             ItemsFabric.Initialize(items);
 
-           _inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
-           _inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
-           _inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
+           //_inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
+           //_inventory.TryAddItem(ItemsFabric.CreateItemWith(1));
+           //.TryAddItem(ItemsFabric.CreateItemWith(2));
 
            presenter.Initialize(_inventory);
            presenter.PresentInventory();

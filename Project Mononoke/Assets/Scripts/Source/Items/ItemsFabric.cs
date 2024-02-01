@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using VContainer;
 
 namespace Source.ItemsModule
@@ -15,11 +14,10 @@ namespace Source.ItemsModule
         {
             if (_itemsDatabase == null) throw new InvalidOperationException("ItemsDatabaseSO has not been initialized. Call Initialize method first.");
 
-            ItemsDatabaseSO.ItemData itemData = null;
 
-            if (!_itemsDatabase.TryGetItemDataBy(ID, ref itemData)) return new Item(0, 0, 0, 0, null, "Missing Item");
+            if (!_itemsDatabase.TryGetItemDataBy(ID, out ItemsDatabaseSO.ItemData itemData)) return new Item(0, 0, 0, 0);
 
-            var item = new Item(itemData.Weight, itemData.Volume, itemData.Price, itemData.Durability, itemData.UIData.Icon, itemData.UIData.Description);
+            var item = new Item(itemData.Weight, itemData.Volume, itemData.Price, itemData.Durability);
 
             return item;
         }

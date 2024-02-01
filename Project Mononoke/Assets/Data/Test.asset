@@ -20,6 +20,29 @@ MonoBehaviour:
     <Volume>k__BackingField: 0.2
     <Price>k__BackingField: 2
     <Durability>k__BackingField: 3
+    <MaxStackSize>k__BackingField: 64
     <UIData>k__BackingField:
       <Icon>k__BackingField: {fileID: -1241224534, guid: bf5a8bec640e90145bca962b1f3cd3d7, type: 3}
       <Description>k__BackingField: Simple carrot.
+  - <Name>k__BackingField: Tomato
+    <ID>k__BackingField: 1
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 0.1
+    <Volume>k__BackingField: 0.2
+    <Price>k__BackingField: 2
+    <Durability>k__BackingField: 3
+    <MaxStackSize>k__BackingField: 64
+    <UIData>k__BackingField:
+      <Icon>k__BackingField: {fileID: 1418585457, guid: b4651b8357378f44aba6474542a2195f, type: 3}
+      <Description>k__BackingField: Simple tomato.
+  - <Name>k__BackingField: Onion
+    <ID>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 0.1
+    <Volume>k__BackingField: 0.2
+    <Price>k__BackingField: 2
+    <Durability>k__BackingField: 3
+    <MaxStackSize>k__BackingField: 64
+    <UIData>k__BackingField:
+      <Icon>k__BackingField: {fileID: 685671588, guid: 4fba3dbd3eca9504c974dc7fffdb98da, type: 3}
+      <Description>k__BackingField: Simple onion.

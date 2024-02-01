@@ -34,7 +34,7 @@ namespace Source.InventoryModule
      public void StashToInventory()
      {
           if(_heldObject == null) return;
-          if(!_inventory.TryAddItem(_heldObject)) return;
+          //if(!_inventory.TryAddItem(_heldObject)) return;
           _heldObject = null;
      }
     }
