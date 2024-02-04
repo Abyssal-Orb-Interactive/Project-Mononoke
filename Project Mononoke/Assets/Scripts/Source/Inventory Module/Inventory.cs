@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Source.ItemsModule;
 using static Source.InventoryModule.InventoryItemsStackFabric;
-using static Source.ItemsModule.ItemsDatabaseSO;
+using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.InventoryModule
 {
@@ -97,7 +97,7 @@ namespace Source.InventoryModule
 
       private bool TryAddStack(ItemData itemData, List<InventoryItemsStack> stacks)
       {
-        if (InventoryItemsStackFabricCantCreateNewStack(stackIndex: stacks.Count, out InventoryItemsStack newStack, itemData.MaxStackSize)) return false;
+        if (InventoryItemsStackFabricCantCreateNewStack(stackIndex: stacks.Count, out InventoryItemsStack newStack, itemData.MaxStackCapacity)) return false;
         stacks.Add(newStack);
         return true;
       }

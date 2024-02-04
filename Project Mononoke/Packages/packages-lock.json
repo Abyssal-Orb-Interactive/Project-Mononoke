@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "64792b672d35e43b3412fc74861f8bdbf41e3a6f"
+    },
     "com.seanba.super-tiled2unity": {
       "version": "file:ST2U2.1.1",
       "depth": 0,
@@ -177,13 +184,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.nuget.mono-cecil": {
-      "version": "1.11.4",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.render-pipelines.core": {
       "version": "14.0.8",
       "depth": 1,
@@ -250,7 +250,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -290,12 +290,10 @@
       }
     },
     "jp.hadashikick.vcontainer": {
-      "version": "1.13.2",
+      "version": "1.14.0",
       "depth": 0,
       "source": "registry",
-      "dependencies": {
-        "com.unity.nuget.mono-cecil": "1.10.1"
-      },
+      "dependencies": {},
       "url": "https://package.openupm.com"
     },
     "com.unity.modules.ai": {

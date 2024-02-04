@@ -8,7 +8,7 @@ namespace Scripts.Source
     public class TestingInventory : MonoBehaviour
     {
         [SerializeField] private InventoryPresenter presenter = null;
-        [SerializeField] private ItemsDatabaseSO items = null;
+        [SerializeField] private TrashItemsDatabaseSO items = null;
         private readonly Inventory _inventory = new (weightCapacity: 100, volumeCapacity: 100);
 
         void Start()

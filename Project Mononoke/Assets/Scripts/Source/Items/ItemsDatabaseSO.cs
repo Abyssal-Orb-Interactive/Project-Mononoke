@@ -1,80 +1,113 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Source.ItemsModule
 {
-    [CreateAssetMenu]
-    public class ItemsDatabaseSO : ScriptableObject, IPickUpableDatabase
+    [CreateAssetMenu(fileName = "TrashItemsDatabase", menuName = "Databases/Create trash items database")]
+    public class TrashItemsDatabaseSO : ScriptableObject, IPickUpableDatabase
     {
         private const float MINIMAL_FLOAT_VALUE = 0.01f;
         private const int MINIMAL_ID_VALUE = 0;
-        private const int MINIMAL_STACK_SIZE = 1;
-        [SerializeField] private List<ItemData> _itemsData = null;
-        private Dictionary<int, ItemData> _itemsDataFast = new();
+        private const int MINIMAL_STACK_CAPACITY = 1;
+        private const int MAX_WARNINGS_NUMBER = 7;
+        private Dictionary<int, ItemData> _database = null;
 
-        private void OnValidate() 
+        private readonly List<string> _warningsBuffer = new(MAX_WARNINGS_NUMBER);
+
+        public bool TryGetItemDataBy (int ID, out ItemData value)
         {
-            _itemsDataFast.Clear();
+            if(_database.TryGetValue(ID, out value)) return true;
+            
+            #if DEBUG
+            Debug.LogWarning($"{name} database doesn't contains item data with {ID} ID");
+            #endif
+            return false;
+        }
 
-            foreach(var itemData in _itemsData)
+        public void AddOrOverwriteItemsData(IReadOnlyCollection<ItemData> itemsData)
+        {
+            foreach(var data in itemsData)
             {
-                if(!CheckDataCorrectness(itemData)) 
-                {
-                    continue;
-                }
-                _itemsDataFast.Add(itemData.ID, itemData);
+                TryAddOrOverwriteItemData(data);
+            }
+        }
 
-            }  
+        public bool TryAddOrOverwriteItemData (ItemData data)
+        {
+            _database ??= new();
+
+            if(!CheckDataCorrectness(data)) return false;
+
+            AddOrOverwriteItemData(data);
+            return true;
+        }
+
+        private void AddOrOverwriteItemData(ItemData data)
+        {
+            if(_database.ContainsKey(data.ID))
+            {
+                _database[data.ID] = data;
+                return;
+            } 
+            _database.Add(data.ID, data);
         }
 
         private bool CheckDataCorrectness(ItemData data)
         {
-            var result = false;
+            _warningsBuffer.Clear();
+            var itemName = data.Name;
 
-            result =  CheckIDCorrectness(data.ID);
-            if(!result)
+            if(!CheckIDCorrectness(data.ID))
             {
-                Debug.LogWarning($"All Items in {name} database must have ID greater or equal {MINIMAL_ID_VALUE}, ID of item {data.Name} is lesser than {MINIMAL_ID_VALUE}, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+                _warningsBuffer.Add(GenerateDataCorrectnessWarning("ID", itemName, boundaryValue: MINIMAL_ID_VALUE));
             }
 
-            result = CheckWeightCorrectness(data.Weight);
-            if(!result)
+            if(!CheckWeightCorrectness(data.Weight))
             {
-                Debug.LogWarning($"All Items in {name} database must have weight greater or equal {MINIMAL_FLOAT_VALUE}, weight of item {data.Name} is lesser than {MINIMAL_FLOAT_VALUE}, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+                _warningsBuffer.Add(GenerateDataCorrectnessWarning("Weight", itemName));
             }
 
-            result = CheckVolumeCorrectness(data.Volume);
-            if(!result)
+            if(!CheckVolumeCorrectness(data.Volume))
             {
-                Debug.LogWarning($"All Items in {name} database must have volume greater or equal {MINIMAL_FLOAT_VALUE}, volume of item {data.Name} is lesser than {MINIMAL_FLOAT_VALUE}, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+                _warningsBuffer.Add(GenerateDataCorrectnessWarning("Volume", itemName));
             }
 
-            result = CheckPriceCorrectness(data.Price);
-            if(!result)
+            if(!CheckPriceCorrectness(data.Price))
             {
-                Debug.LogWarning($"All Items in {name} database must have price greater or equal {MINIMAL_FLOAT_VALUE}, price of item {data.Name} is lesser than {MINIMAL_FLOAT_VALUE}, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+                _warningsBuffer.Add(GenerateDataCorrectnessWarning("Price", itemName));
             }
 
-            result = CheckDurabilityCorrectness(data.Durability);
-            if(!result)
+            if(!CheckDurabilityCorrectness(data.Durability))
             {
-                Debug.LogWarning($"All Items in {name} database must have durability greater or equal {MINIMAL_FLOAT_VALUE}, durability of item {data.Name} is lesser than {MINIMAL_FLOAT_VALUE}, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+                _warningsBuffer.Add(GenerateDataCorrectnessWarning("Durability", itemName));
             }
 
-            result = CheckStackSizeCorrectness(data.MaxStackSize);
-            if(!result)
+            if(!CheckStackSizeCorrectness(data.MaxStackCapacity))
             {
-                Debug.LogWarning($"All Items in {name} database must have stack size greater or equal {MINIMAL_STACK_SIZE}, durability of item {data.Name} is lesser than {MINIMAL_STACK_SIZE}, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+               _warningsBuffer.Add(GenerateDataCorrectnessWarning("MaxStackCapacity", itemName, boundaryValue: MINIMAL_STACK_CAPACITY));
             }
 
-            result = IsIDUnique(data.ID);
-            if(!result)
+            if(!IsIDUnique(data.ID, data.Name))
             {
-                Debug.LogWarning( $"All Items in {name} database must have unique ID, ID of {data.Name} already registered for another item, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
+                _warningsBuffer.Add( $"All Items in {name} database must have unique ID, ID of {data.Name} already registered for another item, {data.Name} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts");
             }
 
-            return result;
+            if(_warningsBuffer.Count > 0)
+            {
+                #if DEBUG
+                Debug.LogWarning($"Item {data.Name} in {name} database has the following issues:\n{string.Join("\n", _warningsBuffer)}");
+                #endif
+                return false;
+            }
+
+            return true;
+        }
+
+        private string GenerateDataCorrectnessWarning(string attribute, string itemName, string comparison = "is greater or equal", string actualCompressionWithBorderValue = "lesser" ,float boundaryValue = MINIMAL_FLOAT_VALUE)
+        {
+            return $"All Items in {name} database must have {attribute} {comparison} {boundaryValue}, {attribute} of item {itemName} is {actualCompressionWithBorderValue} than {boundaryValue}, {itemName} will be excluded and unavailable to game entities from {name} database to avoid possible conflicts";
         }
 
         private bool CheckIDCorrectness(int ID)
@@ -104,52 +137,75 @@ namespace Source.ItemsModule
 
         private bool CheckStackSizeCorrectness(int maxStackSize)
         {
-            return maxStackSize >= MINIMAL_STACK_SIZE;
+            return maxStackSize >= MINIMAL_STACK_CAPACITY;
         }
 
-        private bool IsIDUnique(int ID)
+        private bool IsIDUnique(int ID, string name)
         {
-            return !_itemsDataFast.ContainsKey(ID);
-        }  
+            return !_database.ContainsKey(ID) || _database[ID].Name == name;
+        }
+        public override string ToString()
+        {
+            var strBuilder = new StringBuilder();
 
-        public bool TryGetItemDataBy (int ID, out ItemData value)
-        {
-            if(!_itemsDataFast.ContainsKey(ID))
+            strBuilder.Append($"{this.name} Database: ");
+
+            foreach(var data in _database.Values)
             {
-                Debug.LogWarning($"{name} database doesn't contains item data with {ID} ID");
-                value = default(ItemData);
-                return false;
+                strBuilder.AppendLine("\t----------------------------------");
+                strBuilder.AppendLine(data.ToString());
+                strBuilder.AppendLine("\t----------------------------------");
             }
 
-            value = GetItemDataBy(ID);
-            return true;
+            return strBuilder.ToString();
         }
-
-        private ItemData GetItemDataBy(int ID)
-        {
-            return _itemsDataFast[ID];
-        }  
 
         [Serializable]
         public class ItemData 
         {
             [field: SerializeField] public string Name { get; private set; } = null;
-            [field: SerializeField] public int ID { get; private set; } = -1;
+            [field: SerializeField, Range(MINIMAL_ID_VALUE, int.MaxValue)] public int ID { get; private set; } = -1;
             [field: SerializeField] public GameObject Prefab { get; private set; } = null;
-            [field: SerializeField] public float Weight { get; private set; } = -1;
-            [field: SerializeField] public float Volume { get; private set; } = -1;
-            [field: SerializeField] public float Price { get; private set; } = -1;
-            [field: SerializeField] public float Durability { get; private set; } = -1;
-            [field: SerializeField] public int MaxStackSize {get; private set;} = 1;
+            [field: SerializeField, Range(MINIMAL_FLOAT_VALUE, float.MaxValue)] public float Weight { get; private set; } = -1;
+            [field: SerializeField, Range(MINIMAL_FLOAT_VALUE, float.MaxValue)] public float Volume { get; private set; } = -1;
+            [field: SerializeField, Range(MINIMAL_FLOAT_VALUE, float.MaxValue)] public float Price { get; private set; } = -1;
+            [field: SerializeField, Range(MINIMAL_FLOAT_VALUE, float.MaxValue)] public float Durability { get; private set; } = -1;
+            [field: SerializeField, Range(MINIMAL_STACK_CAPACITY, int.MaxValue)] public int MaxStackCapacity {get; private set;} = 1;
             [field: SerializeField] public UIItemData UIData {get; private set;} = null;
+
+             public ItemData(int id, string name, float weight, float volume, float price, float durability, int stackCapacity, string description)
+            {
+                ID = id;
+                Name = name;
+                Weight = weight;
+                Volume = volume;
+                Price = price;
+                Durability = durability;
+                MaxStackCapacity = stackCapacity;
+                UIData = new UIItemData(description);
+            }
+
+            public override string ToString()
+            {
+                return $"\t ID : {ID}\n\t Name : {Name}\n\t Weight : {Weight}\n\t Volume : {Volume}\n\t Price : {Price}\n\t Durability : {Durability}\n\t MaxStackSize : {MaxStackCapacity}\n\t UIData :\n\t\t {UIData} ";
+            }
         }
 
         [Serializable]
         public class UIItemData
         {
+            public UIItemData(string description)
+            {
+                Description = description;
+            }
+
             [field: SerializeField] public Sprite Icon { get; private set; } = null;
             [field: SerializeField] [field: TextArea] public String Description {get; private set;} = null;
 
+            public override string ToString()
+            {
+                return $" Description : {Description} ";
+            }
         }    
     }
 }

@@ -1,5 +1,5 @@
 using System;
-using static Source.ItemsModule.ItemsDatabaseSO;
+using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.ItemsModule
 {
