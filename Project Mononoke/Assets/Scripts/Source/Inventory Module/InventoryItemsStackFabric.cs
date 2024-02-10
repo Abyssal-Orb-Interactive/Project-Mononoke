@@ -39,6 +39,11 @@ namespace Source.InventoryModule
                 return _stack.Count == _stack.Capacity;
             }
 
+            public bool TryPeekItem(out InventoryItem item)
+            {
+                return _stack.TryPeek(out item);
+            }
+
             public bool IsEmpty()
             {
                 return _stack.Count == 0;

@@ -2,6 +2,7 @@ using Source.InventoryModule.UI;
 using Source.ItemsModule;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Source.InventoryModule.Inventory;
 
 namespace Source.UI
 {
@@ -19,7 +20,7 @@ namespace Source.UI
             Toggle(false);
         }
 
-        public void SetData(IPickUpable item)
+        public void SetData(InventoryItem item)
         {
             _UIElement.InitializeWith(item);
         }

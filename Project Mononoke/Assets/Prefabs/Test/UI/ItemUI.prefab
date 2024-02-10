@@ -171,6 +171,7 @@ MonoBehaviour:
   _countBackground: {fileID: 750937719370151006}
   _border: {fileID: 6574919933815988887}
   _countOFItems: {fileID: 6329838039763034673}
+  _spriteAtlas: {fileID: 0}
 --- !u!1 &5725752724580555345
 GameObject:
   m_ObjectHideFlags: 0

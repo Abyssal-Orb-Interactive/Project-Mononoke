@@ -6,6 +6,7 @@ using Source.ItemsModule;
 using Source.UI;
 using UnityEngine;
 using VContainer;
+using static Source.InventoryModule.Inventory;
 
 namespace Source.InventoryModule.UI
 {
@@ -33,10 +34,11 @@ namespace Source.InventoryModule.UI
         public void PresentInventory()
         {
             _descriptionWindow.Reset();
-            foreach(var item in _inventory)
+            foreach(var stack in _inventory)
             {
                 AddInventoryCell();
-                //_inventoryPresenterCells.Last().InitializeWith(item);       
+                stack.TryPeekItem(out InventoryItem item);
+                _inventoryPresenterCells.Last().InitializeWith(item);       
             }
         }
 
@@ -50,7 +52,7 @@ namespace Source.InventoryModule.UI
             }
         }
 
-        public void UpdateData(int itemIndex, IPickUpable item)
+        public void UpdateData(int itemIndex, InventoryItem item)
         {
             if(_inventoryPresenterCells.Count < itemIndex || itemIndex < 0) return;
 
@@ -93,8 +95,8 @@ namespace Source.InventoryModule.UI
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
 
-            var itemBuffer = _inventoryPresenterCells[_currentDraggingItemIndex]._item;
-            _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index]._item);
+            var itemBuffer = _inventoryPresenterCells[_currentDraggingItemIndex].ItemData;
+            _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index].ItemData);
             _inventoryPresenterCells[index].InitializeWith(itemBuffer);
             OnSwapItemsRequested?.Invoke(_currentDraggingItemIndex, index);
         }
@@ -106,10 +108,10 @@ namespace Source.InventoryModule.UI
             _currentDraggingItemIndex = index;
             HandleItemSelection(element);
             OnStartDraggingRequested?.Invoke(_currentDraggingItemIndex);
-            CreateDraggedItem(element._item);
+            CreateDraggedItem(element.ItemData);
         }
 
-        private void CreateDraggedItem(IPickUpable item)
+        private void CreateDraggedItem(InventoryItem item)
         {
             _mousePointer.Toggle(true);
             _mousePointer.SetData(item);
@@ -121,7 +123,7 @@ namespace Source.InventoryModule.UI
             if(index == -1) return;
             OnDescriptionRequested?.Invoke(index);
             element.Select();
-            //_descriptionWindow.InitializeWith(element, element, element);
+            _descriptionWindow.InitializeWith(element.ItemData);
             ResetSelection();
         }
 

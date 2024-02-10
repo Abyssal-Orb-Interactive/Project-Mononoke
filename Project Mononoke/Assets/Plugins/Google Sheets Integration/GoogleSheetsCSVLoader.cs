@@ -21,7 +21,7 @@ namespace Plugins.GoogleSheetsIntegration
         {
             using var unityWebRequest = UnityWebRequest.Get(url);
 
-            var asyncOperation = unityWebRequest.SendWebRequest();
+            var asyncOperation = await unityWebRequest.SendWebRequest();
 
             await UniTask.WaitUntil(() => asyncOperation.isDone);
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Source.ItemsModule;
+using UnityEngine;
 using static Source.InventoryModule.InventoryItemsStackFabric;
 using static Source.ItemsModule.TrashItemsDatabaseSO;
 
@@ -24,17 +25,22 @@ namespace Source.InventoryModule
         _availableWeight = _weightCapacity;
         _availableVolume = _volumeCapacity;
         _inventory = new(30);
-      }  
+      } 
+
+      public bool TryAddItem(IPickUpable item)
+      {
+        return TryAddItem(new InventoryItem(item.ID, item.Database));
+      }
 
       public bool TryAddItem(InventoryItem item)
         {
-          if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.DataBase, item.ID, out ItemData itemData)) return false;
+          if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.Database, item.ID, out ItemData itemData)) return false;
 
           if (ItemDoesNotFitsInInventoryBy(itemData.Weight, itemData.Volume)) return false;
 
           if (InventoryDoesNotContainsStacksOf(item.ID, out List<InventoryItemsStack> stacks))
           {
-            if (CantAddRecordForStacksBy(item.ID)) return false;
+            if (CantAddRecordForStacksBy(item.ID, out stacks)) return false;
           }
 
           var stackForAdding = GetFirstIncompleteStackOrDefault(stacks);
@@ -57,7 +63,7 @@ namespace Source.InventoryModule
 
       private bool EnterAddingParametersIsInvalid(InventoryItem item)
       {
-        return item.Equals(default) || item.DataBase == null || _inventory == null;
+        return item.Equals(default) || item.Database == null || _inventory == null;
       }
 
       private bool CantGetItemDataFrom(IPickUpableDatabase database, int ID, out ItemData itemData)
@@ -75,9 +81,9 @@ namespace Source.InventoryModule
         return !_inventory.TryGetValue(ID, out stacks);
       }
 
-      private bool CantAddRecordForStacksBy(int ID)
+      private bool CantAddRecordForStacksBy(int ID, out List<InventoryItemsStack> stacks)
       {
-        return !_inventory.TryAdd(ID, new List<InventoryItemsStack>());
+        return !_inventory.TryAdd(ID, stacks = new List<InventoryItemsStack>());
       }
 
       private InventoryItemsStack GetFirstIncompleteStackOrDefault(List<InventoryItemsStack> stacks)
@@ -92,7 +98,7 @@ namespace Source.InventoryModule
 
       private bool NoIncompleteStacks(InventoryItemsStack stackForAdding)
       {
-        return stackForAdding.Equals(default(InventoryItemsStack));
+        return stackForAdding == null;
       }
 
       private bool TryAddStack(ItemData itemData, List<InventoryItemsStack> stacks)
@@ -170,9 +176,16 @@ namespace Source.InventoryModule
 
       public readonly struct InventoryItem : IComparable<InventoryItem>
       {
-        public int ID { get; }
-        public IPickUpableDatabase DataBase { get; }
+            public int ID { get; }
+        public IPickUpableDatabase Database { get; }
         public float PercentsOfDurability { get; }
+
+         public InventoryItem(int iD, IPickUpableDatabase database) : this()
+            {
+                ID = iD;
+                Database = database;
+            }
+
         public readonly int CompareTo(InventoryItem other)
         {
           return PercentsOfDurability.CompareTo(other.PercentsOfDurability);

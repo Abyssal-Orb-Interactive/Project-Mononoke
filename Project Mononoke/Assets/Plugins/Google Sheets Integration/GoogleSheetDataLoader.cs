@@ -1,22 +1,30 @@
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Source.ItemsModule;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Plugins.GoogleSheetsIntegration
 {
     [InitializeOnLoad]
     public class GoogleSheetsDataLoader
     {
-        private const string DATA_LOADER_CONFIG_PATH = "Assets/Plugins/Google Sheets Integration/Data Loader Config.asset";
+        private const string DATA_LOADER_CONFIG_ADDRESSABLES_KEY = "Data Loader Config";
 
         private static GoogleSheetDataLoaderConfig _config = null;
 
         [MenuItem("Tools/Google Sheets/Update all data")]
-        public static void LoadAsyncAllDataFromGoogleSheet()
+        public static async void LoadAsyncAllDataFromGoogleSheet()
         {
             if(_config == null)
             {
-                if(!TryLoadConfigUsing(DATA_LOADER_CONFIG_PATH, out _config)) return;
+                _config = await LoadAssetAsync<GoogleSheetDataLoaderConfig>(DATA_LOADER_CONFIG_ADDRESSABLES_KEY);
+                if(EqualityComparer<GoogleSheetDataLoaderConfig>.Default.Equals(_config, null)) 
+                {
+                    Debug.LogWarning($"Failed to load GoogleSheetDataLoaderConfig on addresables key: {DATA_LOADER_CONFIG_ADDRESSABLES_KEY}");
+                    return;
+                }
             }
             
             LoadAsyncTrashItemsDataFromGoogleSheet();
@@ -28,47 +36,32 @@ namespace Plugins.GoogleSheetsIntegration
         {
             if(_config == null)
             {
-                if(!TryLoadConfigUsing(DATA_LOADER_CONFIG_PATH, out _config)) return;
+                _config = await LoadAssetAsync<GoogleSheetDataLoaderConfig>(DATA_LOADER_CONFIG_ADDRESSABLES_KEY);
+                if(EqualityComparer<GoogleSheetDataLoaderConfig>.Default.Equals(_config, null)) 
+                {
+                    Debug.LogWarning($"Failed to load GoogleSheetDataLoaderConfig on addresables key: {DATA_LOADER_CONFIG_ADDRESSABLES_KEY}");
+                    return;
+                }
             }
-            if(!TryLoadDatabaseUsing(_config.TrashItemsDatabasePath, out TrashItemsDatabaseSO database))  return;
+
+            TrashItemsDatabaseSO database = await LoadAssetAsync<TrashItemsDatabaseSO>(_config.TrashItemsDatabaseAddressablesKey);
+            if(EqualityComparer<TrashItemsDatabaseSO>.Default.Equals(database, null)) 
+            {
+                Debug.LogWarning($"Failed to load TrashItemsDatabaseSO on addresables key: {_config.TrashItemsDatabaseAddressablesKey}");
+                return;
+            }
 
             var rawCVS = await GoogleSheetsCSVLoader.DownloadTableAsync(_config.ItemsTableID, _config.TrashItemsSheetGID);
-            var itemsData = CSVItemsDataProcessor.ProcessData(rawCVS);
-            database.AddOrOverwriteItemsData(itemsData);
+            var itemsData = await CSVItemsDataProcessor.ProcessData(rawCVS);
+
+
+            database.LoadDatabase(itemsData);
             Debug.Log(database.ToString());
         }
 
-        private static bool TryLoadDatabaseUsing(string path, out TrashItemsDatabaseSO database)
+        private static async UniTask<T> LoadAssetAsync<T>(string assetKey)
         {
-            database = AssetDatabase.LoadAssetAtPath<TrashItemsDatabaseSO>(path);
-
-            if(database == null) 
-            {
-                Debug.LogWarning($"Failed to load ItemsDatabaseSO on path: {path}");
-                return false;
-            }
-
-            return true;
-        }
-
-        private static bool TryLoadConfigUsing(string path, out GoogleSheetDataLoaderConfig database)
-        {
-            database = AssetDatabase.LoadAssetAtPath<GoogleSheetDataLoaderConfig>(path);
-
-            if(database == null) 
-            {
-                Debug.LogWarning($"Failed to load GoogleSheetDataLoaderConfig on path: {path}");
-                return false;
-            }
-
-            return true;
-        }
-
-        static GoogleSheetsDataLoader()
-        {
-            if(!TryLoadConfigUsing(DATA_LOADER_CONFIG_PATH, out _config)) return;
-
-            LoadAsyncAllDataFromGoogleSheet();
+            return await Addressables.LoadAssetAsync<T>(assetKey);
         }
     }
 }

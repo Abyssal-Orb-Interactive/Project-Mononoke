@@ -13,7 +13,11 @@ namespace Source.Items
         public float Volume => throw new System.NotImplementedException();
 
         public float Price => throw new System.NotImplementedException();
-        
+
+        public int ID => throw new System.NotImplementedException();
+
+        public IPickUpableDatabase Database => throw new System.NotImplementedException();
+
         public void MakeRequest(IBuildRequester.BuildRequestEventArgs args)
         {
             BuildingRequestsBus.MakeRequest(this,args);

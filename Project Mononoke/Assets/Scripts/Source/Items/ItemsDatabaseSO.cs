@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.U2D;
 
 namespace Source.ItemsModule
 {
@@ -12,12 +16,38 @@ namespace Source.ItemsModule
         private const int MINIMAL_ID_VALUE = 0;
         private const int MINIMAL_STACK_CAPACITY = 1;
         private const int MAX_WARNINGS_NUMBER = 7;
-        private Dictionary<int, ItemData> _database = null;
+
+        [SerializeField] private List<ItemData> _savedData = new();
+
+        private Dictionary<int, ItemData> _database = new();
 
         private readonly List<string> _warningsBuffer = new(MAX_WARNINGS_NUMBER);
 
+        public void LoadDatabase(IReadOnlyCollection<ItemData> data)
+        {
+            _savedData.Clear();
+
+            foreach(var itemData in data)
+            {
+                _savedData.Add(itemData);
+            }
+
+            AddOrOverwriteItemsData(_savedData);
+        }
+
+        public void InitializeDatabase()
+        {
+            AddOrOverwriteItemsData(_savedData);
+        }
+
+        private bool IsDatabaseEmpty()
+        {
+            return _database == null || _database.Count == 0;
+        }
+
         public bool TryGetItemDataBy (int ID, out ItemData value)
         {
+            if(IsDatabaseEmpty()) InitializeDatabase();
             if(_database.TryGetValue(ID, out value)) return true;
             
             #if DEBUG
@@ -26,7 +56,7 @@ namespace Source.ItemsModule
             return false;
         }
 
-        public void AddOrOverwriteItemsData(IReadOnlyCollection<ItemData> itemsData)
+        private void AddOrOverwriteItemsData(IReadOnlyCollection<ItemData> itemsData)
         {
             foreach(var data in itemsData)
             {
@@ -34,7 +64,7 @@ namespace Source.ItemsModule
             }
         }
 
-        public bool TryAddOrOverwriteItemData (ItemData data)
+        private bool TryAddOrOverwriteItemData (ItemData data)
         {
             _database ??= new();
 
@@ -173,7 +203,7 @@ namespace Source.ItemsModule
             [field: SerializeField, Range(MINIMAL_STACK_CAPACITY, int.MaxValue)] public int MaxStackCapacity {get; private set;} = 1;
             [field: SerializeField] public UIItemData UIData {get; private set;} = null;
 
-             public ItemData(int id, string name, float weight, float volume, float price, float durability, int stackCapacity, string description)
+             public ItemData(int id, string name, float weight, float volume, float price, float durability, int stackCapacity, string spriteName, SpriteAtlas atlas, string description)
             {
                 ID = id;
                 Name = name;
@@ -182,7 +212,7 @@ namespace Source.ItemsModule
                 Price = price;
                 Durability = durability;
                 MaxStackCapacity = stackCapacity;
-                UIData = new UIItemData(description);
+                UIData = new UIItemData(spriteName, atlas, description);
             }
 
             public override string ToString()
@@ -194,17 +224,22 @@ namespace Source.ItemsModule
         [Serializable]
         public class UIItemData
         {
-            public UIItemData(string description)
+            [SerializeField] private SpriteAtlas _iconAtlas = null;
+            [SerializeField] private string _spriteName  = null;
+            [field: SerializeField] [field: TextArea] public String Description {get; private set;} = null;
+
+            public Sprite Icon => _iconAtlas.GetSprite(_spriteName);
+
+            public UIItemData(string spriteName, SpriteAtlas atlas, string description)
             {
+                _spriteName = spriteName;
+                _iconAtlas = atlas;
                 Description = description;
             }
 
-            [field: SerializeField] public Sprite Icon { get; private set; } = null;
-            [field: SerializeField] [field: TextArea] public String Description {get; private set;} = null;
-
             public override string ToString()
             {
-                return $" Description : {Description} ";
+                return $"Icon Sprite Name : {_spriteName}\n\t Icon Atlas : {_iconAtlas}\n\t Description : {Description} ";
             }
         }    
     }

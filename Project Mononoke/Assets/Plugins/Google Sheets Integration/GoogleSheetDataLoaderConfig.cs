@@ -10,7 +10,7 @@ namespace Plugins.GoogleSheetsIntegration
         public string ItemsTableID => _itemsTableID;
         [SerializeField] private string _trashItemsSheetGID = "0";
         public string TrashItemsSheetGID => _trashItemsSheetGID;
-        [SerializeField] private string _trashItemsDatabasePath = "Assets/Data/Test.asset";
-        public string TrashItemsDatabasePath => _trashItemsDatabasePath;
+        [SerializeField] private string _trashItemsDatabaseAddressablesKey = "Trash Items Database";
+        public string TrashItemsDatabaseAddressablesKey => _trashItemsDatabaseAddressablesKey;
     }
 }

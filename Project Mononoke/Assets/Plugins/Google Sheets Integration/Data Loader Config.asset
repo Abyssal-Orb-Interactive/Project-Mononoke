@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116fb2384187fcf47bd1ebc497e4a646, type: 3}
   m_Name: Data Loader Config
   m_EditorClassIdentifier: 
+  _itemsTableID: 1y-Y10kbAhhNJPotL3F-C9Cnr3EpGxSy3SafOiHXN72k
+  _trashItemsSheetGID: 0
+  _trashItemsDatabaseAddressablesKey: Trash Items Database

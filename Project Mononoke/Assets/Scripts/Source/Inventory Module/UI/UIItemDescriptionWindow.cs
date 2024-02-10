@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Source.InventoryModule.Inventory;
+using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 public class UIItemDescriptionWindow : MonoBehaviour
 {
@@ -16,11 +18,12 @@ public class UIItemDescriptionWindow : MonoBehaviour
         _description.text = "";
     }
 
-    public void InitializeWith(Sprite icon, string title, string description)
+    public void InitializeWith(InventoryItem item)
     {
-        _icon.sprite = icon;
-        _title.text = title;
-        _description.text = description;
+        if(!item.Database.TryGetItemDataBy(item.ID, out ItemData data)) return;
+        _icon.sprite = data.UIData.Icon;
+        _title.text = data.Name;
+        _description.text = data.UIData.Description;
         _icon.gameObject.SetActive(true);
     }
 }

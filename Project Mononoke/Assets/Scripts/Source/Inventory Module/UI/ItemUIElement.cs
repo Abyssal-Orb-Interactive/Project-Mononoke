@@ -1,10 +1,14 @@
 using System;
 using System.Linq;
-using Source.ItemsModule;
 using TMPro;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 using UnityEngine.UI;
+using static Source.InventoryModule.Inventory;
+using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.InventoryModule.UI
 {
@@ -14,8 +18,9 @@ namespace Source.InventoryModule.UI
         [SerializeField] private GameObject _countBackground = null;
         [SerializeField] private GameObject _border = null;
         [SerializeField] private TMP_Text _countOFItems = null;
+        [SerializeField] private SpriteAtlas _spriteAtlas;
 
-        public IPickUpable _item = null;
+        public InventoryItem ItemData { get; private set; } = default;
 
         public event Action<ItemUIElement> OnItemLeftClicked, OnItemRightClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag; 
 
@@ -24,7 +29,7 @@ namespace Source.InventoryModule.UI
             _icon.SetActive(false);
             _countBackground.SetActive(false);
             _border.SetActive(false);
-            _item = null;
+            ItemData = default;
         }
 
         public void Select()
@@ -37,18 +42,18 @@ namespace Source.InventoryModule.UI
             _border.SetActive(false);
         } 
 
-        public void InitializeWith(IPickUpable item) //Add quantity
+        public void InitializeWith(InventoryItem item) //Add quantity
         {
-            _item = item;
-            //_icon.GetComponent<Image>().sprite = _item.Icon;
+            ItemData = item;
+            ItemData.Database.TryGetItemDataBy(ItemData.ID, out ItemData data);
+            _icon.GetComponent<Image>().sprite = data.UIData.Icon;
             _icon.SetActive(true);
             _countBackground.SetActive(true); 
-            
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if(_item == null) return;
+            if(ItemData.Equals(default)) return;
             OnItemBeginDrag?.Invoke(this);
         }
 

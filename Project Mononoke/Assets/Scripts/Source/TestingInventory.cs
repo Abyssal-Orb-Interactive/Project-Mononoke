@@ -11,13 +11,13 @@ namespace Scripts.Source
         [SerializeField] private TrashItemsDatabaseSO items = null;
         private readonly Inventory _inventory = new (weightCapacity: 100, volumeCapacity: 100);
 
-        void Start()
+        private void Start()
         {
             ItemsFabric.Initialize(items);
 
-           //_inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
-           //_inventory.TryAddItem(ItemsFabric.CreateItemWith(1));
-           //.TryAddItem(ItemsFabric.CreateItemWith(2));
+           _inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
+           _inventory.TryAddItem(ItemsFabric.CreateItemWith(1));
+           _inventory.TryAddItem(ItemsFabric.CreateItemWith(2));
 
            presenter.Initialize(_inventory);
            presenter.PresentInventory();
