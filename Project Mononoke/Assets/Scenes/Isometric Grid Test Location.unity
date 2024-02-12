@@ -1928,8 +1928,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1878529857}
   m_HandleRect: {fileID: 1878529856}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2064,6 +2064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2692074255741983597, guid: 98551b36831607f478447c6e9e5fec52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3291898975039545058, guid: 98551b36831607f478447c6e9e5fec52, type: 3}
       propertyPath: m_RaycastTarget
       value: 1
@@ -2073,6 +2077,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98551b36831607f478447c6e9e5fec52, type: 3}
+--- !u!114 &1361463017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6695209873456697981, guid: 98551b36831607f478447c6e9e5fec52, type: 3}
+  m_PrefabInstance: {fileID: 1361463016}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d2495b388207348b742940b490cb21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1386019635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,7 +2262,7 @@ RectTransform:
   m_Father: {fileID: 1386019636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.99999994}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 10, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2354,7 +2369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28330f54da6caa4ea7691930df02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _UIElement: {fileID: 0}
+  _UIElement: {fileID: 1361463017}
 --- !u!225 &1941498725
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2396,8 +2411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926eac6aff330b6479f8353f5ac84fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  presenter: {fileID: 553634996}
-  items: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
+  _view: {fileID: 553634996}
+  _items: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ namespace Source.InventoryModule
 
       private Dictionary<int, List<InventoryItemsStack>> _inventory = null; 
 
+      public int Count => _inventory.Keys.Count;
+
+      public event Action<InventoryItem> ItemAdded, ItemRemoved, ItemDropped;
+
       public Inventory(float weightCapacity, float volumeCapacity)
       {
         _weightCapacity = weightCapacity;
@@ -53,6 +57,7 @@ namespace Source.InventoryModule
             if (StackCantAddItem(item, stackForAdding)) return false;
 
           DecreaseAvailableWeightAndVolumeUsing(itemData);
+          ItemAdded?.Invoke(item);
           return true;
         }
 
@@ -143,6 +148,7 @@ namespace Source.InventoryModule
 
         if (StackCantPopItem(out item, stack)) return false;
 
+        ItemRemoved?.Invoke(item);
         return true;
       }
 
@@ -176,11 +182,11 @@ namespace Source.InventoryModule
 
       public readonly struct InventoryItem : IComparable<InventoryItem>
       {
-            public int ID { get; }
+        public int ID { get; }
         public IPickUpableDatabase Database { get; }
         public float PercentsOfDurability { get; }
 
-         public InventoryItem(int iD, IPickUpableDatabase database) : this()
+        public InventoryItem(int iD, IPickUpableDatabase database) : this()
             {
                 ID = iD;
                 Database = database;

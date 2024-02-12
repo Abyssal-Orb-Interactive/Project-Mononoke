@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class UIItemDescriptionWindow : MonoBehaviour
 
     public void InitializeWith(InventoryItem item)
     {
+        Reset();
+        if(EqualityComparer<InventoryItem>.Default.Equals(item, default)) return;
         if(!item.Database.TryGetItemDataBy(item.ID, out ItemData data)) return;
         _icon.sprite = data.UIData.Icon;
         _title.text = data.Name;

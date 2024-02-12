@@ -16,7 +16,7 @@ namespace Source.UI
         {
             _canvas = gameObject.transform.root.GetComponent<Canvas>();
             _cursor ??= Mouse.current;
-            _UIElement = GetComponentInChildren<ItemUIElement>();
+            //_UIElement = GetComponentInChildren<ItemUIElement>();
             Toggle(false);
         }
 

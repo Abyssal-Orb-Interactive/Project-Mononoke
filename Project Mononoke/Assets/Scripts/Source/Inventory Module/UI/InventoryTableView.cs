@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Source.BuildingModule;
-using Source.ItemsModule;
 using Source.UI;
 using UnityEngine;
-using VContainer;
 using static Source.InventoryModule.Inventory;
 
 namespace Source.InventoryModule.UI
 {
-    public class InventoryPresenter : MonoBehaviour
+    public class InventoryTableView : MonoBehaviour
     {
         [SerializeField] private ItemUIElement _itemUIElementPrefab = null;
         [SerializeField] private UIItemDescriptionWindow _descriptionWindow = null;
@@ -19,34 +16,18 @@ namespace Source.InventoryModule.UI
         [SerializeField] private MousePointerMover _mousePointer = null;
 
         private List<ItemUIElement> _inventoryPresenterCells = null;
-        private Inventory _inventory = null;
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDraggingRequested;
         public event Action<int,int> OnSwapItemsRequested;
 
         private int _currentDraggingItemIndex = -1;
 
-        [Inject] public void Initialize(Inventory inventory)
-        {
-            _inventory = inventory;
-        } 
 
-        public void PresentInventory()
-        {
-            _descriptionWindow.Reset();
-            foreach(var stack in _inventory)
-            {
-                AddInventoryCell();
-                stack.TryPeekItem(out InventoryItem item);
-                _inventoryPresenterCells.Last().InitializeWith(item);       
-            }
-        }
-
-        private void InitializeInventoryPresenterWithCells()
+        public void InitializeInventoryPresenterWithCells(int cellCount)
         {
             _inventoryPresenterCells ??= new();
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < cellCount; i++)
             {
                 AddInventoryCell();
             }
@@ -85,7 +66,7 @@ namespace Source.InventoryModule.UI
 
         private void HandleEndDrag(ItemUIElement element)
         {
-            ResetDraggingElement();
+            ResetSelection();
         }
 
         
@@ -99,10 +80,13 @@ namespace Source.InventoryModule.UI
             _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index].ItemData);
             _inventoryPresenterCells[index].InitializeWith(itemBuffer);
             OnSwapItemsRequested?.Invoke(_currentDraggingItemIndex, index);
+            ResetDraggingElement();
         }
 
         private void HandleBeginDrag(ItemUIElement element)
         {
+            ResetDraggingElement();
+            if(EqualityComparer<InventoryItem>.Default.Equals(element.ItemData, default)) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
             _currentDraggingItemIndex = index;
@@ -119,18 +103,18 @@ namespace Source.InventoryModule.UI
 
         private void HandleItemSelection(ItemUIElement element)
         {
+            ResetSelection();
+            if(EqualityComparer<InventoryItem>.Default.Equals(element.ItemData, default)) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
             OnDescriptionRequested?.Invoke(index);
             element.Select();
             _descriptionWindow.InitializeWith(element.ItemData);
-            ResetSelection();
         }
 
         private void ResetSelection()
         {
             _descriptionWindow.Reset();
-            //ResetDraggingElement();
             DeselectAllItems();
         }
 

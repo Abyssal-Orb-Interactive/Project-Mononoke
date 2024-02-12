@@ -7,20 +7,19 @@ namespace Scripts.Source
 {
     public class TestingInventory : MonoBehaviour
     {
-        [SerializeField] private InventoryPresenter presenter = null;
-        [SerializeField] private TrashItemsDatabaseSO items = null;
+        [SerializeField] private InventoryTableView _view = null;
+        [SerializeField] private TrashItemsDatabaseSO _items = null;
         private readonly Inventory _inventory = new (weightCapacity: 100, volumeCapacity: 100);
 
         private void Start()
         {
-            ItemsFabric.Initialize(items);
+            ItemsFabric.Initialize(_items);
 
-           _inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
-           _inventory.TryAddItem(ItemsFabric.CreateItemWith(1));
-           _inventory.TryAddItem(ItemsFabric.CreateItemWith(2));
+            var inventoryPresenter = new InventoryPresenter(_inventory, _view);
 
-           presenter.Initialize(_inventory);
-           presenter.PresentInventory();
+            _inventory.TryAddItem(ItemsFabric.CreateItemWith(0));
+            _inventory.TryAddItem(ItemsFabric.CreateItemWith(1));
+            _inventory.TryAddItem(ItemsFabric.CreateItemWith(2));
         }
     }
 }

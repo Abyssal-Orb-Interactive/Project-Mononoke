@@ -1,11 +1,8 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using TMPro;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 using static Source.InventoryModule.Inventory;
 using static Source.ItemsModule.TrashItemsDatabaseSO;
@@ -18,7 +15,6 @@ namespace Source.InventoryModule.UI
         [SerializeField] private GameObject _countBackground = null;
         [SerializeField] private GameObject _border = null;
         [SerializeField] private TMP_Text _countOFItems = null;
-        [SerializeField] private SpriteAtlas _spriteAtlas;
 
         public InventoryItem ItemData { get; private set; } = default;
 
@@ -45,6 +41,12 @@ namespace Source.InventoryModule.UI
         public void InitializeWith(InventoryItem item) //Add quantity
         {
             ItemData = item;
+            if(EqualityComparer<InventoryItem>.Default.Equals(item, default)) 
+            {
+                _icon.SetActive(false);
+                _countBackground.SetActive(false);
+                return;
+            }
             ItemData.Database.TryGetItemDataBy(ItemData.ID, out ItemData data);
             _icon.GetComponent<Image>().sprite = data.UIData.Icon;
             _icon.SetActive(true);
@@ -63,11 +65,6 @@ namespace Source.InventoryModule.UI
         }
 
         public void OnDrag(PointerEventData eventData){}
-
-        public string Test()
-        {
-            return OnItemDroppedOn.GetInvocationList().Count().ToString();
-        }
 
         public void OnDrop(PointerEventData eventData)
         {
