@@ -16,7 +16,7 @@ namespace Source.ItemsModule
 
         public int ID { get; } = 0;
 
-        public IPickUpableDatabase Database { get; } = null;
+        public PickUpableDatabase Database { get; } = null;
 
         public Item(InventoryItem itemData)
         {

@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static Source.InventoryModule.Inventory;
+using static Source.InventoryModule.InventoryPresenter;
 using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.InventoryModule.UI
@@ -16,7 +15,8 @@ namespace Source.InventoryModule.UI
         [SerializeField] private GameObject _border = null;
         [SerializeField] private TMP_Text _countOFItems = null;
 
-        public InventoryItem ItemData { get; private set; } = default;
+        public StackDataForUI StackData {get; private set;} = default;
+        public bool IsEmpty {get; private set;}
 
         public event Action<ItemUIElement> OnItemLeftClicked, OnItemRightClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag; 
 
@@ -25,7 +25,8 @@ namespace Source.InventoryModule.UI
             _icon.SetActive(false);
             _countBackground.SetActive(false);
             _border.SetActive(false);
-            ItemData = default;
+            StackData = default;
+            IsEmpty = true;
         }
 
         public void Select()
@@ -38,24 +39,26 @@ namespace Source.InventoryModule.UI
             _border.SetActive(false);
         } 
 
-        public void InitializeWith(InventoryItem item) //Add quantity
+        public void InitializeWith(StackDataForUI stackData) //Add quantity
         {
-            ItemData = item;
-            if(EqualityComparer<InventoryItem>.Default.Equals(item, default)) 
+           
+            if(stackData == null) 
             {
-                _icon.SetActive(false);
-                _countBackground.SetActive(false);
+                ResetData();
                 return;
             }
-            ItemData.Database.TryGetItemDataBy(ItemData.ID, out ItemData data);
+            StackData = stackData;
+            StackData.ItemDatabase.TryGetItemDataBy(StackData.ItemID, out ItemData data);
             _icon.GetComponent<Image>().sprite = data.UIData.Icon;
             _icon.SetActive(true);
+            _countOFItems.text = stackData.StackCount.ToString();
             _countBackground.SetActive(true); 
+            IsEmpty = false;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if(ItemData.Equals(default)) return;
+            if(IsEmpty) return;
             OnItemBeginDrag?.Invoke(this);
         }
 
@@ -73,6 +76,7 @@ namespace Source.InventoryModule.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if(IsEmpty) return;
             if(eventData.button == PointerEventData.InputButton.Left) OnItemLeftClicked?.Invoke(this);
             else OnItemRightClicked?.Invoke(this);
         }

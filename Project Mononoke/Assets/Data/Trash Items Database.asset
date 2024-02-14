@@ -22,7 +22,8 @@ MonoBehaviour:
     <Durability>k__BackingField: 3
     <MaxStackCapacity>k__BackingField: 64
     <UIData>k__BackingField:
-      <Icon>k__BackingField: {fileID: 0}
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Vegetables_Carrot
       <Description>k__BackingField: "Simple Carrot.\r"
   - <Name>k__BackingField: Tomato
     <ID>k__BackingField: 1
@@ -33,7 +34,8 @@ MonoBehaviour:
     <Durability>k__BackingField: 1
     <MaxStackCapacity>k__BackingField: 64
     <UIData>k__BackingField:
-      <Icon>k__BackingField: {fileID: 0}
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Fruits_Tomato
       <Description>k__BackingField: "Simple Tomato.\r"
   - <Name>k__BackingField: Onion
     <ID>k__BackingField: 2
@@ -44,5 +46,6 @@ MonoBehaviour:
     <Durability>k__BackingField: 2
     <MaxStackCapacity>k__BackingField: 64
     <UIData>k__BackingField:
-      <Icon>k__BackingField: {fileID: 0}
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Vegetables_Onion
       <Description>k__BackingField: Simple Onion.

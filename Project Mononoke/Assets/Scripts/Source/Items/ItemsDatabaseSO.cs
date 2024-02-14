@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.U2D;
 
 namespace Source.ItemsModule
 {
     [CreateAssetMenu(fileName = "TrashItemsDatabase", menuName = "Databases/Create trash items database")]
-    public class TrashItemsDatabaseSO : ScriptableObject, IPickUpableDatabase
+    public class TrashItemsDatabaseSO : PickUpableDatabase
     {
         private const float MINIMAL_FLOAT_VALUE = 0.01f;
         private const int MINIMAL_ID_VALUE = 0;
@@ -45,7 +42,7 @@ namespace Source.ItemsModule
             return _database == null || _database.Count == 0;
         }
 
-        public bool TryGetItemDataBy (int ID, out ItemData value)
+        public override bool TryGetItemDataBy (int ID, out ItemData value)
         {
             if(IsDatabaseEmpty()) InitializeDatabase();
             if(_database.TryGetValue(ID, out value)) return true;
@@ -224,8 +221,8 @@ namespace Source.ItemsModule
         [Serializable]
         public class UIItemData
         {
-            [SerializeField] private SpriteAtlas _iconAtlas = null;
-            [SerializeField] private string _spriteName  = null;
+            [field: SerializeField] private SpriteAtlas _iconAtlas = null;
+            [field: SerializeField] private string _spriteName  = null;
             [field: SerializeField] [field: TextArea] public String Description {get; private set;} = null;
 
             public Sprite Icon => _iconAtlas.GetSprite(_spriteName);

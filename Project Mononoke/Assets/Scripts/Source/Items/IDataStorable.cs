@@ -5,6 +5,6 @@ namespace Source.ItemsModule
     public interface IDataStorable
     {
         public int ID { get; }
-        public IPickUpableDatabase Database { get; }
+        public PickUpableDatabase Database { get; }
     }
 }

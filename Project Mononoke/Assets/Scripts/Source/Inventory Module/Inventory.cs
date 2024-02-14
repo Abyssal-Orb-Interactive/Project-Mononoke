@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Source.ItemsModule;
 using UnityEngine;
 using static Source.InventoryModule.InventoryItemsStackFabric;
@@ -20,7 +19,7 @@ namespace Source.InventoryModule
 
       public int Count => _inventory.Keys.Count;
 
-      public event Action<InventoryItem> ItemAdded, ItemRemoved, ItemDropped;
+      public event Action<InventoryItemsStack, int> ItemAdded, ItemRemoved, ItemDropped;
 
       public Inventory(float weightCapacity, float volumeCapacity)
       {
@@ -47,17 +46,18 @@ namespace Source.InventoryModule
             if (CantAddRecordForStacksBy(item.ID, out stacks)) return false;
           }
 
-          var stackForAdding = GetFirstIncompleteStackOrDefault(stacks);
-          if (NoIncompleteStacks(stackForAdding))
+          var indexOfStackForAdding = GetFirstIncompleteStackOrDefault(stacks);
+          if (NoIncompleteStacks(indexOfStackForAdding))
             {
                 if (CantAddStack(itemData, stacks)) return false;
-                stackForAdding = stacks.Last();
+                indexOfStackForAdding = stacks.Count - 1;
             }
 
+            var stackForAdding = stacks[indexOfStackForAdding];
             if (StackCantAddItem(item, stackForAdding)) return false;
 
-          DecreaseAvailableWeightAndVolumeUsing(itemData);
-          ItemAdded?.Invoke(item);
+          DecreaseAvailableWeightAndVolumeUsing(itemData);      
+          ItemAdded?.Invoke(stackForAdding, indexOfStackForAdding);
           return true;
         }
 
@@ -71,7 +71,7 @@ namespace Source.InventoryModule
         return item.Equals(default) || item.Database == null || _inventory == null;
       }
 
-      private bool CantGetItemDataFrom(IPickUpableDatabase database, int ID, out ItemData itemData)
+      private bool CantGetItemDataFrom(PickUpableDatabase database, int ID, out ItemData itemData)
       {
         return !database.TryGetItemDataBy(ID, out itemData);
       }
@@ -91,9 +91,9 @@ namespace Source.InventoryModule
         return !_inventory.TryAdd(ID, stacks = new List<InventoryItemsStack>());
       }
 
-      private InventoryItemsStack GetFirstIncompleteStackOrDefault(List<InventoryItemsStack> stacks)
+      private int GetFirstIncompleteStackOrDefault(List<InventoryItemsStack> stacks)
       {
-        return stacks.FirstOrDefault(stack => stack.IsFull() == false);
+        return stacks.FindIndex(stack => stack.IsFull() == false);
       }
 
       private bool StackCantAddItem(InventoryItem item, InventoryItemsStack stackForAdding)
@@ -101,9 +101,9 @@ namespace Source.InventoryModule
         return !stackForAdding.TryPushItem(item);
       }
 
-      private bool NoIncompleteStacks(InventoryItemsStack stackForAdding)
+      private bool NoIncompleteStacks(int stackIndex)
       {
-        return stackForAdding == null;
+        return stackIndex == -1;
       }
 
       private bool TryAddStack(ItemData itemData, List<InventoryItemsStack> stacks)
@@ -148,7 +148,7 @@ namespace Source.InventoryModule
 
         if (StackCantPopItem(out item, stack)) return false;
 
-        ItemRemoved?.Invoke(item);
+        ItemRemoved?.Invoke(stack, stackIndex);
         return true;
       }
 
@@ -180,19 +180,19 @@ namespace Source.InventoryModule
         return GetEnumerator();
       }
 
-      public readonly struct InventoryItem : IComparable<InventoryItem>
+      [Serializable]
+      public class InventoryItem : IComparable<InventoryItem>
       {
-        public int ID { get; }
-        public IPickUpableDatabase Database { get; }
-        public float PercentsOfDurability { get; }
+        [field: SerializeField] public int ID { get; private set;}
+        [field: SerializeReference] public PickUpableDatabase Database { get; private set;}
+        [field: SerializeField, Range(0.01f, 100f)] public float PercentsOfDurability { get; private set;}
 
-        public InventoryItem(int iD, IPickUpableDatabase database) : this()
-            {
-                ID = iD;
-                Database = database;
-            }
-
-        public readonly int CompareTo(InventoryItem other)
+        public InventoryItem(int iD, PickUpableDatabase database)
+        {
+          ID = iD;
+          Database = database;
+        }
+        public int CompareTo(InventoryItem other)
         {
           return PercentsOfDurability.CompareTo(other.PercentsOfDurability);
         }

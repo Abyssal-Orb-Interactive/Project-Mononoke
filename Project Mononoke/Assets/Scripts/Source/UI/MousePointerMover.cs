@@ -1,8 +1,7 @@
 using Source.InventoryModule.UI;
-using Source.ItemsModule;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Source.InventoryModule.Inventory;
+using static Source.InventoryModule.InventoryPresenter;
 
 namespace Source.UI
 {
@@ -20,9 +19,9 @@ namespace Source.UI
             Toggle(false);
         }
 
-        public void SetData(InventoryItem item)
+        public void SetData(StackDataForUI stack)
         {
-            _UIElement.InitializeWith(item);
+            _UIElement.InitializeWith(stack);
         }
 
         public void Update()

@@ -1,8 +1,7 @@
-using System.Collections.Generic;
+using Source.ItemsModule;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Source.InventoryModule.Inventory;
 using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 public class UIItemDescriptionWindow : MonoBehaviour
@@ -19,11 +18,11 @@ public class UIItemDescriptionWindow : MonoBehaviour
         _description.text = "";
     }
 
-    public void InitializeWith(InventoryItem item)
+    public void InitializeWith(PickUpableDatabase database, int itemID)
     {
         Reset();
-        if(EqualityComparer<InventoryItem>.Default.Equals(item, default)) return;
-        if(!item.Database.TryGetItemDataBy(item.ID, out ItemData data)) return;
+        if(database == null || itemID < 0) return;
+        if(!database.TryGetItemDataBy(itemID, out ItemData data)) return;
         _icon.sprite = data.UIData.Icon;
         _title.text = data.Name;
         _description.text = data.UIData.Description;

@@ -16,7 +16,7 @@ namespace Source.Items
 
         public int ID => throw new System.NotImplementedException();
 
-        public IPickUpableDatabase Database => throw new System.NotImplementedException();
+        public PickUpableDatabase Database => throw new System.NotImplementedException();
 
         public void MakeRequest(IBuildRequester.BuildRequestEventArgs args)
         {

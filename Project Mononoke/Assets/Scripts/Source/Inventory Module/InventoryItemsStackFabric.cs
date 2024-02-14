@@ -22,6 +22,8 @@ namespace Source.InventoryModule
             public int StackIndex { get; }
             private readonly PriorityQueue<InventoryItem> _stack;
 
+            public int Count => _stack.Count;
+
             public InventoryItemsStack(int stackIndex, PriorityQueue<InventoryItem> queue)
             {
                 if(stackIndex < 0 || queue == null) return;

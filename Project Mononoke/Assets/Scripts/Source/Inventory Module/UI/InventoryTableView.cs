@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Source.BuildingModule;
 using Source.UI;
 using UnityEngine;
-using static Source.InventoryModule.Inventory;
+using static Source.InventoryModule.InventoryPresenter;
 
 namespace Source.InventoryModule.UI
 {
@@ -15,7 +15,7 @@ namespace Source.InventoryModule.UI
         [SerializeField] private OnGridObjectPlacer _objectPlacer = null;
         [SerializeField] private MousePointerMover _mousePointer = null;
 
-        private List<ItemUIElement> _inventoryPresenterCells = null;
+        private List<ItemUIElement> _inventoryPresenterCells = new();
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDraggingRequested;
         public event Action<int,int> OnSwapItemsRequested;
@@ -33,16 +33,17 @@ namespace Source.InventoryModule.UI
             }
         }
 
-        public void UpdateData(int itemIndex, InventoryItem item)
+        public void UpdateData(StackDataForUI stackData)
         {
-            if(_inventoryPresenterCells.Count < itemIndex || itemIndex < 0) return;
+            if(stackData == null) return;
+            var indexOfCell = _inventoryPresenterCells.FindIndex(cell => cell?.StackData?.ItemID == stackData?.ItemID && cell?.StackData?.StackIndex == stackData?.StackIndex);
+            if(indexOfCell == -1) indexOfCell = _inventoryPresenterCells.FindIndex(cell => cell.IsEmpty == true);
 
-            _inventoryPresenterCells[itemIndex].InitializeWith(item);
+            _inventoryPresenterCells[indexOfCell].InitializeWith(stackData);
         }
 
         private void AddInventoryCell()
         {
-            _inventoryPresenterCells ??= new();
             var itemUIElement = _objectPlacer.PlaceObject(new ObjectPlacementInformation<ItemUIElement>(_itemUIElementPrefab, Vector3.zero ,Quaternion.identity, _itemUIElementsContainer));
             itemUIElement.ResetData();
             itemUIElement.OnItemLeftClicked += HandleItemSelection;
@@ -67,35 +68,36 @@ namespace Source.InventoryModule.UI
         private void HandleEndDrag(ItemUIElement element)
         {
             ResetSelection();
+            ResetDraggingElement();
         }
 
         
 
         private void HandleSwap(ItemUIElement element)
         {
-            var index = _inventoryPresenterCells.IndexOf(element);
-            if(index == -1) return;
+            if(element == null || _currentDraggingItemIndex == -1) return;
 
-            var itemBuffer = _inventoryPresenterCells[_currentDraggingItemIndex].ItemData;
-            _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index].ItemData);
-            _inventoryPresenterCells[index].InitializeWith(itemBuffer);
+            var index = _inventoryPresenterCells.IndexOf(element);
+            if(index < 0 || index >= _inventoryPresenterCells.Count)  return;
+
+            var dataBuffer = _inventoryPresenterCells[_currentDraggingItemIndex].StackData;
+            _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index].StackData);
+            _inventoryPresenterCells[index].InitializeWith(dataBuffer);
             OnSwapItemsRequested?.Invoke(_currentDraggingItemIndex, index);
-            ResetDraggingElement();
         }
 
         private void HandleBeginDrag(ItemUIElement element)
         {
-            ResetDraggingElement();
-            if(EqualityComparer<InventoryItem>.Default.Equals(element.ItemData, default)) return;
+            if(element.IsEmpty) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
             _currentDraggingItemIndex = index;
             HandleItemSelection(element);
             OnStartDraggingRequested?.Invoke(_currentDraggingItemIndex);
-            CreateDraggedItem(element.ItemData);
+            CreateDraggedItem(element.StackData);
         }
 
-        private void CreateDraggedItem(InventoryItem item)
+        private void CreateDraggedItem(StackDataForUI item)
         {
             _mousePointer.Toggle(true);
             _mousePointer.SetData(item);
@@ -104,12 +106,12 @@ namespace Source.InventoryModule.UI
         private void HandleItemSelection(ItemUIElement element)
         {
             ResetSelection();
-            if(EqualityComparer<InventoryItem>.Default.Equals(element.ItemData, default)) return;
+            if(element.IsEmpty) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
             OnDescriptionRequested?.Invoke(index);
             element.Select();
-            _descriptionWindow.InitializeWith(element.ItemData);
+            _descriptionWindow.InitializeWith(element.StackData.ItemDatabase, element.StackData.ItemID);
         }
 
         private void ResetSelection()

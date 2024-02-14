@@ -1,5 +1,8 @@
 using Source.InventoryModule.UI;
+using Source.ItemsModule;
+using UnityEngine;
 using static Source.InventoryModule.Inventory;
+using static Source.InventoryModule.InventoryItemsStackFabric;
 
 namespace Source.InventoryModule
 {
@@ -17,25 +20,36 @@ namespace Source.InventoryModule
             _inventory.ItemRemoved += OnItemRemoved;
             
             _view.InitializeInventoryPresenterWithCells(_inventory.Count * 2 + 10);
-            var cellIndex = 0;
-            foreach(var stack in _inventory)
+        }
+
+        private void OnItemRemoved(InventoryItemsStack stack, int stackIndex)
+        {
+            if(!stack.TryPeekItem(out InventoryItem item)) return;
+            _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
+        }
+
+
+        private void OnItemAdded(InventoryItemsStack stack, int stackIndex)
+        {
+            if(!stack.TryPeekItem(out InventoryItem item)) return;
+            _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
+        }
+
+        public class StackDataForUI
+        {
+            public int ItemID {get; private set;}
+
+            public PickUpableDatabase ItemDatabase {get; private set;}
+            public int StackIndex {get; private set;}
+            public int StackCount {get; private set;}
+
+            public StackDataForUI(int itemID, PickUpableDatabase itemDatabase, int stackIndex, int stackCount)
             {
-                if(!stack.TryPeekItem(out InventoryItem item)) continue;
-                _view.UpdateData(cellIndex, item);
-                cellIndex++;
+                ItemID = itemID;
+                ItemDatabase = itemDatabase;
+                StackIndex = stackIndex;
+                StackCount = stackCount;
             }
         }
-
-        private void OnItemRemoved(Inventory.InventoryItem item)
-        {
-            _view.UpdateData(item.ID, item);
-        }
-
-
-        private void OnItemAdded(Inventory.InventoryItem item)
-        {
-            _view.UpdateData(item.ID, item);
-        }
-
     }
 }

@@ -16,7 +16,7 @@ namespace Source.ItemsModule
             if (_itemsDatabase == null) throw new InvalidOperationException("ItemsDatabaseSO has not been initialized. Call Initialize method first.");
 
 
-            if (!_itemsDatabase.TryGetItemDataBy(ID, out TrashItemsDatabaseSO.ItemData itemData)) return new Item(new InventoryItem());
+            if (!_itemsDatabase.TryGetItemDataBy(ID, out TrashItemsDatabaseSO.ItemData itemData)) return new Item(new InventoryItem(-1, null));
 
             var item = new Item(new InventoryItem(ID, _itemsDatabase));
 
