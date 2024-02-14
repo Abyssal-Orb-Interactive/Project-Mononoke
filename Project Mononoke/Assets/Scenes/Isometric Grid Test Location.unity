@@ -392,7 +392,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 4.8359375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -992,6 +992,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
   m_PrefabInstance: {fileID: 5678693790991241678}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &824457669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824457668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f425b863620b347a970e41fed16b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &856389854
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,10 +2274,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ItemData>k__BackingField:
-    <ID>k__BackingField: 2
+    <ID>k__BackingField: 1
     <Database>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
     <PercentsOfDurability>k__BackingField: 67
-  _pickUpAnimationDuration: 1
+  _pickUpAnimationDuration: 0.5
 --- !u!82 &1716154020
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2374,7 +2386,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2648,7 +2660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 553634996}
   _items: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
-  item: {fileID: 1716154019}
+  _pickUpper: {fileID: 824457669}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0
@@ -2941,6 +2953,18 @@ PrefabInstance:
       propertyPath: m_Direction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382236820016972149, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382236820016972149, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Name
       value: Test Character
@@ -3001,6 +3025,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 824457669}
     - targetCorrespondingSourceObject: {fileID: 4540465095615586830, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 699832658}

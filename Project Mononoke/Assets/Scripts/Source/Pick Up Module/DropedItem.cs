@@ -4,7 +4,7 @@ using Source.ItemsModule;
 using UnityEngine;
 using static Source.InventoryModule.Inventory;
 
-namespace Source.Items
+namespace Source.PickUpModule
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(AudioSource))]
