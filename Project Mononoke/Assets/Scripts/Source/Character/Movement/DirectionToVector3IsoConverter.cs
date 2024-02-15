@@ -1,5 +1,4 @@
 using Base.Input;
-using Base.Math;
 using UnityEngine;
 
 namespace Source.Character.Movement

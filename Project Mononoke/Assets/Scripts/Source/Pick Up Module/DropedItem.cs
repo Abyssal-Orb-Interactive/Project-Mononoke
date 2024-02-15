@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Source.ItemsModule;
 using UnityEngine;
 using static Source.InventoryModule.Inventory;
 

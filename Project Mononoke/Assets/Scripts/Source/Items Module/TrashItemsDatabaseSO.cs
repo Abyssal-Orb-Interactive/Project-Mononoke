@@ -20,7 +20,7 @@ namespace Source.ItemsModule
 
         private readonly List<string> _warningsBuffer = new(MAX_WARNINGS_NUMBER);
 
-        public void LoadDatabase(IReadOnlyCollection<ItemData> data)
+        public void ReplaceDatabaseWith(IReadOnlyCollection<ItemData> data)
         {
             _savedData.Clear();
 
@@ -32,7 +32,7 @@ namespace Source.ItemsModule
             AddOrOverwriteItemsData(_savedData);
         }
 
-        public void InitializeDatabase()
+        private void InitializeDatabase()
         {
             AddOrOverwriteItemsData(_savedData);
         }
@@ -190,7 +190,7 @@ namespace Source.ItemsModule
         [Serializable]
         public class ItemData 
         {
-            [field: SerializeField] public string Name { get; private set; } = null;
+            [field: SerializeField] public string Name { get; private set; } = "Unknown";
             [field: SerializeField, Range(MINIMAL_ID_VALUE, int.MaxValue)] public int ID { get; private set; } = -1;
             [field: SerializeField] public GameObject Prefab { get; private set; } = null;
             [field: SerializeField, Range(MINIMAL_FLOAT_VALUE, float.MaxValue)] public float Weight { get; private set; } = -1;
@@ -222,8 +222,8 @@ namespace Source.ItemsModule
         public class UIItemData
         {
             [field: SerializeField] private SpriteAtlas _iconAtlas = null;
-            [field: SerializeField] private string _spriteName  = null;
-            [field: SerializeField] [field: TextArea] public String Description {get; private set;} = null;
+            [field: SerializeField] private string _spriteName  = "Missing";
+            [field: SerializeField] [field: TextArea] public String Description {get; private set;} = "Missing";
 
             public Sprite Icon => _iconAtlas.GetSprite(_spriteName);
 

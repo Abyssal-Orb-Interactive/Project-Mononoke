@@ -1,6 +1,5 @@
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
-using UnityEngine;
 using static Source.InventoryModule.Inventory;
 using static Source.InventoryModule.InventoryItemsStackFabric;
 

@@ -7,7 +7,6 @@ using UnityEngine.AddressableAssets;
 
 namespace Plugins.GoogleSheetsIntegration
 {
-    [InitializeOnLoad]
     public class GoogleSheetsDataLoader
     {
         private const string DATA_LOADER_CONFIG_ADDRESSABLES_KEY = "Data Loader Config";
@@ -55,7 +54,7 @@ namespace Plugins.GoogleSheetsIntegration
             var itemsData = await CSVItemsDataProcessor.ProcessData(rawCVS);
 
 
-            database.LoadDatabase(itemsData);
+            database.ReplaceDatabaseWith(itemsData);
             Debug.Log(database.ToString());
         }
 
