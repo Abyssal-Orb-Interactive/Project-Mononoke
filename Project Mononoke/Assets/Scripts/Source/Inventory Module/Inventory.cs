@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Source.ItemsModule;
 using UnityEngine;
-using static Source.InventoryModule.InventoryItemsStackFabric;
+using static Source.InventoryModule.ItemsStackFabric;
 using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.InventoryModule
@@ -28,14 +28,9 @@ namespace Source.InventoryModule
         _availableWeight = _weightCapacity;
         _availableVolume = _volumeCapacity;
         _inventory = new(30);
-      } 
-
-      public bool TryAddItem(IPickUpable item)
-      {
-        return TryAddItem(new InventoryItem(item.ID, item.Database));
       }
 
-      public bool TryAddItem(InventoryItem item)
+      public bool TryAddItem(Item item)
         {
           if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.Database, item.ID, out ItemData itemData)) return false;
 
@@ -66,12 +61,12 @@ namespace Source.InventoryModule
         return !TryAddStack(itemData, stacks);
       }
 
-      private bool EnterAddingParametersIsInvalid(InventoryItem item)
+      private bool EnterAddingParametersIsInvalid(Item item)
       {
         return item.Equals(default) || item.Database == null || _inventory == null;
       }
 
-      private bool CantGetItemDataFrom(PickUpableDatabase database, int ID, out ItemData itemData)
+      private bool CantGetItemDataFrom(ItemsDatabase database, int ID, out ItemData itemData)
       {
         return !database.TryGetItemDataBy(ID, out itemData);
       }
@@ -96,7 +91,7 @@ namespace Source.InventoryModule
         return stacks.FindIndex(stack => stack.IsFull() == false);
       }
 
-      private bool StackCantAddItem(InventoryItem item, InventoryItemsStack stackForAdding)
+      private bool StackCantAddItem(Item item, InventoryItemsStack stackForAdding)
       {
         return !stackForAdding.TryPushItem(item);
       }
@@ -115,7 +110,7 @@ namespace Source.InventoryModule
 
       private static bool InventoryItemsStackFabricCantCreateNewStack(int stackIndex, out InventoryItemsStack newStack, int stackCapacity)
       {
-        return !InventoryItemsStackFabric.TryCreate(stackIndex, out newStack, stackCapacity);
+        return !ItemsStackFabric.TryCreate(stackIndex, out newStack, stackCapacity);
       }
 
         private void DecreaseAvailableWeightAndVolumeUsing(ItemData itemData)
@@ -124,7 +119,7 @@ namespace Source.InventoryModule
         _availableVolume -= itemData.Volume;
       }
 
-      public bool TryGetItem(int itemID, int stackIndex, out InventoryItem item)
+      public bool TryGetItem(int itemID, int stackIndex, out Item item)
       {
         if (EnterGettingParametersIsInvalid(itemID, stackIndex))
         {
@@ -162,7 +157,7 @@ namespace Source.InventoryModule
         return stackIndex >= stacksCount;
       }
 
-      private bool StackCantPopItem(out InventoryItem item, InventoryItemsStack stack)
+      private bool StackCantPopItem(out Item item, InventoryItemsStack stack)
       {
         return !stack.TryPopItem(out item);
       }
@@ -178,24 +173,6 @@ namespace Source.InventoryModule
       IEnumerator IEnumerable.GetEnumerator()
       {
         return GetEnumerator();
-      }
-
-      [Serializable]
-      public class InventoryItem : IComparable<InventoryItem>
-      {
-        [field: SerializeField] public int ID { get; private set;}
-        [field: SerializeReference] public PickUpableDatabase Database { get; private set;}
-        [field: SerializeField, Range(0.01f, 100f)] public float PercentsOfDurability { get; private set;}
-
-        public InventoryItem(int iD, PickUpableDatabase database)
-        {
-          ID = iD;
-          Database = database;
-        }
-        public int CompareTo(InventoryItem other)
-        {
-          return PercentsOfDurability.CompareTo(other.PercentsOfDurability);
-        }
       }
     }
 }

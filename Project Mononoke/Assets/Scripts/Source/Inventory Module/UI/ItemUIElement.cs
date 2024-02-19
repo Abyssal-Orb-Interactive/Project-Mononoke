@@ -1,4 +1,5 @@
 using System;
+using Source.ItemsModule;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

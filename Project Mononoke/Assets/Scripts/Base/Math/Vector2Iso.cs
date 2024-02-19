@@ -22,6 +22,12 @@ namespace Base.Math
             X = X_ISOMETRIC_OFFSET * (vector3.x + vector3.y);
             Y = Y_ISOMETRIC_OFFSET * (vector3.y - vector3.x);
         }
+
+        public Vector2Iso(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
         
         public Vector2Iso(Vector3Iso vector3Iso)
         {

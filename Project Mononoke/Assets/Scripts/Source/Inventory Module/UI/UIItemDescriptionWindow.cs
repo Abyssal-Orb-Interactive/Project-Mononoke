@@ -18,7 +18,7 @@ public class UIItemDescriptionWindow : MonoBehaviour
         _description.text = "";
     }
 
-    public void InitializeWith(PickUpableDatabase database, int itemID)
+    public void InitializeWith(ItemsDatabase database, int itemID)
     {
         Reset();
         if(database == null || itemID < 0) return;

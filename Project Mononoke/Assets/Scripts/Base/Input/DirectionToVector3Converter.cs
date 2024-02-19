@@ -1,15 +1,14 @@
-using Base.Input;
 using UnityEngine;
 
-namespace Source.Character.Movement
+namespace Base.Input
 {
-    public static class DirectionToVector3IsoConverter
+    public static class DirectionToVector3Converter
     {
         private static readonly Vector3[] PossibleMovementVectors =
         {
-            new(-0.71f, 0.71f), new(0, 1), new(0.71f, 0.71f),
+            new(-1, 1), new(0, 1), new(1, 1),
             new(-1, 0), new(1, 0),
-            new(-0.71f, -0.71f), new(0, -1), new(0.71f, -0.71f)
+            new(-1, -1), new(0, -1), new(1, -1)
         };
         
         public static Vector3 ToVector(MovementDirection direction)

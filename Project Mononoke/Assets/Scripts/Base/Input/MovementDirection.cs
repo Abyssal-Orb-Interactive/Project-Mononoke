@@ -2,7 +2,6 @@ namespace Base.Input
 {
     public enum MovementDirection
     {
-        Stay = -1,
         North = 2,
         NorthEast = 1,
         East = 0,

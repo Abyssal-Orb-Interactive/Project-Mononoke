@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Source.ItemsModule;
 using UnityEngine;
 using UnityEngine.U2D;
 using static Source.ItemsModule.TrashItemsDatabaseSO;

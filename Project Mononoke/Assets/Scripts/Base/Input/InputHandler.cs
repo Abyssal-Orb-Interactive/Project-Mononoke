@@ -6,7 +6,7 @@ namespace Base.Input
     public partial class InputHandler : IDisposable
     {
         private TestActions _input = null;
-        private MovementDirection _movementDirection = MovementDirection.Stay;
+        private MovementDirection _movementDirection;
 
         private EventHandler<InputActionEventArgs> _onInputChangedHandlers;
 
@@ -27,24 +27,23 @@ namespace Base.Input
             _onInputChangedHandlers -= handler;
         }
         
-        private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
+        private void OnMovementStarted(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
             var cartesianNormalizedMovementVector = movementDirection.ReadValue<Vector2>();
             _movementDirection = InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianNormalizedMovementVector);
-            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection));
+            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Started));
         }
         
         private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         { 
-            _movementDirection = MovementDirection.Stay;
-            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection));
+            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Ended));
         }
 
         public void StartInputHandling()
         {
             if (_input == null) return;
             _input.Enable();
-            _input.PlayerActions.Movement.performed += OnMovementPerformed;
+            _input.PlayerActions.Movement.performed += OnMovementStarted;
             _input.PlayerActions.Movement.canceled += OnMovementCancelled;
         }
 
@@ -52,7 +51,7 @@ namespace Base.Input
         {
             if (_input == null) return;
             _input.Disable();
-            _input.PlayerActions.Movement.performed -= OnMovementPerformed;
+            _input.PlayerActions.Movement.performed -= OnMovementStarted;
             _input.PlayerActions.Movement.canceled -= OnMovementCancelled;
         }
 

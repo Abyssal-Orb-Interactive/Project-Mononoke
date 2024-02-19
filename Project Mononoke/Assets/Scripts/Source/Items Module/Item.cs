@@ -1,37 +1,23 @@
 using System;
-using static Source.InventoryModule.Inventory;
-using static Source.ItemsModule.TrashItemsDatabaseSO;
+using UnityEngine;
 
 namespace Source.ItemsModule
 {
-    public class Item : IItem
+    [Serializable]
+    public class Item : IComparable<Item>
     {
-        public float Weight { get; } = 0f;
+        [field: SerializeField] public int ID { get; private set;}
+        [field: SerializeReference] public ItemsDatabase<ItemData> Database { get; private set;}
+        [field: SerializeField, Range(0.01f, 100f)] public float PercentsOfDurability { get; private set;}
 
-        public float Volume { get; } = 0f;
-
-        public float Price { get; } = 0f;
-
-        public float Durability { get; } = 0f;
-
-        public int ID { get; } = 0;
-
-        public PickUpableDatabase Database { get; } = null;
-
-        public Item(InventoryItem itemData)
+        public Item(int iD, ItemsDatabase<ItemData> database)
         {
-            if(!itemData.Database.TryGetItemDataBy(itemData.ID, out ItemData data)) return;
-            Weight = data.Weight;
-            Volume = data.Volume;
-            Price = data.Price;
-            Durability = data.Durability;
-            ID = itemData.ID;
-            Database = itemData.Database;
+          ID = iD;
+          Database = database;
         }
-
-        public void TakeDamage()
+        public int CompareTo(Item other)
         {
-            throw new NotImplementedException();
+            return PercentsOfDurability.CompareTo(other.PercentsOfDurability);
         }
     }
 }

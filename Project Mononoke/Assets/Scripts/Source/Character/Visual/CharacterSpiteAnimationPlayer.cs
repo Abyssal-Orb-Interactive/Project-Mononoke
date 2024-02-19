@@ -1,5 +1,6 @@
 using System;
 using Base.Input;
+using Source.Character.Movement;
 using UnityEngine;
 using VContainer;
 
@@ -9,56 +10,56 @@ namespace Source.Character.Visual
     public class CharacterSpiteAnimationPlayer : MonoBehaviour, IDisposable
     {
         private Animator _animator = null;
-        private InputHandler _inputHandler = null;
-        private MovementDirection _facing = MovementDirection.Stay;
+        private IsoCharacterMover _characterMover = null;
+        private MovementDirection _facing;
+        
+        private static readonly int Facing = Animator.StringToHash("Facing");
+        private static readonly int RunDesired = Animator.StringToHash("RunDesired");
 
         private void OnValidate()
         {
             _animator ??= GetComponent<Animator>();
         }
 
-        [Inject] public void Initialize(InputHandler inputHandler)
+        [Inject] public void Initialize(IsoCharacterMover characterMover)
         {
-            _inputHandler = inputHandler;
-            StartInputHandling();
+            _characterMover = characterMover;
+            StartMovementHandling();
         }
 
-        private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
+        private void OnMovementChange(object sender, IsoCharacterMover.MovementActionEventArgs args)
         {
-            if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
-            if((MovementDirection)args.ActionData == MovementDirection.Stay) 
+            if(args.Status == IsoCharacterMover.MovementStatus.Ended) 
             {
-                _animator.SetBool("RunDesired", false);
+                _animator.SetBool(RunDesired, false);
                 return;
             }
 
-            _facing = (MovementDirection)args.ActionData;
+            _facing = args.Facing;
             SetAnimatorFacingParameter();
-            _animator.SetBool("RunDesired", true);
+            _animator.SetBool(RunDesired, true);
         }
 
-        private void StartInputHandling()
+        private void StartMovementHandling()
         {
-            _inputHandler.StartInputHandling();
-            _inputHandler.AddInputChangedHandler(OnMovementInputChange);
+            _characterMover.MovementChanged += OnMovementChange;
         }
         
-        private void StopInputHandling()
+        private void StopMovementHandling()
         {
-            _inputHandler.StopInputHandling();
-            _inputHandler.RemoveInputChangedHandler(OnMovementInputChange);
+            _characterMover.MovementChanged -= OnMovementChange;
         }
         
         private void OnEnable()
         {
-            if(_inputHandler == null) return;
-            StartInputHandling();
+            if(_characterMover == null) return;
+            StartMovementHandling();
         }
 
         private void OnDisable()
         {
-            if(_inputHandler == null) return;
-            StopInputHandling();
+            if(_characterMover == null) return;
+            StopMovementHandling();
         }
 
         private void OnDestroy()
@@ -68,13 +69,13 @@ namespace Source.Character.Visual
 
         public void Dispose()
         {
-            StopInputHandling();
-            _inputHandler = null;
+            StopMovementHandling();
+            _characterMover = null;
         }
 
-        public void SetAnimatorFacingParameter()
+        private void SetAnimatorFacingParameter()
         {
-            _animator.SetFloat("Facing", MovementDirectionToAnimatorParameter());
+            _animator.SetFloat(Facing, MovementDirectionToAnimatorParameter());
         }
 
         private float MovementDirectionToAnimatorParameter(){

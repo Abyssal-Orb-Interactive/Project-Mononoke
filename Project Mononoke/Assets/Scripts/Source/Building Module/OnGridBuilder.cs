@@ -53,7 +53,7 @@ namespace Source.BuildingModule
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
         
             _grid.TryAddBuilding(building, gridPosition);
-
+            
             return true;
         }
 

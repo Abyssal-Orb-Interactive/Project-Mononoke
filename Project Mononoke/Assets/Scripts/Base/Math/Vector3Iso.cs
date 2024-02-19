@@ -22,10 +22,10 @@ namespace Base.Math
             X = x;
             Y = y;
         }
-        public static Vector3 ToCartesian(Vector3Iso vector3Iso)
+        public Vector3 ToCartesian()
         {
-            float z = vector3Iso.Z;
-            var vector2Iso = new Vector2Iso(vector3Iso);
+            var z = Z;
+            var vector2Iso = new Vector2Iso(this);
             var vector2 = vector2Iso.ToCartesian();
             return new Vector3(vector2.x, vector2.y, z);
         }

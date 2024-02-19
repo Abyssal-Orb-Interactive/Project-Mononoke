@@ -50,7 +50,7 @@ namespace Base.Grid
         public Vector3Int WorldToGrid(Vector3 worldCoordinate)
         {
             var isometricCoordinate = new Vector3Iso(worldCoordinate.x, worldCoordinate.y, worldCoordinate.z);
-            var cartesianCoordinate = Vector3Iso.ToCartesian(isometricCoordinate);
+            var cartesianCoordinate = isometricCoordinate.ToCartesian();
             var roundedCoordinate = new Vector3Int(Mathf.RoundToInt(cartesianCoordinate.x), Mathf.RoundToInt(cartesianCoordinate.y), Mathf.RoundToInt(cartesianCoordinate.z));
             return roundedCoordinate;
         }

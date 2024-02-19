@@ -1,4 +1,5 @@
 using Source.InventoryModule;
+using Source.ItemsModule;
 using UnityEngine;
 
 namespace Source.PickUpModule
@@ -13,9 +14,9 @@ namespace Source.PickUpModule
       {
          Inventory ??= new Inventory(100, 100);
          
-         if(!other.gameObject.TryGetComponent<DroppedItem>(out var droppedItem)) return;
+         if(!other.gameObject.TryGetComponent<ItemView>(out var droppedItem)) return;
 
-         if(!Inventory.TryAddItem(droppedItem.ItemData)) return;
+         if(!Inventory.TryAddItem(droppedItem.Item)) return;
 
          droppedItem.BeginPickUp();
       }
