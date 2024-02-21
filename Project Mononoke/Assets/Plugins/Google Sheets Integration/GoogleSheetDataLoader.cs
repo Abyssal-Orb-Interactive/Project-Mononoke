@@ -43,7 +43,7 @@ namespace Plugins.GoogleSheetsIntegration
                 }
             }
 
-            TrashItemsDatabaseSO database = await LoadAssetAsync<TrashItemsDatabaseSO>(_config.TrashItemsDatabaseAddressablesKey);
+            var database = await LoadAssetAsync<TrashItemsDatabaseSO>(_config.TrashItemsDatabaseAddressablesKey);
             if(EqualityComparer<TrashItemsDatabaseSO>.Default.Equals(database, null)) 
             {
                 Debug.LogWarning($"Failed to load TrashItemsDatabaseSO on addressable key: {_config.TrashItemsDatabaseAddressablesKey}");

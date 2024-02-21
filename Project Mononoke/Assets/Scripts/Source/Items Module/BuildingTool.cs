@@ -5,14 +5,14 @@ using Source.Character.Movement;
 
 namespace Source.ItemsModule
 {
-    public class BuildingTool : Item, IBuildRequester
+    public class BuildingTool : Item<ItemData>, IBuildRequester
     {
         public delegate void UseAction(object context);
         public UseAction OnUse;
         private Vector3 _targetBuildingPosition = Vector3.zero;
 
 
-        public BuildingTool(int iD, ItemsDatabase database, int buildingID) : base(iD, database)
+        public BuildingTool(int iD, ItemsDatabase<ItemData> database, int buildingID) : base(iD, database)
         {
             OnUse = _ => MakeRequest(new IBuildRequester.BuildRequestEventArgs(buildingID, _targetBuildingPosition));
         }

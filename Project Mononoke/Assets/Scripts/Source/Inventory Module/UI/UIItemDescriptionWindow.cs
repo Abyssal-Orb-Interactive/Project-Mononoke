@@ -18,11 +18,11 @@ public class UIItemDescriptionWindow : MonoBehaviour
         _description.text = "";
     }
 
-    public void InitializeWith(ItemsDatabase database, int itemID)
+    public void InitializeWith(ItemsDatabase<ItemData> database, int itemID)
     {
         Reset();
         if(database == null || itemID < 0) return;
-        if(!database.TryGetItemDataBy(itemID, out ItemData data)) return;
+        if(!database.TryGetItemDataBy(itemID, out var data)) return;
         _icon.sprite = data.UIData.Icon;
         _title.text = data.Name;
         _description.text = data.UIData.Description;

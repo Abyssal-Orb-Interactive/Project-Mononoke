@@ -6,9 +6,9 @@ namespace Source.PickUpModule
     public class Hand
     {
         private float _handStrength = 5f;
-        private Item _item = null;
+        private Item<ItemData> _item = null;
 
-        public void Take(Item item)
+        public void Take(Item<ItemData> item)
         {
             //if(item.Weight > _handStrength) return;
 

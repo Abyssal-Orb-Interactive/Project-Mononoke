@@ -23,14 +23,14 @@ namespace Source.InventoryModule
 
         private void OnItemRemoved(InventoryItemsStack stack, int stackIndex)
         {
-            if(!stack.TryPeekItem(out Item item)) return;
+            if(!stack.TryPeekItem(out Item<ItemData> item)) return;
             _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
 
 
         private void OnItemAdded(InventoryItemsStack stack, int stackIndex)
         {
-            if(!stack.TryPeekItem(out Item item)) return;
+            if(!stack.TryPeekItem(out Item<ItemData> item)) return;
             _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
 
@@ -38,11 +38,11 @@ namespace Source.InventoryModule
         {
             public int ItemID {get; private set;}
 
-            public ItemsDatabase ItemDatabase {get; private set;}
+            public ItemsDatabase<ItemData> ItemDatabase {get; private set;}
             public int StackIndex {get; private set;}
             public int StackCount {get; private set;}
 
-            public StackDataForUI(int itemID, ItemsDatabase itemDatabase, int stackIndex, int stackCount)
+            public StackDataForUI(int itemID, ItemsDatabase<ItemData> itemDatabase, int stackIndex, int stackCount)
             {
                 ItemID = itemID;
                 ItemDatabase = itemDatabase;

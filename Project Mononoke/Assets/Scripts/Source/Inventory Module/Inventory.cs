@@ -30,7 +30,7 @@ namespace Source.InventoryModule
         _inventory = new(30);
       }
 
-      public bool TryAddItem(Item item)
+      public bool TryAddItem(Item<ItemData> item)
         {
           if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.Database, item.ID, out ItemData itemData)) return false;
 
@@ -43,13 +43,13 @@ namespace Source.InventoryModule
 
           var indexOfStackForAdding = GetFirstIncompleteStackOrDefault(stacks);
           if (NoIncompleteStacks(indexOfStackForAdding))
-            {
-                if (CantAddStack(itemData, stacks)) return false;
-                indexOfStackForAdding = stacks.Count - 1;
-            }
+          {
+            if (CantAddStack(itemData, stacks)) return false;
+            indexOfStackForAdding = stacks.Count - 1;
+          }
 
-            var stackForAdding = stacks[indexOfStackForAdding];
-            if (StackCantAddItem(item, stackForAdding)) return false;
+          var stackForAdding = stacks[indexOfStackForAdding];
+          if (StackCantAddItem(item, stackForAdding)) return false;
 
           DecreaseAvailableWeightAndVolumeUsing(itemData);      
           ItemAdded?.Invoke(stackForAdding, indexOfStackForAdding);
@@ -61,12 +61,12 @@ namespace Source.InventoryModule
         return !TryAddStack(itemData, stacks);
       }
 
-      private bool EnterAddingParametersIsInvalid(Item item)
+      private bool EnterAddingParametersIsInvalid(Item<ItemData> item)
       {
         return item.Equals(default) || item.Database == null || _inventory == null;
       }
 
-      private bool CantGetItemDataFrom(ItemsDatabase database, int ID, out ItemData itemData)
+      private bool CantGetItemDataFrom(ItemsDatabase<ItemData> database, int ID, out ItemData itemData)
       {
         return !database.TryGetItemDataBy(ID, out itemData);
       }
@@ -91,7 +91,7 @@ namespace Source.InventoryModule
         return stacks.FindIndex(stack => stack.IsFull() == false);
       }
 
-      private bool StackCantAddItem(Item item, InventoryItemsStack stackForAdding)
+      private bool StackCantAddItem(Item<ItemData> item, InventoryItemsStack stackForAdding)
       {
         return !stackForAdding.TryPushItem(item);
       }
@@ -119,7 +119,7 @@ namespace Source.InventoryModule
         _availableVolume -= itemData.Volume;
       }
 
-      public bool TryGetItem(int itemID, int stackIndex, out Item item)
+      public bool TryGetItem(int itemID, int stackIndex, out Item<ItemData> item)
       {
         if (EnterGettingParametersIsInvalid(itemID, stackIndex))
         {
@@ -157,7 +157,7 @@ namespace Source.InventoryModule
         return stackIndex >= stacksCount;
       }
 
-      private bool StackCantPopItem(out Item item, InventoryItemsStack stack)
+      private bool StackCantPopItem(out Item<ItemData> item, InventoryItemsStack stack)
       {
         return !stack.TryPopItem(out item);
       }
