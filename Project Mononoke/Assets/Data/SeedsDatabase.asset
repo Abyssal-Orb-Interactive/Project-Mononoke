@@ -12,4 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c346c8248e834962853be1738f63328c, type: 3}
   m_Name: SeedsDatabase
   m_EditorClassIdentifier: 
-  _savedData: []
+  _savedData:
+  - <Name>k__BackingField: Melon
+    <ID>k__BackingField: 0
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 2
+    <Volume>k__BackingField: 3
+    <Price>k__BackingField: 15
+    <Durability>k__BackingField: 2
+    <MaxStackCapacity>k__BackingField: 1
+    <UIData>k__BackingField:
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Onion
+      <Description>k__BackingField: Simple Melon
+    <MinGrownTimeInSeconds>k__BackingField: 3
+    <MaxGrownTimeInSeconds>k__BackingField: 4
