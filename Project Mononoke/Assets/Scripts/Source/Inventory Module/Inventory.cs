@@ -56,7 +56,7 @@ namespace Source.InventoryModule
           return true;
         }
 
-      private bool CantAddStack(ItemData itemData, List<InventoryItemsStack> stacks)
+      private bool CantAddStack(ItemData itemData, ICollection<InventoryItemsStack> stacks)
       {
         return !TryAddStack(itemData, stacks);
       }
@@ -101,7 +101,7 @@ namespace Source.InventoryModule
         return stackIndex == -1;
       }
 
-      private bool TryAddStack(ItemData itemData, List<InventoryItemsStack> stacks)
+      private bool TryAddStack(ItemData itemData, ICollection<InventoryItemsStack> stacks)
       {
         if (InventoryItemsStackFabricCantCreateNewStack(stackIndex: stacks.Count, out InventoryItemsStack newStack, itemData.MaxStackCapacity)) return false;
         stacks.Add(newStack);

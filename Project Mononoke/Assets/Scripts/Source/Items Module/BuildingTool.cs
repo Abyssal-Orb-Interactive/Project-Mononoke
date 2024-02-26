@@ -12,7 +12,7 @@ namespace Source.ItemsModule
         private Vector3 _targetBuildingPosition = Vector3.zero;
 
 
-        public BuildingTool(int iD, ItemsDatabase<ItemData> database, int buildingID) : base(iD, database)
+        public BuildingTool(int iD, ItemsDatabase<ItemData> database, int buildingID) : base(iD, database, buildingID)
         {
             OnUse = _ => MakeRequest(new IBuildRequester.BuildRequestEventArgs(buildingID, _targetBuildingPosition));
         }

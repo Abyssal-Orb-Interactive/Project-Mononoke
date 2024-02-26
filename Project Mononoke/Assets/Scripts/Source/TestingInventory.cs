@@ -28,9 +28,10 @@ namespace Scripts.Source
             TimersFabric.Initialize(_timeInvoker);
             var inventoryPresenter = new InventoryPresenter(_pickUpper.Inventory, _view);
             _hoe = new BuildingTool(2, _database, 0);
-            var seed = new Item<SeedData>(0, seedDatabase);
+            var seed = new Item<SeedData>(0, seedDatabase, 0);
             _item.Initialize(_hoe);
             _seedbed.Initialize(seed);
+              
         }
 
         private void Update() 
