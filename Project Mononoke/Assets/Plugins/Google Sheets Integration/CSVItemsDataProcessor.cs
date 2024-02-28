@@ -35,9 +35,9 @@ namespace Plugins.GoogleSheetsIntegration
             ItemData data;
             for (var i = rawDataStartIndex; i < rows.Length; i++)
             {
-                string[] cells = rows[i].Split(CELL_SEPARATOR);
-            
-                if(!TryParseInt(cells[ID_COLUMN_INDEX],out int id)) break;
+                var cells = rows[i].Split(CELL_SEPARATOR);
+
+                var id = cells[ID_COLUMN_INDEX];
 
                 var name = cells[NAME_COLUMN_INDEX];
 

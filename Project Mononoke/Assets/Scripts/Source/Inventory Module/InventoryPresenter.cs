@@ -1,6 +1,5 @@
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
-using static Source.InventoryModule.Inventory;
 using static Source.InventoryModule.ItemsStackFabric;
 
 namespace Source.InventoryModule
@@ -36,13 +35,13 @@ namespace Source.InventoryModule
 
         public class StackDataForUI
         {
-            public int ItemID {get; private set;}
+            public string ItemID {get; private set;}
 
             public ItemsDatabase<ItemData> ItemDatabase {get; private set;}
             public int StackIndex {get; private set;}
             public int StackCount {get; private set;}
 
-            public StackDataForUI(int itemID, ItemsDatabase<ItemData> itemDatabase, int stackIndex, int stackCount)
+            public StackDataForUI(string itemID, ItemsDatabase<ItemData> itemDatabase, int stackIndex, int stackCount)
             {
                 ItemID = itemID;
                 ItemDatabase = itemDatabase;

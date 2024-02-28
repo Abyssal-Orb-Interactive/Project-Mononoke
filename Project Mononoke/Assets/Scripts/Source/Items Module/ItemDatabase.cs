@@ -5,12 +5,14 @@ using UnityEngine;
 
 namespace Source.ItemsModule
 {
+    public delegate void UseBehaviour(object context);
+    
     [Serializable]
     public abstract class ItemsDatabase<T> : ScriptableObject where T : ItemData
     {
         [SerializeField] private List<T> _savedData = new();
 
-        private Dictionary<int, T> _database = new();
+        private Dictionary<string, T> _database = new();
         
         public void ReplaceDatabaseWith(IEnumerable<T> data)
         {
@@ -39,7 +41,7 @@ namespace Source.ItemsModule
         
         private bool TryAddOrOverwriteItemData (T data)
         {
-            _database ??= new Dictionary<int, T>();
+            _database ??= new Dictionary<string, T>();
 
             if(!ItemDataValidator.CheckDataCorrectness(data, _database)) return false;
 
@@ -52,7 +54,7 @@ namespace Source.ItemsModule
             if(!_database.TryAdd(data.ID, data)) _database[data.ID] = data;
         }
         
-        public virtual bool TryGetItemDataBy (int ID, out T value)
+        public virtual bool TryGetItemDataBy (string ID, out T value)
         {
             if(IsDatabaseEmpty()) InitializeDatabase();
             if(_database.TryGetValue(ID, out value)) return true;

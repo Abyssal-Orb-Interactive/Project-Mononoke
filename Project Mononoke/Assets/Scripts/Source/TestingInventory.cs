@@ -18,8 +18,8 @@ namespace Scripts.Source
         [SerializeField] private IsoCharacterMover _mover = null;
         [SerializeField] private ItemsDatabase<SeedData> seedDatabase = null;
         [SerializeField] private Seedbed _seedbed;
-
-        private BuildingTool _hoe = null;
+        [SerializeField] private HandlingItemVisualizer _handlingItemVisualizer = null;
+        
         private TimeInvoker _timeInvoker = null;
 
         private void Start()
@@ -27,20 +27,18 @@ namespace Scripts.Source
             _timeInvoker = TimeInvoker.Instance;
             TimersFabric.Initialize(_timeInvoker);
             var inventoryPresenter = new InventoryPresenter(_pickUpper.Inventory, _view);
-            _hoe = new BuildingTool(2, _database, 0);
-            var seed = new Item<SeedData>(0, seedDatabase, 0);
-            _item.Initialize(_hoe);
+            var seed = new Item<SeedData>("Onion", seedDatabase);
             _seedbed.Initialize(seed);
-              
+            _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
         }
 
         private void Update() 
         { 
             _timeInvoker.UpdateTimer();
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                _hoe.UseMatterIn(_mover);
-            }       
+                _pickUpper.TryUseItemInManipulatorMatterIn(_mover);
+            }
         }
     }
 }

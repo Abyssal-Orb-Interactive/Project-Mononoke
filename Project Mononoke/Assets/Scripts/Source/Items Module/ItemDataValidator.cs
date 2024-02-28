@@ -6,20 +6,14 @@ namespace Source.ItemsModule
     public static class ItemDataValidator
     {
         private const float MINIMAL_FLOAT_VALUE = 0.01f;
-        private const int MINIMAL_ID_VALUE = 0;
         private const int MINIMAL_STACK_CAPACITY = 1;
         private const int MAX_WARNINGS_NUMBER = 7;
         private  static readonly List<string> _warningsBuffer = new(MAX_WARNINGS_NUMBER);
         
-        public static bool CheckDataCorrectness<T>(ItemData data, IReadOnlyDictionary<int, T> database) where T : ItemData
+        public static bool CheckDataCorrectness<T>(ItemData data, IReadOnlyDictionary<string, T> database) where T : ItemData
         {
             _warningsBuffer.Clear();
             var itemName = data.Name;
-
-            if(!CheckIDCorrectness(data.ID))
-            {
-                _warningsBuffer.Add(GenerateDataCorrectnessWarning("ID", itemName, boundaryValue: MINIMAL_ID_VALUE));
-            }
 
             if(!CheckWeightCorrectness(data.Weight))
             {
@@ -64,11 +58,6 @@ namespace Source.ItemsModule
             return $"All Items in database must have {attribute} {comparison} {boundaryValue}, {attribute} of item {itemName} is {actualCompressionWithBorderValue} than {boundaryValue}, {itemName} will be excluded and unavailable to game entities from database to avoid possible conflicts";
         }
 
-        private static bool CheckIDCorrectness(int ID)
-        {
-            return ID >= MINIMAL_ID_VALUE;
-        }
-
         private static bool CheckWeightCorrectness(float weight)
         {
             return weight >= MINIMAL_FLOAT_VALUE;
@@ -94,7 +83,7 @@ namespace Source.ItemsModule
             return maxStackSize >= MINIMAL_STACK_CAPACITY;
         }
 
-        private static bool IsIDUnique<T>(int ID, string name, IReadOnlyDictionary<int, T> database) where T : ItemData
+        private static bool IsIDUnique<T>(string ID, string name, IReadOnlyDictionary<string, T> database) where T : ItemData
         {
             return !database.ContainsKey(ID) || database[ID].Name == name;
         }

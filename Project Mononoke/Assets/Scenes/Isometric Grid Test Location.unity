@@ -2466,9 +2466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Item>k__BackingField:
-    <ID>k__BackingField: 2
-    <Database>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
-    <PercentsOfDurability>k__BackingField: 0
+    <ID>k__BackingField: Hoe
+    <Database>k__BackingField: {fileID: 11400000, guid: 06f2c52f14666fd4db30131a6d77ccd1, type: 2}
+    <PercentsOfDurability>k__BackingField: 58.9
   _spriteRenderer: {fileID: 1716154022}
   _collider: {fileID: 1716154021}
   _pickUpAnimationDuration: 1
@@ -2557,6 +2557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1940537674}
   - component: {fileID: 1940537675}
+  - component: {fileID: 1940537676}
   m_Layer: 0
   m_Name: Helded Item
   m_TagString: Untagged
@@ -2631,6 +2632,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1940537676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940537673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf08aa28b244da9a73ae739560f57e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 1940537675}
 --- !u!1 &1941498719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,10 +2966,11 @@ MonoBehaviour:
   _view: {fileID: 553634996}
   _pickUpper: {fileID: 824457669}
   _item: {fileID: 1716154024}
-  _database: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
+  _database: {fileID: 11400000, guid: 06f2c52f14666fd4db30131a6d77ccd1, type: 2}
   _mover: {fileID: 824457672}
   seedDatabase: {fileID: 11400000, guid: 9bddd7d349488be4dbbcea1f54abf5b0, type: 2}
   _seedbed: {fileID: 1609142483}
+  _handlingItemVisualizer: {fileID: 1940537676}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0

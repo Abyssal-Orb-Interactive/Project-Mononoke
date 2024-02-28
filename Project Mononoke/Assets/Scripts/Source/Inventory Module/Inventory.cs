@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Source.ItemsModule;
-using UnityEngine;
 using static Source.InventoryModule.ItemsStackFabric;
-using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.InventoryModule
 {
@@ -15,7 +13,7 @@ namespace Source.InventoryModule
       private float _availableWeight = 0;
       private float _availableVolume = 0;
 
-      private Dictionary<int, List<InventoryItemsStack>> _inventory = null; 
+      private Dictionary<string, List<InventoryItemsStack>> _inventory = null; 
 
       public int Count => _inventory.Keys.Count;
 
@@ -27,7 +25,7 @@ namespace Source.InventoryModule
         _volumeCapacity = volumeCapacity;
         _availableWeight = _weightCapacity;
         _availableVolume = _volumeCapacity;
-        _inventory = new(30);
+        _inventory = new Dictionary<string, List<InventoryItemsStack>>(30);
       }
 
       public bool TryAddItem(Item<ItemData> item)
@@ -66,7 +64,7 @@ namespace Source.InventoryModule
         return item.Equals(default) || item.Database == null || _inventory == null;
       }
 
-      private bool CantGetItemDataFrom(ItemsDatabase<ItemData> database, int ID, out ItemData itemData)
+      private bool CantGetItemDataFrom(ItemsDatabase<ItemData> database, string ID, out ItemData itemData)
       {
         return !database.TryGetItemDataBy(ID, out itemData);
       }
@@ -76,12 +74,12 @@ namespace Source.InventoryModule
         return weight > _availableWeight || volume > _availableVolume;
       }
 
-      private bool InventoryDoesNotContainsStacksOf(int ID, out List<InventoryItemsStack> stacks)
+      private bool InventoryDoesNotContainsStacksOf(string ID, out List<InventoryItemsStack> stacks)
       {
         return !_inventory.TryGetValue(ID, out stacks);
       }
 
-      private bool CantAddRecordForStacksBy(int ID, out List<InventoryItemsStack> stacks)
+      private bool CantAddRecordForStacksBy(string ID, out List<InventoryItemsStack> stacks)
       {
         return !_inventory.TryAdd(ID, stacks = new List<InventoryItemsStack>());
       }
@@ -119,15 +117,15 @@ namespace Source.InventoryModule
         _availableVolume -= itemData.Volume;
       }
 
-      public bool TryGetItem(int itemID, int stackIndex, out Item<ItemData> item)
+      public bool TryGetItem(string itemID, int stackIndex, out Item<ItemData> item)
       {
-        if (EnterGettingParametersIsInvalid(itemID, stackIndex))
+        if (EnterGettingParametersIsInvalid(stackIndex))
         {
           item = default;
           return false;
         }
 
-        if (InventoryDoesNotContainsStacksOf(itemID, out List<InventoryItemsStack> stacks))
+        if (InventoryDoesNotContainsStacksOf(itemID, out var stacks))
         {
           item = default;
           return false;
@@ -146,10 +144,26 @@ namespace Source.InventoryModule
         ItemRemoved?.Invoke(stack, stackIndex);
         return true;
       }
-
-      private static bool EnterGettingParametersIsInvalid(int itemID, int stackIndex)
+      
+      public bool TryGetItem(string itemID, out Item<ItemData> item)
       {
-        return itemID < 0 || stackIndex < 0;
+        if (InventoryDoesNotContainsStacksOf(itemID, out var stacks))
+        {
+          item = default;
+          return false;
+        }
+
+        var stack = stacks[0];
+
+        if (StackCantPopItem(out item, stack)) return false;
+
+        ItemRemoved?.Invoke(stack, 0);
+        return true;
+      }
+
+      private static bool EnterGettingParametersIsInvalid(int stackIndex)
+      {
+        return stackIndex < 0;
       }
 
       private bool StackIndexIsOutOfBoundsOfStacksList(int stackIndex, int stacksCount)
@@ -164,10 +178,7 @@ namespace Source.InventoryModule
 
       public IEnumerator<InventoryItemsStack> GetEnumerator()
       {
-        for(var key = 0; key < _inventory.Keys.Count; key++)
-        {
-          for(var stackIndex = 0; stackIndex < _inventory[key].Count; stackIndex++) yield return _inventory[key][stackIndex];
-        }
+        throw new NotImplementedException();
       }
 
       IEnumerator IEnumerable.GetEnumerator()

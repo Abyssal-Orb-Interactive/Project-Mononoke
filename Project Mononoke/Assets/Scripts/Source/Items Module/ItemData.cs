@@ -9,16 +9,17 @@ namespace Source.ItemsModule
     {
         
         [field: SerializeField] public string Name { get; private set; } = "Unknown";
-        [field: SerializeField, Range(0, int.MaxValue)] public int ID { get; private set; } = -1;
+        [field: SerializeField] public string ID { get; private set; } = "Unknown";
         [field: SerializeField] public GameObject Prefab { get; private set; } = null;
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Weight { get; private set; } = -1;
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Volume { get; private set; } = -1;
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Price { get; private set; } = -1;
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Durability { get; private set; } = -1;
         [field: SerializeField, Range(1, int.MaxValue)] public int MaxStackCapacity {get; private set;} = 1;
+        public UseBehaviour UseBehaviour => ItemsUseBehaviourFabric.GetBehaviour(ID);
         [field: SerializeField] public UIItemData UIData {get; private set;} = null;
 
-        public ItemData(int id, string name, float weight, float volume, float price, float durability, int stackCapacity, string spriteName, SpriteAtlas atlas, string description)
+        public ItemData(string id, string name, float weight, float volume, float price, float durability, int stackCapacity, string spriteName, SpriteAtlas atlas, string description)
         {
             ID = id;
             Name = name;

@@ -27,7 +27,7 @@ namespace Source.BuildingModule
             _handleActions.Remove(handleAction);
         }
 
-        public static void MakeRequest(IBuildRequester requester, BuildRequestEventArgs buildRequestEventArg)
+        public static void MakeRequest(BuildRequestEventArgs buildRequestEventArg)
         {
             if(_handleActions.Count == 0) return;
 
