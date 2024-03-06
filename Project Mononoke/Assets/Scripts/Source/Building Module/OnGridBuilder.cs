@@ -29,7 +29,7 @@ namespace Source.BuildingModule
 
         public bool TryBuildBuildingWith(int ID, Vector3 position)
         {
-            Vector3Int gridPosition = _grid.WorldToGrid(position);
+            var gridPosition = _grid.WorldToGrid(position);
 
             if (_grid.HasBuildingAt(gridPosition))
             {
