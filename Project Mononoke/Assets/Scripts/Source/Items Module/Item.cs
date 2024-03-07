@@ -17,7 +17,7 @@ namespace Source.ItemsModule
             ID = iD;
             Database = database;
             Database.TryGetItemDataBy(ID, out var data);
-            OnUse += data.UseBehaviour;
+            OnUse += data?.UseBehaviour;
         }
         
         public void UseMatterIn(object context)

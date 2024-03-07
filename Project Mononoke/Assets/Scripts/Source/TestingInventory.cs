@@ -1,4 +1,5 @@
 using Base.Timers;
+using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
@@ -13,12 +14,14 @@ namespace Scripts.Source
     {
         [SerializeField] private InventoryTableView _view = null;
         [SerializeField] private PickUpper _pickUpper = null;
-        [SerializeField] private ItemView _item = null;
+        [SerializeField] private ItemView _itemViewPrefab = null;
         [SerializeField] private ItemsDatabase<ItemData> _database = null;
         [SerializeField] private IsoCharacterMover _mover = null;
         [SerializeField] private ItemsDatabase<SeedData> seedDatabase = null;
         [SerializeField] private Seedbed _seedbed;
         [SerializeField] private HandlingItemVisualizer _handlingItemVisualizer = null;
+        [SerializeField] private OnGridObjectPlacer _placer;
+        [SerializeField] private Transform _itemViewsContainer;
         
         private TimeInvoker _timeInvoker = null;
 
@@ -26,6 +29,8 @@ namespace Scripts.Source
         {
             _timeInvoker = TimeInvoker.Instance;
             TimersFabric.Initialize(_timeInvoker);
+            ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
+            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database));
             var inventoryPresenter = new InventoryPresenter(_pickUpper.Inventory, _view);
             var seed = new Item<SeedData>("Onion", seedDatabase);
             _seedbed.Initialize(seed);
