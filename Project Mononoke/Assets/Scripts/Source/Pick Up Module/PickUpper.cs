@@ -24,15 +24,19 @@ namespace Source.PickUpModule
          return true;
       }
 
+      public bool TryStashInInventory()
+      {
+         return Manipulator.TryStashIn(Inventory);
+      }
+
       private void OnCollisionEnter2D(Collision2D other)
       {
          Inventory ??= new Inventory(100, 100);
          Manipulator ??= new Manipulator(5, 2);
          
          if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
-
-         if (!Inventory.TryAddItem(droppedItemView.Item)) return;
-         if (!TryTakeItemFromInventoryWithManipulator(droppedItemView.Item.ID)) return;
+         
+         if(!Manipulator.TryTake(droppedItemView.Item)) return;
          
          droppedItemView.BeginPickUp();
       }

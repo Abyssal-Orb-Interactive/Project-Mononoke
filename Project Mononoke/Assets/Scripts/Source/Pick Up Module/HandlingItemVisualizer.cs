@@ -23,6 +23,12 @@ namespace Source.PickUpModule
 
         private void ChangeSprite(Item<ItemData> item)
         {
+            if (item == null)
+            {
+                _spriteRenderer.sprite = null;
+                return;
+            }
+            
             if (!item.Database.TryGetItemDataBy(item.ID, out var data)) return;
             _spriteRenderer.sprite = data.UIData.Icon;
         }

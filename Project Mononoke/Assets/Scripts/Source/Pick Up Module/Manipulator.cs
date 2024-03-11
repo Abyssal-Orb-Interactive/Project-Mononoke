@@ -28,6 +28,8 @@ namespace Source.PickUpModule
         {
             if (!item.Database.TryGetItemDataBy(item.ID, out var data)) return false;
             if(data.Weight > _strength || data.Volume > _volume) return false;
+            
+            if (_item != null) ItemViewFabric.Create(_item, new Vector3(1,1));
 
             Take(item);
             return true;
@@ -46,11 +48,15 @@ namespace Source.PickUpModule
 
         public bool TryStashIn(Inventory inventory)
         {
-            if (inventory == null) return false;
+            if (inventory == null || _item == null) return false;
             
             var result = inventory.TryAddItem(_item);
-            
-            if (result) InManipulatorItemChanged?.Invoke(null);
+
+            if (result)
+            {
+                _item = null;
+                InManipulatorItemChanged?.Invoke(null);
+            }
 
             return result;
         }

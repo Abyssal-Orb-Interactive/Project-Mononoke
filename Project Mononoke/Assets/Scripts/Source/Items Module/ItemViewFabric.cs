@@ -18,12 +18,17 @@ namespace Source.ItemsModule
             _placer = placer;
         }
         
-        public static void Create(Item<ItemData> item)
+        public static void Create(Item<ItemData> item, Vector3 position)
         {
-            if(_itemViewPrefab == null || _itemViewsContainer == null || _placer == null) return;
+            if(!CheckFabricCreationStatus(item)) return;
             
-            var itemView = _placer.PlaceObject(new ObjectPlacementInformation<ItemView>(_itemViewPrefab, Vector3.zero, Quaternion.identity , _itemViewsContainer));
+            var itemView = _placer.PlaceObject(new ObjectPlacementInformation<ItemView>(_itemViewPrefab, position, Quaternion.identity , _itemViewsContainer));
             itemView.Initialize(item);
+        }
+
+        private static bool CheckFabricCreationStatus(Item<ItemData> item)
+        {
+            return _itemViewPrefab != null && _itemViewsContainer != null && _placer != null && item != null;
         }
     }
 }
