@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.BuildingModule;
+using Source.ItemsModule;
 using Source.UI;
 using UnityEngine;
 using static Source.InventoryModule.InventoryPresenter;
@@ -17,15 +18,13 @@ namespace Source.InventoryModule.UI
 
         private List<ItemUIElement> _inventoryPresenterCells = new();
 
-        public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDraggingRequested;
-        public event Action<int,int> OnSwapItemsRequested;
-
         private int _currentDraggingItemIndex = -1;
 
-
+        public event Action<StackDataForUI> ItemDropped;
+        
         public void InitializeInventoryPresenterWithCells(int cellCount)
         {
-            _inventoryPresenterCells ??= new();
+            _inventoryPresenterCells ??= new List<ItemUIElement>();
 
             for (var i = 0; i < cellCount; i++)
             {
@@ -67,6 +66,12 @@ namespace Source.InventoryModule.UI
 
         private void HandleEndDrag(ItemUIElement element)
         {
+            if (!RectTransformUtility.RectangleContainsScreenPoint(_itemUIElementsContainer, Input.mousePosition))
+            {
+               ItemDropped?.Invoke(element.StackData);
+               element.ResetData();
+            }
+            
             ResetSelection();
             ResetDraggingElement();
         }
@@ -83,7 +88,6 @@ namespace Source.InventoryModule.UI
             var dataBuffer = _inventoryPresenterCells[_currentDraggingItemIndex].StackData;
             _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index].StackData);
             _inventoryPresenterCells[index].InitializeWith(dataBuffer);
-            OnSwapItemsRequested?.Invoke(_currentDraggingItemIndex, index);
         }
 
         private void HandleBeginDrag(ItemUIElement element)
@@ -93,7 +97,6 @@ namespace Source.InventoryModule.UI
             if(index == -1) return;
             _currentDraggingItemIndex = index;
             HandleItemSelection(element);
-            OnStartDraggingRequested?.Invoke(_currentDraggingItemIndex);
             CreateDraggedItem(element.StackData);
         }
 
@@ -109,7 +112,6 @@ namespace Source.InventoryModule.UI
             if(element.IsEmpty) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
-            OnDescriptionRequested?.Invoke(index);
             element.Select();
             _descriptionWindow.InitializeWith(element.StackData.ItemDatabase, element.StackData.ItemID);
         }

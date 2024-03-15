@@ -36,7 +36,7 @@ namespace Source.PickUpModule
          
          if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
          
-         if(!Manipulator.TryTake(droppedItemView.Item)) return;
+         if(!Inventory.TryAddItem(droppedItemView.Item)) return;
          
          droppedItemView.BeginPickUp();
       }

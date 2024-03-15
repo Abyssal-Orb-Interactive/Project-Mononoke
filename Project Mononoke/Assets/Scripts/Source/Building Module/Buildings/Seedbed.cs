@@ -1,3 +1,4 @@
+using System;
 using Base.Timers;
 using Source.ItemsModule;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Source.BuildingModule.Buildings
         private Item<SeedData> _seed = null;
         private Timer _seedGrownTimer = null;
 
-       [Inject] public void Initialize(Item<SeedData> seed)
+        public void Plant(Item<SeedData> seed)
         {
             _seed = seed;
             _seed.Database.TryGetItemDataBy(_seed.ID, out var seedData);

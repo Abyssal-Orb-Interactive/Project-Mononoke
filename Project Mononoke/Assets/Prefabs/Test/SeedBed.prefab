@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6530662119022477756}
   - component: {fileID: 8364733443797363634}
   - component: {fileID: -7519635973292085890}
+  - component: {fileID: 8280913256587849056}
   m_Layer: 0
   m_Name: SeedBed
   m_TagString: Untagged
@@ -97,3 +98,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34788716b9e42deb54f64d94ef5c84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!68 &8280913256587849056
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102679844869451058}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.0005534291, y: -0.49700892}
+  - {x: -0.4919656, y: -0.25049472}
+  - {x: -0.0007632375, y: -0.00027671456}
+  - {x: 0.49265817, y: -0.24498296}
+  - {x: -0.005357016, y: -0.50132126}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

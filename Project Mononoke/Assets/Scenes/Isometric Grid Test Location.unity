@@ -1006,6 +1006,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7570147915488652257, guid: 21d453b03947fe949a5dbd75502f799a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6102679844869451058, guid: 21d453b03947fe949a5dbd75502f799a, type: 3}
       propertyPath: m_Name
       value: SeedBed
@@ -2019,8 +2023,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1878529857}
   m_HandleRect: {fileID: 1878529856}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2422,7 +2426,7 @@ RectTransform:
   m_Father: {fileID: 1386019636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 0.99999994}
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 10, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2979,28 +2983,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2746177459576001974, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: _speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746177459576001974, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: _animator
       value: 
       objectReference: {fileID: 699832658}
     - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Size.x
-      value: 0.25113422
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Size.y
-      value: 0.69942814
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Offset.x
-      value: 0.004944388
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Offset.y
-      value: 0.0024722219
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_Direction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3992568967444110572, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_IncludeLayers.m_Bits

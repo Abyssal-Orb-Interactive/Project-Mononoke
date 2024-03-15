@@ -31,9 +31,11 @@ namespace Scripts.Source
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
             ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
+            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
+            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
             var inventoryPresenter = new InventoryPresenter(_pickUpper.Inventory, _view);
             var seed = new Item<SeedData>("Onion", seedDatabase);
-            _seedbed.Initialize(seed);
+            _seedbed.Plant(seed);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
         }
 

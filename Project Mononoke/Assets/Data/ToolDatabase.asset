@@ -22,6 +22,6 @@ MonoBehaviour:
     <Durability>k__BackingField: 4
     <MaxStackCapacity>k__BackingField: 1
     <UIData>k__BackingField:
-      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
-      _spriteName: Vegetables_Carrot
+      _iconAtlas: {fileID: 100100200, guid: 4fe0bf4d3adcc90479c9a1a55614cb2c, type: 3}
+      _spriteName: Iron Hoe Small
       <Description>k__BackingField: Simple Hoe

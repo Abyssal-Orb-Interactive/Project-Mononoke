@@ -1,5 +1,6 @@
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
+using UnityEngine;
 using static Source.InventoryModule.ItemsStackFabric;
 
 namespace Source.InventoryModule
@@ -16,20 +17,31 @@ namespace Source.InventoryModule
 
             _inventory.ItemAdded += OnItemAdded;
             _inventory.ItemRemoved += OnItemRemoved;
+
+            _view.ItemDropped += OnItemDropped;
             
             _view.InitializeInventoryPresenterWithCells(_inventory.Count * 2 + 10);
         }
 
+        private void OnItemDropped(StackDataForUI stackData)
+        {
+            for (var i = 0; i < stackData.StackCount; i++)
+            { 
+                if(!_inventory.TryGetItem(stackData.ItemID, stackData.StackIndex, out var item)) return;
+                ItemViewFabric.Create(item, Vector3.zero);
+            }
+        }
+
         private void OnItemRemoved(InventoryItemsStack stack, int stackIndex)
         {
-            if(!stack.TryPeekItem(out Item<ItemData> item)) return;
+            if(!stack.TryPeekItem(out var item)) return;
             _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
 
 
         private void OnItemAdded(InventoryItemsStack stack, int stackIndex)
         {
-            if(!stack.TryPeekItem(out Item<ItemData> item)) return;
+            if(!stack.TryPeekItem(out var item)) return;
             _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
 
