@@ -8,9 +8,11 @@ namespace Source.BuildingModule.Buildings.Visual
         private List<Sprite> _growthStages = null;
         private int _currentGrowthStageIndex = 0;
         private Seedbed _seedbed = null;
+        public int NumberOfStages => _growthStages.Count;
 
-        public SeedGrowthStageSwitcher(Seedbed seedbed)
+        public SeedGrowthStageSwitcher(Seedbed seedbed, List<Sprite> sprites)
         {
+            _growthStages = sprites;
             _seedbed = seedbed;
             _seedbed.GrowthStageChanged += SetNextGrowthStageSprite;
             
