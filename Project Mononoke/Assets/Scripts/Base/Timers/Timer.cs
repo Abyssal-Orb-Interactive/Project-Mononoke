@@ -30,6 +30,8 @@ namespace Base.Timers
         public float DelayTimeInSeconds => _counter.TargetValue.Value;
         public float RemainingTime => DelayTimeInSeconds - ElapsedTime;
 
+        public float ElapsedTimeInPresents => ElapsedTime / DelayTimeInSeconds * 100;
+
         public bool IsPaused { get; protected set; } = true;
 
         public Timer(float delayTimeInSeconds, Func<float> timeSource, TimeInvoker invoker, TimerType type)
