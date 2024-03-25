@@ -1275,6 +1275,7 @@ MonoBehaviour:
   _itemUIElementsContainer: {fileID: 1683945271}
   _objectPlacer: {fileID: 1431115569}
   _mousePointer: {fileID: 1941498724}
+  _itemActionsMenu: {fileID: 282092320}
 --- !u!1 &557997734
 GameObject:
   m_ObjectHideFlags: 0
