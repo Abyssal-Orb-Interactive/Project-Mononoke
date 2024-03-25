@@ -1,4 +1,5 @@
 using Source.InventoryModule;
+using Source.InventoryModule.UI;
 using Source.ItemsModule;
 using UnityEngine;
 
@@ -9,8 +10,20 @@ namespace Source.PickUpModule
    {
       public Inventory Inventory {get; private set;} = new(weightCapacity: 100, volumeCapacity: 100);
       public Manipulator Manipulator { get; private set; } = new(strength: 5, volume: 2);
+      private InventoryPresenter _inventoryPresenter = null;
 
+      public void Initialize(Inventory inventory, Manipulator manipulator, InventoryPresenter presenter)
+      {
+         Inventory = inventory;
+         Manipulator = manipulator;
+         _inventoryPresenter = presenter;
+         _inventoryPresenter.ItemEquipped += OnItemEquipped;
+      }
 
+      private void OnItemEquipped(InventoryPresenter.StackDataForUI item)
+      {
+         Manipulator.TryTake(new Item<ItemData>(item.ItemID, item.ItemDatabase));
+      }
 
       public bool TryTakeItemFromInventoryWithManipulator(string ID)
       {
@@ -37,7 +50,7 @@ namespace Source.PickUpModule
          if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
          
          if(!Inventory.TryAddItem(droppedItemView.Item)) return;
-         
+
          droppedItemView.BeginPickUp();
       }
    }

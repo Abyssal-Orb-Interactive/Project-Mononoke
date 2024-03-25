@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Base.Grid;
+using Source.BuildingModule.Buildings;
 using UnityEngine;
 using static Source.BuildingModule.IBuildRequester;
 
@@ -45,10 +46,10 @@ namespace Source.BuildingModule
                 return false;
             }
 
-            GameObject buildingPrefab = buildingData.Prefab;
+            Seedbed buildingPrefab = buildingData.Prefab;
             Transform container = _containerAssociator.Associations[ID];
 
-            var objectPlacementInformation = new ObjectPlacementInformation<GameObject>(buildingPrefab, position, Quaternion.identity, container);
+            var objectPlacementInformation = new ObjectPlacementInformation<Seedbed>(buildingPrefab, position, Quaternion.identity, container);
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
         

@@ -22,18 +22,21 @@ namespace Scripts.Source
         [SerializeField] private HandlingItemVisualizer _handlingItemVisualizer = null;
         [SerializeField] private OnGridObjectPlacer _placer;
         [SerializeField] private Transform _itemViewsContainer;
-        
+
         private TimeInvoker _timeInvoker = null;
 
         private void Start()
         {
             _timeInvoker = TimeInvoker.Instance;
+            var inventory = new Inventory(100, 100);
+            var manipulator = new Manipulator(5,3);
+            var inventoryPresenter = new InventoryPresenter(inventory, _view);
+            _pickUpper.Initialize(inventory,manipulator, inventoryPresenter);
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
             ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
             ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
-            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
-            var inventoryPresenter = new InventoryPresenter(_pickUpper.Inventory, _view);
+            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1, -1));
             var seed = new Item<SeedData>("Onion", seedDatabase);
             _seedbed.Plant(seed);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);

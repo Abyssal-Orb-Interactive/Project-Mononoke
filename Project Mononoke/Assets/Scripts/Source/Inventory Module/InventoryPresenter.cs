@@ -1,3 +1,4 @@
+using System;
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Source.InventoryModule
         private readonly Inventory _inventory = null;
         private readonly InventoryTableView _view = null;
 
+        public Action<StackDataForUI> ItemEquipped = null;
+
         public InventoryPresenter(Inventory inventory, InventoryTableView view)
         {
             _inventory = inventory;
@@ -19,14 +22,20 @@ namespace Source.InventoryModule
             _inventory.ItemRemoved += OnItemRemoved;
 
             _view.ItemDropped += OnItemDropped;
-            
+            _view.ItemEquipped += OnItemEquipped;
+
             _view.InitializeInventoryPresenterWithCells(_inventory.Count * 2 + 10);
+        }
+
+        private void OnItemEquipped(StackDataForUI item)
+        {
+            ItemEquipped?.Invoke(item);
         }
 
         private void OnItemDropped(StackDataForUI stackData)
         {
             for (var i = 0; i < stackData.StackCount; i++)
-            { 
+            {
                 if(!_inventory.TryGetItem(stackData.ItemID, stackData.StackIndex, out var item)) return;
                 ItemViewFabric.Create(item, Vector3.zero);
             }

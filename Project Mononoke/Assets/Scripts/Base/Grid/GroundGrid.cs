@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Base.Math;
 using Base.TileMap;
+using Source.BuildingModule.Buildings;
 using UnityEngine;
 
 namespace Base.Grid
@@ -55,13 +56,13 @@ namespace Base.Grid
             return roundedCoordinate;
         }
 
-        public bool TryAddBuilding(GameObject prefab, Vector3Int position)
+        public bool TryAddBuilding(Seedbed seedbed, Vector3Int position)
         {
             var cell = _grid[position];
 
             if(cell.HasBuilding) return false;
 
-            cell.AddBuilding(prefab);
+            cell.AddBuilding(seedbed);
             return true;
         }
     }

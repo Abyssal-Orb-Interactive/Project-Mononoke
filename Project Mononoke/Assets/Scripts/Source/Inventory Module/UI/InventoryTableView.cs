@@ -15,12 +15,13 @@ namespace Source.InventoryModule.UI
         [SerializeField] private RectTransform _itemUIElementsContainer = null;
         [SerializeField] private OnGridObjectPlacer _objectPlacer = null;
         [SerializeField] private MousePointerMover _mousePointer = null;
+        [SerializeField] private ItemActionsMenu _itemActionsMenu = null;
 
         private List<ItemUIElement> _inventoryPresenterCells = new();
 
         private int _currentDraggingItemIndex = -1;
 
-        public event Action<StackDataForUI> ItemDropped;
+        public event Action<StackDataForUI> ItemDropped, ItemEquipped;
         
         public void InitializeInventoryPresenterWithCells(int cellCount)
         {
@@ -61,22 +62,29 @@ namespace Source.InventoryModule.UI
 
         private void HandleShowItemActions(ItemUIElement element)
         {
-            throw new NotImplementedException();
+            _itemActionsMenu.transform.position = element.transform.position;
+            _itemActionsMenu.AddDropAction(() => OnItemDropped(element));
+            _itemActionsMenu.AddEquipAction(() => ItemEquipped?.Invoke(element.StackData));
+            _itemActionsMenu.Toggle(true);
         }
 
         private void HandleEndDrag(ItemUIElement element)
         {
             if (!RectTransformUtility.RectangleContainsScreenPoint(_itemUIElementsContainer, Input.mousePosition))
             {
-               ItemDropped?.Invoke(element.StackData);
-               element.ResetData();
+                OnItemDropped(element);
             }
             
             ResetSelection();
             ResetDraggingElement();
         }
 
-        
+        private void OnItemDropped(ItemUIElement element)
+        {
+            ItemDropped?.Invoke(element.StackData);
+            element.ResetData();
+        }
+
 
         private void HandleSwap(ItemUIElement element)
         {
@@ -95,6 +103,7 @@ namespace Source.InventoryModule.UI
             if(element.IsEmpty) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
+            _itemActionsMenu.Toggle(false);
             _currentDraggingItemIndex = index;
             HandleItemSelection(element);
             CreateDraggedItem(element.StackData);
@@ -119,6 +128,7 @@ namespace Source.InventoryModule.UI
         private void ResetSelection()
         {
             _descriptionWindow.Reset();
+            _itemActionsMenu.Toggle(false);
             DeselectAllItems();
         }
 
