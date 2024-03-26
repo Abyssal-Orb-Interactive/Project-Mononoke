@@ -12,11 +12,13 @@ namespace Source.InventoryModule.UI
         public void AddEquipAction(Action equipAction)
         {
             _equipButton.onClick.AddListener(() => equipAction());
+            _equipButton.onClick.AddListener(() => Toggle(false));
         }
 
         public void AddDropAction(Action dropAction)
         {
             _dropButton.onClick.AddListener(() => dropAction());
+            _dropButton.onClick.AddListener(() => Toggle(false));
         }
         
         public void Toggle(bool signal)
@@ -27,6 +29,8 @@ namespace Source.InventoryModule.UI
                 _dropButton.onClick.RemoveAllListeners();
             }
             gameObject.SetActive(signal);
+            _dropButton.onClick.AddListener(() => Toggle(false));
+            _equipButton.onClick.AddListener(() => Toggle(false));
         }
     }
 }
