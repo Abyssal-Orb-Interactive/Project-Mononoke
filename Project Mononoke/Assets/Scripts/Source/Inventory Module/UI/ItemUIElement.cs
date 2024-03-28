@@ -43,13 +43,13 @@ namespace Source.InventoryModule.UI
         public void InitializeWith(StackDataForUI stackData) //Add quantity
         {
            
-            if(stackData == null) 
+            if(stackData == null || stackData.StackCount == 0) 
             {
                 ResetData();
                 return;
             }
             StackData = stackData;
-            StackData.ItemDatabase.TryGetItemDataBy(StackData.ItemID, out ItemData data);
+            StackData.ItemDatabase.TryGetItemDataBy(StackData.ItemID, out var data);
             _icon.GetComponent<Image>().sprite = data.UIData.Icon;
             _icon.SetActive(true);
             _countOFItems.text = stackData.StackCount.ToString();

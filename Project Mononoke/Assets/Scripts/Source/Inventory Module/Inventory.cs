@@ -17,7 +17,8 @@ namespace Source.InventoryModule
 
       public int Count => _inventory.Keys.Count;
 
-      public event Action<InventoryItemsStack, int> ItemAdded, ItemRemoved, ItemDropped;
+      public event Action<InventoryItemsStack, int> ItemAdded, ItemDropped;
+      public event Action<InventoryItemsStack, int, Item<ItemData>> ItemRemoved;
 
       public Inventory(float weightCapacity, float volumeCapacity)
       {
@@ -141,7 +142,7 @@ namespace Source.InventoryModule
 
         if (StackCantPopItem(out item, stack)) return false;
 
-        ItemRemoved?.Invoke(stack, stackIndex);
+        ItemRemoved?.Invoke(stack, stackIndex, item);
         return true;
       }
       
@@ -157,7 +158,7 @@ namespace Source.InventoryModule
 
         if (StackCantPopItem(out item, stack)) return false;
 
-        ItemRemoved?.Invoke(stack, 0);
+        ItemRemoved?.Invoke(stack, 0, item);
         return true;
       }
 

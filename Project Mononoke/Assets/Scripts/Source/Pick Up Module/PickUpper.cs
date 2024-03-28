@@ -20,9 +20,10 @@ namespace Source.PickUpModule
          _inventoryPresenter.ItemEquipped += OnItemEquipped;
       }
 
-      private void OnItemEquipped(InventoryPresenter.StackDataForUI item)
+      private void OnItemEquipped(InventoryPresenter.StackDataForUI itemData)
       {
-         Manipulator.TryTake(new Item<ItemData>(item.ItemID, item.ItemDatabase));
+         if(!Inventory.TryGetItem(itemData.ItemID, itemData.StackIndex, out var item)) return;
+         Manipulator.TryTake(item);
       }
 
       public bool TryTakeItemFromInventoryWithManipulator(string ID)

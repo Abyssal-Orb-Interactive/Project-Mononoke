@@ -20,11 +20,18 @@ namespace Source.InventoryModule
 
             _inventory.ItemAdded += OnItemAdded;
             _inventory.ItemRemoved += OnItemRemoved;
+            _inventory.ItemDropped += OnItemDropped;
 
-            _view.ItemDropped += OnItemDropped;
+            _view.ItemDropped += OnUIItemDropped;
             _view.ItemEquipped += OnItemEquipped;
 
             _view.InitializeInventoryPresenterWithCells(_inventory.Count * 2 + 10);
+        }
+
+        private void OnItemDropped(InventoryItemsStack stack, int stackIndex)
+        {
+            if(!stack.TryPeekItem(out var item)) return;
+            _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
 
         private void OnItemEquipped(StackDataForUI item)
@@ -32,7 +39,7 @@ namespace Source.InventoryModule
             ItemEquipped?.Invoke(item);
         }
 
-        private void OnItemDropped(StackDataForUI stackData)
+        private void OnUIItemDropped(StackDataForUI stackData)
         {
             for (var i = 0; i < stackData.StackCount; i++)
             {
@@ -41,9 +48,8 @@ namespace Source.InventoryModule
             }
         }
 
-        private void OnItemRemoved(InventoryItemsStack stack, int stackIndex)
+        private void OnItemRemoved(InventoryItemsStack stack, int stackIndex, Item<ItemData> item)
         {
-            if(!stack.TryPeekItem(out var item)) return;
             _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
 
