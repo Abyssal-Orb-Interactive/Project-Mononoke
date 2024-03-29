@@ -18,6 +18,7 @@ namespace Source.InventoryModule.UI
 
         public StackDataForUI StackData {get; private set;} = default;
         public bool IsEmpty {get; private set;}
+        public Vector2 Sizes => new Vector2(gameObject.GetComponent<RectTransform>().rect.width, gameObject.GetComponent<RectTransform>().rect.height);
 
         public event Action<ItemUIElement> OnItemLeftClicked, OnItemRightClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag; 
 

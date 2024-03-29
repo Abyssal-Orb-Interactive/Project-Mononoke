@@ -62,7 +62,9 @@ namespace Source.InventoryModule.UI
 
         private void HandleShowItemActions(ItemUIElement element)
         {
-            _itemActionsMenu.transform.position = element.transform.position;
+            var halfOfSizes = element.Sizes / 2;
+            var correctedPosition = new Vector3(Mathf.RoundToInt(element.gameObject.transform.position.x + halfOfSizes.x + 26f), Mathf.RoundToInt(element.gameObject.transform.position.y - halfOfSizes.y - 26f));
+            _itemActionsMenu.gameObject.transform.position = new Vector3Int(Mathf.RoundToInt(correctedPosition.x), Mathf.RoundToInt(correctedPosition.y));
             _itemActionsMenu.AddDropAction(() => OnItemDropped(element));
             _itemActionsMenu.AddEquipAction(() => ItemEquipped?.Invoke(element.StackData));
             _itemActionsMenu.Toggle(true);
