@@ -52,6 +52,11 @@ namespace Source.Character.Movement
             StartInputHandling();
         }
 
+        public Vector3 GetCurrentPosition()
+        {
+            return _rigidbody.position;
+        }
+
         private void Update()
         {
             MoveTo(_moveDirection);

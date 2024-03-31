@@ -9,6 +9,8 @@ namespace Source.InventoryModule.UI
         [SerializeField] private Button _equipButton = null;
         [SerializeField] private Button _dropButton = null;
 
+        public bool IsActive => gameObject.activeSelf;
+
         public void AddEquipAction(Action equipAction)
         {
             _equipButton.onClick.AddListener(() => equipAction());

@@ -46,10 +46,10 @@ namespace Source.BuildingModule
                 return false;
             }
 
-            Seedbed buildingPrefab = buildingData.Prefab;
+            Building buildingPrefab = buildingData.Prefab;
             Transform container = _containerAssociator.Associations[ID];
 
-            var objectPlacementInformation = new ObjectPlacementInformation<Seedbed>(buildingPrefab, position, Quaternion.identity, container);
+            var objectPlacementInformation = new ObjectPlacementInformation<Building>(buildingPrefab, position, Quaternion.identity, container);
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
         

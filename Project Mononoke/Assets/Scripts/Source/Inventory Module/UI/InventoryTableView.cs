@@ -4,6 +4,7 @@ using Source.BuildingModule;
 using Source.ItemsModule;
 using Source.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static Source.InventoryModule.InventoryPresenter;
 
 namespace Source.InventoryModule.UI
@@ -31,7 +32,7 @@ namespace Source.InventoryModule.UI
             {
                 AddInventoryCell();
             }
-        }
+        } 
 
         public void UpdateData(StackDataForUI stackData)
         {
@@ -62,6 +63,7 @@ namespace Source.InventoryModule.UI
 
         private void HandleShowItemActions(ItemUIElement element)
         {
+            _itemActionsMenu.Toggle(false);
             var halfOfSizes = element.Sizes / 2;
             var correctedPosition = new Vector3(Mathf.RoundToInt(element.gameObject.transform.position.x + halfOfSizes.x + 26f), Mathf.RoundToInt(element.gameObject.transform.position.y - halfOfSizes.y - 26f));
             _itemActionsMenu.gameObject.transform.position = new Vector3Int(Mathf.RoundToInt(correctedPosition.x), Mathf.RoundToInt(correctedPosition.y));
@@ -83,6 +85,7 @@ namespace Source.InventoryModule.UI
 
         private void OnItemDropped(ItemUIElement element)
         {
+            _itemActionsMenu.Toggle(false);
             ItemDropped?.Invoke(element.StackData);
             element.ResetData();
         }
@@ -102,6 +105,7 @@ namespace Source.InventoryModule.UI
 
         private void HandleBeginDrag(ItemUIElement element)
         {
+            _itemActionsMenu.Toggle(false);
             if(element.IsEmpty) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
@@ -120,6 +124,7 @@ namespace Source.InventoryModule.UI
         private void HandleItemSelection(ItemUIElement element)
         {
             ResetSelection();
+            _itemActionsMenu.Toggle(false);
             if(element.IsEmpty) return;
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Base.Math;
 using Base.TileMap;
+using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
 using UnityEngine;
 
@@ -56,14 +57,20 @@ namespace Base.Grid
             return roundedCoordinate;
         }
 
-        public bool TryAddBuilding(Seedbed seedbed, Vector3Int position)
+        public bool TryAddBuilding(Building building, Vector3Int position)
         {
             var cell = _grid[position];
 
             if(cell.HasBuilding) return false;
 
-            cell.AddBuilding(seedbed);
+            cell.AddBuilding(building);
             return true;
+        }
+
+        public Building GetBuildingAt(Vector3Int position)
+        {
+            var cell = _grid[position];
+            return cell.Building;
         }
     }
 }

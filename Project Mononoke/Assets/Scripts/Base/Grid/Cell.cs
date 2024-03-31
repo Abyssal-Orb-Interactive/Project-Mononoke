@@ -1,11 +1,11 @@
-using Source.BuildingModule.Buildings;
+using Source.BuildingModule;
 
 namespace Base.Grid
 {
     public class Cell : IReadonlyCell
     {
-        private Seedbed _building = null;
-        public bool HasBuilding => _building != null;
+        public Building Building { get; private set; }
+        public bool HasBuilding => Building != null;
         public CellType Type { get; private set; } = CellType.Air;
 
         public Cell(CellType type)
@@ -13,9 +13,9 @@ namespace Base.Grid
             Type = type;
         }
         
-        public void AddBuilding(Seedbed building)
+        public void AddBuilding(Building building)
         {
-            _building = building;
+            Building = building;
         }
     }
 }

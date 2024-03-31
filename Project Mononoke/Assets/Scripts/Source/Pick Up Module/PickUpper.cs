@@ -22,12 +22,12 @@ namespace Source.PickUpModule
 
       private void OnItemEquipped(InventoryPresenter.StackDataForUI itemData)
       {
-         if(!Inventory.TryGetItem(itemData.ItemID, itemData.StackIndex, out var item)) return;
-         Manipulator.TryTake(item);
+         TryTakeItemFromInventoryWithManipulator(itemData.ItemID);
       }
 
       public bool TryTakeItemFromInventoryWithManipulator(string ID)
       {
+         if (Manipulator.HasItem()) Manipulator.TryStashIn(Inventory);
          return Inventory.TryGetItem(ID, out var item) && Manipulator.TryTake(item);
       }
 
