@@ -1,3 +1,4 @@
+using Base.DIContainer;
 using Base.Grid;
 using Base.TileMap;
 using Base.Timers;
@@ -12,6 +13,7 @@ using UnityEngine;
 using Source.Character.Movement;
 using Source.UI;
 using UnityEngine.Tilemaps;
+using VContainer;
 
 namespace Scripts.Source
 {
@@ -28,8 +30,8 @@ namespace Scripts.Source
         [SerializeField] private OnGridObjectPlacer _placer;
         [SerializeField] private Transform _itemViewsContainer;
         [SerializeField] private CharacterLogicIsometric2DCollider _isometric2DCollider = null;
-        [SerializeField] private Tilemap _tileMap = null;
         [SerializeField] private InteractiveObjectsFollower _follower = null;
+        [SerializeField] private GameLifetimeScope _lifetimeScope = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -48,12 +50,8 @@ namespace Scripts.Source
             var seed = new Item<SeedData>("Onion", seedDatabase);
             _seedbed.Plant(seed);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
-            var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
-            var tileCollectionAnalyzer = new TileCollectionAnalyzer(tileMapWrapper);
-            var grid = new GroundGrid(tileCollectionAnalyzer);
-            var gridAnalyzer = new GridAnalyzer(_mover, grid);
-            _isometric2DCollider.Initialize(gridAnalyzer);
             _follower.Initialize(_isometric2DCollider);
+            _lifetimeScope.Container.Resolve<OnGridBuilder>();
         }
 
         private void Update() 

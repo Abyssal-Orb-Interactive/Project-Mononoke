@@ -38,7 +38,7 @@ namespace Base.Grid
 
         public bool IsCellPassableAt(Vector3Int coordinate)
         {
-            if (HasBuildingAt(coordinate)) return false;
+            if (HasBuildingAt(coordinate) && GetBuildingAt(coordinate) is not Seedbed) return false;
 
             var cell =  GetCellAt(coordinate);
              

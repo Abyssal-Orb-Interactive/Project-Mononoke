@@ -1,4 +1,5 @@
 using Base.Input;
+using Base.Math;
 using Source.BuildingModule;
 using Source.Character.Movement;
 using UnityEngine;
@@ -29,8 +30,8 @@ namespace Source.ItemsModule
             var position = data.Position;//IPositionSource must return Cartesian pos
             var facing = data.Direction;
             var oneFacingVector = DirectionToVector3Converter.ToVector(facing);
-            var roundedPosition = new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
-            return roundedPosition + oneFacingVector;
+            var oneFacingVectorIso = new Vector2Iso(oneFacingVector);
+            return new Vector3(position.x + oneFacingVectorIso.X, position.y + oneFacingVectorIso.Y);
         }
     }
 }

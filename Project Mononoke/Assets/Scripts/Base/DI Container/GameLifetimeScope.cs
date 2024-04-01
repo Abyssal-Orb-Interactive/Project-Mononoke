@@ -2,6 +2,7 @@ using Base.Grid;
 using Base.Input;
 using Base.TileMap;
 using Source.BuildingModule;
+using Source.Character;
 using Source.Character.Movement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -28,15 +29,18 @@ namespace Base.DIContainer
             builder.RegisterInstance(_characterMover);
         
             // Registering Components
-            builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<GroundGrid>(Lifetime.Singleton);
             builder.Register<TestActions>(Lifetime.Singleton);
             builder.Register<InputHandler>(Lifetime.Singleton);
-            var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
-            var tileCollectionAnalyzer = new TileCollectionAnalyzer(tileMapWrapper);
-            var gridBuilder = new OnGridBuilder(_objectPlacer, new GroundGrid(tileCollectionAnalyzer), _buildingsDatabase, _objectContainersAssociator);
+           // var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
+            builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
+            //var tileCollectionAnalyzer = new TileCollectionAnalyzer(tileMapWrapper);
+            builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
+            //var grid = new GroundGrid(tileCollectionAnalyzer);
+            builder.Register<GroundGrid>(Lifetime.Singleton);
+            //var gridBuilder = new OnGridBuilder(_objectPlacer, grid , _buildingsDatabase, _objectContainersAssociator);
             builder.Register<OnGridBuilder>(Lifetime.Singleton);
+           // var gridAnalyzer = new GridAnalyzer(_characterMover, grid);
+            builder.Register<GridAnalyzer>(Lifetime.Singleton);
         }
     }
 }

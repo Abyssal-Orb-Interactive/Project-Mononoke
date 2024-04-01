@@ -1,6 +1,7 @@
 using System;
 using Source.BuildingModule;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Character
 {
@@ -9,7 +10,7 @@ namespace Source.Character
         private GridAnalyzer _gridAnalyzer = null;
         public event Action<Building> BuildingInCollider; 
 
-        public void Initialize(GridAnalyzer gridAnalyzer)
+        [Inject] public void Initialize(GridAnalyzer gridAnalyzer)
         {
             _gridAnalyzer = gridAnalyzer;
         }

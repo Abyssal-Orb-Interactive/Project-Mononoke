@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
 using Base.Grid;
+using Base.Math;
 using Source.BuildingModule.Buildings;
 using UnityEngine;
+using VContainer;
 using static Source.BuildingModule.IBuildRequester;
 
 namespace Source.BuildingModule
@@ -46,15 +48,14 @@ namespace Source.BuildingModule
                 return false;
             }
 
-            var buildingPrefab = buildingData.Prefab.GetComponent<Building>();
+            var buildingPrefab = buildingData.Prefab;
             Transform container = _containerAssociator.Associations[ID];
 
             var objectPlacementInformation = new ObjectPlacementInformation<Building>(buildingPrefab, position, Quaternion.identity, container);
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
         
-            _grid.TryAddBuilding(building, gridPosition);
-            
+            if(!_grid.TryAddBuilding(building, gridPosition)) return false;
             return true;
         }
 

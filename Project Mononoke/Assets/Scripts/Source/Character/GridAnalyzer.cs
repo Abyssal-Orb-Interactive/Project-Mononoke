@@ -28,14 +28,13 @@ namespace Source.Character
 
         public bool TryFindBuildingNextToCharacter(out Building building)
         {
-            var inGridPosition = GetInGridPosition();
             
+            var inGridPosition = GetInGridPosition();
             if (!_grid.HasBuildingAt(inGridPosition))
             {
                 building = null;
                 return false;
             }
-
             building = _grid.GetBuildingAt(inGridPosition);
             return true;
         }

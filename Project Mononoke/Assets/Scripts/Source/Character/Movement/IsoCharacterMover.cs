@@ -69,27 +69,30 @@ namespace Source.Character.Movement
                 MovementChanged.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
                 return;
             } 
-            var offset =  DirectionToVector3IsoConverter.ToVector(direction) * (_speed * Time.deltaTime);
-            var isoOffset = new Vector2Iso(offset);
-            var position = _rigidbody.position;
-            var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
-            var inGridPosition = _grid.WorldToGrid(targetPosition);
+            var targetPosition = CalculateInGridTargetPosition(direction, out var inGridPosition);
             if (!_grid.IsCellPassableAt(inGridPosition))
             {
                 MovementChanged.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
                 return;
             }
-
             _rigidbody.MovePosition(targetPosition);
             MovementChanged.Invoke(this, new MovementActionEventArgs(MovementStatus.Started, _moveDirection));
         }
 
+        private Vector3 CalculateInGridTargetPosition(MovementDirection direction, out Vector3Int inGridPosition)
+        {
+            var offset = DirectionToVector3IsoConverter.ToVector(direction) * (_speed * Time.deltaTime);
+            var isoOffset = new Vector2Iso(offset);
+            var position = _rigidbody.position;
+            var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
+            inGridPosition = _grid.WorldToGrid(targetPosition);
+            return targetPosition;
+        }
+
         public PositionData GetPosition()
         {
-            var worldPosition = transform.position;
-            var isoPosition = new Vector3Iso(worldPosition.x, worldPosition.y, worldPosition.z);
-            var cartesianPosition = isoPosition.ToCartesian();
-            return new PositionData(_moveDirection, cartesianPosition);
+            var worldPosition = _rigidbody.position;
+            return new PositionData(_moveDirection, worldPosition);
         }
 
         private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
