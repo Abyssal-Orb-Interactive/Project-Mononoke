@@ -1,12 +1,17 @@
+using Base.Grid;
+using Base.TileMap;
 using Base.Timers;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
+using Source.Character;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;
 using Source.Character.Movement;
+using Source.UI;
+using UnityEngine.Tilemaps;
 
 namespace Scripts.Source
 {
@@ -22,6 +27,9 @@ namespace Scripts.Source
         [SerializeField] private HandlingItemVisualizer _handlingItemVisualizer = null;
         [SerializeField] private OnGridObjectPlacer _placer;
         [SerializeField] private Transform _itemViewsContainer;
+        [SerializeField] private CharacterLogicIsometric2DCollider _isometric2DCollider = null;
+        [SerializeField] private Tilemap _tileMap = null;
+        [SerializeField] private InteractiveObjectsFollower _follower = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -40,10 +48,17 @@ namespace Scripts.Source
             var seed = new Item<SeedData>("Onion", seedDatabase);
             _seedbed.Plant(seed);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
+            var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
+            var tileCollectionAnalyzer = new TileCollectionAnalyzer(tileMapWrapper);
+            var grid = new GroundGrid(tileCollectionAnalyzer);
+            var gridAnalyzer = new GridAnalyzer(_mover, grid);
+            _isometric2DCollider.Initialize(gridAnalyzer);
+            _follower.Initialize(_isometric2DCollider);
         }
 
         private void Update() 
         { 
+            _isometric2DCollider.FrameByFrameCalculate();
             _timeInvoker.UpdateTimer();
             if (Input.GetKeyDown(KeyCode.E))
             {

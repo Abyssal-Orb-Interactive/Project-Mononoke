@@ -46,7 +46,7 @@ namespace Source.BuildingModule
                 return false;
             }
 
-            Building buildingPrefab = buildingData.Prefab;
+            var buildingPrefab = buildingData.Prefab.GetComponent<Building>();
             Transform container = _containerAssociator.Associations[ID];
 
             var objectPlacementInformation = new ObjectPlacementInformation<Building>(buildingPrefab, position, Quaternion.identity, container);
