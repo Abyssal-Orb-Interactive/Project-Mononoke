@@ -23,7 +23,7 @@ namespace Source.InventoryModule.UI
         private int _currentDraggingItemIndex = -1;
 
         public event Action<StackDataForUI> ItemDropped, ItemEquipped;
-        
+
         public void InitializeInventoryPresenterWithCells(int cellCount)
         {
             _inventoryPresenterCells ??= new List<ItemUIElement>();
@@ -64,12 +64,15 @@ namespace Source.InventoryModule.UI
         private void HandleShowItemActions(ItemUIElement element)
         {
             _itemActionsMenu.Toggle(false);
-            var halfOfSizes = element.Sizes / 2;
-            var correctedPosition = new Vector3(Mathf.RoundToInt(element.gameObject.transform.position.x + halfOfSizes.x + 26f), Mathf.RoundToInt(element.gameObject.transform.position.y - halfOfSizes.y - 26f));
-            _itemActionsMenu.gameObject.transform.position = new Vector3Int(Mathf.RoundToInt(correctedPosition.x), Mathf.RoundToInt(correctedPosition.y));
+            SetItemActionsMenuPosition(element);
             _itemActionsMenu.AddDropAction(() => OnItemDropped(element));
             _itemActionsMenu.AddEquipAction(() => ItemEquipped?.Invoke(element.StackData));
             _itemActionsMenu.Toggle(true);
+        }
+
+        private void SetItemActionsMenuPosition(ItemUIElement element)
+        {
+            _itemActionsMenu.GetComponent<RectTransform>().position = element.GetComponent<RectTransform>().position;
         }
 
         private void HandleEndDrag(ItemUIElement element)

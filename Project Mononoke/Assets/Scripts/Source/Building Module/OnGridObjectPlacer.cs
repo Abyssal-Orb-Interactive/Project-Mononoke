@@ -7,9 +7,6 @@ namespace Source.BuildingModule
 
     public class OnGridObjectPlacer : MonoBehaviour 
     {
-        [SerializeField] private float _gridYOffset = -0.75f;
-        [SerializeField] private float _gridXOffset = 0.5f;
-
         public T PlaceObject<T>(ObjectPlacementInformation<T> placementData) where T : Object
         {
             var correctedPosition = CorrectPosition(placementData);
