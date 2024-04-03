@@ -9,9 +9,11 @@ namespace Source.PickUpModule
     {
         private readonly float _strength = 5f;
         private readonly float _volume = 2f;
-        private Item<ItemData> _item = null;
+        private Item _item = null;
 
-        public event Action<Item<ItemData>> InManipulatorItemChanged; 
+        public Item Item => _item;
+
+        public event Action<Item> InManipulatorItemChanged; 
 
         public Manipulator(float strength, float volume)
         {
@@ -24,7 +26,7 @@ namespace Source.PickUpModule
             }
         }
 
-        public bool TryTake(Item<ItemData> item)
+        public bool TryTake(Item item)
         {
             if (!item.Database.TryGetItemDataBy(item.ID, out var data)) return false;
             if(data.Weight > _strength || data.Volume > _volume) return false;
@@ -35,7 +37,7 @@ namespace Source.PickUpModule
             return true;
         }
 
-        private void Take(Item<ItemData> item)
+        private void Take(Item item)
         {
             _item = item;
             InManipulatorItemChanged?.Invoke(item);

@@ -18,7 +18,7 @@ namespace Source.ItemsModule
             _placer = placer;
         }
         
-        public static void Create(Item<ItemData> item, Vector3 position)
+        public static void Create(Item item, Vector3 position)
         {
             if(!CheckFabricCreationStatus(item)) return;
             
@@ -26,7 +26,7 @@ namespace Source.ItemsModule
             itemView.Initialize(item);
         }
 
-        private static bool CheckFabricCreationStatus(Item<ItemData> item)
+        private static bool CheckFabricCreationStatus(Item item)
         {
             return _itemViewPrefab != null && _itemViewsContainer != null && _placer != null && item != null;
         }

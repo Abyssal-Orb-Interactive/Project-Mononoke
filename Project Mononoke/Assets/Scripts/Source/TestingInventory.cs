@@ -22,9 +22,9 @@ namespace Scripts.Source
         [SerializeField] private InventoryTableView _view = null;
         [SerializeField] private PickUpper _pickUpper = null;
         [SerializeField] private ItemView _itemViewPrefab = null;
-        [SerializeField] private ItemsDatabase<ItemData> _database = null;
+        [SerializeField] private ItemsDatabase _database = null;
         [SerializeField] private IsoCharacterMover _mover = null;
-        [SerializeField] private ItemsDatabase<SeedData> seedDatabase = null;
+        [SerializeField] private ItemsDatabase _seedDatabase = null;
         [SerializeField] private Seedbed _seedbed;
         [SerializeField] private HandlingItemVisualizer _handlingItemVisualizer = null;
         [SerializeField] private OnGridObjectPlacer _placer;
@@ -44,14 +44,19 @@ namespace Scripts.Source
             _pickUpper.Initialize(inventory,manipulator, inventoryPresenter);
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
-            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
-            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1,-1));
-            ItemViewFabric.Create(new Item<ItemData>("Tomato", _database), new Vector3(-1, -1));
-            var seed = new Item<SeedData>("Onion", seedDatabase);
+            ItemViewFabric.Create(new Item("Tomato", _database), new Vector3(-1,-1));
+            ItemViewFabric.Create(new Item("Tomato", _database), new Vector3(-1,-1));
+            ItemViewFabric.Create(new Item("Tomato", _database), new Vector3(-1, -1));
+            var seed = new Item("Onion", _seedDatabase);
             _seedbed.Plant(seed);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
             _follower.Initialize(_isometric2DCollider);
             _lifetimeScope.Container.Resolve<OnGridBuilder>();
+            var handler = new BuildingsInteractionsRequestsHandler();
+            handler.AddRequester(_follower);
+            inventory.TryAddItem(seed);
+            inventory.TryAddItem(seed);
+            inventory.TryAddItem(seed);
         }
 
         private void Update() 

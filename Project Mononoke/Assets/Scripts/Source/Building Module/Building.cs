@@ -1,10 +1,10 @@
-using System;
+using Source.PickUpModule;
 using UnityEngine;
 
 namespace Source.BuildingModule
 {
     public abstract class Building : MonoBehaviour
     {
-        public event Action CharacterComesUp;
+        public abstract void StartInteractiveAction(PickUpper pickUpper);
     }
 }

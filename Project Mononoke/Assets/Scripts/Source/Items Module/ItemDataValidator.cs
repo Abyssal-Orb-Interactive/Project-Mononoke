@@ -10,7 +10,7 @@ namespace Source.ItemsModule
         private const int MAX_WARNINGS_NUMBER = 7;
         private  static readonly List<string> _warningsBuffer = new(MAX_WARNINGS_NUMBER);
         
-        public static bool CheckDataCorrectness<T>(ItemData data, IReadOnlyDictionary<string, T> database) where T : ItemData
+        public static bool CheckDataCorrectness<T>(IItemData data, IReadOnlyDictionary<string, T> database) where T : IItemData
         {
             _warningsBuffer.Clear();
             var itemName = data.Name;
@@ -83,7 +83,7 @@ namespace Source.ItemsModule
             return maxStackSize >= MINIMAL_STACK_CAPACITY;
         }
 
-        private static bool IsIDUnique<T>(string ID, string name, IReadOnlyDictionary<string, T> database) where T : ItemData
+        private static bool IsIDUnique<T>(string ID, string name, IReadOnlyDictionary<string, T> database) where T : IItemData
         {
             return !database.ContainsKey(ID) || database[ID].Name == name;
         }

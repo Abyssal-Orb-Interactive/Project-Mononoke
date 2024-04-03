@@ -1,6 +1,7 @@
 using System;
 using Source.BuildingModule.Buildings.Visual;
 using Source.ItemsModule;
+using Source.PickUpModule;
 using UnityEngine;
 
 namespace Source.BuildingModule.Buildings
@@ -16,12 +17,23 @@ namespace Source.BuildingModule.Buildings
             _plantSprite ??= GetComponentInChildren<PlantSprite>();
         }
 
-        public void Plant(Item<SeedData> seed)
+        public void Plant(Item seed)
         {
             seed.Database.TryGetItemDataBy(seed.ID, out var seedData);
+            if(seedData is not SeedData data) return;
+            _plant = new Plant(data, _plantSprite);
+        }
+        
+        public override void StartInteractiveAction(PickUpper pickUpper)
+        {
+            var holdingItem = pickUpper.Manipulator.Item;
+            Plant(holdingItem);
+        }
+        
+
+        private void Plant(SeedData seedData)
+        {
             _plant = new Plant(seedData, _plantSprite);
         }
-
-        public event Action CharacterComesUp;
     }
 }

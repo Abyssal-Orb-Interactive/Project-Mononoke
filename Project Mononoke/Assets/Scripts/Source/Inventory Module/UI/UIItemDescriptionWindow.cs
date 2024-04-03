@@ -18,7 +18,7 @@ public class UIItemDescriptionWindow : MonoBehaviour
         _description.text = "";
     }
 
-    public void InitializeWith(ItemsDatabase<ItemData> database, string itemID)
+    public void InitializeWith(ItemsDatabase database, string itemID)
     {
         Reset();
         if(database == null || itemID == null) return;

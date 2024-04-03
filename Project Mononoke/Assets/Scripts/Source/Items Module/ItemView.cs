@@ -11,12 +11,12 @@ namespace Source.ItemsModule
     [Serializable]
    public class ItemView : MonoBehaviour
    {
-    [field: SerializeField] public Item<ItemData> Item { get; private set; } = null;
+    [field: SerializeField] public Item Item { get; private set; } = null;
     [SerializeField] private SpriteRenderer _spriteRenderer = null;
     [SerializeField] private CircleCollider2D _collider = null;
     [SerializeField] private float _pickUpAnimationDuration = 1f;
 
-    [Inject] public void Initialize(Item<ItemData> item)
+    [Inject] public void Initialize(Item item)
     {
         Item = item;
         UpdateSprite();

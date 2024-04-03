@@ -1,15 +1,22 @@
 using System;
 using Source.BuildingModule;
+using Source.BuildingModule.Buildings;
 using Source.Character;
+using Source.PickUpModule;
 using UnityEngine;
 
 namespace Source.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class InteractiveObjectsFollower : MonoBehaviour
+    public class InteractiveObjectsFollower : MonoBehaviour, BuildingInteractionActionRequester
     {
         [SerializeField] private CharacterLogicIsometric2DCollider _characterCollider = null;
         [SerializeField] private RectTransform _transform = null;
+        [SerializeField] private PickUpper _pickUpper = null;
+
+        private Building _currentBuilding;
+
+        public event Action<Building, PickUpper> InteractionActionRequest;
 
         private void OnValidate()
         {
@@ -22,8 +29,19 @@ namespace Source.UI
             _characterCollider.BuildingInCollider += OnBuildingInCollider;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                InteractionActionRequest?.Invoke(_currentBuilding, _pickUpper);
+                ToggleWith(false);
+            }
+        }
+
+
         private void OnBuildingInCollider(Building building)
         {
+            _currentBuilding = building;
             var screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
             var size = _transform.sizeDelta;
             var offset = new Vector3(0, size.y * 0.5f, 0);

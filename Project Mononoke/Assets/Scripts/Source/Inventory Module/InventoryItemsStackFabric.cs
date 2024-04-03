@@ -12,7 +12,7 @@ namespace Source.InventoryModule
                 stack = null;
                 return false;
             }
-            var queue = new PriorityQueue<Item<ItemData>>(stackCapacity);
+            var queue = new PriorityQueue<Item>(stackCapacity);
             stack = new InventoryItemsStack(stackIndex, queue);
             return true;
         }
@@ -20,18 +20,18 @@ namespace Source.InventoryModule
         public class InventoryItemsStack
         {
             public int StackIndex { get; }
-            private readonly PriorityQueue<Item<ItemData>> _stack;
+            private readonly PriorityQueue<Item> _stack;
 
             public int Count => _stack.Count;
 
-            public InventoryItemsStack(int stackIndex, PriorityQueue<Item<ItemData>> queue)
+            public InventoryItemsStack(int stackIndex, PriorityQueue<Item> queue)
             {
                 if(stackIndex < 0 || queue == null) return;
                 StackIndex = stackIndex;
                 _stack = queue;
             }
 
-            public bool TryPushItem(Item<ItemData> item)
+            public bool TryPushItem(Item item)
             {
               return _stack.TryEnqueue(item);
             }
@@ -41,7 +41,7 @@ namespace Source.InventoryModule
                 return _stack.Count == _stack.Capacity;
             }
 
-            public bool TryPeekItem(out Item<ItemData> item)
+            public bool TryPeekItem(out Item item)
             {
                 return _stack.TryPeek(out item);
             }
@@ -51,7 +51,7 @@ namespace Source.InventoryModule
                 return _stack.Count == 0;
             }
 
-            public bool TryPopItem(out Item<ItemData> item)
+            public bool TryPopItem(out Item item)
             {
                 return _stack.TryDequeue(out item);
             }

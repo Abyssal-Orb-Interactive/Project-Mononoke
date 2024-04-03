@@ -21,7 +21,7 @@ namespace Source.PickUpModule
             _manipulator.InManipulatorItemChanged += ChangeSprite;
         }
 
-        private void ChangeSprite(Item<ItemData> item)
+        private void ChangeSprite(Item item)
         {
             if (item == null)
             {

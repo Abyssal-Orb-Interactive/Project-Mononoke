@@ -18,7 +18,7 @@ namespace Source.InventoryModule
       public int Count => _inventory.Keys.Count;
 
       public event Action<InventoryItemsStack, int> ItemAdded, ItemDropped;
-      public event Action<InventoryItemsStack, int, Item<ItemData>> ItemRemoved;
+      public event Action<InventoryItemsStack, int, Item> ItemRemoved;
 
       public Inventory(float weightCapacity, float volumeCapacity)
       {
@@ -29,13 +29,13 @@ namespace Source.InventoryModule
         _inventory = new Dictionary<string, List<InventoryItemsStack>>(30);
       }
 
-      public bool TryAddItem(Item<ItemData> item)
+      public bool TryAddItem(Item item)
         {
-          if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.Database, item.ID, out ItemData itemData)) return false;
+          if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.Database, item.ID, out var itemData)) return false;
 
           if (ItemDoesNotFitsInInventoryBy(itemData.Weight, itemData.Volume)) return false;
 
-          if (InventoryDoesNotContainsStacksOf(item.ID, out List<InventoryItemsStack> stacks))
+          if (InventoryDoesNotContainsStacksOf(item.ID, out var stacks))
           {
             if (CantAddRecordForStacksBy(item.ID, out stacks)) return false;
           }
@@ -55,17 +55,17 @@ namespace Source.InventoryModule
           return true;
         }
 
-      private bool CantAddStack(ItemData itemData, ICollection<InventoryItemsStack> stacks)
+      private bool CantAddStack(IItemData itemData, ICollection<InventoryItemsStack> stacks)
       {
         return !TryAddStack(itemData, stacks);
       }
 
-      private bool EnterAddingParametersIsInvalid(Item<ItemData> item)
+      private bool EnterAddingParametersIsInvalid(Item item)
       {
         return item.Equals(default) || item.Database == null || _inventory == null;
       }
 
-      private bool CantGetItemDataFrom(ItemsDatabase<ItemData> database, string ID, out ItemData itemData)
+      private bool CantGetItemDataFrom(ItemsDatabase database, string ID, out IItemData itemData)
       {
         return !database.TryGetItemDataBy(ID, out itemData);
       }
@@ -90,7 +90,7 @@ namespace Source.InventoryModule
         return stacks.FindIndex(stack => stack.IsFull() == false);
       }
 
-      private bool StackCantAddItem(Item<ItemData> item, InventoryItemsStack stackForAdding)
+      private bool StackCantAddItem(Item item, InventoryItemsStack stackForAdding)
       {
         return !stackForAdding.TryPushItem(item);
       }
@@ -100,7 +100,7 @@ namespace Source.InventoryModule
         return stackIndex == -1;
       }
 
-      private bool TryAddStack(ItemData itemData, ICollection<InventoryItemsStack> stacks)
+      private bool TryAddStack(IItemData itemData, ICollection<InventoryItemsStack> stacks)
       {
         if (InventoryItemsStackFabricCantCreateNewStack(stackIndex: stacks.Count, out InventoryItemsStack newStack, itemData.MaxStackCapacity)) return false;
         stacks.Add(newStack);
@@ -112,13 +112,13 @@ namespace Source.InventoryModule
         return !ItemsStackFabric.TryCreate(stackIndex, out newStack, stackCapacity);
       }
 
-        private void DecreaseAvailableWeightAndVolumeUsing(ItemData itemData)
+        private void DecreaseAvailableWeightAndVolumeUsing(IItemData itemData)
       {
         _availableWeight -= itemData.Weight;
         _availableVolume -= itemData.Volume;
       }
 
-      public bool TryGetItem(string itemID, int stackIndex, out Item<ItemData> item)
+      public bool TryGetItem(string itemID, int stackIndex, out Item item)
       {
         if (EnterGettingParametersIsInvalid(stackIndex))
         {
@@ -146,7 +146,7 @@ namespace Source.InventoryModule
         return true;
       }
       
-      public bool TryGetItem(string itemID, out Item<ItemData> item)
+      public bool TryGetItem(string itemID, out Item item)
       {
         if (InventoryDoesNotContainsStacksOf(itemID, out var stacks))
         {
@@ -172,7 +172,7 @@ namespace Source.InventoryModule
         return stackIndex >= stacksCount;
       }
 
-      private bool StackCantPopItem(out Item<ItemData> item, InventoryItemsStack stack)
+      private bool StackCantPopItem(out Item item, InventoryItemsStack stack)
       {
         return !stack.TryPopItem(out item);
       }

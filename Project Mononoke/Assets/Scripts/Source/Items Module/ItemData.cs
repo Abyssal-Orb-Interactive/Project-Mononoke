@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 namespace Source.ItemsModule
 {
     [Serializable]
-    public class ItemData 
+    public class ItemData : IItemData
     {
         
         [field: SerializeField] public string Name { get; private set; } = "Unknown";
@@ -41,7 +41,7 @@ namespace Source.ItemsModule
         {
             [field: SerializeField] private SpriteAtlas _iconAtlas = null;
             [field: SerializeField] private string _spriteName  = "Missing";
-            [field: SerializeField] [field: TextArea] public String Description {get; private set;} = "Missing";
+            [field: SerializeField] [field: TextArea] public string Description {get; private set;} = "Missing";
 
             public Sprite Icon => _iconAtlas.GetSprite(_spriteName);
 

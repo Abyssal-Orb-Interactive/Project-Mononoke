@@ -48,7 +48,7 @@ namespace Source.InventoryModule
             }
         }
 
-        private void OnItemRemoved(InventoryItemsStack stack, int stackIndex, Item<ItemData> item)
+        private void OnItemRemoved(InventoryItemsStack stack, int stackIndex, Item item)
         {
             _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
         }
@@ -64,11 +64,11 @@ namespace Source.InventoryModule
         {
             public string ItemID {get; private set;}
 
-            public ItemsDatabase<ItemData> ItemDatabase {get; private set;}
+            public ItemsDatabase ItemDatabase {get; private set;}
             public int StackIndex {get; private set;}
             public int StackCount {get; private set;}
 
-            public StackDataForUI(string itemID, ItemsDatabase<ItemData> itemDatabase, int stackIndex, int stackCount)
+            public StackDataForUI(string itemID, ItemsDatabase itemDatabase, int stackIndex, int stackCount)
             {
                 ItemID = itemID;
                 ItemDatabase = itemDatabase;

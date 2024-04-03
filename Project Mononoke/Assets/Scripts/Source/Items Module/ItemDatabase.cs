@@ -6,15 +6,15 @@ using UnityEngine;
 namespace Source.ItemsModule
 {
     public delegate void UseBehaviour(object context);
-    
-    [Serializable]
-    public abstract class ItemsDatabase<T> : ScriptableObject where T : ItemData
-    {
-        [SerializeField] private List<T> _savedData = new();
 
-        private Dictionary<string, T> _database = new();
+    [Serializable]
+    public abstract class ItemsDatabase : ScriptableObject, IItemsDatabase
+    {
+        [SerializeField] private List<IItemData> _savedData = new();
+
+        private Dictionary<string, IItemData> _database = new();
         
-        public void ReplaceDatabaseWith(IEnumerable<T> data)
+        public void ReplaceDatabaseWith(IEnumerable<IItemData> data)
         {
             _savedData.Clear();
 
@@ -25,23 +25,23 @@ namespace Source.ItemsModule
 
             AddOrOverwriteItemsData(_savedData);
         }
-        
-        private void InitializeDatabase()
+
+        public void InitializeDatabase()
         {
             AddOrOverwriteItemsData(_savedData);
         }
 
-        private void AddOrOverwriteItemsData(IEnumerable<T> itemsData)
+        public void AddOrOverwriteItemsData(IEnumerable<IItemData> itemsData)
         {
             foreach(var data in itemsData)
             {
                 TryAddOrOverwriteItemData(data);
             }
         }
-        
-        private bool TryAddOrOverwriteItemData (T data)
+
+        public bool TryAddOrOverwriteItemData (IItemData data)
         {
-            _database ??= new Dictionary<string, T>();
+            _database ??= new Dictionary<string, IItemData>();
 
             if(!ItemDataValidator.CheckDataCorrectness(data, _database)) return false;
 
@@ -49,12 +49,12 @@ namespace Source.ItemsModule
             return true;
         }
 
-        private void AddOrOverwriteItemData(T data)
+        public void AddOrOverwriteItemData(IItemData data)
         {
             if(!_database.TryAdd(data.ID, data)) _database[data.ID] = data;
         }
         
-        public virtual bool TryGetItemDataBy (string ID, out T value)
+        public virtual bool TryGetItemDataBy (string ID, out IItemData value)
         {
             if(IsDatabaseEmpty()) InitializeDatabase();
             if(_database.TryGetValue(ID, out value)) return true;
@@ -64,8 +64,8 @@ namespace Source.ItemsModule
             #endif
             return false;
         }
-        
-        protected bool IsDatabaseEmpty()
+
+        public bool IsDatabaseEmpty()
         {
             return _database == null || _database.Count == 0;
         }
