@@ -22,7 +22,7 @@ namespace Source.PickUpModule
 
       private void OnItemEquipped(InventoryPresenter.StackDataForUI itemData)
       {
-         TryTakeItemFromInventoryWithManipulator(itemData.ItemID);
+         TryTakeItemFromInventoryWithManipulator(itemData.ItemData.ID);
       }
 
       public bool TryTakeItemFromInventoryWithManipulator(string ID)
@@ -49,9 +49,7 @@ namespace Source.PickUpModule
          Manipulator ??= new Manipulator(5, 2);
          
          if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
-         
          if(!Inventory.TryAddItem(droppedItemView.Item)) return;
-
          droppedItemView.BeginPickUp();
       }
    }

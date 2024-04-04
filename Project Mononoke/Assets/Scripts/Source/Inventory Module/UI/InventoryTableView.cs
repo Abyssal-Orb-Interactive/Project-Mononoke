@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Source.BuildingModule;
-using Source.ItemsModule;
 using Source.UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static Source.InventoryModule.InventoryPresenter;
 
 namespace Source.InventoryModule.UI
@@ -37,7 +35,7 @@ namespace Source.InventoryModule.UI
         public void UpdateData(StackDataForUI stackData)
         {
             if(stackData == null) return;
-            var indexOfCell = _inventoryPresenterCells.FindIndex(cell => cell?.StackData?.ItemID == stackData?.ItemID && cell?.StackData?.StackIndex == stackData?.StackIndex);
+            var indexOfCell = _inventoryPresenterCells.FindIndex(cell => cell?.StackData?.ItemData.ID == stackData?.ItemData.ID && cell?.StackData?.StackIndex == stackData?.StackIndex);
             if(indexOfCell == -1) indexOfCell = _inventoryPresenterCells.FindIndex(cell => cell.IsEmpty == true);
 
             _inventoryPresenterCells[indexOfCell].InitializeWith(stackData);
@@ -132,7 +130,7 @@ namespace Source.InventoryModule.UI
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
             element.Select();
-            _descriptionWindow.InitializeWith(element.StackData.ItemDatabase, element.StackData.ItemID);
+            _descriptionWindow.InitializeWith(element.StackData.ItemData);
         }
 
         private void ResetSelection()

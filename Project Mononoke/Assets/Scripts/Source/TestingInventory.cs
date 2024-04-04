@@ -22,18 +22,19 @@ namespace Scripts.Source
         [SerializeField] private InventoryTableView _view = null;
         [SerializeField] private PickUpper _pickUpper = null;
         [SerializeField] private ItemView _itemViewPrefab = null;
-        [SerializeField] private ItemsDatabase _database = null;
+        [SerializeField] private ItemsDatabase<ItemData> _database = null;
         [SerializeField] private IsoCharacterMover _mover = null;
-        [SerializeField] private ItemsDatabase _seedDatabase = null;
-        [SerializeField] private Seedbed _seedbed;
+        [SerializeField] private ItemsDatabase<SeedData> _seedDatabase = null;
         [SerializeField] private HandlingItemVisualizer _handlingItemVisualizer = null;
         [SerializeField] private OnGridObjectPlacer _placer;
         [SerializeField] private Transform _itemViewsContainer;
         [SerializeField] private CharacterLogicIsometric2DCollider _isometric2DCollider = null;
         [SerializeField] private InteractiveObjectsFollower _follower = null;
         [SerializeField] private GameLifetimeScope _lifetimeScope = null;
+        [SerializeField] private ItemsDatabase<ItemData> _toolsDatabase; 
 
         private TimeInvoker _timeInvoker = null;
+        private Inventory _inventory;
 
         private void Start()
         {
@@ -44,19 +45,18 @@ namespace Scripts.Source
             _pickUpper.Initialize(inventory,manipulator, inventoryPresenter);
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
-            ItemViewFabric.Create(new Item("Tomato", _database), new Vector3(-1,-1));
-            ItemViewFabric.Create(new Item("Tomato", _database), new Vector3(-1,-1));
-            ItemViewFabric.Create(new Item("Tomato", _database), new Vector3(-1, -1));
-            var seed = new Item("Onion", _seedDatabase);
-            _seedbed.Plant(seed);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
             _follower.Initialize(_isometric2DCollider);
             _lifetimeScope.Container.Resolve<OnGridBuilder>();
             var handler = new BuildingsInteractionsRequestsHandler();
             handler.AddRequester(_follower);
-            inventory.TryAddItem(seed);
-            inventory.TryAddItem(seed);
-            inventory.TryAddItem(seed);
+            _seedDatabase.TryGetItemDataBy("Onion", out var seedData);
+            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
+            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
+            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
+            _toolsDatabase.TryGetItemDataBy("Hoe", out var toolData);
+            ItemViewFabric.Create(new Item(toolData), new Vector3(-1, -0.5f));
+            _inventory = inventory;
         }
 
         private void Update() 

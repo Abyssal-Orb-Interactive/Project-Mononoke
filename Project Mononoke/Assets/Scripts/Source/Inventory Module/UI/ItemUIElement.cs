@@ -50,7 +50,7 @@ namespace Source.InventoryModule.UI
                 return;
             }
             StackData = stackData;
-            StackData.ItemDatabase.TryGetItemDataBy(StackData.ItemID, out var data);
+            var data = stackData.ItemData;
             _icon.GetComponent<Image>().sprite = data.UIData.Icon;
             _icon.SetActive(true);
             _countOFItems.text = stackData.StackCount.ToString();

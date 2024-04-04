@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Source.ItemsModule;
+using UnityEngine;
 using static Source.InventoryModule.ItemsStackFabric;
 
 namespace Source.InventoryModule
@@ -31,13 +33,14 @@ namespace Source.InventoryModule
 
       public bool TryAddItem(Item item)
         {
-          if (EnterAddingParametersIsInvalid(item) || CantGetItemDataFrom(item.Database, item.ID, out var itemData)) return false;
+          if (EnterAddingParametersIsInvalid(item)) return false;
+          var itemData = item.Data;
 
           if (ItemDoesNotFitsInInventoryBy(itemData.Weight, itemData.Volume)) return false;
 
-          if (InventoryDoesNotContainsStacksOf(item.ID, out var stacks))
+          if (InventoryDoesNotContainsStacksOf(itemData.ID, out var stacks))
           {
-            if (CantAddRecordForStacksBy(item.ID, out stacks)) return false;
+            if (CantAddRecordForStacksBy(itemData.ID, out stacks)) return false;
           }
 
           var indexOfStackForAdding = GetFirstIncompleteStackOrDefault(stacks);
@@ -62,12 +65,7 @@ namespace Source.InventoryModule
 
       private bool EnterAddingParametersIsInvalid(Item item)
       {
-        return item.Equals(default) || item.Database == null || _inventory == null;
-      }
-
-      private bool CantGetItemDataFrom(ItemsDatabase database, string ID, out IItemData itemData)
-      {
-        return !database.TryGetItemDataBy(ID, out itemData);
+        return item.Equals(default) || item.Data == null || _inventory == null;
       }
 
       private bool ItemDoesNotFitsInInventoryBy(float weight, float volume)

@@ -31,7 +31,7 @@ namespace Source.InventoryModule
         private void OnItemDropped(InventoryItemsStack stack, int stackIndex)
         {
             if(!stack.TryPeekItem(out var item)) return;
-            _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
+            _view.UpdateData(new StackDataForUI(item.Data, stackIndex, stack.Count));
         }
 
         private void OnItemEquipped(StackDataForUI item)
@@ -43,35 +43,32 @@ namespace Source.InventoryModule
         {
             for (var i = 0; i < stackData.StackCount; i++)
             {
-                if(!_inventory.TryGetItem(stackData.ItemID, stackData.StackIndex, out var item)) return;
+                if(!_inventory.TryGetItem(stackData.ItemData.ID, stackData.StackIndex, out var item)) return;
                 ItemViewFabric.Create(item, Vector3.zero);
             }
         }
 
         private void OnItemRemoved(InventoryItemsStack stack, int stackIndex, Item item)
         {
-            _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
+            _view.UpdateData(new StackDataForUI(item.Data, stackIndex, stack.Count));
         }
 
 
         private void OnItemAdded(InventoryItemsStack stack, int stackIndex)
         {
             if(!stack.TryPeekItem(out var item)) return;
-            _view.UpdateData(new StackDataForUI(item.ID, item.Database, stackIndex, stack.Count));
+            _view.UpdateData(new StackDataForUI(item.Data, stackIndex, stack.Count));
         }
 
         public class StackDataForUI
         {
-            public string ItemID {get; private set;}
-
-            public ItemsDatabase ItemDatabase {get; private set;}
+            public IItemData ItemData {get; private set;}
             public int StackIndex {get; private set;}
             public int StackCount {get; private set;}
 
-            public StackDataForUI(string itemID, ItemsDatabase itemDatabase, int stackIndex, int stackCount)
+            public StackDataForUI(IItemData itemData, int stackIndex, int stackCount)
             {
-                ItemID = itemID;
-                ItemDatabase = itemDatabase;
+                ItemData = itemData;
                 StackIndex = stackIndex;
                 StackCount = stackCount;
             }

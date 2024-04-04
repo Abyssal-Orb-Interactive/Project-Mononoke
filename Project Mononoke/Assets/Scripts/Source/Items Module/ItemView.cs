@@ -30,7 +30,8 @@ namespace Source.ItemsModule
 
     private void UpdateSprite()
     {
-        if(!Item.Database.TryGetItemDataBy(Item.ID, out var data)) return;
+        var data = Item.Data;
+        if(data == null) return;
         _spriteRenderer.sprite = data?.UIData?.Icon;
         if( _spriteRenderer.sprite == null) return;
         AdjustColliderSize();

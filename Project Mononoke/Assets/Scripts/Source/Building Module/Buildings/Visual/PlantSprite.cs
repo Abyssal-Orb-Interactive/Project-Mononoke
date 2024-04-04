@@ -7,7 +7,7 @@ namespace Source.BuildingModule.Buildings.Visual
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlantSprite : MonoBehaviour
     {
-        private SpriteRenderer _renderer = null;
+        [SerializeField] private SpriteRenderer _renderer = null;
         private PlantGrowthStageSwitcher _stageSwitcher = null;
         private List<Sprite> _stagesSprites = null;
 

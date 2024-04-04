@@ -28,7 +28,8 @@ namespace Source.PickUpModule
 
         public bool TryTake(Item item)
         {
-            if (!item.Database.TryGetItemDataBy(item.ID, out var data)) return false;
+            var data = item.Data;
+            if (data == null) return false;
             if(data.Weight > _strength || data.Volume > _volume) return false;
             
             if (_item != null) ItemViewFabric.Create(_item, new Vector3(1,1));

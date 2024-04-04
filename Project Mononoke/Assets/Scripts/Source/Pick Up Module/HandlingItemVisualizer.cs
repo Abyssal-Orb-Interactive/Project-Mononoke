@@ -28,8 +28,9 @@ namespace Source.PickUpModule
                 _spriteRenderer.sprite = null;
                 return;
             }
-            
-            if (!item.Database.TryGetItemDataBy(item.ID, out var data)) return;
+
+            var data = item.Data;
+            if (data == null) return;
             _spriteRenderer.sprite = data.UIData.Icon;
         }
     }

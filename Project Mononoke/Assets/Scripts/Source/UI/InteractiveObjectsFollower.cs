@@ -27,6 +27,7 @@ namespace Source.UI
         {
             _characterCollider = characterCollider;
             _characterCollider.BuildingInCollider += OnBuildingInCollider;
+            _characterCollider.BuildingOutCollider += OnBuildingOutCollider;
         }
 
         private void Update()
@@ -37,11 +38,20 @@ namespace Source.UI
                 ToggleWith(false);
             }
         }
-
+        
+        private void OnBuildingOutCollider(Building building)
+        {
+            if (_currentBuilding == building)
+            {
+                ToggleWith(false);
+                _currentBuilding = null;
+            }
+        }
 
         private void OnBuildingInCollider(Building building)
         {
             _currentBuilding = building;
+            if(!_currentBuilding.ReadyToInteract) return;
             var screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
             var size = _transform.sizeDelta;
             var offset = new Vector3(0, size.y * 0.5f, 0);

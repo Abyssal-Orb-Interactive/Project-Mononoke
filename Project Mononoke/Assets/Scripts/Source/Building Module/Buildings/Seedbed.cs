@@ -19,21 +19,29 @@ namespace Source.BuildingModule.Buildings
 
         public void Plant(Item seed)
         {
-            seed.Database.TryGetItemDataBy(seed.ID, out var seedData);
+            var seedData = seed.Data;
             if(seedData is not SeedData data) return;
             _plant = new Plant(data, _plantSprite);
+            _plant.PlantStartedGrow += OnPlantStartedGrow;
+            _plant.PlantMatured += OnPlantMatured;
+            _plantSprite.Initialize(new PlantGrowthStageSwitcher(_plant, data.PlantGrowthStagesSprites.Count - 1), data.PlantGrowthStagesSprites);
+            _plant.StartGrow();
         }
-        
+
+        private void OnPlantMatured()
+        {
+            ReadyToInteract = true;
+        }
+
+        private void OnPlantStartedGrow()
+        {
+            ReadyToInteract = false;
+        }
+
         public override void StartInteractiveAction(PickUpper pickUpper)
         {
             var holdingItem = pickUpper.Manipulator.Item;
             Plant(holdingItem);
-        }
-        
-
-        private void Plant(SeedData seedData)
-        {
-            _plant = new Plant(seedData, _plantSprite);
         }
     }
 }

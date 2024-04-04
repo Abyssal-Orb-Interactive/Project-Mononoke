@@ -23,7 +23,7 @@ MonoBehaviour:
     <MaxStackCapacity>k__BackingField: 1
     <UIData>k__BackingField:
       _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
-      _spriteName: Onion
+      _spriteName: Vegetables_Carrot
       <Description>k__BackingField: Simple Melon
     <MinGrownTimeInSeconds>k__BackingField: 3
     <MaxGrownTimeInSeconds>k__BackingField: 4

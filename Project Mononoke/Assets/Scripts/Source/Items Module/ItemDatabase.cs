@@ -8,13 +8,13 @@ namespace Source.ItemsModule
     public delegate void UseBehaviour(object context);
 
     [Serializable]
-    public abstract class ItemsDatabase : ScriptableObject, IItemsDatabase
+    public abstract class ItemsDatabase<T> : ScriptableObject where T : IItemData
     {
-        [SerializeField] private List<IItemData> _savedData = new();
+        [SerializeField] private List<T> _savedData = new();
 
-        private Dictionary<string, IItemData> _database = new();
+        private Dictionary<string, T> _database = new();
         
-        public void ReplaceDatabaseWith(IEnumerable<IItemData> data)
+        public void ReplaceDatabaseWith(IEnumerable<T> data)
         {
             _savedData.Clear();
 
@@ -31,7 +31,7 @@ namespace Source.ItemsModule
             AddOrOverwriteItemsData(_savedData);
         }
 
-        public void AddOrOverwriteItemsData(IEnumerable<IItemData> itemsData)
+        public void AddOrOverwriteItemsData(IEnumerable<T> itemsData)
         {
             foreach(var data in itemsData)
             {
@@ -39,9 +39,9 @@ namespace Source.ItemsModule
             }
         }
 
-        public bool TryAddOrOverwriteItemData (IItemData data)
+        public bool TryAddOrOverwriteItemData (T data)
         {
-            _database ??= new Dictionary<string, IItemData>();
+            _database ??= new Dictionary<string, T>();
 
             if(!ItemDataValidator.CheckDataCorrectness(data, _database)) return false;
 
@@ -49,12 +49,12 @@ namespace Source.ItemsModule
             return true;
         }
 
-        public void AddOrOverwriteItemData(IItemData data)
+        public void AddOrOverwriteItemData(T data)
         {
             if(!_database.TryAdd(data.ID, data)) _database[data.ID] = data;
         }
         
-        public virtual bool TryGetItemDataBy (string ID, out IItemData value)
+        public virtual bool TryGetItemDataBy (string ID, out T value)
         {
             if(IsDatabaseEmpty()) InitializeDatabase();
             if(_database.TryGetValue(ID, out value)) return true;

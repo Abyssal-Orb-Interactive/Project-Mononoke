@@ -15,7 +15,7 @@ namespace Source.ItemsModule
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Volume { get; private set; } = -1;
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Price { get; private set; } = -1;
         [field: SerializeField, Range(0.01f, float.MaxValue)] public float Durability { get; private set; } = -1;
-        [field: SerializeField, Range(1, int.MaxValue)] public int MaxStackCapacity {get; private set;} = 1;
+        [field: SerializeField, Range(1, 1024)] public int MaxStackCapacity {get; private set;} = 1;
         public UseBehaviour UseBehaviour => ItemsUseBehaviourFabric.GetBehaviour(ID);
         [field: SerializeField] public UIItemData UIData {get; private set;} = null;
 
