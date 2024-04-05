@@ -4185,7 +4185,6 @@ MonoBehaviour:
   _database: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
   _mover: {fileID: 824457672}
   _seedDatabase: {fileID: 11400000, guid: 9bddd7d349488be4dbbcea1f54abf5b0, type: 2}
-  _seedbed: {fileID: 0}
   _handlingItemVisualizer: {fileID: 1940537676}
   _placer: {fileID: 1431115569}
   _itemViewsContainer: {fileID: 1947247195}

@@ -12,7 +12,7 @@ namespace Source.BuildingModule.Buildings
 
         public int NumberOfStages { get; private set; } = 0;
 
-        public PlantGrowthStageSwitcher(Plant plant,int numberOfStages)
+        public PlantGrowthStageSwitcher(Plant plant, int numberOfStages)
         {
             NumberOfStages = numberOfStages;
             CurrentGrowthStageIndex = 1;

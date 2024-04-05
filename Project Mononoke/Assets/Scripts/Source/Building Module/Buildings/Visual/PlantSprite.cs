@@ -27,5 +27,10 @@ namespace Source.BuildingModule.Buildings.Visual
         {
             _renderer.sprite = _stagesSprites[stageIndex - 1];
         }
+
+        public void ClearSprite()
+        {
+            _renderer.sprite = null;
+        }
     }
 }
