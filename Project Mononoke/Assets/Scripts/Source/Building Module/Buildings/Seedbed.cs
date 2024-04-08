@@ -1,8 +1,10 @@
 using System;
 using Source.BuildingModule.Buildings.Visual;
+using Source.InventoryModule;
 using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;
+using VContainer;
 
 namespace Source.BuildingModule.Buildings
 {
@@ -21,16 +23,36 @@ namespace Source.BuildingModule.Buildings
         private Stages _stage = Stages.Empty;
         private SeedData _seedData = null;
         [SerializeField] private PlantSprite _plantSprite = null;
+        [SerializeField] private InventoryPresenter _inventoryPresenter = null;
 
         private void OnValidate()
         {
             _plantSprite ??= GetComponentInChildren<PlantSprite>();
         }
 
-        public void Plant(Item seed)
+        [Inject]
+        public void Initialize(InventoryPresenter inventoryPresenter)
         {
+            _inventoryPresenter = inventoryPresenter;
+            _inventoryPresenter.ItemChosen += OnItemChosen;
+        }
+
+        private void OnItemChosen(Item item)
+        {
+            TryPlant(item);
+        }
+
+        private bool TryPlant(Item seed)
+        {
+            if (seed == null) return false;
             var seedData = seed.Data; 
-            if(seedData is not SeedData data) return;
+            if(seedData is not SeedData data) return false;
+            Plant(data);
+            return true;
+        }
+        
+        public void Plant(SeedData data)
+        {
             _seedData = data;
             _plant = new Plant(_seedData, _plantSprite);
             _plant.PlantStartedGrow += OnPlantStartedGrow;
@@ -56,7 +78,11 @@ namespace Source.BuildingModule.Buildings
             switch (_stage)
             {
                 case Stages.Empty:
-                    Plant(holdingItem);
+                    if (!TryPlant(holdingItem))
+                    {
+                        _inventoryPresenter.UpdateChooseMenuWith(InventoryFilters.Seeds);
+                        _inventoryPresenter.GetOnItemChoosingMenu();
+                    }
                     break;
                 case Stages.Growing:
                     return;

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Base.Grid;
+using Source.BuildingModule.Buildings;
+using Source.InventoryModule;
 using UnityEngine;
 using static Source.BuildingModule.IBuildRequester;
 
@@ -12,13 +14,15 @@ namespace Source.BuildingModule
         private readonly GroundGrid _grid = null;
         private readonly BuildingsDatabaseSo _templatesDatabase = null;
         private readonly ObjectContainersAssociator _containerAssociator = null;
+        private readonly InventoryPresenter _inventoryPresenter = null;
 
-        public OnGridBuilder(OnGridObjectPlacer objectPlacer, GroundGrid grid, BuildingsDatabaseSo buildingsDatabase, ObjectContainersAssociator containersAssociator)
+        public OnGridBuilder(OnGridObjectPlacer objectPlacer, GroundGrid grid, BuildingsDatabaseSo buildingsDatabase, ObjectContainersAssociator containersAssociator, InventoryPresenter inventoryPresenter)
         {
             _objectPlacer = objectPlacer;
             _grid = grid;
             _templatesDatabase = buildingsDatabase;
             _containerAssociator = containersAssociator;
+            _inventoryPresenter = inventoryPresenter;
             BuildingRequestsBus.Subscribe(HandleBuildRequest);
         }
 
@@ -51,7 +55,9 @@ namespace Source.BuildingModule
             var objectPlacementInformation = new ObjectPlacementInformation<Building>(buildingPrefab, gridPosition, Quaternion.identity, container);
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
-        
+            var seedBed = building as Seedbed;
+            seedBed.Initialize(_inventoryPresenter);
+
             return _grid.TryAddBuilding(building, gridPosition);
         }
 

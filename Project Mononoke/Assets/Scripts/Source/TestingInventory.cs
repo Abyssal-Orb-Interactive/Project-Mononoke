@@ -4,6 +4,7 @@ using Base.TileMap;
 using Base.Timers;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
+using Source.BuildingModule.Buildings.UI;
 using Source.Character;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
@@ -19,7 +20,6 @@ namespace Scripts.Source
 {
     public class TestingInventory : MonoBehaviour
     {
-        [SerializeField] private InventoryTableView _view = null;
         [SerializeField] private PickUpper _pickUpper = null;
         [SerializeField] private ItemView _itemViewPrefab = null;
         [SerializeField] private ItemsDatabase<ItemData> _database = null;
@@ -31,18 +31,15 @@ namespace Scripts.Source
         [SerializeField] private CharacterLogicIsometric2DCollider _isometric2DCollider = null;
         [SerializeField] private InteractiveObjectsFollower _follower = null;
         [SerializeField] private GameLifetimeScope _lifetimeScope = null;
-        [SerializeField] private ItemsDatabase<ItemData> _toolsDatabase; 
+        [SerializeField] private ItemsDatabase<ItemData> _toolsDatabase;
 
         private TimeInvoker _timeInvoker = null;
-        private Inventory _inventory;
 
         private void Start()
         {
             _timeInvoker = TimeInvoker.Instance;
-            var inventory = new Inventory(100, 100);
             var manipulator = new Manipulator(5,3);
-            var inventoryPresenter = new InventoryPresenter(inventory, _view);
-            _pickUpper.Initialize(inventory,manipulator, inventoryPresenter);
+            _pickUpper.Initialize( _lifetimeScope.Container.Resolve<Inventory>(),manipulator, _lifetimeScope.Container.Resolve<InventoryPresenter>());
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
@@ -56,7 +53,6 @@ namespace Scripts.Source
             ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
             _toolsDatabase.TryGetItemDataBy("Hoe", out var toolData);
             ItemViewFabric.Create(new Item(toolData), new Vector3(-1, -0.5f));
-            _inventory = inventory;
         }
 
         private void Update() 

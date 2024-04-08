@@ -2,8 +2,11 @@ using Base.Grid;
 using Base.Input;
 using Base.TileMap;
 using Source.BuildingModule;
+using Source.BuildingModule.Buildings.UI;
 using Source.Character;
 using Source.Character.Movement;
+using Source.InventoryModule;
+using Source.InventoryModule.UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
@@ -18,6 +21,8 @@ namespace Base.DIContainer
         [SerializeField] private ObjectContainersAssociator _objectContainersAssociator = null;
         [SerializeField] private BuildingsDatabaseSo _buildingsDatabase = null;
         [SerializeField] private IsoCharacterMover _characterMover = null;
+        [SerializeField] private ItemChooseMenu _itemChooseMenu = null;
+        [SerializeField] private InventoryTableView _view = null;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -27,16 +32,21 @@ namespace Base.DIContainer
             builder.RegisterInstance(_objectContainersAssociator);
             builder.RegisterInstance(_buildingsDatabase);
             builder.RegisterInstance(_characterMover);
+            builder.RegisterInstance(_itemChooseMenu);
+            builder.RegisterInstance(_view);
+            
         
             // Registering Components
             builder.Register<TestActions>(Lifetime.Singleton);
             builder.Register<InputHandler>(Lifetime.Singleton);
-           // var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
+            // var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
             builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             //var tileCollectionAnalyzer = new TileCollectionAnalyzer(tileMapWrapper);
             builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
             //var grid = new GroundGrid(tileCollectionAnalyzer);
             builder.Register<GroundGrid>(Lifetime.Singleton);
+            builder.Register(_ => new Inventory(100,100), Lifetime.Singleton);
+            builder.Register<InventoryPresenter>(Lifetime.Singleton);
             //var gridBuilder = new OnGridBuilder(_objectPlacer, grid , _buildingsDatabase, _objectContainersAssociator);
             builder.Register<OnGridBuilder>(Lifetime.Singleton);
            // var gridAnalyzer = new GridAnalyzer(_characterMover, grid);

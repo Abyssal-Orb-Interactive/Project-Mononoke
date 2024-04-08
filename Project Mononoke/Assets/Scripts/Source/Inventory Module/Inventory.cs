@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using Source.ItemsModule;
-using UnityEngine;
 using static Source.InventoryModule.ItemsStackFabric;
 
 namespace Source.InventoryModule
@@ -15,14 +13,15 @@ namespace Source.InventoryModule
       private float _availableWeight = 0;
       private float _availableVolume = 0;
 
-      private Dictionary<string, List<InventoryItemsStack>> _inventory = null; 
+      private readonly Dictionary<string, List<InventoryItemsStack>> _inventory = null; 
 
       public int Count => _inventory.Keys.Count;
+      public Dictionary<string, List<InventoryItemsStack>> InventoryRegister => new(_inventory);
 
       public event Action<InventoryItemsStack, int> ItemAdded, ItemDropped;
       public event Action<InventoryItemsStack, int, Item> ItemRemoved;
 
-      public Inventory(float weightCapacity, float volumeCapacity)
+      public Inventory(float weightCapacity = 100, float volumeCapacity = 100)
       {
         _weightCapacity = weightCapacity;
         _volumeCapacity = volumeCapacity;
