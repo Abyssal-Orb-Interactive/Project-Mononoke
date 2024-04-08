@@ -93,6 +93,11 @@ namespace Source.BuildingModule.Buildings
                     {
                         ItemViewFabric.Create(new Item(fruit), new Vector3(0.5f, 1));
                     }
+
+                    for (var i = 0; i < _seedData.GrownSeeds; i++)
+                    {
+                        ItemViewFabric.Create(new Item(_seedData), new Vector3(0.5f, 1));
+                    }
                     _stage = Stages.Empty;
                     _seedData = null;
                     break;
