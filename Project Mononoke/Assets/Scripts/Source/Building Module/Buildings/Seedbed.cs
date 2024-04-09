@@ -23,7 +23,7 @@ namespace Source.BuildingModule.Buildings
         private Stages _stage = Stages.Empty;
         private SeedData _seedData = null;
         [SerializeField] private PlantSprite _plantSprite = null;
-        [SerializeField] private InventoryPresenter _inventoryPresenter = null;
+        private InventoryPresenter _inventoryPresenter = null;
 
         private void OnValidate()
         {
@@ -44,8 +44,7 @@ namespace Source.BuildingModule.Buildings
 
         private bool TryPlant(Item seed)
         {
-            if (seed == null) return false;
-            var seedData = seed.Data; 
+            var seedData = seed?.Data; 
             if(seedData is not SeedData data) return false;
             Plant(data);
             return true;
@@ -82,6 +81,7 @@ namespace Source.BuildingModule.Buildings
                     {
                         _inventoryPresenter.UpdateChooseMenuWith(InventoryFilters.Seeds);
                         _inventoryPresenter.GetOnItemChoosingMenu();
+                        ReadyToInteract = false;
                     }
                     break;
                 case Stages.Growing:
