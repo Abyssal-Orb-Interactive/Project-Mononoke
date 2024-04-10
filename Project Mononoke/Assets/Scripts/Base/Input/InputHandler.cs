@@ -1,5 +1,4 @@
 using System;
-using Base.UnityExtensions;
 using UnityEngine;
 
 namespace Base.Input
@@ -7,9 +6,9 @@ namespace Base.Input
     public partial class InputHandler : IDisposable
     {
         private TestActions _input = null;
-        private Vector2 _movementVectorInIsometric = Vector2.zero;
+        private MovementDirection _movementDirection;
 
-        private EventHandler<InputActionEventArgs> _onMovementInputChanged;
+        private EventHandler<InputActionEventArgs> _onInputChangedHandlers;
 
         private InputHandler(){}
 
@@ -20,32 +19,31 @@ namespace Base.Input
 
         public void AddInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
-            _onMovementInputChanged += handler;
+            _onInputChangedHandlers += handler;
         }
         
         public void RemoveInputChangedHandler(EventHandler<InputActionEventArgs> handler)
         {
-            _onMovementInputChanged -= handler;
+            _onInputChangedHandlers -= handler;
         }
         
-        private void OnMovementPerformed(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
+        private void OnMovementStarted(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         {
-            var movementVectorInCartesian = movementDirection.ReadValue<Vector2>();
-            _movementVectorInIsometric = movementVectorInCartesian.ToIsometric();
-            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
+            var cartesianNormalizedMovementVector = movementDirection.ReadValue<Vector2>();
+            _movementDirection = InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianNormalizedMovementVector);
+            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Started));
         }
         
         private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
         { 
-            _movementVectorInIsometric = Vector2.zero;
-            _onMovementInputChanged?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementVectorInIsometric));
+            _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Ended));
         }
 
         public void StartInputHandling()
         {
             if (_input == null) return;
             _input.Enable();
-            _input.PlayerActions.Movement.performed += OnMovementPerformed;
+            _input.PlayerActions.Movement.performed += OnMovementStarted;
             _input.PlayerActions.Movement.canceled += OnMovementCancelled;
         }
 
@@ -53,7 +51,7 @@ namespace Base.Input
         {
             if (_input == null) return;
             _input.Disable();
-            _input.PlayerActions.Movement.performed -= OnMovementPerformed;
+            _input.PlayerActions.Movement.performed -= OnMovementStarted;
             _input.PlayerActions.Movement.canceled -= OnMovementCancelled;
         }
 
@@ -61,7 +59,7 @@ namespace Base.Input
         {
             StopInputHandling();
             _input.Dispose();
-            _onMovementInputChanged = null;
+            _onInputChangedHandlers = null;
             _input = null;
             GC.SuppressFinalize(this);
         }

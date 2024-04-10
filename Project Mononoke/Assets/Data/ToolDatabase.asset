@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb9c3df38fde6046971d7dbec34ce06, type: 3}
+  m_Name: ToolDatabase
+  m_EditorClassIdentifier: 
+  _savedData:
+  - <Name>k__BackingField: Hoe
+    <ID>k__BackingField: Hoe
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 1
+    <Volume>k__BackingField: 1
+    <Price>k__BackingField: 3
+    <Durability>k__BackingField: 4
+    <MaxStackCapacity>k__BackingField: 1
+    <UIData>k__BackingField:
+      _iconAtlas: {fileID: 100100200, guid: 4fe0bf4d3adcc90479c9a1a55614cb2c, type: 3}
+      _spriteName: Iron Hoe Small
+      <Description>k__BackingField: Simple Hoe

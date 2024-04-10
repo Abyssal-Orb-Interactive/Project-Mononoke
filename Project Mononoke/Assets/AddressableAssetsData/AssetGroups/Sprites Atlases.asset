@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sprites Atlases
+  m_EditorClassIdentifier: 
+  m_GroupName: Sprites Atlases
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b4d9f9c9556cc154bb5c41c3bd47894c
+  m_SerializeEntries:
+  - m_GUID: 8fcb63a76050b77468a0be9a2c41b8bf
+    m_Address: Food Sprite Atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - sprite atlas
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 26718287dfda8404abf66e5bb14057d3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 46ff8d770a8d0c841852e91c72aaa947, type: 2}
+    - {fileID: 11400000, guid: 3dde3a4a247769e44ae5a595ad30958b, type: 2}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c346c8248e834962853be1738f63328c, type: 3}
+  m_Name: SeedsDatabase
+  m_EditorClassIdentifier: 
+  _savedData:
+  - <Name>k__BackingField: Melon
+    <ID>k__BackingField: Onion
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 2
+    <Volume>k__BackingField: 3
+    <Price>k__BackingField: 15
+    <Durability>k__BackingField: 2
+    <MaxStackCapacity>k__BackingField: 16
+    <UIData>k__BackingField:
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Test Seeds
+      <Description>k__BackingField: Simple Melon
+    <MinGrownTimeInSeconds>k__BackingField: 6
+    <MaxGrownTimeInSeconds>k__BackingField: 12
+    <MinGrownFruits>k__BackingField: 0
+    <MaxGrownFruits>k__BackingField: 5
+    <PlantGrowthStagesSprites>k__BackingField:
+    - {fileID: -609152549, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: -966460032, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1101824806, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1138127392, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 614243499, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: -1137575979, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1709837038, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    <FruitDatabase>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
+    <FruitDatabaseID>k__BackingField: Tomato

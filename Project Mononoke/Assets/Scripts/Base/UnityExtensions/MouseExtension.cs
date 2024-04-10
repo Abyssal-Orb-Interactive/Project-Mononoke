@@ -11,9 +11,9 @@ namespace Base.UnityExtensions
         {
             worldCamera ??= MainCamera;
             
-            var mousePosition = mouse.position.ReadValue();
+            Vector2 mousePosition = mouse.position.ReadValue();
             var screenPosition = new Vector3(mousePosition.x, mousePosition.y, worldCamera.nearClipPlane);
-            var worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
+            Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
 
             return worldPosition;
         }

@@ -53,3 +53,6 @@ TagManager:
   - name: Character
     uniqueID: 895334887
     locked: 0
+  - name: Equipment
+    uniqueID: 3968538529
+    locked: 0
