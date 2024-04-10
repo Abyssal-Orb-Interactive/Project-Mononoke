@@ -35,20 +35,12 @@ namespace Source.BuildingModule
         {
             var gridPosition = _grid.WorldToGrid(position);
 
-            if (_grid.HasBuildingAt(gridPosition))
-            {
-                Debug.LogWarning($"Building already present at the specified position {gridPosition}.");
-                return false;
-            }
+            if (_grid.HasBuildingAt(gridPosition) || !_grid.IsCellPassableAt(gridPosition)) return false;
 
-            var buildingData = _templatesDatabase.BuildingsData.FirstOrDefault(data => data.ID == ID);
+                var buildingData = _templatesDatabase.BuildingsData.FirstOrDefault(data => data.ID == ID);
 
-            if (buildingData == null)
-            {
-                Debug.LogError($"Building with ID {ID} not found in the database.");
-                return false;
-            }
-
+            if (buildingData == null) return false;
+            
             var buildingPrefab = buildingData.Prefab;
             Transform container = _containerAssociator.Associations[ID];
 

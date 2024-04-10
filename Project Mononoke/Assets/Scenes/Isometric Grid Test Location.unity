@@ -914,6 +914,8 @@ MonoBehaviour:
   _objectContainersAssociator: {fileID: 476726020}
   _buildingsDatabase: {fileID: 11400000, guid: a4b67a4119b15f2488e52f760554671f, type: 2}
   _characterMover: {fileID: 824457672}
+  _itemChooseMenu: {fileID: 1199650426}
+  _view: {fileID: 553634996}
 --- !u!1 &332950479
 GameObject:
   m_ObjectHideFlags: 0
@@ -4839,7 +4841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926eac6aff330b6479f8353f5ac84fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _view: {fileID: 553634996}
   _pickUpper: {fileID: 824457669}
   _itemViewPrefab: {fileID: 9041859498917017774, guid: cd5d2dfd86df2cc42a578df47963e03c, type: 3}
   _database: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
@@ -4852,7 +4853,6 @@ MonoBehaviour:
   _follower: {fileID: 1440030295}
   _lifetimeScope: {fileID: 332358560}
   _toolsDatabase: {fileID: 11400000, guid: 06f2c52f14666fd4db30131a6d77ccd1, type: 2}
-  _itemChooseMenu: {fileID: 1199650426}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using Base.Grid;
 using Base.Input;
+using Base.Input.Actions;
 using Base.TileMap;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings.UI;
@@ -38,6 +39,7 @@ namespace Base.DIContainer
         
             // Registering Components
             builder.Register<TestActions>(Lifetime.Singleton);
+            builder.Register<TestActionsWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<InputHandler>(Lifetime.Singleton);
             // var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
             builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();

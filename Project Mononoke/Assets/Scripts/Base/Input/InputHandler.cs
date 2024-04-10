@@ -1,18 +1,19 @@
 using System;
+using Base.Input.Actions;
 using UnityEngine;
 
 namespace Base.Input
 {
     public partial class InputHandler : IDisposable
     {
-        private TestActions _input = null;
+        private IInputSource _input = null;
         private MovementDirection _movementDirection;
 
         private EventHandler<InputActionEventArgs> _onInputChangedHandlers;
 
         private InputHandler(){}
 
-        public InputHandler(TestActions inputSource)
+        public InputHandler(IInputSource inputSource)
         {
             _input = inputSource;
         }
@@ -43,16 +44,16 @@ namespace Base.Input
         {
             if (_input == null) return;
             _input.Enable();
-            _input.PlayerActions.Movement.performed += OnMovementStarted;
-            _input.PlayerActions.Movement.canceled += OnMovementCancelled;
+            _input.SubscribeToMovementInputStarts(OnMovementStarted);
+            _input.SubscribeToMovementInputEnds(OnMovementCancelled);
         }
 
         public void StopInputHandling()
         {
             if (_input == null) return;
             _input.Disable();
-            _input.PlayerActions.Movement.performed -= OnMovementStarted;
-            _input.PlayerActions.Movement.canceled -= OnMovementCancelled;
+            _input.UnsubscribeToMovementInputStarts(OnMovementStarted);
+            _input.UnsubscribeToMovementInputEnds(OnMovementCancelled);
         }
 
         public void Dispose()
