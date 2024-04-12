@@ -11,6 +11,8 @@ namespace Base.Grid
     {
         private readonly Dictionary<Vector3Int, Cell> _grid = null;
         private readonly ICellTypeSource _cellTypeSource = null;
+        public IEnumerable<Vector3Int> CellCoordinates => _grid.Keys;
+        public IEnumerable<IReadonlyCell> Cells => _grid.Values;
 
         private GroundGrid(){}
 
@@ -27,7 +29,6 @@ namespace Base.Grid
             var cellType = _cellTypeSource.GetCellTypeAt(coordinate);
             cell = new Cell(cellType);
             _grid.Add(coordinate, cell);
-
             return cell;
         }
 

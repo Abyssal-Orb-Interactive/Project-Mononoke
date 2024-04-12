@@ -53,6 +53,8 @@ namespace Scripts.Source
             ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
             _toolsDatabase.TryGetItemDataBy("Hoe", out var toolData);
             ItemViewFabric.Create(new Item(toolData), new Vector3(-1, -0.5f));
+            var gridGraphNodesWalkableUpdater = new GridGraphNodesWalkableUpdater();
+            gridGraphNodesWalkableUpdater.UpdateGridGraphUsing(_lifetimeScope.Container.Resolve<GroundGrid>());
         }
 
         private void Update() 
