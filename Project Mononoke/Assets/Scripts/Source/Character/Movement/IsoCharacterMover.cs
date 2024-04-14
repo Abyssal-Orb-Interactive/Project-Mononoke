@@ -54,7 +54,7 @@ namespace Source.Character.Movement
 
         public Vector3 GetCurrentPosition()
         {
-            return _rigidbody.position;
+          return _rigidbody.position;
         }
 
         private void Update()
@@ -83,15 +83,16 @@ namespace Source.Character.Movement
         {
             var offset = DirectionToVector3IsoConverter.ToVector(direction) * (_speed * Time.deltaTime);
             var isoOffset = new Vector2Iso(offset);
-            var position = _rigidbody.position;
+            var position = GetCurrentPosition();
             var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
-            inGridPosition = _grid.WorldToGrid(targetPosition);
+            var legsTargetPosition = new Vector3(targetPosition.x, targetPosition.y - 0.3f, targetPosition.z);
+            inGridPosition = _grid.WorldToGrid(legsTargetPosition);
             return targetPosition;
         }
 
-        public PositionData GetPosition()
+        public PositionData GetPositionData()
         {
-            var worldPosition = _rigidbody.position;
+            var worldPosition = GetCurrentPosition();
             return new PositionData(_moveDirection, worldPosition);
         }
 

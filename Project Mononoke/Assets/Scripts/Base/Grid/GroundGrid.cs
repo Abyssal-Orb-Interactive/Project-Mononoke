@@ -54,7 +54,7 @@ namespace Base.Grid
         {
             var isometricCoordinate = new Vector3Iso(worldCoordinate.x, worldCoordinate.y, worldCoordinate.z);
             var cartesianCoordinate = isometricCoordinate.ToCartesian();
-            var roundedCoordinate = new Vector3Int(Mathf.RoundToInt(cartesianCoordinate.x), Mathf.RoundToInt(cartesianCoordinate.y), Mathf.RoundToInt(cartesianCoordinate.z));
+            var roundedCoordinate = new Vector3Int(Mathf.FloorToInt(cartesianCoordinate.x), Mathf.CeilToInt(cartesianCoordinate.y), Mathf.CeilToInt(cartesianCoordinate.z));
             return roundedCoordinate;
         }
 

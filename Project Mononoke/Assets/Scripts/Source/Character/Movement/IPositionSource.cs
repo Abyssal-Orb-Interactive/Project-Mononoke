@@ -2,7 +2,7 @@ namespace Source.Character.Movement
 {
     public interface IPositionSource
     {
-        public PositionData GetPosition();
+        public PositionData GetPositionData();
     }
 }
 

@@ -20,7 +20,7 @@ namespace Source.ItemsModule
         private static void MakeBuildRequestMatterIn(object context)
         {
             if(context is not IPositionSource positionSource) return;
-            var position = positionSource.GetPosition();
+            var position = positionSource.GetPositionData();
             var targetPosition = CalculateTargetPositionUsing(position);
             BuildingRequestsBus.MakeRequest(new IBuildRequester.BuildRequestEventArgs(0, targetPosition));
         }
