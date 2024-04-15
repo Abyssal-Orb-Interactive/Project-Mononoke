@@ -27,7 +27,7 @@ namespace Source.ItemsModule
         
         private static Vector3 CalculateTargetPositionUsing(PositionData data)
         {
-            var position = data.Position;//IPositionSource must return Cartesian pos
+            var position = data.Position;//IPositionSource must return Iso pos
             var facing = data.Direction;
             var oneFacingVector = DirectionToVector3Converter.ToVector(facing);
             var oneFacingVectorIso = new Vector2Iso(oneFacingVector);

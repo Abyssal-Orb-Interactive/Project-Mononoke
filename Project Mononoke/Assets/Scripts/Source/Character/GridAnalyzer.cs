@@ -43,7 +43,7 @@ namespace Source.Character
         {
             var offset = DirectionToVector3IsoConverter.ToVector(_facing);
             var isoOffset = new Vector2Iso(offset);
-            var position = _mover.GetCurrentPosition();
+            var position = _mover.GetCurrentLogicalPosition();
             var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
             var inGridPosition = _grid.WorldToGrid(targetPosition);
             return inGridPosition;

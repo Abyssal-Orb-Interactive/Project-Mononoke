@@ -52,7 +52,13 @@ namespace Source.Character.Movement
             StartInputHandling();
         }
 
-        public Vector3 GetCurrentPosition()
+        public Vector3 GetCurrentLogicalPosition()
+        {
+            var pos = GetCurrentPosition();
+            return new Vector3(pos.x, pos.y - 0.3f, pos.z);
+        }
+        
+        private Vector3 GetCurrentPosition()
         {
           return _rigidbody.position;
         }
@@ -92,7 +98,7 @@ namespace Source.Character.Movement
 
         public PositionData GetPositionData()
         {
-            var worldPosition = GetCurrentPosition();
+            var worldPosition = GetCurrentLogicalPosition();
             return new PositionData(_moveDirection, worldPosition);
         }
 

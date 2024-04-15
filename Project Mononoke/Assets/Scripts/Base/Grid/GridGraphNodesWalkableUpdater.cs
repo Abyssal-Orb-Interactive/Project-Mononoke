@@ -18,8 +18,6 @@ namespace Base.Grid
             {
                 var vectorNodePose = (Vector3)node.position;
                 var inGridPose = grid.WorldToGrid(vectorNodePose);
-                Debug.Log(vectorNodePose);
-                Debug.Log(inGridPose);
                 if (!grid.IsCellPassableAt(inGridPose))
                 {
                     AstarPath.active.AddWorkItem(new AstarWorkItem(() =>
