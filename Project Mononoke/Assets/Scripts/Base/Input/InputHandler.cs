@@ -28,14 +28,14 @@ namespace Base.Input
             _onInputChangedHandlers -= handler;
         }
         
-        private void OnMovementStarted(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
+        private void OnMovementStarted(MovementInputEventArgs args)
         {
-            var cartesianNormalizedMovementVector = movementDirection.ReadValue<Vector2>();
-            _movementDirection = InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianNormalizedMovementVector);
+            _movementDirection = InputVectorToDirectionConverter.GetMovementDirectionFor(args.Value);
+            
             _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Started));
         }
         
-        private void OnMovementCancelled(UnityEngine.InputSystem.InputAction.CallbackContext movementDirection)
+        private void OnMovementCancelled(MovementInputEventArgs args)
         { 
             _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Ended));
         }

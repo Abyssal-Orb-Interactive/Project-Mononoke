@@ -1,5 +1,5 @@
 using System;
-using UnityEngine.InputSystem;
+using UnityEngine;
 
 namespace Base.Input.Actions
 {
@@ -13,25 +13,25 @@ namespace Base.Input.Actions
         }
 
 
-        public void SubscribeToMovementInputStarts(Action<InputAction.CallbackContext> contextAction)
+        public void SubscribeToMovementInputStarts(Action<MovementInputEventArgs> contextAction)
         {
-            _actions.PlayerActions.Movement.performed += contextAction;
+            _actions.PlayerActions.Movement.performed += ctx => contextAction?.Invoke(new MovementInputEventArgs(ctx.ReadValue<Vector2>()));
         }
         
 
-        public void SubscribeToMovementInputEnds(Action<InputAction.CallbackContext> contextAction)
+        public void SubscribeToMovementInputEnds(Action<MovementInputEventArgs> contextAction)
         {
-            _actions.PlayerActions.Movement.canceled += contextAction;
+            _actions.PlayerActions.Movement.canceled += ctx => contextAction?.Invoke(new MovementInputEventArgs(ctx.ReadValue<Vector2>()));
         }
 
-        public void UnsubscribeToMovementInputStarts(Action<InputAction.CallbackContext> contextAction)
+        public void UnsubscribeToMovementInputStarts(Action<MovementInputEventArgs> contextAction)
         {
-            _actions.PlayerActions.Movement.performed -= contextAction;
+            _actions.PlayerActions.Movement.performed -= ctx => contextAction?.Invoke(new MovementInputEventArgs(ctx.ReadValue<Vector2>()));
         }
 
-        public void UnsubscribeToMovementInputEnds(Action<InputAction.CallbackContext> contextAction)
+        public void UnsubscribeToMovementInputEnds(Action<MovementInputEventArgs> contextAction)
         {
-            _actions.PlayerActions.Movement.canceled -= contextAction;
+            _actions.PlayerActions.Movement.canceled -= ctx => contextAction?.Invoke(new MovementInputEventArgs(ctx.ReadValue<Vector2>()));
         }
 
         public void Dispose()
