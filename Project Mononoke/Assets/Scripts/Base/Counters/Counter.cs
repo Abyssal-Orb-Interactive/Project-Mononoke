@@ -23,7 +23,6 @@ namespace Base.Counters
             NatureOfCounting = FunctionNatureDeterminant.DeterminateFunctionNature(_countingFunction);
             TargetValue = targetValue;
             StartValue = startValue;
-
             Reset();
             if (IsCounterInvalid()) throw new ArgumentException("Values of this counter is invalid");
         }

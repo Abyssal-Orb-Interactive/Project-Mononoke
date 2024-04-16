@@ -1,11 +1,14 @@
 using Base.DIContainer;
 using Base.Grid;
+using Base.Input;
 using Base.TileMap;
 using Base.Timers;
+using Pathfinding;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
 using Source.BuildingModule.Buildings.UI;
 using Source.Character;
+using Source.Character.AI;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
@@ -32,6 +35,10 @@ namespace Scripts.Source
         [SerializeField] private InteractiveObjectsFollower _follower = null;
         [SerializeField] private GameLifetimeScope _lifetimeScope = null;
         [SerializeField] private ItemsDatabase<ItemData> _toolsDatabase;
+        [SerializeField] private PathfinderAI _ai = null;
+        [SerializeField] private Transform _target = null;
+        [SerializeField] private IsoCharacterMover _aiMover = null;
+        [SerializeField] private TargetMover _targetMover = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -55,6 +62,14 @@ namespace Scripts.Source
             ItemViewFabric.Create(new Item(toolData), new Vector3(-1, -0.5f));
             var gridGraphNodesWalkableUpdater = new GridGraphNodesWalkableUpdater();
             gridGraphNodesWalkableUpdater.UpdateGridGraphUsing(_lifetimeScope.Container.Resolve<GroundGrid>());
+            _aiMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(_ai));
+            _ai.StartFollowing(_target.position);
+            _targetMover.PositionChanged += OnPositionChanged;
+        }
+
+        private void OnPositionChanged(Vector3 newPosition)
+        {
+            _ai.StartFollowing(_target.position);
         }
 
         private void Update() 

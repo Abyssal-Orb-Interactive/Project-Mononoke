@@ -45,7 +45,7 @@ namespace Source.Character.Movement
             
         }
 
-        [Inject] private void Initialize(GroundGrid grid, InputHandler inputHandler)
+        [Inject] public void Initialize(GroundGrid grid, InputHandler inputHandler)
         {
             _grid = grid;
             _inputHandler = inputHandler;
@@ -72,17 +72,17 @@ namespace Source.Character.Movement
         {
             if (_movementDesired == false)
             {
-                MovementChanged.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
+                MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
                 return;
             } 
             var targetPosition = CalculateInGridTargetPosition(direction, out var inGridPosition);
             if (!_grid.IsCellPassableAt(inGridPosition))
             {
-                MovementChanged.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
+                MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
                 return;
             }
             _rigidbody.MovePosition(targetPosition);
-            MovementChanged.Invoke(this, new MovementActionEventArgs(MovementStatus.Started, _moveDirection));
+            MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Started, _moveDirection));
         }
 
         private Vector3 CalculateInGridTargetPosition(MovementDirection direction, out Vector3Int inGridPosition)

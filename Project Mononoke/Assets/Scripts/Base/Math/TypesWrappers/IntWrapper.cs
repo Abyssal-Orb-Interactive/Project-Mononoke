@@ -18,8 +18,7 @@ namespace Base.Math.TypesWrappers
 
         public IntWrapper Add(IntWrapper other)
         {
-            Value += other.Value;
-            return this;
+            return new IntWrapper(Value + other.Value);
         }
         
         public override string ToString()

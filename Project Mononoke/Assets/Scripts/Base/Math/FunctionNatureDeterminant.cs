@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Base.Math
 {
@@ -8,7 +9,7 @@ namespace Base.Math
         {
             var startValue = function();
             var nextValue = startValue;
-            nextValue.Add(function());
+            nextValue = nextValue.Add(function());
             return  nextValue.CompareTo(startValue) switch
             {
                 0 => NatureOfFunction.Constant,

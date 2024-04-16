@@ -13,7 +13,7 @@ namespace Source.Character.AI
         private PathWaypointsPositionsSource _waypointsPositionsSource = null;
         private WaypointSwitcher _waypointSwitcher = null;
         private Vector3 _cartesianMovementDirection = Vector3.zero;
-        private bool _isPatCancelled = false;
+        private bool _isPathCancelled = false;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         private void OnValidate()
@@ -28,11 +28,12 @@ namespace Source.Character.AI
             _waypointSwitcher = new WaypointSwitcher(waypointsPositions, 3f, transform);
             _waypointSwitcher.WaypointChanged += CalculateNormalizedCartesianDirectionTo;
             _waypointSwitcher.LastWaypointReached += OnTargetReached;
-            _isPatCancelled = false;
+            _isPathCancelled = false;
 
-            while (!_isPatCancelled)
+            while (!_isPathCancelled)
             {
                 _waypointSwitcher.CheckIfReachedCurrentWayPointAndSwitchToNextOneIfNecessary();
+               
                 MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
             }
         }
@@ -47,7 +48,7 @@ namespace Source.Character.AI
         
         private void OnTargetReached()
         {
-            _isPatCancelled = true;
+            _isPathCancelled = true;
             MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
         }
 
@@ -78,7 +79,7 @@ namespace Source.Character.AI
 
         public void Enable()
         {
-            throw new NotImplementedException();
+            gameObject.SetActive(true);
         }
 
         public void Disable()

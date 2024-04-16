@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Linq;
 
@@ -23,6 +24,8 @@ namespace Pathfinding {
 		public bool use2D;
 
 		Camera cam;
+
+		public event Action<Vector3> PositionChanged; 
 
 		public void Start () {
 			//Cache the Main Camera
@@ -70,6 +73,7 @@ namespace Pathfinding {
 					for (int i = 0; i < ais.Length; i++) {
 						if (ais[i] != null) ais[i].SearchPath();
 					}
+					PositionChanged?.Invoke(target.position);
 				}
 			}
 		}

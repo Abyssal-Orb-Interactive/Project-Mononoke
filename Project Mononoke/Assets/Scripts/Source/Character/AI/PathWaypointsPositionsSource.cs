@@ -22,7 +22,17 @@ namespace Source.Character.AI
 
         private async UniTask<Path> BuildPath(Vector3 startPosition, Vector3 endPosition)
         {
-            return await new UniTask<Path>(_pathBuilder.StartPath(startPosition, endPosition));
+            Path path = null;
+            var tcs = new UniTaskCompletionSource<Path>();
+
+            _pathBuilder.StartPath(startPosition, endPosition, p =>
+            {
+                path = p;
+                tcs.TrySetResult(path);
+            });
+
+            await tcs.Task;
+            return path;
         }
 
         private bool AreAnyErrorsIn(Path path)
