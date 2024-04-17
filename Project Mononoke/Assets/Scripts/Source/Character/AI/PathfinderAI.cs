@@ -1,6 +1,8 @@
 using System;
+using System.Threading;
 using Base.Input.Actions;
 using Base.Math;
+using Cysharp.Threading.Tasks;
 using Pathfinding;
 using UnityEngine;
 
@@ -14,6 +16,7 @@ namespace Source.Character.AI
         private WaypointSwitcher _waypointSwitcher = null;
         private Vector3 _cartesianMovementDirection = Vector3.zero;
         private bool _isPathCancelled = false;
+        private CancellationTokenSource _cancellationTokenSource = null;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         private void OnValidate()
@@ -23,18 +26,37 @@ namespace Source.Character.AI
 
         public async void StartFollowing(Vector3 targetPosition)
         {
+            StopFollowing();
             _waypointsPositionsSource = new PathWaypointsPositionsSource(_pathBuilder);
             var waypointsPositions = await _waypointsPositionsSource.GetWaypointsFor(transform.position, targetPosition);
             _waypointSwitcher = new WaypointSwitcher(waypointsPositions, 3f, transform);
             _waypointSwitcher.WaypointChanged += CalculateNormalizedCartesianDirectionTo;
             _waypointSwitcher.LastWaypointReached += OnTargetReached;
+            
+            
+            _cancellationTokenSource = new CancellationTokenSource();
             _isPathCancelled = false;
+            FollowPathAsync().Forget();
+        }
 
-            while (!_isPathCancelled)
+        public void StopFollowing()
+        {
+            _cancellationTokenSource?.Cancel();
+            //z_cancellationTokenSource?.Dispose();
+            //_cancellationTokenSource = null;
+            _isPathCancelled = true;
+            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
+        }
+        
+        private async UniTaskVoid FollowPathAsync()
+        {
+            
+            while (!_cancellationTokenSource.Token.IsCancellationRequested && !_isPathCancelled)
             {
                 _waypointSwitcher.CheckIfReachedCurrentWayPointAndSwitchToNextOneIfNecessary();
-               
+
                 MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1), cancellationToken: _cancellationTokenSource.Token);
             }
         }
 
@@ -48,8 +70,7 @@ namespace Source.Character.AI
         
         private void OnTargetReached()
         {
-            _isPathCancelled = true;
-            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
+            StopFollowing();
         }
 
         public void Dispose()
