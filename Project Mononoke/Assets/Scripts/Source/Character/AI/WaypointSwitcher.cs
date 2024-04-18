@@ -14,7 +14,9 @@ namespace Source.Character.AI
         private readonly float _pathNodeProximityThreshold = 3f;
 
         public event Action LastWaypointReached = null;
-        public event Action<Vector3> WaypointChanged = null; 
+        public event Action<Vector3> WaypointChanged = null;
+
+        public Vector3 CurrentWaypointPosition => _waypointsPositions[_waypointIndexCounter.CurrentValue.Value];
 
 
         public WaypointSwitcher(IReadOnlyList<Vector3> waypointsPositions, float pathNodeProximityThreshold,
@@ -26,15 +28,18 @@ namespace Source.Character.AI
             _currentPosition = currentPosition;
             _waypointIndexCounter.TargetReached += OnLastWaypointReached;
             _waypointIndexCounter.ValueChanged += OnWaypointChanged;
+            Debug.Log(_waypointIndexCounter.TargetValue);
         }
 
         private void OnWaypointChanged()
         {
+            Debug.Log(_waypointIndexCounter.CurrentValue);
             WaypointChanged?.Invoke(_waypointsPositions[_waypointIndexCounter.CurrentValue.Value]);
         }
 
         private void OnLastWaypointReached()
         {
+            Debug.Log("End");
             LastWaypointReached?.Invoke();
         }
 

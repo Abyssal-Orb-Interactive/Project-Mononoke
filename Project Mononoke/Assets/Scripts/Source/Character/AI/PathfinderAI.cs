@@ -15,8 +15,8 @@ namespace Source.Character.AI
         private PathWaypointsPositionsSource _waypointsPositionsSource = null;
         private WaypointSwitcher _waypointSwitcher = null;
         private Vector3 _cartesianMovementDirection = Vector3.zero;
-        private bool _isPathCancelled = false;
         private CancellationTokenSource _cancellationTokenSource = null;
+        private bool _pathCancalled = false;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         private void OnValidate()
@@ -28,41 +28,43 @@ namespace Source.Character.AI
         {
             StopFollowing();
             _waypointsPositionsSource = new PathWaypointsPositionsSource(_pathBuilder);
-            var waypointsPositions = await _waypointsPositionsSource.GetWaypointsFor(transform.position, targetPosition);
+            var position = transform.position;
+            var waypointsPositions = await _waypointsPositionsSource.GetWaypointsFor(new Vector3(position.x, position.y - 0.15f, position.z), targetPosition);
             _waypointSwitcher = new WaypointSwitcher(waypointsPositions, 3f, transform);
             _waypointSwitcher.WaypointChanged += CalculateNormalizedCartesianDirectionTo;
             _waypointSwitcher.LastWaypointReached += OnTargetReached;
             
             
             _cancellationTokenSource = new CancellationTokenSource();
-            _isPathCancelled = false;
+            _pathCancalled = false;
             FollowPathAsync().Forget();
         }
 
         public void StopFollowing()
         {
+            _pathCancalled = true;
             _cancellationTokenSource?.Cancel();
-            //z_cancellationTokenSource?.Dispose();
+            //_cancellationTokenSource?.Dispose();
             //_cancellationTokenSource = null;
-            _isPathCancelled = true;
-            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
         }
         
         private async UniTaskVoid FollowPathAsync()
         {
             
-            while (!_cancellationTokenSource.Token.IsCancellationRequested && !_isPathCancelled)
+            while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
+                CalculateNormalizedCartesianDirectionTo(_waypointSwitcher.CurrentWaypointPosition);
                 _waypointSwitcher.CheckIfReachedCurrentWayPointAndSwitchToNextOneIfNecessary();
-
-                MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
-                await UniTask.Delay(TimeSpan.FromSeconds(0.1), cancellationToken: _cancellationTokenSource.Token);
+                if(!_pathCancalled) MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
+                await UniTask.Delay(TimeSpan.FromSeconds(0.005), cancellationToken: _cancellationTokenSource.Token);
             }
+            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
         }
 
         private void CalculateNormalizedCartesianDirectionTo(Vector3 currentWaypointPosition)
         {
-            var worldDirection = currentWaypointPosition - transform.position;
+            var pos = transform.position;
+            var worldDirection = currentWaypointPosition - new Vector3(pos.x, pos.y-0.15f, pos.z);
             var isometricDirection = new Vector3Iso(worldDirection.x, worldDirection.y, worldDirection.z);
             var cartesianDirection = isometricDirection.ToCartesian();
             _cartesianMovementDirection = cartesianDirection.normalized;
