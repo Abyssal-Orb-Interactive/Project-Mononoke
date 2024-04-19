@@ -37,8 +37,9 @@ namespace Source.BuildingModule.Buildings
             _inventoryPresenter.ItemChosen += OnItemChosen;
         }
 
-        private void OnItemChosen(Item item)
+        private void OnItemChosen(Item item, Building building)
         {
+            if(building != this) return;
             TryPlant(item);
         }
 
@@ -80,7 +81,7 @@ namespace Source.BuildingModule.Buildings
                     if (!TryPlant(holdingItem))
                     {
                         _inventoryPresenter.UpdateChooseMenuWith(InventoryFilters.Seeds);
-                        _inventoryPresenter.GetOnItemChoosingMenu();
+                        _inventoryPresenter.GetOnItemChoosingMenu(this);
                         ReadyToInteract = false;
                     }
                     break;

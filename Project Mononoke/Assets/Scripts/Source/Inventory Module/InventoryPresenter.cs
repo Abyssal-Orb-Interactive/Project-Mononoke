@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Source.BuildingModule;
 using Source.BuildingModule.Buildings.UI;
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
@@ -14,9 +15,10 @@ namespace Source.InventoryModule
         private readonly Inventory _inventory = null;
         private readonly InventoryTableView _view = null;
         private readonly ItemChooseMenu _itemChooseMenu = null;
+        private Building _interactionBuilding = null;
 
         public event Action<StackDataForUI> ItemEquipped = null;
-        public event Action<Item> ItemChosen = null; 
+        public event Action<Item, Building> ItemChosen = null; 
 
         public InventoryPresenter(Inventory inventory, InventoryTableView view, ItemChooseMenu chooseMenu)
         {
@@ -40,14 +42,14 @@ namespace Source.InventoryModule
         private void OnItemChooseMenuItemSelected(StackDataForUI stackData)
         {
             if(!_inventory.TryGetItem(stackData.ItemData.ID, stackData.StackIndex, out var item)) return;
-            ItemChosen?.Invoke(item);
+            ItemChosen?.Invoke(item, _interactionBuilding);
             _itemChooseMenu.ToggleWith(false);
         }
 
-        public void GetOnItemChoosingMenu()
+        public void GetOnItemChoosingMenu(Building building)
         {
+            _interactionBuilding = building;
             _itemChooseMenu.ToggleWith(true);
-            
         }
 
         private void OnItemDropped(InventoryItemsStack stack, int stackIndex)
