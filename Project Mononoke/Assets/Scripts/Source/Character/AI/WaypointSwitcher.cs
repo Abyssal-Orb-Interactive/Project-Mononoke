@@ -39,7 +39,6 @@ namespace Source.Character.AI
 
         private void OnLastWaypointReached()
         {
-            Debug.Log("End");
             LastWaypointReached?.Invoke();
         }
 

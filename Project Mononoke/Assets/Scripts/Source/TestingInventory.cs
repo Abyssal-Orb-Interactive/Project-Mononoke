@@ -15,6 +15,7 @@ using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;
 using Source.Character.Movement;
+using Source.Character.Visual;
 using Source.UI;
 using UnityEngine.Tilemaps;
 using VContainer;
@@ -39,6 +40,7 @@ namespace Scripts.Source
         [SerializeField] private Transform _target = null;
         [SerializeField] private IsoCharacterMover _aiMover = null;
         [SerializeField] private TargetMover _targetMover = null;
+        [SerializeField] private CharacterSpiteAnimationPlayer _animationPlayer = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -63,6 +65,7 @@ namespace Scripts.Source
             var gridGraphNodesWalkableUpdater = new GridGraphNodesWalkableUpdater();
             gridGraphNodesWalkableUpdater.UpdateGridGraphUsing(_lifetimeScope.Container.Resolve<GroundGrid>());
             _aiMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(_ai));
+            _animationPlayer.Initialize(_aiMover);
             _ai.StartFollowing(_target.position);
             _targetMover.PositionChanged += OnPositionChanged;
         }

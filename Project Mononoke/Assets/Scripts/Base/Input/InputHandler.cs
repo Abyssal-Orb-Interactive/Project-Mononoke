@@ -37,6 +37,7 @@ namespace Base.Input
         
         private void OnMovementCancelled(MovementInputEventArgs args)
         {
+            Debug.Log("Stopped");
             _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Ended));
         }
 

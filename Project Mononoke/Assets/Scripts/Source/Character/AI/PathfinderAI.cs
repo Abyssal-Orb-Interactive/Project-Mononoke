@@ -30,7 +30,7 @@ namespace Source.Character.AI
             _waypointsPositionsSource = new PathWaypointsPositionsSource(_pathBuilder);
             var position = transform.position;
             var waypointsPositions = await _waypointsPositionsSource.GetWaypointsFor(new Vector3(position.x, position.y - 0.15f, position.z), targetPosition);
-            _waypointSwitcher = new WaypointSwitcher(waypointsPositions, 3f, transform);
+            _waypointSwitcher = new WaypointSwitcher(waypointsPositions, 0.25f, transform);
             _waypointSwitcher.WaypointChanged += CalculateNormalizedCartesianDirectionTo;
             _waypointSwitcher.LastWaypointReached += OnTargetReached;
             
@@ -44,8 +44,7 @@ namespace Source.Character.AI
         {
             _pathCancalled = true;
             _cancellationTokenSource?.Cancel();
-            //_cancellationTokenSource?.Dispose();
-            //_cancellationTokenSource = null;
+            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
         }
         
         private async UniTaskVoid FollowPathAsync()
@@ -58,7 +57,7 @@ namespace Source.Character.AI
                 if(!_pathCancalled) MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
                 await UniTask.Delay(TimeSpan.FromSeconds(0.005), cancellationToken: _cancellationTokenSource.Token);
             }
-            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
+
         }
 
         private void CalculateNormalizedCartesianDirectionTo(Vector3 currentWaypointPosition)
