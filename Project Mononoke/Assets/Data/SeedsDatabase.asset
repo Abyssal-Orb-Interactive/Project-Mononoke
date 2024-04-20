@@ -27,8 +27,10 @@ MonoBehaviour:
       <Description>k__BackingField: Simple Melon
     <MinGrownTimeInSeconds>k__BackingField: 6
     <MaxGrownTimeInSeconds>k__BackingField: 12
-    <MinGrownFruits>k__BackingField: 0
+    <MinGrownFruits>k__BackingField: 2
     <MaxGrownFruits>k__BackingField: 5
+    <MinSeedsFromFruit>k__BackingField: 3
+    <MaxSeedsFromFruit>k__BackingField: 4
     <PlantGrowthStagesSprites>k__BackingField:
     - {fileID: -609152549, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
     - {fileID: -966460032, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
