@@ -55,7 +55,6 @@ namespace Source.Character.Movement
         public Vector3 GetCurrentLogicalPosition()
         {
             var pos = GetCurrentPosition();
-            Debug.Log(pos);
             return new Vector3(pos.x, pos.y - 0.3f, pos.z);
         }
         
@@ -88,10 +87,9 @@ namespace Source.Character.Movement
 
         private Vector3 CalculateInGridTargetPosition(MovementDirection direction, out Vector3Int inGridPosition)
         {
-            var offset = DirectionToVector3IsoConverter.ToVector(direction) * (_speed * Time.deltaTime);
-            var isoOffset = new Vector2Iso(offset);
+            var offset = DirectionToVector3IsoConverter.ToVector(direction) * (_speed * Time.deltaTime); 
             var position = GetCurrentPosition();
-            var targetPosition = new Vector3(position.x + isoOffset.X, position.y + isoOffset.Y, 0);
+            var targetPosition = position + offset;
             var legsTargetPosition = new Vector3(targetPosition.x, targetPosition.y - 0.3f, targetPosition.z);
             inGridPosition = _grid.WorldToGrid(legsTargetPosition);
             return targetPosition;

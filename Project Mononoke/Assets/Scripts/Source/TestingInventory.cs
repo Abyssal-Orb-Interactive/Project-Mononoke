@@ -1,6 +1,7 @@
 using Base.DIContainer;
 using Base.Grid;
 using Base.Input;
+using Base.Math;
 using Base.TileMap;
 using Base.Timers;
 using Pathfinding;
@@ -38,9 +39,9 @@ namespace Scripts.Source
         [SerializeField] private GameLifetimeScope _lifetimeScope = null;
         [SerializeField] private ItemsDatabase<ItemData> _toolsDatabase;
         [SerializeField] private PathfinderAI _ai = null;
-        [SerializeField] private Transform _target = null;
         [SerializeField] private IsoCharacterMover _aiMover = null;
-        [SerializeField] private TargetMover _targetMover = null;
+        [SerializeField] private CharacterLogicIsometric2DCollider _aiCollider = null;
+        [SerializeField] private PickUpper _aiPickUpper = null;
         [SerializeField] private CharacterSpiteAnimationPlayer _animationPlayer = null;
         [SerializeField] private MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
 
@@ -69,13 +70,8 @@ namespace Scripts.Source
             _aiMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(_ai));
             _animationPlayer.Initialize(_aiMover);
             _minionsTargetPositionCoordinator.Initialize(_mover);
-            _ai.StartFollowing(_target.position);
-            _targetMover.PositionChanged += OnPositionChanged;
-        }
-
-        private void OnPositionChanged(Vector3 newPosition)
-        {
-            _ai.StartFollowing(_target.position);
+            var collidersHolder = new CollidersHolder(_aiCollider, _aiPickUpper);
+            _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder);
         }
 
         private void Update() 
