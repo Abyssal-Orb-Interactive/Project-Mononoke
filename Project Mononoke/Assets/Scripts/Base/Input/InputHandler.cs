@@ -31,13 +31,11 @@ namespace Base.Input
         private void OnMovementStarted(MovementInputEventArgs args)
         {
             _movementDirection = InputVectorToDirectionConverter.GetMovementDirectionFor(args.Value);
-            Debug.Log(_movementDirection);
             _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Started));
         }
         
         private void OnMovementCancelled(MovementInputEventArgs args)
         {
-            Debug.Log("Stopped");
             _onInputChangedHandlers?.Invoke(this, new InputActionEventArgs(InputActionEventArgs.ActionType.Movement, _movementDirection, InputActionEventArgs.ActionStatus.Ended));
         }
 

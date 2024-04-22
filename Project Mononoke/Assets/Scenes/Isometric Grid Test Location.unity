@@ -9514,6 +9514,7 @@ MonoBehaviour:
   _aiMover: {fileID: 8444275}
   _targetMover: {fileID: 837288085}
   _animationPlayer: {fileID: 1747389276}
+  _minionsTargetPositionCoordinator: {fileID: 0}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0
@@ -10050,6 +10051,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5678693790991241680}
+    - targetCorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5678693790991241683}
     - targetCorrespondingSourceObject: {fileID: 4540465095615586830, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 699832659}
@@ -10071,6 +10075,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8d416011b64c4c99a43733a6ed9d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5678693790991241683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824457668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c78e1475204012a94bb2e83c750a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetDesignationRadius: 0.5
+  _targetTransform: {fileID: 837288084}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

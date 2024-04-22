@@ -55,6 +55,7 @@ namespace Source.Character.Movement
         public Vector3 GetCurrentLogicalPosition()
         {
             var pos = GetCurrentPosition();
+            Debug.Log(pos);
             return new Vector3(pos.x, pos.y - 0.3f, pos.z);
         }
         

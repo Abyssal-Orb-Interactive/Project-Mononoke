@@ -9,6 +9,7 @@ using Source.BuildingModule.Buildings;
 using Source.BuildingModule.Buildings.UI;
 using Source.Character;
 using Source.Character.AI;
+using Source.Character.Minions_Manager;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
@@ -41,6 +42,7 @@ namespace Scripts.Source
         [SerializeField] private IsoCharacterMover _aiMover = null;
         [SerializeField] private TargetMover _targetMover = null;
         [SerializeField] private CharacterSpiteAnimationPlayer _animationPlayer = null;
+        [SerializeField] private MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -66,6 +68,7 @@ namespace Scripts.Source
             gridGraphNodesWalkableUpdater.UpdateGridGraphUsing(_lifetimeScope.Container.Resolve<GroundGrid>());
             _aiMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(_ai));
             _animationPlayer.Initialize(_aiMover);
+            _minionsTargetPositionCoordinator.Initialize(_mover);
             _ai.StartFollowing(_target.position);
             _targetMover.PositionChanged += OnPositionChanged;
         }
@@ -87,6 +90,11 @@ namespace Scripts.Source
             if (Input.GetKeyDown(KeyCode.L))
             {
                 _pickUpper.TryStashInInventory();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                _minionsTargetPositionCoordinator.ChangeTargetPosition();
             }
         }
     }

@@ -28,12 +28,10 @@ namespace Source.Character.AI
             _currentPosition = currentPosition;
             _waypointIndexCounter.TargetReached += OnLastWaypointReached;
             _waypointIndexCounter.ValueChanged += OnWaypointChanged;
-            Debug.Log(_waypointIndexCounter.TargetValue);
         }
 
         private void OnWaypointChanged()
         {
-            Debug.Log(_waypointIndexCounter.CurrentValue);
             WaypointChanged?.Invoke(_waypointsPositions[_waypointIndexCounter.CurrentValue.Value]);
         }
 
