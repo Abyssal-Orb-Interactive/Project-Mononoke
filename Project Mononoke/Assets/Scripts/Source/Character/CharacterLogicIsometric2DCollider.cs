@@ -19,6 +19,7 @@ namespace Source.Character
         {
             if (_gridAnalyzer.TryFindBuildingNextToCharacter(out var building))
             {
+                Debug.Log("Building");
                 _currentBuilding = building;
                 BuildingInCollider?.Invoke(_currentBuilding);
             }

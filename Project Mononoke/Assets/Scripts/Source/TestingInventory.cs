@@ -1,10 +1,7 @@
 using Base.DIContainer;
 using Base.Grid;
 using Base.Input;
-using Base.Math;
-using Base.TileMap;
 using Base.Timers;
-using Pathfinding;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
 using Source.BuildingModule.Buildings.UI;
@@ -12,14 +9,13 @@ using Source.Character;
 using Source.Character.AI;
 using Source.Character.Minions_Manager;
 using Source.InventoryModule;
-using Source.InventoryModule.UI;
 using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;
 using Source.Character.Movement;
 using Source.Character.Visual;
+using Source.InventoryModule.UI;
 using Source.UI;
-using UnityEngine.Tilemaps;
 using VContainer;
 
 namespace Scripts.Source
@@ -44,6 +40,9 @@ namespace Scripts.Source
         [SerializeField] private PickUpper _aiPickUpper = null;
         [SerializeField] private CharacterSpiteAnimationPlayer _animationPlayer = null;
         [SerializeField] private MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
+        [SerializeField] private HandlingItemVisualizer _aiHandlingItemVisualizer = null;
+        [SerializeField] private ItemChooseMenu _itemChooseMenu = null;
+        [SerializeField] private InventoryTableView _view = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -70,13 +69,20 @@ namespace Scripts.Source
             _aiMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(_ai));
             _animationPlayer.Initialize(_aiMover);
             _minionsTargetPositionCoordinator.Initialize(_mover);
+            _aiCollider.Initialize(new GridAnalyzer(_aiMover, _lifetimeScope.Container.Resolve<GroundGrid>()));
+            var aiManipulator = new Manipulator(5, 5);
+            var aiInventory = new Inventory();
+            _aiPickUpper.Initialize(aiInventory, aiManipulator , new InventoryPresenter(aiInventory, _view, _itemChooseMenu));
+            _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
             var collidersHolder = new CollidersHolder(_aiCollider, _aiPickUpper);
-            _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder);
+            _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper);
         }
 
         private void Update() 
         { 
             _isometric2DCollider.FrameByFrameCalculate();
+            _aiCollider.FrameByFrameCalculate();
+            
             _timeInvoker.UpdateTimer();
             if (Input.GetKeyDown(KeyCode.E))
             {

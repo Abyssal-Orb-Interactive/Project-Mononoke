@@ -1,6 +1,8 @@
 using System;
 using Source.BuildingModule;
+using Source.ItemsModule;
 using Source.PickUpModule;
+using UnityEngine;
 
 namespace Source.Character
 {
@@ -9,7 +11,7 @@ namespace Source.Character
         private CharacterLogicIsometric2DCollider _logicCollider = null;
         private PickUpper _pickUpper = null;
 
-        public event Action SomethingInCollider = null;
+        public event Action<object> SomethingInCollider = null;
         
         public CollidersHolder(CharacterLogicIsometric2DCollider logicCollider, PickUpper pickUpper)
         {
@@ -20,14 +22,14 @@ namespace Source.Character
             pickUpper.ItemPickUpped += OnItemPickUpped;
         }
 
-        private void OnItemPickUpped()
+        private void OnItemPickUpped(Item item)
         {
-            SomethingInCollider?.Invoke();
+            SomethingInCollider?.Invoke(item);
         }
 
         private void OnBuildingInLogicCollider(Building building)
         {
-            if(building.ReadyToInteract) SomethingInCollider?.Invoke();
+            if(building.ReadyToInteract) SomethingInCollider?.Invoke(building);
         }
     }
 }

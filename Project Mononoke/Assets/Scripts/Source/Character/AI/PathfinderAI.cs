@@ -4,7 +4,10 @@ using Base.Input.Actions;
 using Base.Math;
 using Cysharp.Threading.Tasks;
 using Pathfinding;
+using Source.BuildingModule;
 using Source.Character.Minions_Manager;
+using Source.ItemsModule;
+using Source.PickUpModule;
 using UnityEngine;
 using VContainer;
 
@@ -21,6 +24,7 @@ namespace Source.Character.AI
         private Vector3 _cartesianMovementDirection = Vector3.zero;
         private CancellationTokenSource _cancellationTokenSource = null;
         private bool _pathCancelled = false;
+        private PickUpper _pickUpper = null;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         private void OnValidate()
@@ -29,13 +33,30 @@ namespace Source.Character.AI
         }
 
         [Inject]
-        public void Initialize(MinionsTargetPositionCoordinator minionsTargetPositionCoordinator, CollidersHolder collidersHolder)
+        public void Initialize(MinionsTargetPositionCoordinator minionsTargetPositionCoordinator, CollidersHolder collidersHolder, PickUpper pickUpper)
         {
             _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
+            _pickUpper = pickUpper;
             _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowing;
             _collidersHolder = collidersHolder;
-            _collidersHolder.SomethingInCollider += StopFollowing;
-        } 
+            _collidersHolder.SomethingInCollider += StopFollowingAndInteract;
+        }
+
+        private void StopFollowingAndInteract(object something)
+        {
+           StopFollowing();
+           switch (something)
+           {
+               case Item item:
+                   _pickUpper.Manipulator.TryTake(item);
+                   break;
+               case Building building:
+                   building.StartInteractiveAction(_pickUpper);
+                   break;
+               default:
+                   return;
+           }
+        }
 
         public async void StartFollowing(Vector3 targetPosition)
         {
@@ -55,7 +76,6 @@ namespace Source.Character.AI
 
         public void StopFollowing()
         {
-            Debug.Log("Stopped");
             _pathCancelled = true;
             _cancellationTokenSource?.Cancel();
             MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));

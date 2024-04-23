@@ -8,6 +8,7 @@ using Source.Character;
 using Source.Character.Movement;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
+using Source.PickUpModule;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
@@ -35,8 +36,8 @@ namespace Base.DIContainer
             builder.RegisterInstance(_characterMover);
             builder.RegisterInstance(_itemChooseMenu);
             builder.RegisterInstance(_view);
-            
-        
+
+
             // Registering Components
             builder.Register<TestActions>(Lifetime.Singleton);
             builder.Register<TestActionsWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -47,6 +48,7 @@ namespace Base.DIContainer
             builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
             //var grid = new GroundGrid(tileCollectionAnalyzer);
             builder.Register<GroundGrid>(Lifetime.Singleton);
+            builder.Register(_ => new Manipulator(5, 5), Lifetime.Singleton);
             builder.Register(_ => new Inventory(100,100), Lifetime.Singleton);
             builder.Register<InventoryPresenter>(Lifetime.Singleton);
             //var gridBuilder = new OnGridBuilder(_objectPlacer, grid , _buildingsDatabase, _objectContainersAssociator);

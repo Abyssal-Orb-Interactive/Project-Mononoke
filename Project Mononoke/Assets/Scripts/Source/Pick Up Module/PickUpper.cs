@@ -2,6 +2,7 @@ using System;
 using Source.InventoryModule;
 using Source.ItemsModule;
 using UnityEngine;
+using VContainer;
 
 namespace Source.PickUpModule
 {
@@ -12,9 +13,9 @@ namespace Source.PickUpModule
       public Manipulator Manipulator { get; private set; } = new(strength: 5, volume: 2);
       private InventoryPresenter _inventoryPresenter = null;
 
-      public event Action ItemPickUpped = null;
+      public event Action<Item> ItemPickUpped = null;
 
-      public void Initialize(Inventory inventory, Manipulator manipulator, InventoryPresenter presenter)
+      [Inject] public void Initialize(Inventory inventory, Manipulator manipulator, InventoryPresenter presenter)
       {
          Inventory = inventory;
          Manipulator = manipulator;
@@ -52,7 +53,7 @@ namespace Source.PickUpModule
          
          if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
          if(!Inventory.TryAddItem(droppedItemView.Item)) return;
-         ItemPickUpped?.Invoke();
+         ItemPickUpped?.Invoke(droppedItemView.Item);
          droppedItemView.BeginPickUp();
       }
    }
