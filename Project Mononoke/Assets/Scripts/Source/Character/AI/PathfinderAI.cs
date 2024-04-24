@@ -45,6 +45,7 @@ namespace Source.Character.AI
         private void StopFollowingAndInteract(object something)
         {
            StopFollowing();
+           
            switch (something)
            {
                case Item item:
@@ -56,6 +57,8 @@ namespace Source.Character.AI
                default:
                    return;
            }
+           
+           StartFollowing(_minionsTargetPositionCoordinator.transform.position);
         }
 
         public async void StartFollowing(Vector3 targetPosition)
