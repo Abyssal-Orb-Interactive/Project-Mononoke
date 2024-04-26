@@ -91,7 +91,7 @@ namespace Scripts.Source
 
             if (Input.GetKeyDown(KeyCode.L))
             {
-                _pickUpper.TryStashInInventory();
+                _pickUpper.TryStashInPickUpperInventory();
             }
             
             if (Input.GetKeyDown(KeyCode.G))

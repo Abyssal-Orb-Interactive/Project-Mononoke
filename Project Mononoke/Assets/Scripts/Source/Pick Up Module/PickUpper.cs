@@ -41,15 +41,26 @@ namespace Source.PickUpModule
          return true;
       }
 
-      public bool TryStashInInventory()
+      public bool TryStashInPickUpperInventory()
       {
          return Manipulator.TryStashIn(Inventory);
+      }
+
+      public bool TryGiveTo(Inventory inventory)
+      {
+         return Manipulator.TryStashIn(inventory);
       }
 
       private void OnCollisionEnter2D(Collision2D other)
       {
          Inventory ??= new Inventory(100, 100);
          Manipulator ??= new Manipulator(5, 2);
+
+         if (other.gameObject.TryGetComponent<PickUpper>(out var otherPickUpper))
+         {
+            TryGiveTo(otherPickUpper.Inventory);
+            return;
+         }
          
          if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
          if(!Inventory.TryAddItem(droppedItemView.Item)) return;
