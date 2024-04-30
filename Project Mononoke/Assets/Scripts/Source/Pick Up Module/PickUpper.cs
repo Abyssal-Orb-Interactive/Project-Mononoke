@@ -15,12 +15,22 @@ namespace Source.PickUpModule
 
       public event Action<Item> ItemPickUpped = null;
 
-      [Inject] public void Initialize(Inventory inventory, Manipulator manipulator, InventoryPresenter presenter)
+      [Inject] public void Initialize(Inventory inventory, Manipulator manipulator)
       {
          Inventory = inventory;
          Manipulator = manipulator;
+      }
+
+      public void SubscribeOnUIUpdates(InventoryPresenter presenter)
+      {
+         if(_inventoryPresenter != null) UnsubscribeToUIUpdates();
          _inventoryPresenter = presenter;
          _inventoryPresenter.ItemEquipped += OnItemEquipped;
+      }
+
+      public void UnsubscribeToUIUpdates()
+      {
+         _inventoryPresenter.ItemEquipped -= OnItemEquipped;
       }
 
       private void OnItemEquipped(InventoryPresenter.StackDataForUI itemData)
@@ -43,7 +53,7 @@ namespace Source.PickUpModule
 
       public bool TryStashInPickUpperInventory()
       {
-         return Manipulator.TryStashIn(Inventory);
+          return  Manipulator.TryStashIn(Inventory);
       }
 
       public bool TryGiveTo(Inventory inventory)

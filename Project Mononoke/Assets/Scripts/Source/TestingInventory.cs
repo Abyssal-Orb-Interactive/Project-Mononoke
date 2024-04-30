@@ -50,7 +50,8 @@ namespace Scripts.Source
         {
             _timeInvoker = TimeInvoker.Instance;
             var manipulator = new Manipulator(5,3);
-            _pickUpper.Initialize( _lifetimeScope.Container.Resolve<Inventory>(),manipulator, _lifetimeScope.Container.Resolve<InventoryPresenter>());
+            _pickUpper.Initialize( _lifetimeScope.Container.Resolve<Inventory>(),manipulator);
+            _pickUpper.SubscribeOnUIUpdates(_lifetimeScope.Container.Resolve<InventoryPresenter>());
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
             _handlingItemVisualizer.InitializeWith(_pickUpper.Manipulator);
@@ -60,8 +61,8 @@ namespace Scripts.Source
             handler.AddRequester(_follower);
             _seedDatabase.TryGetItemDataBy("Onion", out var seedData);
             ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
-            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
-            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 1));
+            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 0.5f));
+            ItemViewFabric.Create(new Item(seedData), new Vector3(0.5f, 0.25f));
             _toolsDatabase.TryGetItemDataBy("Hoe", out var toolData);
             ItemViewFabric.Create(new Item(toolData), new Vector3(-1, -0.5f));
             var gridGraphNodesWalkableUpdater = new GridGraphNodesWalkableUpdater();
@@ -71,8 +72,8 @@ namespace Scripts.Source
             _minionsTargetPositionCoordinator.Initialize(_mover);
             _aiCollider.Initialize(new GridAnalyzer(_aiMover, _lifetimeScope.Container.Resolve<GroundGrid>()));
             var aiManipulator = new Manipulator(5, 5);
-            var aiInventory = new Inventory();
-            _aiPickUpper.Initialize(aiInventory, aiManipulator , new InventoryPresenter(aiInventory, _view, _itemChooseMenu));
+            var aiInventory = new Inventory(1, 1);
+            _aiPickUpper.Initialize(aiInventory, aiManipulator);
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
             var collidersHolder = new CollidersHolder(_aiCollider, _aiPickUpper);
             _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper);

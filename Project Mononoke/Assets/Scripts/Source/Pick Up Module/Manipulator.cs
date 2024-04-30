@@ -52,16 +52,13 @@ namespace Source.PickUpModule
         public bool TryStashIn(Inventory inventory)
         {
             if (inventory == null || _item == null) return false;
+
+            if (!inventory.TryAddItem(_item)) return false;
             
-            var result = inventory.TryAddItem(_item);
+            _item = null;
+            InManipulatorItemChanged?.Invoke(null);
 
-            if (result)
-            {
-                _item = null;
-                InManipulatorItemChanged?.Invoke(null);
-            }
-
-            return result;
+            return true;
         }
 
         public bool HasItem()

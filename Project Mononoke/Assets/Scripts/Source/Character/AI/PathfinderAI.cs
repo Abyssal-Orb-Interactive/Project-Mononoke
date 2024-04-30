@@ -49,7 +49,7 @@ namespace Source.Character.AI
            switch (something)
            {
                case Item item:
-                   _pickUpper.Manipulator.TryTake(item);
+                   _pickUpper.TryTakeItemFromInventoryWithManipulator(item.Data.ID);
                    break;
                case Building building:
                    building.StartInteractiveAction(_pickUpper);

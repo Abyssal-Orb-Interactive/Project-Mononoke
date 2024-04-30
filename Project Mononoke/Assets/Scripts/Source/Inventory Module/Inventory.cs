@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Source.ItemsModule;
 using static Source.InventoryModule.ItemsStackFabric;
 
@@ -156,6 +157,8 @@ namespace Source.InventoryModule
         if (StackCantPopItem(out item, stack)) return false;
 
         ItemRemoved?.Invoke(stack, 0, item);
+        if (stack.IsEmpty()) stacks.Remove(stack);
+        if (stacks.Count == 0) _inventory.Remove(itemID);
         return true;
       }
 
@@ -182,6 +185,17 @@ namespace Source.InventoryModule
       IEnumerator IEnumerable.GetEnumerator()
       {
         return GetEnumerator();
+      }
+
+      public override string ToString()
+      {
+        var strBuilder = new StringBuilder();
+        foreach (var itemID in _inventory.Keys)
+        {
+          strBuilder.Append(itemID);
+        }
+
+        return strBuilder.ToString();
       }
     }
 }
