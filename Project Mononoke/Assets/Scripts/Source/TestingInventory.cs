@@ -38,16 +38,17 @@ namespace Scripts.Source
         [SerializeField] private IsoCharacterMover _aiMover = null;
         [SerializeField] private CharacterLogicIsometric2DCollider _aiCollider = null;
         [SerializeField] private PickUpper _aiPickUpper = null;
-        [SerializeField] private CharacterSpiteAnimationPlayer _animationPlayer = null;
+        [SerializeField] private CharacterSpiteAnimationPlayer _aiAnimationPlayer = null;
         [SerializeField] private MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
         [SerializeField] private HandlingItemVisualizer _aiHandlingItemVisualizer = null;
-        [SerializeField] private ItemChooseMenu _itemChooseMenu = null;
-        [SerializeField] private InventoryTableView _view = null;
+        [SerializeField] private GameObject _minionPrefab = null;
 
         private TimeInvoker _timeInvoker = null;
 
         private void Start()
         {
+            _minionsTargetPositionCoordinator.Initialize(_mover);
+            MinionsFactory.Initialize(_minionPrefab, _placer, new GameObject("Army").transform, _lifetimeScope, _minionsTargetPositionCoordinator);
             _timeInvoker = TimeInvoker.Instance;
             var manipulator = new Manipulator(5,3);
             _pickUpper.Initialize( _lifetimeScope.Container.Resolve<Inventory>(),manipulator);
@@ -68,8 +69,7 @@ namespace Scripts.Source
             var gridGraphNodesWalkableUpdater = new GridGraphNodesWalkableUpdater();
             gridGraphNodesWalkableUpdater.UpdateGridGraphUsing(_lifetimeScope.Container.Resolve<GroundGrid>());
             _aiMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(_ai));
-            _animationPlayer.Initialize(_aiMover);
-            _minionsTargetPositionCoordinator.Initialize(_mover);
+            _aiAnimationPlayer.Initialize(_aiMover);
             _aiCollider.Initialize(new GridAnalyzer(_aiMover, _lifetimeScope.Container.Resolve<GroundGrid>()));
             var aiManipulator = new Manipulator(5, 5);
             var aiInventory = new Inventory(1, 1);

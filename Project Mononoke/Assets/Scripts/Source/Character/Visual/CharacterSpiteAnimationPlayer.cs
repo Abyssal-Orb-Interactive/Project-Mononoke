@@ -18,6 +18,11 @@ namespace Source.Character.Visual
 
         private void OnValidate()
         {
+            GetAnimator();
+        }
+
+        private void GetAnimator()
+        {
             _animator ??= GetComponent<Animator>();
         }
 
@@ -29,6 +34,7 @@ namespace Source.Character.Visual
 
         private void OnMovementChange(object sender, IsoCharacterMover.MovementActionEventArgs args)
         {
+            if(_animator == null) GetAnimator();
             if(args.Status == IsoCharacterMover.MovementStatus.Ended) 
             {
                 _animator.SetBool(RunDesired, false);

@@ -5,6 +5,7 @@ using Base.TileMap;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings.UI;
 using Source.Character;
+using Source.Character.AI;
 using Source.Character.Movement;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
@@ -25,6 +26,7 @@ namespace Base.DIContainer
         [SerializeField] private IsoCharacterMover _characterMover = null;
         [SerializeField] private ItemChooseMenu _itemChooseMenu = null;
         [SerializeField] private InventoryTableView _view = null;
+        [SerializeField] private PathfinderAI _ai = null;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -42,18 +44,13 @@ namespace Base.DIContainer
             builder.Register<TestActions>(Lifetime.Singleton);
             builder.Register<TestActionsWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<InputHandler>(Lifetime.Singleton);
-            // var tileMapWrapper = new UnityTileMapWrapper(_tileMap);
             builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            //var tileCollectionAnalyzer = new TileCollectionAnalyzer(tileMapWrapper);
             builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
-            //var grid = new GroundGrid(tileCollectionAnalyzer);
             builder.Register<GroundGrid>(Lifetime.Singleton);
             builder.Register(_ => new Manipulator(5, 5), Lifetime.Singleton);
             builder.Register(_ => new Inventory(100,100), Lifetime.Singleton);
             builder.Register<InventoryPresenter>(Lifetime.Singleton);
-            //var gridBuilder = new OnGridBuilder(_objectPlacer, grid , _buildingsDatabase, _objectContainersAssociator);
             builder.Register<OnGridBuilder>(Lifetime.Singleton);
-           // var gridAnalyzer = new GridAnalyzer(_characterMover, grid);
             builder.Register<GridAnalyzer>(Lifetime.Singleton);
         }
     }
