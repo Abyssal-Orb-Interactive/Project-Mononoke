@@ -41,8 +41,12 @@ namespace Source.Character.Movement
 
         private void OnValidate()
         {
+            GetRigidbody();
+        }
+
+        private void GetRigidbody()
+        {
             _rigidbody ??= GetComponent<Rigidbody2D>();
-            
         }
 
         [Inject] public void Initialize(GroundGrid grid, InputHandler inputHandler)
@@ -60,7 +64,8 @@ namespace Source.Character.Movement
         
         private Vector3 GetCurrentPosition()
         {
-          return _rigidbody.position;
+            GetRigidbody();
+            return _rigidbody.position;
         }
 
         private void Update()

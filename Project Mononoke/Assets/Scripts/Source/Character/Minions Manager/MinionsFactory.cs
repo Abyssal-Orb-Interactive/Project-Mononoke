@@ -29,9 +29,9 @@ namespace Source.Character.Minions_Manager
             _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
         }
 
-        public static GameObject Create()
+        public static GameObject Create(Vector3 worldPosition)
         {
-            var minion = _objectPlacer.PlaceObject(new ObjectPlacementInformation<GameObject>(_minionPrefab, Vector3.zero,
+            var minion = _objectPlacer.PlaceObject(new ObjectPlacementInformation<GameObject>(_minionPrefab, worldPosition,
                 Quaternion.identity, _minionsHolder));
             var minionAI = minion.GetComponentInChildren<PathfinderAI>();
             var minionMover = minion.GetComponentInChildren<IsoCharacterMover>();

@@ -37,7 +37,7 @@ namespace Source.Character.AI
         {
             _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
             _pickUpper = pickUpper;
-            _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowing;
+            _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowingPath;
             _collidersHolder = collidersHolder;
             _collidersHolder.SomethingInCollider += StopFollowingAndInteract;
         }
@@ -58,10 +58,10 @@ namespace Source.Character.AI
                    return;
            }
            
-           StartFollowing(_minionsTargetPositionCoordinator.transform.position);
+           StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
         }
 
-        public async void StartFollowing(Vector3 targetPosition)
+        public async void StartFollowingPath(Vector3 targetPosition)
         {
             StopFollowing();
             _waypointsPositionsSource = new PathWaypointsPositionsSource(_pathBuilder);
@@ -92,9 +92,26 @@ namespace Source.Character.AI
                 CalculateNormalizedCartesianDirectionTo(_waypointSwitcher.CurrentWaypointPosition);
                 _waypointSwitcher.CheckIfReachedCurrentWayPointAndSwitchToNextOneIfNecessary();
                 if(!_pathCancelled) MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
-                await UniTask.Delay(TimeSpan.FromSeconds(0.005), cancellationToken: _cancellationTokenSource.Token);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.005f), cancellationToken: _cancellationTokenSource.Token);
             }
 
+        }
+
+        public async void StartFollowing(Vector3 position, float positionProximityThreshold)
+        {
+            StopFollowing();
+            _cancellationTokenSource = new CancellationTokenSource();
+            _pathCancelled = false;
+            
+            FollowAsync(position, positionProximityThreshold).Forget();
+        }
+
+        private async UniTaskVoid FollowAsync(Vector3 position, float positionProximityThreshold)
+        {
+            CalculateNormalizedCartesianDirectionTo(position);
+            if (Vector3.Distance(transform.position, position) < positionProximityThreshold) StopFollowing();
+            if(!_pathCancelled) MovementDesired?.Invoke(new MovementInputEventArgs(_cartesianMovementDirection));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.005f), cancellationToken: _cancellationTokenSource.Token);
         }
 
         private void CalculateNormalizedCartesianDirectionTo(Vector3 currentWaypointPosition)

@@ -23,7 +23,9 @@ namespace Source.Formations
                     position += GetDisorderedOffsetFor(position);
                     position *= _positionsDistance;
                     var isoPosition = new Vector3Iso(position);
-                    yield return new Vector3(isoPosition.X, isoPosition.Y, isoPosition.Z);
+                    var isoPositionVector3 = new Vector3(isoPosition.X, isoPosition.Y, isoPosition.Z);
+                    var worldPosition = transform.position + isoPositionVector3;
+                    yield return worldPosition;
                 }
             }
         }

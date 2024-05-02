@@ -20,7 +20,7 @@ namespace Source.Formations
             Gizmos.color = _gizmosColor;
             foreach (var position in _formation.GetFormationPositions())
             {
-                Gizmos.DrawCube(transform.position + position + new Vector3(0, _unitGizmosSizes.y * 0.5f, 0),
+                Gizmos.DrawCube(position + new Vector3(0, _unitGizmosSizes.y * 0.5f, 0),
                     _unitGizmosSizes);
             }
         }

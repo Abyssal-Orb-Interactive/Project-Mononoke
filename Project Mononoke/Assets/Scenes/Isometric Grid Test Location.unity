@@ -862,7 +862,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 4.8359375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1120,6 +1120,7 @@ MonoBehaviour:
   _characterMover: {fileID: 824457672}
   _itemChooseMenu: {fileID: 1199650426}
   _view: {fileID: 553634996}
+  _ai: {fileID: 0}
 --- !u!1 &332950479
 GameObject:
   m_ObjectHideFlags: 0
@@ -7965,7 +7966,7 @@ Transform:
   m_GameObject: {fileID: 1390142301}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.468, y: -0.778, z: 0}
+  m_LocalPosition: {x: -1.52, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9740,11 +9741,10 @@ MonoBehaviour:
   _aiMover: {fileID: 8444275}
   _aiCollider: {fileID: 8444277}
   _aiPickUpper: {fileID: 8444278}
-  _animationPlayer: {fileID: 1747389276}
+  _aiAnimationPlayer: {fileID: 1747389276}
   _minionsTargetPositionCoordinator: {fileID: 5678693790991241683}
   _aiHandlingItemVisualizer: {fileID: 1456053361}
-  _itemChooseMenu: {fileID: 1199650426}
-  _view: {fileID: 553634996}
+  _minionPrefab: {fileID: 8444266}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0
@@ -10227,11 +10227,11 @@ PrefabInstance:
       objectReference: {fileID: -2135014891, guid: 2bbd3099e710d5e42a7ef35302feb333, type: 3}
     - target: {fileID: 7781497609147544520, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.72
       objectReference: {fileID: 0}
     - target: {fileID: 7781497609147544520, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 4.17
       objectReference: {fileID: 0}
     - target: {fileID: 7781497609147544520, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_LocalPosition.z

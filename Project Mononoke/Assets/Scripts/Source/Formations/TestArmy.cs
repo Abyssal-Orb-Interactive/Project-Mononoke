@@ -45,30 +45,16 @@ namespace Source.Formations
             
             for (var i = 0; i < _spawnedUnits.Count; i++)
             {
-                var isometricFormationPosition = new Vector3Iso(_formationPositions[i]);
-                var pos = new Vector3(isometricFormationPosition.X, isometricFormationPosition.Y,
-                    isometricFormationPosition.Z);
-                _spawnedUnits[i].StartFollowing(pos);
+               var pos = _formationPositions[i];
+                _spawnedUnits[i].StartFollowing(pos, 0.5f);
             }
-        }
-
-        private void NewMethod(int i)
-        {
-            var position = _spawnedUnits[i].transform.position;
-            var directionVector = _formationPositions[i] - position;
-            var isometricDirection = new Vector3Iso(directionVector.x, directionVector.y, directionVector.z);
-            var cartesianDirection = isometricDirection.ToCartesian();
-            var cartesianMovementDirection = cartesianDirection.normalized;
-            var direction = InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianMovementDirection);
-            Debug.Log(direction);
-            
         }
 
         private void Spawn(IEnumerable<Vector3> positions)
         {
             foreach (var position in positions)
             {
-                var unit = MinionsFactory.Create();
+                var unit = MinionsFactory.Create(position);
                 _spawnedUnits.Add(unit.GetComponent<PathfinderAI>());
             }
         }
