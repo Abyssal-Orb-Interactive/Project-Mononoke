@@ -46,7 +46,9 @@ namespace Source.Formations
             for (var i = 0; i < _spawnedUnits.Count; i++)
             {
                var pos = _formationPositions[i];
-                _spawnedUnits[i].StartFollowing(pos, 0.5f);
+               var worldPosition = new Vector3Iso(pos);
+               var worldPositionVector3 = new Vector3(worldPosition.X, worldPosition.Y, worldPosition.Z);
+                _spawnedUnits[i].StartFollowing(worldPositionVector3, 0.5f);
             }
         }
 

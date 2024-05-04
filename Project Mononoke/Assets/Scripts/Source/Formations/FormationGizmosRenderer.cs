@@ -1,3 +1,4 @@
+using Base.Math;
 using UnityEngine;
 
 namespace Source.Formations
@@ -20,7 +21,8 @@ namespace Source.Formations
             Gizmos.color = _gizmosColor;
             foreach (var position in _formation.GetFormationPositions())
             {
-                Gizmos.DrawCube(position + new Vector3(0, _unitGizmosSizes.y * 0.5f, 0),
+                var isoPos = new Vector3Iso(position);
+                Gizmos.DrawCube(new Vector3(isoPos.X, isoPos.Y, isoPos.Z) + new Vector3(0, _unitGizmosSizes.y * 0.5f, 0),
                     _unitGizmosSizes);
             }
         }

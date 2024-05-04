@@ -22,10 +22,10 @@ namespace Source.Formations
                     position -= middleOffset;
                     position += GetDisorderedOffsetFor(position);
                     position *= _positionsDistance;
-                    var isoPosition = new Vector3Iso(position);
-                    var isoPositionVector3 = new Vector3(isoPosition.X, isoPosition.Y, isoPosition.Z);
-                    var worldPosition = transform.position + isoPositionVector3;
-                    yield return worldPosition;
+                    var worldPosition = transform.position;
+                    var worldCartesianPosition = new Vector3Iso(worldPosition.x, worldPosition.y, worldPosition.z).ToCartesian();
+                    var cartesianPosition = worldCartesianPosition + position;
+                    yield return cartesianPosition;
                 }
             }
         }
