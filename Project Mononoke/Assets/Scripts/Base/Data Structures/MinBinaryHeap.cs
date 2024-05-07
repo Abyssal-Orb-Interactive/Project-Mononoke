@@ -14,8 +14,7 @@ namespace Base.DataStructuresModule
 
         public MinBinaryHeap(int capacity = MIN_HEAP_CAPACITY)
         {
-            if(capacity < MIN_HEAP_CAPACITY) _heap = new T[MIN_HEAP_CAPACITY];
-            else _heap = new T[capacity];
+            _heap = capacity < MIN_HEAP_CAPACITY ? new T[MIN_HEAP_CAPACITY] : new T[capacity];
 
             Count = 0;
         }
@@ -84,8 +83,7 @@ namespace Base.DataStructuresModule
 
         public bool Contains(T comparable)
         {
-            if(Count == 0) return false;
-            return ContainsRecursive(0, comparable);
+            return Count != 0 && ContainsRecursive(0, comparable);
         }
 
         private bool ContainsRecursive(int currentIndex, T comparable)
@@ -94,7 +92,7 @@ namespace Base.DataStructuresModule
 
             if (_heap[currentIndex].Equals(comparable)) return true;
 
-            int comparison = _heap[currentIndex].CompareTo(comparable);
+            var comparison = _heap[currentIndex].CompareTo(comparable);
 
             if (comparison >= 0) return false;
             
@@ -160,7 +158,7 @@ namespace Base.DataStructuresModule
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 yield return _heap[i];
             }

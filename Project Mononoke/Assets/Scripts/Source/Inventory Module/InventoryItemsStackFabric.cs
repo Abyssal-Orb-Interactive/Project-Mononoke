@@ -12,7 +12,7 @@ namespace Source.InventoryModule
                 stack = null;
                 return false;
             }
-            var queue = new PriorityQueue<Item>(stackCapacity);
+            var queue = new PriorityQueue<Item>();
             stack = new InventoryItemsStack(stackIndex, queue);
             return true;
         }

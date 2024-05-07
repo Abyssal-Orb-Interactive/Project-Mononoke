@@ -25,6 +25,7 @@ namespace Source.Character.AI
         private CancellationTokenSource _cancellationTokenSource = null;
         private bool _pathCancelled = false;
         private PickUpper _pickUpper = null;
+        public bool IsInFormation { get; private set; } = false;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         private void OnValidate()
@@ -37,9 +38,35 @@ namespace Source.Character.AI
         {
             _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
             _pickUpper = pickUpper;
-            _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowingPath;
+            StartListeningTargetChanging();
             _collidersHolder = collidersHolder;
+            StartListeningColliders();
+        }
+
+        private void StartListeningColliders()
+        {
+            if (IsInFormation) return;
             _collidersHolder.SomethingInCollider += StopFollowingAndInteract;
+        }
+
+        public void StartListeningTargetChanging()
+        {
+            if(IsInFormation) return; 
+            _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowingPath;
+        }
+
+        public void AddToFormation()
+        {
+            IsInFormation = true;
+            _collidersHolder.SomethingInCollider -= StopFollowingAndInteract;
+            _minionsTargetPositionCoordinator.TargetPositionChanged -= StartFollowingPath;
+        }
+
+        public void RemoveFromFormation()
+        {
+            IsInFormation = false;
+            StartListeningColliders();
+            StartListeningTargetChanging();
         }
 
         private void StopFollowingAndInteract(object something)

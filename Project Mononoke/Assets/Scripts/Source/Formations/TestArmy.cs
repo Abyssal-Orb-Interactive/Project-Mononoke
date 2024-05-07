@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Base.DataStructuresModule;
 using Base.Input;
 using Base.Math;
 using Source.Character.AI;
@@ -11,18 +12,11 @@ namespace Source.Formations
 {
     public class TestArmy : MonoBehaviour
     {
-        [SerializeField] private PathfinderAI _unitPrefab = null;
-        [SerializeField] private float _unitSpeed = 2f;
         [SerializeField]private Formation _formation;
 
-        private readonly List<PathfinderAI> _spawnedUnits = new();
+        private readonly List<PriorityPathfinder> _spawnedUnits = new();
         private List<Vector3> _formationPositions = null;
-        private Transform _parent = null;
-
-        private void Awake()
-        {
-            _parent = new GameObject("Army").transform;
-        }
+        private PriorityQueue<PriorityPathfinder> _dispatchQueue = null;
 
         private void Update()
         {
@@ -42,23 +36,27 @@ namespace Source.Formations
             {
                 Kill(_spawnedUnits.Count - _formationPositions.Count);
             }
-            
+
+            _dispatchQueue = new PriorityQueue<PriorityPathfinder>(_spawnedUnits.Count);
             for (var i = 0; i < _spawnedUnits.Count; i++)
             {
                var pos = _formationPositions[i];
                var worldPosition = new Vector3Iso(pos);
                var worldPositionVector3 = new Vector3(worldPosition.X, worldPosition.Y, worldPosition.Z);
-               if (Vector3.Distance(_spawnedUnits[i].transform.position, worldPositionVector3) < 0.5f) continue;
-               _spawnedUnits[i].StartFollowing(worldPositionVector3, 0.5f);
+               _spawnedUnits[i].AI.StartFollowing(worldPositionVector3, 0.5f);
             }
         }
 
         private void Spawn(IEnumerable<Vector3> positions)
         {
+            var index = 0;
             foreach (var position in positions)
             {
                 var unit = MinionsFactory.Create(position);
-                _spawnedUnits.Add(unit.GetComponent<PathfinderAI>());
+                var ai = unit.GetComponent<PathfinderAI>();
+                ai.AddToFormation();
+                _spawnedUnits.Add(new PriorityPathfinder(ai, index));
+                index++;
             }
         }
 
@@ -68,8 +66,13 @@ namespace Source.Formations
             {
                 var unit = _spawnedUnits.Last();
                 _spawnedUnits.Remove(unit);
-                Destroy(unit.gameObject);
+                Destroy(unit.AI.gameObject);
             }
+        }
+
+        public void DispatchUnit()
+        {
+            
         }
     }
 }
