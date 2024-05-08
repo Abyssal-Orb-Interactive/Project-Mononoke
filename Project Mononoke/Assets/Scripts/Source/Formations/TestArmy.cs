@@ -17,6 +17,7 @@ namespace Source.Formations
         private readonly List<PriorityPathfinder> _spawnedUnits = new();
         private List<Vector3> _formationPositions = null;
         private PriorityQueue<PriorityPathfinder> _dispatchQueue = null;
+        private int _dispatchUnitIndex = 0;
 
         private void Update()
         {
@@ -38,6 +39,7 @@ namespace Source.Formations
             }
 
             _dispatchQueue = new PriorityQueue<PriorityPathfinder>(_spawnedUnits.Count);
+            _dispatchUnitIndex = _spawnedUnits.Count - 1;
             for (var i = 0; i < _spawnedUnits.Count; i++)
             {
                var pos = _formationPositions[i];
@@ -72,7 +74,9 @@ namespace Source.Formations
 
         public void DispatchUnit()
         {
-            
+            _spawnedUnits[_dispatchUnitIndex].AI.StartListeningTargetChanging();
+            _spawnedUnits[_dispatchUnitIndex].AI.StartListeningColliders();
+            _dispatchUnitIndex--;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Source.Character.AI
             StartListeningColliders();
         }
 
-        private void StartListeningColliders()
+        public void StartListeningColliders()
         {
             if (IsInFormation) return;
             _collidersHolder.SomethingInCollider += StopFollowingAndInteract;

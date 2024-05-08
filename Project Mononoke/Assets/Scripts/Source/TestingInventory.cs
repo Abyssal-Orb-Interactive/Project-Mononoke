@@ -14,6 +14,7 @@ using Source.PickUpModule;
 using UnityEngine;
 using Source.Character.Movement;
 using Source.Character.Visual;
+using Source.Formations;
 using Source.InventoryModule.UI;
 using Source.UI;
 using VContainer;
@@ -42,6 +43,7 @@ namespace Scripts.Source
         [SerializeField] private MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
         [SerializeField] private HandlingItemVisualizer _aiHandlingItemVisualizer = null;
         [SerializeField] private GameObject _minionPrefab = null;
+        [SerializeField] private TestArmy _army = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -97,6 +99,7 @@ namespace Scripts.Source
             
             if (Input.GetKeyDown(KeyCode.G))
             {
+                _army.DispatchUnit();
                 _minionsTargetPositionCoordinator.ChangeTargetPosition();
             }
         }
