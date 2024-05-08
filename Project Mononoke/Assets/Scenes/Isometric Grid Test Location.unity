@@ -7970,8 +7970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3f10ce743146879d1426b95078e76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitPrefab: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
-  _unitSpeed: 2
   _formation: {fileID: 1390142303}
 --- !u!1 &1398166195
 GameObject:
@@ -9732,6 +9730,7 @@ MonoBehaviour:
   _minionsTargetPositionCoordinator: {fileID: 5678693790991241683}
   _aiHandlingItemVisualizer: {fileID: 1456053361}
   _minionPrefab: {fileID: 8444266}
+  _army: {fileID: 1390142305}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0

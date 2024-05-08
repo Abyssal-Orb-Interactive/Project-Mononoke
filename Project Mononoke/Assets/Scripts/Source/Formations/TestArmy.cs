@@ -16,7 +16,7 @@ namespace Source.Formations
 
         private readonly List<PriorityPathfinder> _spawnedUnits = new();
         private List<Vector3> _formationPositions = null;
-        private PriorityQueue<PriorityPathfinder> _dispatchQueue = null;
+        private List<PriorityPathfinder> _dispatchQueue = null;
         private int _dispatchUnitIndex = 0;
 
         private void Update()
@@ -38,14 +38,15 @@ namespace Source.Formations
                 Kill(_spawnedUnits.Count - _formationPositions.Count);
             }
 
-            _dispatchQueue = new PriorityQueue<PriorityPathfinder>(_spawnedUnits.Count);
+            _dispatchQueue = new List<PriorityPathfinder>();
             _dispatchUnitIndex = _spawnedUnits.Count - 1;
             for (var i = 0; i < _spawnedUnits.Count; i++)
             {
-               var pos = _formationPositions[i];
-               var worldPosition = new Vector3Iso(pos);
-               var worldPositionVector3 = new Vector3(worldPosition.X, worldPosition.Y, worldPosition.Z);
-               _spawnedUnits[i].AI.StartFollowing(worldPositionVector3, 0.5f);
+                if (_spawnedUnits[i].Equals(null)) continue; 
+                var pos = _formationPositions[i];
+                var worldPosition = new Vector3Iso(pos);
+                var worldPositionVector3 = new Vector3(worldPosition.X, worldPosition.Y, worldPosition.Z);
+                _spawnedUnits[i].AI.StartFollowing(worldPositionVector3, 0.5f);
             }
         }
 
@@ -74,8 +75,10 @@ namespace Source.Formations
 
         public void DispatchUnit()
         {
-            _spawnedUnits[_dispatchUnitIndex].AI.StartListeningTargetChanging();
-            _spawnedUnits[_dispatchUnitIndex].AI.StartListeningColliders();
+            _dispatchQueue.Add(_spawnedUnits[_dispatchUnitIndex]);
+            _spawnedUnits.RemoveAt(_dispatchUnitIndex);
+            _dispatchQueue.Last().AI.StartListeningTargetChanging();
+            _dispatchQueue.Last().AI.StartListeningColliders();
             _dispatchUnitIndex--;
         }
     }
