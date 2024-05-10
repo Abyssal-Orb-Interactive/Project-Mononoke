@@ -1745,6 +1745,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &797797132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 797797133}
+  m_Layer: 0
+  m_Name: Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &797797133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797797132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -100, y: 2.6231234, z: -0.026331838}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &806940915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7916,8 +7947,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1390142304}
-  - component: {fileID: 1390142303}
   - component: {fileID: 1390142305}
+  - component: {fileID: 1390142306}
+  - component: {fileID: 1390142307}
   m_Layer: 0
   m_Name: Test Formations
   m_TagString: Untagged
@@ -7925,24 +7957,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1390142303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390142301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca934c6472a47db83bc2d006b1a450c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _formationDisorderPercentage: 0
-  _positionsDistance: 1
-  _isHollow: 0
-  _rowsNumber: 3
-  _evenRowsOffset: 0
-  _followingCharacter: {fileID: 824457672}
 --- !u!4 &1390142304
 Transform:
   m_ObjectHideFlags: 0
@@ -7952,7 +7966,7 @@ Transform:
   m_GameObject: {fileID: 1390142301}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7965,12 +7979,38 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390142301}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f3f10ce743146879d1426b95078e76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _formation: {fileID: 1390142303}
+--- !u!114 &1390142306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390142301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a03760d35a409d823e8b10386c607d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitGizmosSizes: {x: 0.1, y: 0.1, z: 0.1}
+  _gizmosColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &1390142307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390142301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8664031f27a048059771cd209f74b2d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _positionMarkerPrefab: {fileID: 797797132}
 --- !u!1 &1398166195
 GameObject:
   m_ObjectHideFlags: 0
@@ -9731,6 +9771,7 @@ MonoBehaviour:
   _aiHandlingItemVisualizer: {fileID: 1456053361}
   _minionPrefab: {fileID: 8444266}
   _army: {fileID: 1390142305}
+  _formationPositionsHolder: {fileID: 1390142307}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0
@@ -10320,3 +10361,4 @@ SceneRoots:
   - {fileID: 1450607541}
   - {fileID: 8444270}
   - {fileID: 837288084}
+  - {fileID: 797797133}
