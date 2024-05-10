@@ -12,7 +12,7 @@ namespace Source.Formations
 {
     public class TestArmy : MonoBehaviour
     {
-        [SerializeField]private Formation _formation;
+        private Formation _formation;
 
         private readonly List<PriorityPathfinder> _spawnedUnits = new();
         private List<Vector3> _formationPositions = null;
@@ -28,14 +28,17 @@ namespace Source.Formations
         {
             _formationPositions = _formation.GetFormationPositions().ToList();
 
-            if (_formationPositions.Count > _spawnedUnits.Count)
+            if (_spawnedUnits.Count == 0)
             {
-                var remainingPositions = _formationPositions.Skip(_spawnedUnits.Count);
-                Spawn(remainingPositions);
-            }
-            else if (_formationPositions.Count < _spawnedUnits.Count)
-            {
-                Kill(_spawnedUnits.Count - _formationPositions.Count);
+                if (_formationPositions.Count > _spawnedUnits.Count + _dispatchQueue?.Count)
+                {
+                    var remainingPositions = _formationPositions.Skip(_spawnedUnits.Count);
+                    Spawn(remainingPositions);
+                }
+                else if (_formationPositions.Count < _spawnedUnits.Count + _dispatchQueue?.Count)
+                {
+                    Kill(_spawnedUnits.Count - _formationPositions.Count);
+                }   
             }
 
             _dispatchQueue = new List<PriorityPathfinder>();

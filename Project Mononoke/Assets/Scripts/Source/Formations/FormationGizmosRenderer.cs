@@ -1,18 +1,19 @@
 using Base.Math;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Formations
 {
-    [RequireComponent(typeof(Formation))]
     public class FormationGizmosRenderer : MonoBehaviour
     {
         [SerializeField] private Vector3 _unitGizmosSizes = Vector3.one;
         [SerializeField] private Color _gizmosColor = Color.green;
         private Formation _formation = null;
 
-        private void OnValidate()
+        [Inject]
+        public void Initialize(Formation formation)
         {
-            _formation ??= GetComponent<Formation>();
+            _formation = formation;
         }
 
         private void OnDrawGizmos()

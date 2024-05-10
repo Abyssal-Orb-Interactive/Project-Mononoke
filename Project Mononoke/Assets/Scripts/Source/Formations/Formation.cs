@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.Formations
 {
-    public abstract class Formation : MonoBehaviour
+    public abstract class Formation
     {
         [SerializeField] [Range(0, 1)] protected float _formationDisorderPercentage = 0f;
         [SerializeField] protected float _positionsDistance = 1f;
