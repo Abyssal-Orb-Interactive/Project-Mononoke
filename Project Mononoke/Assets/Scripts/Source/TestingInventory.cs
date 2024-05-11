@@ -45,6 +45,7 @@ namespace Scripts.Source
         [SerializeField] private GameObject _minionPrefab = null;
         [SerializeField] private TestArmy _army = null;
         [SerializeField] private FormationPositionsHolder _formationPositionsHolder = null;
+        [SerializeField] private FormationGizmosRenderer _formationGizmos = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -80,7 +81,9 @@ namespace Scripts.Source
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
             var collidersHolder = new CollidersHolder(_aiCollider, _aiPickUpper);
             _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper);
-            _formationPositionsHolder.Initialize(new Wedge(3), _placer, _mover);
+            var formation = new Wedge(3);
+            _formationPositionsHolder.Initialize(formation, _placer, _mover);
+            _formationGizmos.Initialize(formation);
         }
 
         private void Update() 

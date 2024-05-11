@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Base.Input;
 using Base.Math;
 using Source.BuildingModule;
@@ -16,8 +17,9 @@ namespace Source.Formations
         private IsoCharacterMover _followingCharacter = null;
         private List<Transform> _spawnedPositionMarkers = null;
         private OnGridObjectPlacer _objectPlacer = null;
+        private List<Vector3> _positions = null;
 
-        [Inject]
+        
         public void Initialize(Formation formation, OnGridObjectPlacer objectPlacer, IsoCharacterMover followingCharacter)
         {
             _formation = formation;
@@ -31,13 +33,14 @@ namespace Source.Formations
 
         private void SpawnMarkersAt(IEnumerable<Vector3> positions)
         {
-            foreach (var position in positions)
+            _positions = positions.ToList();
+            foreach (var position in _positions)
             {
                 var holderWorldPosition = transform.position;
-                var holderCartesianPosition =
+                var holderCartesianPosition = 
                     new Vector3Iso(holderWorldPosition.x, holderWorldPosition.y, holderWorldPosition.z).ToCartesian();
-                //var rotatedPosition = RotateFormationPosition(position);
-                var formationPositionCoordinates = position + holderCartesianPosition;
+                var rotatedPosition = RotateFormationPosition(position);
+                var formationPositionCoordinates = rotatedPosition + holderCartesianPosition;
 
                 _spawnedPositionMarkers.Add(_objectPlacer.PlaceObject(new ObjectPlacementInformation<GameObject>(
                     _positionMarkerPrefab,
@@ -50,9 +53,13 @@ namespace Source.Formations
             RelocateFormationOneCellBehindCharacter();
             if(_facing == args.Facing) return;
             _facing = args.Facing;
-            foreach (var marker in _spawnedPositionMarkers)
+            var rotationMatrix = Matrix4x4.Rotate(DirectionToQuaternionConverter.GetQuaternionFor(_facing));
+            for (var i = 0; i < _positions.Count; i++)
             {
-               marker.transform.localPosition = RotateFormationPosition(marker.localPosition);
+                var rotatedPosition = rotationMatrix.MultiplyPoint(_positions[i]);
+                var isoRotatedPosition = new Vector3Iso(rotatedPosition);
+                var localPosition = new Vector3(isoRotatedPosition.X, isoRotatedPosition.Y, isoRotatedPosition.Z);
+                _spawnedPositionMarkers[i].transform.localPosition = localPosition;
             }
         }
 

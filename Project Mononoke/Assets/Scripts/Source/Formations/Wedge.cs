@@ -5,33 +5,29 @@ namespace Source.Formations
 {
     public class Wedge : Formation
     {
-        private int _rowsNumber = 3;
-        private float _evenRowsOffset = 0f;
+        private int _rowsNumber = 0;
         private List<Vector3> _positions = null;
 
-        public Wedge(int rowsNumber, float evenRowsOffset = 0f)
+        public Wedge(int rowsNumber)
         {
             _rowsNumber = rowsNumber;
-            _evenRowsOffset = evenRowsOffset;
         }
 
         public override IEnumerable<Vector3> GetFormationPositions()
         {
-            if(_positions == null) CalculateFormationPositions();
+            CalculateFormationPositions();
             return _positions;
         }
 
         private void CalculateFormationPositions()
         {
-            var topOffset = new Vector3(0.5f, _rowsNumber - 0.5f, 0);
             _positions = new List<Vector3>();
-            for (var y = _rowsNumber - 1; y >= 0; y--)
+            for (var y = 0; y < _rowsNumber; y++)
             {
-                for (var x = y * -1; x <= y; x++)
+                for (var x = -y; x <= y; x++)
                 {
                     if(_isHollow && y < _rowsNumber - 1 && x > y * -1 && x < y) continue;
-                    var position = new Vector3(x + (y % 2 == 0 ? 0 : _evenRowsOffset), _rowsNumber - 1 - y, 0);
-                    position -= topOffset;
+                    var position = new Vector3(x, -y, 0);
                     position += GetDisorderedOffsetFor(position);
                     position *= _positionsDistance;
                     _positions.Add(position);

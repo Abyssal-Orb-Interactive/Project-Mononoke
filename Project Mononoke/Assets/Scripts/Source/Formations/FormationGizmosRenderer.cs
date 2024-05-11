@@ -9,8 +9,7 @@ namespace Source.Formations
         [SerializeField] private Vector3 _unitGizmosSizes = Vector3.one;
         [SerializeField] private Color _gizmosColor = Color.green;
         private Formation _formation = null;
-
-        [Inject]
+        
         public void Initialize(Formation formation)
         {
             _formation = formation;
