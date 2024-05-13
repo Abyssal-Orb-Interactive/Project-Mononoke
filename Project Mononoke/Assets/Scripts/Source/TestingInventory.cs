@@ -103,6 +103,11 @@ namespace Scripts.Source
                 _army.DispatchUnit();
                 _minionsTargetPositionCoordinator.ChangeTargetPosition();
             }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                _army.ReturnAllDispatchedUnitsToFormation();
+            }
         }
     }
 }

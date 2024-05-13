@@ -25,9 +25,9 @@ namespace Source.Character.AI
         private CancellationTokenSource _cancellationTokenSource = null;
         private bool _pathCancelled = false;
         private PickUpper _pickUpper = null;
-        public bool IsInFormation { get; private set; } = false;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
+        public event Action PathStarted, PathCancelled;
         private void OnValidate()
         {
             _pathBuilder ??= GetComponent<Seeker>();
@@ -38,33 +38,38 @@ namespace Source.Character.AI
         {
             _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
             _pickUpper = pickUpper;
-            StartListeningTargetChanging();
             _collidersHolder = collidersHolder;
-            StartListeningColliders();
+            StartAnalyzingInformationSources();
         }
 
         public void StartListeningColliders()
         {
-            if (IsInFormation) return;
             _collidersHolder.SomethingInCollider += StopFollowingAndInteract;
         }
 
         public void StartListeningTargetChanging()
         {
-            if(IsInFormation) return; 
             _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowingPath;
         }
 
-        public void AddToFormation()
+        public void StopAnalyzingInformationSources()
         {
-            IsInFormation = true;
-            _collidersHolder.SomethingInCollider -= StopFollowingAndInteract;
+            StopListeningColliders();
+            StopListeningTargetChanging();
+        }
+
+        public void StopListeningTargetChanging()
+        {
             _minionsTargetPositionCoordinator.TargetPositionChanged -= StartFollowingPath;
         }
 
-        public void RemoveFromFormation()
+        public void StopListeningColliders()
         {
-            IsInFormation = false;
+            _collidersHolder.SomethingInCollider -= StopFollowingAndInteract;
+        }
+
+        public void StartAnalyzingInformationSources()
+        {
             StartListeningColliders();
             StartListeningTargetChanging();
         }
@@ -91,6 +96,7 @@ namespace Source.Character.AI
         public async void StartFollowingPath(Vector3 targetPosition)
         {
             StopFollowing();
+            PathStarted?.Invoke();
             _waypointsPositionsSource = new PathWaypointsPositionsSource(_pathBuilder);
             var position = transform.position;
             var waypointsPositions = await _waypointsPositionsSource.GetWaypointsFor(new Vector3(position.x, position.y - 0.15f, position.z), targetPosition);
@@ -102,6 +108,7 @@ namespace Source.Character.AI
             _cancellationTokenSource = new CancellationTokenSource();
             _pathCancelled = false;
             FollowPathAsync().Forget();
+            PathCancelled?.Invoke();
         }
 
         public void StopFollowing()
