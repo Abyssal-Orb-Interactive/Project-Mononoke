@@ -19,7 +19,9 @@ namespace Source.Formations
         private OnGridObjectPlacer _objectPlacer = null;
         private List<Vector3> _positions = null;
 
-        
+        public IEnumerable<Transform> Markers => _spawnedPositionMarkers;
+
+
         public void Initialize(Formation formation, OnGridObjectPlacer objectPlacer, IsoCharacterMover followingCharacter)
         {
             _formation = formation;

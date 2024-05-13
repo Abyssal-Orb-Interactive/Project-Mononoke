@@ -4,7 +4,6 @@ using Base.Input;
 using Base.Timers;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
-using Source.BuildingModule.Buildings.UI;
 using Source.Character;
 using Source.Character.AI;
 using Source.Character.Minions_Manager;
@@ -15,7 +14,6 @@ using UnityEngine;
 using Source.Character.Movement;
 using Source.Character.Visual;
 using Source.Formations;
-using Source.InventoryModule.UI;
 using Source.UI;
 using VContainer;
 
@@ -45,7 +43,6 @@ namespace Scripts.Source
         [SerializeField] private GameObject _minionPrefab = null;
         [SerializeField] private TestArmy _army = null;
         [SerializeField] private FormationPositionsHolder _formationPositionsHolder = null;
-        [SerializeField] private FormationGizmosRenderer _formationGizmos = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -83,7 +80,6 @@ namespace Scripts.Source
             _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
-            _formationGizmos.Initialize(formation);
         }
 
         private void Update() 

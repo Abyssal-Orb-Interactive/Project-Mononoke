@@ -77,7 +77,6 @@ namespace Source.Character.Movement
         {
             if (_movementDesired == false)
             {
-                MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
                 return;
             } 
             var targetPosition = CalculateInGridTargetPosition(direction, out var inGridPosition);
@@ -111,6 +110,7 @@ namespace Source.Character.Movement
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
             _moveDirection = (MovementDirection)args.ActionData;
             _movementDesired = args.Status == InputHandler.InputActionEventArgs.ActionStatus.Started;
+            if(_movementDesired == false) MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
         }
 
         private void StartInputHandling()
