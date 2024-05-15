@@ -7,7 +7,7 @@ namespace Source.Formations
 {
     public class InFormationPathfinder
     {
-        private const float DELAY_BEFORE_RETURNING_TO_FORMATION_IN_SECONDS = 1f; 
+        private const float DELAY_BEFORE_RETURNING_TO_FORMATION_IN_SECONDS = 30f; 
         public PathfinderAI AI { get; }
         private Transform _inFormationPositionTransform { get; }
 
