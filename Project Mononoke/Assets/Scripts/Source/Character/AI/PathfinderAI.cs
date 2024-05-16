@@ -4,6 +4,7 @@ using Base.Input.Actions;
 using Base.Math;
 using Cysharp.Threading.Tasks;
 using Pathfinding;
+using Source.BattleSystem;
 using Source.BuildingModule;
 using Source.Character.Minions_Manager;
 using Source.ItemsModule;
@@ -25,6 +26,7 @@ namespace Source.Character.AI
         private CancellationTokenSource _cancellationTokenSource = null;
         private bool _pathCancelled = false;
         private PickUpper _pickUpper = null;
+        private StatsHolder _statsHolder = null;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         public event Action PathStarted, PathCancelled;
@@ -34,11 +36,12 @@ namespace Source.Character.AI
         }
 
         [Inject]
-        public void Initialize(MinionsTargetPositionCoordinator minionsTargetPositionCoordinator, CollidersHolder collidersHolder, PickUpper pickUpper)
+        public void Initialize(MinionsTargetPositionCoordinator minionsTargetPositionCoordinator, CollidersHolder collidersHolder, PickUpper pickUpper, StatsHolder statsHolder)
         {
             _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
             _pickUpper = pickUpper;
             _collidersHolder = collidersHolder;
+            _statsHolder = statsHolder;
             StartAnalyzingInformationSources();
         }
 
@@ -85,6 +88,10 @@ namespace Source.Character.AI
                    break;
                case Building building:
                    building.StartInteractiveAction(_pickUpper);
+                   break;
+               case StatsHolder statsHolder:
+                   if(_statsHolder.Fraction == statsHolder.Fraction) break;
+                   statsHolder.TakeDamage(_statsHolder);
                    break;
                default:
                    return;

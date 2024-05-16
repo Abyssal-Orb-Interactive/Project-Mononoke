@@ -7,11 +7,13 @@ namespace Source.BattleSystem
     {
         private float _healthPoints = 0f;
         private float _unarmedAttackDamage = 0f;
+        public Fractions Fraction { get; private set; } = Fractions.Plodomorphs;
 
-        public void Initialize(float healthPoints, float unarmedAttackDamage)
+        public void Initialize(float healthPoints, float unarmedAttackDamage, Fractions fraction)
         {
             _healthPoints = healthPoints;
             _unarmedAttackDamage = unarmedAttackDamage;
+            Fraction = fraction;
         }
         
         public void TakeDamage(IDamager damageSource)

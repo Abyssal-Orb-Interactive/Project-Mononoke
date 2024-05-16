@@ -2,6 +2,7 @@ using Base.DIContainer;
 using Base.Grid;
 using Base.Input;
 using Base.Timers;
+using Source.BattleSystem;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings;
 using Source.Character;
@@ -43,6 +44,8 @@ namespace Scripts.Source
         [SerializeField] private GameObject _minionPrefab = null;
         [SerializeField] private TestArmy _army = null;
         [SerializeField] private FormationPositionsHolder _formationPositionsHolder = null;
+        [SerializeField] private StatsHolder _statsHolder = null;
+        [SerializeField] private CollidersHolder _collidersHolder = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -52,7 +55,8 @@ namespace Scripts.Source
             MinionsFactory.Initialize(_minionPrefab, _placer, new GameObject("Army").transform, _lifetimeScope, _minionsTargetPositionCoordinator);
             _timeInvoker = TimeInvoker.Instance;
             var manipulator = new Manipulator(5,3);
-            _pickUpper.Initialize( _lifetimeScope.Container.Resolve<Inventory>(),manipulator);
+            _collidersHolder.Initialize(_isometric2DCollider);
+            _pickUpper.Initialize( _lifetimeScope.Container.Resolve<Inventory>(),manipulator, _collidersHolder);
             _pickUpper.SubscribeOnUIUpdates(_lifetimeScope.Container.Resolve<InventoryPresenter>());
             TimersFabric.Initialize(_timeInvoker);
             ItemViewFabric.Initialize(_itemViewPrefab, _itemViewsContainer, _placer);
@@ -76,8 +80,8 @@ namespace Scripts.Source
             var aiInventory = new Inventory(1, 1);
             _aiPickUpper.Initialize(aiInventory, aiManipulator);
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
-            var collidersHolder = new CollidersHolder(_aiCollider, _aiPickUpper);
-            _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper);
+            _statsHolder.Initialize(3, 2, Fractions.Lesoviks);
+            _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper, _statsHolder);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
         }

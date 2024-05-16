@@ -1,5 +1,6 @@
 using Base.Grid;
 using Base.Input;
+using Source.BattleSystem;
 using Source.BuildingModule;
 using Source.Character.AI;
 using Source.Character.Movement;
@@ -39,6 +40,7 @@ namespace Source.Character.Minions_Manager
             var minionPickUpper = minion.GetComponentInChildren<PickUpper>();
             var minionAnimationPlayer = minion.GetComponentInChildren<CharacterSpiteAnimationPlayer>();
             var minionHandlingItemVisualizer = minion.GetComponentInChildren<HandlingItemVisualizer>();
+            var statsHolder = minion.GetComponentInChildren<StatsHolder>();
             minionMover.Initialize(_lifetimeScope.Container.Resolve<GroundGrid>(), new InputHandler(minionAI));
             minionAnimationPlayer.Initialize(minionMover);
             minionCollider.Initialize(new GridAnalyzer(minionMover, _lifetimeScope.Container.Resolve<GroundGrid>()));
@@ -47,7 +49,8 @@ namespace Source.Character.Minions_Manager
             minionPickUpper.Initialize(minionInventory, minionManipulator);
             minionHandlingItemVisualizer.InitializeWith(minionManipulator);
             var collidersHolder = new CollidersHolder(minionCollider, minionPickUpper);
-            minionAI.Initialize(_minionsTargetPositionCoordinator, collidersHolder, minionPickUpper);
+            statsHolder.Initialize(3,1, Fractions.Plodomorphs);
+            minionAI.Initialize(_minionsTargetPositionCoordinator, collidersHolder, minionPickUpper, statsHolder);
             return minion;
         }
     }
