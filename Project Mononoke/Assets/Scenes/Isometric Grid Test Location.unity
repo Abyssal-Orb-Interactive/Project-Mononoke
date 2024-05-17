@@ -140,6 +140,8 @@ GameObject:
   - component: {fileID: 8444277}
   - component: {fileID: 8444279}
   - component: {fileID: 8444278}
+  - component: {fileID: 8444281}
+  - component: {fileID: 8444280}
   m_Layer: 0
   m_Name: Test Minion
   m_TagString: Untagged
@@ -327,6 +329,30 @@ CapsuleCollider2D:
   m_Offset: {x: 0.02, y: -1.2}
   m_Size: {x: 1, y: 0.5}
   m_Direction: 1
+--- !u!114 &8444280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8444266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb30e148e168401e9ac76da646d78e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8444281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8444266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef74a38d7c2641f1b2e9fce5a5dfc282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &116934165
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,7 +888,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.8359375
+  orthographic size: 2.8125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9758,6 +9784,9 @@ MonoBehaviour:
   _minionPrefab: {fileID: 8444266}
   _army: {fileID: 1390142305}
   _formationPositionsHolder: {fileID: 1390142307}
+  _statsHolder: {fileID: 8444280}
+  _collidersHolder: {fileID: 5678693790991241684}
+  _aiCollidersHolder: {fileID: 8444281}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0
@@ -10297,6 +10326,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5678693790991241683}
+    - targetCorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5678693790991241684}
+    - targetCorrespondingSourceObject: {fileID: 6813960546298364115, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5678693790991241685}
     - targetCorrespondingSourceObject: {fileID: 4540465095615586830, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 699832659}
@@ -10332,6 +10367,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetDesignationRadius: 1
   _targetTransform: {fileID: 837288084}
+--- !u!114 &5678693790991241684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824457668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef74a38d7c2641f1b2e9fce5a5dfc282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5678693790991241685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824457668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb30e148e168401e9ac76da646d78e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

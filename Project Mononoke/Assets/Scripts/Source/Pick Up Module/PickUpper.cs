@@ -16,8 +16,7 @@ namespace Source.PickUpModule
       private CollidersHolder _collidersHolder = null;
 
       public event Action<Item> ItemPickUpped = null;
-
-      [Inject]
+      
       public void Initialize(Inventory inventory, Manipulator manipulator, CollidersHolder collidersHolder)
       {
          Inventory = inventory;

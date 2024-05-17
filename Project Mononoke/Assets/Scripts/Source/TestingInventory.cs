@@ -46,6 +46,7 @@ namespace Scripts.Source
         [SerializeField] private FormationPositionsHolder _formationPositionsHolder = null;
         [SerializeField] private StatsHolder _statsHolder = null;
         [SerializeField] private CollidersHolder _collidersHolder = null;
+        [SerializeField] private CollidersHolder _aiCollidersHolder = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -78,10 +79,11 @@ namespace Scripts.Source
             _aiCollider.Initialize(new GridAnalyzer(_aiMover, _lifetimeScope.Container.Resolve<GroundGrid>()));
             var aiManipulator = new Manipulator(5, 5);
             var aiInventory = new Inventory(1, 1);
-            _aiPickUpper.Initialize(aiInventory, aiManipulator);
+            _aiCollidersHolder.Initialize(_aiCollider );
+            _aiPickUpper.Initialize(aiInventory, aiManipulator, _aiCollidersHolder);
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
             _statsHolder.Initialize(3, 2, Fractions.Lesoviks);
-            _ai.Initialize(_minionsTargetPositionCoordinator, collidersHolder, _aiPickUpper, _statsHolder);
+            _ai.Initialize(_minionsTargetPositionCoordinator, _aiCollidersHolder, _aiPickUpper, _statsHolder);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
         }

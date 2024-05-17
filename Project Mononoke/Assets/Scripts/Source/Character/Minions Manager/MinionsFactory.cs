@@ -46,9 +46,10 @@ namespace Source.Character.Minions_Manager
             minionCollider.Initialize(new GridAnalyzer(minionMover, _lifetimeScope.Container.Resolve<GroundGrid>()));
             var minionManipulator = new Manipulator(5, 5);
             var minionInventory = new Inventory(1, 1);
-            minionPickUpper.Initialize(minionInventory, minionManipulator);
             minionHandlingItemVisualizer.InitializeWith(minionManipulator);
-            var collidersHolder = new CollidersHolder(minionCollider, minionPickUpper);
+            var collidersHolder = minion.GetComponentInChildren<CollidersHolder>();
+            collidersHolder.Initialize(minionCollider);
+            minionPickUpper.Initialize(minionInventory, minionManipulator, collidersHolder);
             statsHolder.Initialize(3,1, Fractions.Plodomorphs);
             minionAI.Initialize(_minionsTargetPositionCoordinator, collidersHolder, minionPickUpper, statsHolder);
             return minion;
