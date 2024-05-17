@@ -1,4 +1,5 @@
 using System;
+using Source.BattleSystem;
 using Source.BuildingModule;
 using Source.ItemsModule;
 using Source.PickUpModule;
@@ -26,14 +27,11 @@ namespace Source.Character
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent<PickUpper>(out var otherPickUpper))
-            {
-                SomethingInCollider?.Invoke(otherPickUpper);
-                return;
-            }
-
-            if (!other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) return;
-            SomethingInCollider?.Invoke(droppedItemView);
+            if (other.gameObject.TryGetComponent<PickUpper>(out var otherPickUpper)) SomethingInCollider?.Invoke(otherPickUpper);
+            
+            if (other.gameObject.TryGetComponent<ItemView>(out var droppedItemView)) SomethingInCollider?.Invoke(droppedItemView);
+            
+            if (other.gameObject.TryGetComponent<StatsHolder>(out var statsHolder)) SomethingInCollider?.Invoke(statsHolder);
         }
     }
 }

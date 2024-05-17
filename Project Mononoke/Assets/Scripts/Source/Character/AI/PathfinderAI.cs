@@ -81,10 +81,9 @@ namespace Source.Character.AI
         {
             switch (something)
            {
-               case Item item:
-                   Debug.Log("Item");
+               case ItemView itemView:
                    StopFollowing();
-                   _pickUpper.TryTakeItemFromInventoryWithManipulator(item.Data.ID);
+                   _pickUpper.TryTakeItemFromInventoryWithManipulator(itemView.Item.Data.ID);
                    break;
                case Building building:
                    StopFollowing();
