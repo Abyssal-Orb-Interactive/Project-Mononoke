@@ -79,19 +79,22 @@ namespace Source.Character.AI
 
         private void StopFollowingAndInteract(object something)
         {
-           StopFollowing();
-           
-           switch (something)
+            switch (something)
            {
                case Item item:
+                   Debug.Log("Item");
+                   StopFollowing();
                    _pickUpper.TryTakeItemFromInventoryWithManipulator(item.Data.ID);
                    break;
                case Building building:
+                   StopFollowing();
                    building.StartInteractiveAction(_pickUpper);
                    break;
                case StatsHolder statsHolder:
                    if(_statsHolder.Fraction == statsHolder.Fraction) break;
+                   StopFollowing();
                    statsHolder.TakeDamage(_statsHolder);
+                   Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
                    break;
                default:
                    return;
