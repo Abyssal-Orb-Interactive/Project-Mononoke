@@ -1,3 +1,4 @@
+using System;
 using Source.Character;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Source.BattleSystem
         public Fractions Fraction { get; private set; } = Fractions.Plodomorphs;
         public float CurrentHealthPointsInPercents => _currentHealthPoints / _maxHealthPoints;
 
+        public event Action<StatsHolder> EntityDead = null; 
+
         public void Initialize(float healthPoints, float unarmedAttackDamage, Fractions fraction)
         {
             _maxHealthPoints = healthPoints;
@@ -21,7 +24,18 @@ namespace Source.BattleSystem
         
         public void TakeDamage(IDamager damageSource)
         {
+            if (_currentHealthPoints <= 0)
+            {
+                EntityDead?.Invoke(this);
+                gameObject.SetActive(false);
+                return;
+            }
             _currentHealthPoints -= damageSource.GetDamage();
+            if (_currentHealthPoints <= 0)
+            {
+                EntityDead?.Invoke(this);
+                gameObject.SetActive(false);
+            }
         }
 
         public float GetDamage()

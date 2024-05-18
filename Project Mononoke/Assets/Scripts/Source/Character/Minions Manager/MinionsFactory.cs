@@ -50,7 +50,7 @@ namespace Source.Character.Minions_Manager
             var collidersHolder = minion.GetComponentInChildren<CollidersHolder>();
             collidersHolder.Initialize(minionCollider);
             minionPickUpper.Initialize(minionInventory, minionManipulator, collidersHolder);
-            statsHolder.Initialize(3,1, Fractions.Plodomorphs);
+            statsHolder.Initialize(3,2, Fractions.Plodomorphs);
             minionAI.Initialize(_minionsTargetPositionCoordinator, collidersHolder, minionPickUpper, statsHolder);
             return minion;
         }

@@ -27,6 +27,7 @@ namespace Source.Character.AI
         private bool _pathCancelled = false;
         private PickUpper _pickUpper = null;
         private StatsHolder _statsHolder = null;
+        private bool _enemyDead = true;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         public event Action PathStarted, PathCancelled;
@@ -83,23 +84,35 @@ namespace Source.Character.AI
            {
                case ItemView itemView:
                    StopFollowing();
-                   _pickUpper.TryTakeItemFromInventoryWithManipulator(itemView.Item.Data.ID);
+                   if(_pickUpper.TryTakeItemFromInventoryWithManipulator(itemView.Item.Data.ID)) StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
                    break;
                case Building building:
                    StopFollowing();
                    building.StartInteractiveAction(_pickUpper);
                    break;
                case StatsHolder statsHolder:
-                   if(_statsHolder.Fraction == statsHolder.Fraction) break;
+                   if(_statsHolder.Fraction == statsHolder.Fraction || !_enemyDead) break;
                    StopFollowing();
-                   statsHolder.TakeDamage(_statsHolder);
-                   Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
+                   _enemyDead = false;
+                   _statsHolder.EntityDead += StatsHolderOnEntityDead;
+                   while(!_enemyDead)
+                   {
+                        statsHolder.TakeDamage(_statsHolder);
+                        Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
+                   }
+                
                    break;
                default:
                    return;
            }
-           
-           StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
+        }
+
+        private void StatsHolderOnEntityDead(StatsHolder entity)
+        {
+            Debug.Log("Dead");
+            _enemyDead = true;
+            StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
+            entity.EntityDead -= StatsHolderOnEntityDead;
         }
 
         public async void StartFollowingPath(Vector3 targetPosition)
