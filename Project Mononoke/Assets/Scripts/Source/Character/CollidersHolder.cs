@@ -10,6 +10,7 @@ namespace Source.Character
     public class CollidersHolder : MonoBehaviour
     {
         private CharacterLogicIsometric2DCollider _logicCollider = null;
+        [SerializeField] private Collider2D _feetCollider = null;
 
         public event Action<object> SomethingInCollider = null;
         

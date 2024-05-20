@@ -28,6 +28,7 @@ namespace Source.Character.AI
         private PickUpper _pickUpper = null;
         private StatsHolder _statsHolder = null;
         private bool _enemyDead = true;
+        private bool _isDead = false;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         public event Action PathStarted, PathCancelled;
@@ -43,7 +44,15 @@ namespace Source.Character.AI
             _pickUpper = pickUpper;
             _collidersHolder = collidersHolder;
             _statsHolder = statsHolder;
+            _statsHolder.EntityDead += OnDeath;
             StartAnalyzingInformationSources();
+        }
+
+        private void OnDeath(StatsHolder statsHolder)
+        {
+            _isDead = true;
+            StopFollowing();
+            StopAnalyzingInformationSources();
         }
 
         public void StartListeningColliders()
@@ -94,13 +103,12 @@ namespace Source.Character.AI
                    if(_statsHolder.Fraction == statsHolder.Fraction || !_enemyDead) break;
                    StopFollowing();
                    _enemyDead = false;
-                   _statsHolder.EntityDead += StatsHolderOnEntityDead;
-                   while(!_enemyDead)
+                   statsHolder.EntityDead += StatsHolderOnEntityDead;
+                   while (!_enemyDead && !_isDead)
                    {
-                        statsHolder.TakeDamage(_statsHolder);
-                        Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
+                       statsHolder.TakeDamage(_statsHolder);
+                       Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
                    }
-                
                    break;
                default:
                    return;

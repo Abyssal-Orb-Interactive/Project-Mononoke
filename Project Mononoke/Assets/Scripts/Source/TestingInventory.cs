@@ -47,6 +47,7 @@ namespace Scripts.Source
         [SerializeField] private StatsHolder _statsHolder = null;
         [SerializeField] private CollidersHolder _collidersHolder = null;
         [SerializeField] private CollidersHolder _aiCollidersHolder = null;
+        [SerializeField] private AISearchAreaTrigger _aiSearchAreaTrigger = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -86,6 +87,7 @@ namespace Scripts.Source
             _ai.Initialize(_minionsTargetPositionCoordinator, _aiCollidersHolder, _aiPickUpper, _statsHolder);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
+            _aiSearchAreaTrigger.Initialize(_ai);
         }
 
         private void Update() 
