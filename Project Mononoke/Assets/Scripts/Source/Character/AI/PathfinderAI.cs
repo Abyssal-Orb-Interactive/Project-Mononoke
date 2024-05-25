@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Base.Input;
 using Base.Input.Actions;
 using Base.Math;
 using Cysharp.Threading.Tasks;
@@ -7,6 +8,7 @@ using Pathfinding;
 using Source.BattleSystem;
 using Source.BuildingModule;
 using Source.Character.Minions_Manager;
+using Source.Character.Movement;
 using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;
@@ -190,6 +192,11 @@ namespace Source.Character.AI
         private void OnTargetReached()
         {
             StopFollowing();
+        }
+
+        public void Rotate(MovementDirection direction)
+        {
+            MovementDesired?.Invoke(new MovementInputEventArgs(DirectionToVector3IsoConverter.ToVector(direction) * 0.01f));
         }
 
         public void Dispose()

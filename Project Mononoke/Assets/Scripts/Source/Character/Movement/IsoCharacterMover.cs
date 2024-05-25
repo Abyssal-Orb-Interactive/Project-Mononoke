@@ -73,16 +73,24 @@ namespace Source.Character.Movement
             MoveTo(_moveDirection);
         }
 
+        private void Rotate(MovementDirection direction)
+        { 
+            if(_moveDirection == direction) return;
+            _moveDirection = direction;
+            MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
+        }
+
         private void MoveTo(MovementDirection direction)
         {
             if (_movementDesired == false)
             {
+                Rotate(direction);
                 return;
             } 
             var targetPosition = CalculateInGridTargetPosition(direction, out var inGridPosition);
             if (!_grid.IsCellPassableAt(inGridPosition))
             {
-                MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
+                Rotate(direction);
                 return;
             }
             _rigidbody.MovePosition(targetPosition);
@@ -108,7 +116,7 @@ namespace Source.Character.Movement
         private void OnMovementInputChange(object sender, InputHandler.InputActionEventArgs args)
         {
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
-            _moveDirection = (MovementDirection)args.ActionData;
+            Rotate((MovementDirection)args.ActionData);
             _movementDesired = args.Status == InputHandler.InputActionEventArgs.ActionStatus.Started;
             if(_movementDesired == false) MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
         }

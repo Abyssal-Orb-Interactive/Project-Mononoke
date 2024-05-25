@@ -1,4 +1,6 @@
 using System;
+using Base.Input;
+using Base.Math;
 using Cysharp.Threading.Tasks;
 using Source.Character.AI;
 using UnityEngine;
@@ -48,8 +50,18 @@ namespace Source.Formations
         {
             AI.PathStarted -= StopListeningTargetChanging;
             AI.PathCancelled -= AddToFormation;
+            AI.Rotate(GetNormalizedCartesianDirectionTo(_inFormationPositionTransform.position));
             AI.StopAnalyzingInformationSources();
             ReturningToFormation?.Invoke(this);
+        }
+        
+        private MovementDirection GetNormalizedCartesianDirectionTo(Vector3 targetPosition)
+        {
+            var worldPosition = AI.gameObject.transform.position;
+            var worldDirection = targetPosition - new Vector3(worldPosition.x, worldPosition.y-0.15f, worldPosition.z);
+            var isometricDirection = new Vector3Iso(worldDirection.x, worldDirection.y, worldDirection.z);
+            var cartesianDirection = isometricDirection.ToCartesian();
+            return InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianDirection.normalized);
         }
     }
 }
