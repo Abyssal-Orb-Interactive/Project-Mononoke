@@ -20,7 +20,7 @@ namespace Source.Character.AI
     public class PathfinderAI : MonoBehaviour, IInputSource
     {
         [SerializeField] private Seeker _pathBuilder = null;
-        [SerializeField] private MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
+        //[SerializeField] private MinionsTargetPositionCoordinator  = null;
         private CollidersHolder _collidersHolder = null;
         private PathWaypointsPositionsSource _waypointsPositionsSource = null;
         private WaypointSwitcher _waypointSwitcher = null;
@@ -42,7 +42,7 @@ namespace Source.Character.AI
         [Inject]
         public void Initialize(MinionsTargetPositionCoordinator minionsTargetPositionCoordinator, CollidersHolder collidersHolder, PickUpper pickUpper, StatsHolder statsHolder)
         {
-            _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
+            //_minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
             _pickUpper = pickUpper;
             _collidersHolder = collidersHolder;
             _statsHolder = statsHolder;
@@ -64,7 +64,7 @@ namespace Source.Character.AI
 
         public void StartListeningTargetChanging()
         {
-            _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowingPath;
+           // _minionsTargetPositionCoordinator.TargetPositionChanged += StartFollowingPath;
         }
 
         public void StopAnalyzingInformationSources()
@@ -75,7 +75,7 @@ namespace Source.Character.AI
 
         public void StopListeningTargetChanging()
         {
-            _minionsTargetPositionCoordinator.TargetPositionChanged -= StartFollowingPath;
+            //_minionsTargetPositionCoordinator.TargetPositionChanged -= StartFollowingPath;
         }
 
         public void StopListeningColliders()
@@ -95,7 +95,7 @@ namespace Source.Character.AI
            {
                case ItemView itemView:
                    StopFollowing();
-                   if(_pickUpper.TryTakeItemFromInventoryWithManipulator(itemView.Item.Data.ID)) StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
+                   _pickUpper.TryTakeItemFromInventoryWithManipulator(itemView.Item.Data.ID); //StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
                    break;
                case Building building:
                    StopFollowing();
@@ -121,7 +121,7 @@ namespace Source.Character.AI
         {
             Debug.Log("Dead");
             _enemyDead = true;
-            StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
+           // StartFollowingPath(_minionsTargetPositionCoordinator.transform.position);
             entity.EntityDead -= StatsHolderOnEntityDead;
         }
 
