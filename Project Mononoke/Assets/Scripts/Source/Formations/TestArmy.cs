@@ -10,6 +10,7 @@ namespace Source.Formations
     public class TestArmy : MonoBehaviour
     {
         [SerializeField] private FormationPositionsHolder _formation;
+        [SerializeField] private MinionsTargetPositionCoordinator _targetPositionCoordinator = null;
 
         private readonly List<InFormationPathfinder> _spawnedUnits = new();
         private List<Transform> _formationMarkersPositions = null;
@@ -55,7 +56,7 @@ namespace Source.Formations
                 var unit = MinionsFactory.Create(worldCartesianPos);
                 var ai = unit.GetComponent<PathfinderAI>();
                 ai.StopAnalyzingInformationSources();
-                var inFormationUnit = new InFormationPathfinder(ai, formationPositionTransform);
+                var inFormationUnit = new InFormationPathfinder(ai, formationPositionTransform, _targetPositionCoordinator);
                 _spawnedUnits.Add(inFormationUnit);
                 inFormationUnit.ReturningToFormation += ReturnDispatchedUnitToFormation;
                 

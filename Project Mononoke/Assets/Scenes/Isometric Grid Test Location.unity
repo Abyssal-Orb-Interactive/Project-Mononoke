@@ -1007,7 +1007,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 4.8359375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8129,6 +8129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _formation: {fileID: 1390142307}
+  _targetPositionCoordinator: {fileID: 5678693790991241683}
 --- !u!114 &1390142307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10628,7 +10629,7 @@ Transform:
   m_GameObject: {fileID: 2136897385}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2, y: 4.83, z: 0}
+  m_LocalPosition: {x: 0.09, y: 5.62, z: 0}
   m_LocalScale: {x: 0.2746, y: 0.2409, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10796,6 +10797,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -2135014891, guid: 2bbd3099e710d5e42a7ef35302feb333, type: 3}
+    - target: {fileID: 7080499055575079028, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7080499055575079028, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7781497609147544520, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.72

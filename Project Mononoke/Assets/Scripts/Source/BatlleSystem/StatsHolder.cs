@@ -12,7 +12,8 @@ namespace Source.BattleSystem
         public Fractions Fraction { get; private set; } = Fractions.Plodomorphs;
         public float CurrentHealthPointsInPercents => _currentHealthPoints / _maxHealthPoints;
 
-        public event Action<StatsHolder> EntityDead = null; 
+        public event Action<StatsHolder> EntityDead = null;
+        public event Action<float> HealthPointsChanged = null; 
 
         public void Initialize(float healthPoints, float unarmedAttackDamage, Fractions fraction)
         {
@@ -31,6 +32,7 @@ namespace Source.BattleSystem
                 return;
             }
             _currentHealthPoints -= damageSource.GetDamage();
+            HealthPointsChanged?.Invoke(CurrentHealthPointsInPercents);
             if (_currentHealthPoints <= 0)
             {
                 EntityDead?.Invoke(this);

@@ -19,15 +19,13 @@ namespace Source.Character.Minions_Manager
         private static OnGridObjectPlacer _objectPlacer = null;
         private static Transform _minionsHolder = null;
         private static LifetimeScope _lifetimeScope = null;
-        private static MinionsTargetPositionCoordinator _minionsTargetPositionCoordinator = null;
-        
-        [Inject] public static void Initialize(GameObject minionPrefab, OnGridObjectPlacer objectPlacer, Transform minionsHolder, LifetimeScope lifetimeScope, MinionsTargetPositionCoordinator minionsTargetPositionCoordinator)
+
+        [Inject] public static void Initialize(GameObject minionPrefab, OnGridObjectPlacer objectPlacer, Transform minionsHolder, LifetimeScope lifetimeScope)
         {
             _minionPrefab = minionPrefab;
             _objectPlacer = objectPlacer;
             _minionsHolder = minionsHolder;
             _lifetimeScope = lifetimeScope;
-            _minionsTargetPositionCoordinator = minionsTargetPositionCoordinator;
         }
 
         public static GameObject Create(Vector3 worldPosition)
@@ -51,7 +49,7 @@ namespace Source.Character.Minions_Manager
             collidersHolder.Initialize(minionCollider);
             minionPickUpper.Initialize(minionInventory, minionManipulator, collidersHolder);
             statsHolder.Initialize(3,2, Fractions.Plodomorphs);
-            minionAI.Initialize(_minionsTargetPositionCoordinator, collidersHolder, minionPickUpper, statsHolder);
+            minionAI.Initialize(collidersHolder, minionPickUpper, statsHolder);
             return minion;
         }
     }

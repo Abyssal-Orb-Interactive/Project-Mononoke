@@ -54,7 +54,7 @@ namespace Scripts.Source
         private void Start()
         {
             _minionsTargetPositionCoordinator.Initialize(_mover);
-            MinionsFactory.Initialize(_minionPrefab, _placer, new GameObject("Army").transform, _lifetimeScope, _minionsTargetPositionCoordinator);
+            MinionsFactory.Initialize(_minionPrefab, _placer, new GameObject("Army").transform, _lifetimeScope);
             _timeInvoker = TimeInvoker.Instance;
             var manipulator = new Manipulator(5,3);
             _collidersHolder.Initialize(_isometric2DCollider);
@@ -84,7 +84,7 @@ namespace Scripts.Source
             _aiPickUpper.Initialize(aiInventory, aiManipulator, _aiCollidersHolder);
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
             _statsHolder.Initialize(3, 2, Fractions.Lesoviks);
-            _ai.Initialize(_minionsTargetPositionCoordinator, _aiCollidersHolder, _aiPickUpper, _statsHolder);
+            _ai.Initialize(_aiCollidersHolder, _aiPickUpper, _statsHolder);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
             _aiSearchAreaTrigger.Initialize(_ai);
