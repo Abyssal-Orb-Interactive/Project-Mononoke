@@ -16,11 +16,10 @@ namespace Source.Character.AI
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.TryGetComponent<StatsHolder>(out var statsHolder))
-            {
-                SomethingEnteredInSearchTrigger?.Invoke(statsHolder);
-                _ai.StartFollowingPath(statsHolder.transform.position);
-            }
+            if (!other.gameObject.TryGetComponent<StatsHolder>(out var statsHolder)) return;
+            
+            SomethingEnteredInSearchTrigger?.Invoke(statsHolder);
+            _ai.StartFollowingPath(statsHolder.transform.position);
         }
     }
 }

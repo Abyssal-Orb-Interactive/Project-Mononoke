@@ -14,7 +14,7 @@ namespace Source.Formations
 
         private readonly List<InFormationPathfinder> _spawnedUnits = new();
         private List<Transform> _formationMarkersPositions = null;
-        private List<InFormationPathfinder> _dispatchQueue = new();
+        private readonly List<InFormationPathfinder> _dispatchQueue = new();
         private int _dispatchUnitIndex = 0;
 
         private void Update()
