@@ -1,4 +1,3 @@
-using Source.BuildingModule;
 using UnityEngine;
 
 namespace Source.BattleSystem.UI
@@ -6,13 +5,15 @@ namespace Source.BattleSystem.UI
     public class HealthBarsCanvas : MonoBehaviour
     {
         [SerializeField] private GameObject _healthBarPrefab = null;
-        [SerializeField] private OnGridObjectPlacer _objectPlacer = null;
 
         public void AddHealthBarTo(StatsHolder statsHolder)
         {
-            
-            var healthBarObject = _objectPlacer.PlaceObject(new ObjectPlacementInformation<GameObject>(_healthBarPrefab, statsHolder.transform.position, Quaternion.identity, transform));
+            Vector3 screenPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, statsHolder.transform.position);
+            var healthBarObject = Instantiate(_healthBarPrefab, Vector3.zero, Quaternion.identity, transform);
             var healthBarObjectRectTransform = healthBarObject.GetComponent<RectTransform>();
+            healthBarObjectRectTransform.SetParent(transform, false);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, screenPosition, Camera.main, out var localPoint);
+            healthBarObjectRectTransform.localPosition = localPoint;
             healthBarObjectRectTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             var healthBar = healthBarObject.GetComponentInChildren<HealthBar>();
             healthBar.Initialize(statsHolder);
