@@ -1021,7 +1021,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 4.8359375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -10090,9 +10090,9 @@ MonoBehaviour:
   _aiMover: {fileID: 2136897392}
   _aiCollider: {fileID: 2136897390}
   _aiPickUpper: {fileID: 2136897388}
-  _aiAnimationPlayer: {fileID: 1747389276}
+  _aiAnimationPlayer: {fileID: 84363064}
   _minionsTargetPositionCoordinator: {fileID: 5678693790991241683}
-  _aiHandlingItemVisualizer: {fileID: 1456053361}
+  _aiHandlingItemVisualizer: {fileID: 2001571301}
   _minionPrefab: {fileID: 8444266}
   _army: {fileID: 1390142305}
   _formationPositionsHolder: {fileID: 1390142307}
