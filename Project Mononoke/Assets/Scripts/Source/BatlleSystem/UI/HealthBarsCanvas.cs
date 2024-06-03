@@ -11,10 +11,7 @@ namespace Source.BattleSystem.UI
 
         public void AddHealthBarTo(StatsHolder statsHolder)
         {
-            SpawnHealthBarObject(out var healthBarObjectRectTransform);
-
-            UpdateHealthBarInCanvasPosition(statsHolder.transform.position, healthBarObjectRectTransform);
-
+            var healthBarObject = SpawnHealthBarObject(out var healthBarObjectRectTransform);
             if (statsHolder.TryGetComponent<IsoCharacterMover>(out var mover))
             {
                 _spawnedHealthBarsForMobileObjects ??= new Dictionary<IsoCharacterMover, RectTransform>();
@@ -22,42 +19,66 @@ namespace Source.BattleSystem.UI
                 mover.MovementChanged += MovementChanged;
             }
 
+            var localPoint = CalculateInCanvasLocalPositionUsing(statsHolder.transform.position);
+
+            SetHealthBarsLocalPositionAndScale(healthBarObjectRectTransform, localPoint);
+            InitializeHealthBarWith(statsHolder, healthBarObject.GetComponentInChildren<HealthBar>());
+        }
+        
+        private GameObject SpawnHealthBarObject(out RectTransform healthBarObjectRectTransform)
+        {
+            var healthBarObject = Instantiate(_healthBarPrefab, Vector3.zero, Quaternion.identity, transform);
+            healthBarObjectRectTransform = healthBarObject.GetComponent<RectTransform>();
+            return healthBarObject;
+        }
+
+        private Vector2 CalculateInCanvasLocalPositionUsing(Vector3 worldPosition)
+        {
+            var screenPosition = CalculateInScreenPositionFor(worldPosition);
+            var localPoint = CalculateInCanvasLocalPositionFor(screenPosition);
+            return localPoint;
+        }
+
+        private static Vector2 CalculateInScreenPositionFor(Vector3 worldPosition)
+        {
+            var screenPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPosition);
+            return screenPosition;
+        }
+
+        private Vector2 CalculateInCanvasLocalPositionFor(Vector2 screenPosition)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, screenPosition,
+                Camera.main, out var localPoint);
+            return localPoint;
+        }
+
+        private static void SetHealthBarsLocalPositionAndScale(RectTransform healthBarObjectRectTransform,
+            Vector2 localPoint)
+        {
+            SetHealthBarLocalPosition(healthBarObjectRectTransform, localPoint);
             healthBarObjectRectTransform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            
-            InitializeHealthBarWith(statsHolder, healthBarObjectRectTransform.gameObject.GetComponentInChildren<HealthBar>());
+        }
+
+        private static void SetHealthBarLocalPosition(RectTransform healthBarObjectRectTransform, Vector2 localPoint)
+        {
+            healthBarObjectRectTransform.localPosition = localPoint;
         }
 
         private void MovementChanged(object sender, IsoCharacterMover.MovementActionEventArgs e)
         {
             var mover = (IsoCharacterMover)sender;
-            UpdateHealthBarInCanvasPosition(mover.transform.position, _spawnedHealthBarsForMobileObjects[mover]);
+            UpdateHealthBarPositionUsing(mover);
         }
 
-        private void UpdateHealthBarInCanvasPosition(Vector3 worldPosition, RectTransform healthBarObjectRectTransform)
+        private void UpdateHealthBarPositionUsing(IsoCharacterMover mover)
         {
-            var inCanvasHealthBarPosition = CalculateHealthBarsLocalCanvasPosition(worldPosition);
-            healthBarObjectRectTransform.position = inCanvasHealthBarPosition;
-        }
-
-        private GameObject SpawnHealthBarObject(out RectTransform healthBarObjectRectTransform)
-        {
-            var healthBarObject = Instantiate(_healthBarPrefab, Vector3.zero, Quaternion.identity, transform);
-            healthBarObjectRectTransform = healthBarObject.GetComponent<RectTransform>();
-            healthBarObjectRectTransform.SetParent(transform, false);
-            return healthBarObject;
+            var localPoint = CalculateInCanvasLocalPositionUsing(mover.transform.position);
+            SetHealthBarLocalPosition(_spawnedHealthBarsForMobileObjects[mover], localPoint);
         }
 
         private static void InitializeHealthBarWith(StatsHolder statsHolder, HealthBar healthBar)
         {
             healthBar.Initialize(statsHolder);
-        }
-
-        private Vector3 CalculateHealthBarsLocalCanvasPosition(Vector3 worldPosition)
-        {
-            var screenPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPosition);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, screenPosition, Camera.main,
-                out var localPoint);
-            return localPoint;
         }
     }
 }
