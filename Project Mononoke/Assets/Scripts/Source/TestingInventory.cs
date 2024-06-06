@@ -50,6 +50,7 @@ namespace Scripts.Source
         [SerializeField] private CollidersHolder _aiCollidersHolder = null;
         [SerializeField] private AISearchAreaTrigger _aiSearchAreaTrigger = null;
         [SerializeField] private HealthBarsCanvas _healthBarsCanvas = null;
+        [SerializeField] private DamageArea _aiDamageArea = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -86,7 +87,7 @@ namespace Scripts.Source
             _aiPickUpper.Initialize(aiInventory, aiManipulator, _aiCollidersHolder);
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
             _statsHolder.Initialize(3, 2, Fractions.Lesoviks);
-            _ai.Initialize(_aiCollidersHolder, _aiPickUpper, _statsHolder);
+            _ai.Initialize(_aiCollidersHolder, _aiPickUpper, _statsHolder, _aiDamageArea);
             _healthBarsCanvas.AddHealthBarTo(_statsHolder);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);

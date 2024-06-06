@@ -13,7 +13,8 @@ namespace Source.BattleSystem
         public float CurrentHealthPointsInPercents => _currentHealthPoints / _maxHealthPoints;
 
         public event Action<StatsHolder> EntityDead = null;
-        public event Action<float> HealthPointsChanged = null; 
+        public event Action<float> HealthPointsChanged = null;
+        public event Action<IDamager> Attack = null; 
 
         public void Initialize(float healthPoints, float unarmedAttackDamage, Fractions fraction)
         {
@@ -21,6 +22,11 @@ namespace Source.BattleSystem
             _currentHealthPoints = _maxHealthPoints;
             _unarmedAttackDamage = unarmedAttackDamage;
             Fraction = fraction;
+        }
+
+        public void TriggerAttack()
+        {
+            Attack?.Invoke(this);
         }
         
         public void TakeDamage(IDamager damageSource)

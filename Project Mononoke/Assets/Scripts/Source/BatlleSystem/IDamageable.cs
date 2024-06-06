@@ -1,4 +1,6 @@
-namespace Source.Character
+using Source.Character;
+
+namespace Source.BattleSystem
 {
     public interface IDamageable
     {

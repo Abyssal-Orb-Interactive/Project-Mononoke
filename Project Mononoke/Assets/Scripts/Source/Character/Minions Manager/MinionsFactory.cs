@@ -49,7 +49,9 @@ namespace Source.Character.Minions_Manager
             collidersHolder.Initialize(minionCollider);
             minionPickUpper.Initialize(minionInventory, minionManipulator, collidersHolder);
             statsHolder.Initialize(3,2, Fractions.Plodomorphs);
-            minionAI.Initialize(collidersHolder, minionPickUpper, statsHolder);
+            var minionDamageZone = minion.GetComponentInChildren<DamageArea>();
+            minionDamageZone.Initialize(statsHolder);
+            minionAI.Initialize(collidersHolder, minionPickUpper, statsHolder, minionDamageZone);
             return minion;
         }
     }

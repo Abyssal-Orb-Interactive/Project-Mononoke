@@ -30,6 +30,7 @@ namespace Source.Character.AI
         private StatsHolder _statsHolder = null;
         private bool _enemyDead = true;
         private bool _isDead = false;
+        private DamageArea _damageArea = null;
 
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         public event Action PathStarted, PathCancelled, ItemInManipulator;
@@ -39,11 +40,12 @@ namespace Source.Character.AI
         }
 
         [Inject]
-        public void Initialize(CollidersHolder collidersHolder, PickUpper pickUpper, StatsHolder statsHolder)
+        public void Initialize(CollidersHolder collidersHolder, PickUpper pickUpper, StatsHolder statsHolder, DamageArea damageArea)
         {
             _pickUpper = pickUpper;
             _collidersHolder = collidersHolder;
             _statsHolder = statsHolder;
+            _damageArea = damageArea;
             _statsHolder.EntityDead += OnDeath;
             StartAnalyzingInformationSources();
         }
@@ -63,6 +65,7 @@ namespace Source.Character.AI
         public void StopAnalyzingInformationSources()
         {
             StopListeningColliders();
+            _damageArea.TargetInZone += OnTargetInDamageZone;
         }
 
         public void StopListeningColliders()
@@ -73,6 +76,12 @@ namespace Source.Character.AI
         public void StartAnalyzingInformationSources()
         {
             StartListeningColliders();
+            _damageArea.TargetInZone += OnTargetInDamageZone;
+        }
+
+        private void OnTargetInDamageZone()
+        {
+            _statsHolder.TriggerAttack();
         }
 
         private void StopFollowingAndInteract(object something)
@@ -87,14 +96,14 @@ namespace Source.Character.AI
                    StopFollowing();
                    building.StartInteractiveAction(_pickUpper);
                    break;
-               case StatsHolder statsHolder:
-                   if(_statsHolder.Fraction == statsHolder.Fraction || !_enemyDead) break;
+               //case StatsHolder statsHolder:
+                   //if(_statsHolder.Fraction == statsHolder.Fraction || !_enemyDead) break;
                    StopFollowing();
                    _enemyDead = false;
-                   statsHolder.EntityDead += StatsHolderOnEntityDead;
+                 //  statsHolder.EntityDead += StatsHolderOnEntityDead;
                    while (!_enemyDead && !_isDead)
                    {
-                       statsHolder.TakeDamage(_statsHolder);
+                     //  statsHolder.TakeDamage(_statsHolder);
                        Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
                    }
                    break;
