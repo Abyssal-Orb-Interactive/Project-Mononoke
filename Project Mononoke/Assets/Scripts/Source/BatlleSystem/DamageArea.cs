@@ -10,7 +10,7 @@ namespace Source.BattleSystem
         private HashSet<IDamageable> _damageablesInDamageArea = null;
         private IDamager _damageSource = null;
 
-        public event Action TargetInZone = null;
+        public event Action<IDamageable> TargetInZone = null;
 
         public void Initialize(IDamager damager)
         {
@@ -51,7 +51,7 @@ namespace Source.BattleSystem
             if(_damageSource == null) return;
             if (!other.TryGetComponent<IDamageable>(out var target)) return;
             _damageablesInDamageArea.Add(target);
-            TargetInZone?.Invoke();
+            TargetInZone?.Invoke(target);
         }
 
         private void OnTriggerExit2D(Collider2D other)

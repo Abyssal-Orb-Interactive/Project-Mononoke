@@ -79,9 +79,10 @@ namespace Source.Character.AI
             _damageArea.TargetInZone += OnTargetInDamageZone;
         }
 
-        private void OnTargetInDamageZone()
+        private void OnTargetInDamageZone(IDamageable damageable)
         {
-            _statsHolder.TriggerAttack();
+            var stats = damageable as StatsHolder;
+            if(stats != null && stats.Fraction != _statsHolder.Fraction) _statsHolder.TriggerAttack();
         }
 
         private void StopFollowingAndInteract(object something)
