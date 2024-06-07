@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7703de58ef17485d839134d7aa196703, type: 3}
   m_Name: ArcDamageArea
   m_EditorClassIdentifier: 
+  <Radius>k__BackingField: 5
+  <StartAngle>k__BackingField: 0
+  <EndAngle>k__BackingField: 90
+  <NumberOfSegments>k__BackingField: 10
+  <Facing>k__BackingField: 7
