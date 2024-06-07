@@ -34,7 +34,8 @@ namespace Source.BattleSystem.UI
 
         private Vector2 CalculateInCanvasLocalPositionUsing(Vector3 worldPosition)
         {
-            var screenPosition = CalculateInScreenPositionFor(worldPosition);
+            var uppedWorldPosition = worldPosition + new Vector3(0, 0.5f, 0);
+            var screenPosition = CalculateInScreenPositionFor(uppedWorldPosition);
             var localPoint = CalculateInCanvasLocalPositionFor(screenPosition);
             return localPoint;
         }
