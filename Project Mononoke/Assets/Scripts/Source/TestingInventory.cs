@@ -52,6 +52,7 @@ namespace Scripts.Source
         [SerializeField] private AISearchAreaTrigger _aiSearchAreaTrigger = null;
         [SerializeField] private HealthBarsCanvas _healthBarsCanvas = null;
         [SerializeField] private DamageArea _aiDamageArea = null;
+        [SerializeField] private MinionsSpawner _spawner = null;
 
         private TimeInvoker _timeInvoker = null;
 
@@ -94,7 +95,7 @@ namespace Scripts.Source
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
             _aiSearchAreaTrigger.Initialize(_ai);
-            
+            _spawner.Initialize(new Inventory());
         }
 
         private void Update() 

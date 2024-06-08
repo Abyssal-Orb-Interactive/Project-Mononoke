@@ -31,7 +31,7 @@ namespace Source.BuildingModule
             BuildingRequestsBus.Unsubscribe(HandleBuildRequest);
         }
 
-        public bool TryBuildBuildingWith(int ID, Vector3 position)
+        private bool TryBuildBuildingWith(int ID, Vector3 position)
         {
             var gridPosition = _grid.WorldToGrid(position);
             Debug.Log(_grid.HasBuildingAt(gridPosition) );
@@ -48,7 +48,9 @@ namespace Source.BuildingModule
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
             var seedBed = building as Seedbed;
+            var minionsSpawner = building as MinionsSpawner;
             seedBed?.Initialize(_inventoryPresenter);
+            minionsSpawner?.Initialize(new Inventory());
 
             return _grid.TryAddBuilding(building, gridPosition);
         }

@@ -1035,7 +1035,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.8359375
+  orthographic size: 2.8125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -10440,6 +10440,7 @@ MonoBehaviour:
   _aiSearchAreaTrigger: {fileID: 1995920828}
   _healthBarsCanvas: {fileID: 205535291}
   _aiDamageArea: {fileID: 413213754}
+  _spawner: {fileID: 0}
 --- !u!4 &2014109942
 Transform:
   m_ObjectHideFlags: 0
@@ -11143,7 +11144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4382236820016972149, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4382236820016972149, guid: 61073e055c50a844590fdcba3a65153a, type: 3}
       propertyPath: m_UseFullKinematicContacts

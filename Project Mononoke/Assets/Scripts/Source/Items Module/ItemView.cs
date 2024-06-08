@@ -45,6 +45,8 @@ namespace Source.ItemsModule
 
     public void BeginPickUp()
     {
+        Debug.Log("D");
+        
         _collider.enabled = false;
         StartCoroutine(PickUpAnimation());
     }
