@@ -7,14 +7,13 @@ namespace Source.BattleSystem.UI
     public class HealthBarsCanvas : MonoBehaviour
     {
         [SerializeField] private GameObject _healthBarPrefab = null;
-        private Dictionary<IsoCharacterMover, RectTransform> _spawnedHealthBarsForMobileObjects = null;
+        private readonly Dictionary<IsoCharacterMover, RectTransform> _spawnedHealthBarsForMobileObjects = new();
 
         public void AddHealthBarTo(Damageable damageable)
         {
             var healthBarObject = SpawnHealthBarObject(out var healthBarObjectRectTransform);
             if (damageable.TryGetComponent<IsoCharacterMover>(out var mover))
             {
-                _spawnedHealthBarsForMobileObjects ??= new Dictionary<IsoCharacterMover, RectTransform>();
                 _spawnedHealthBarsForMobileObjects.Add(mover, healthBarObjectRectTransform);
                 mover.MovementChanged += MovementChanged;
             }
@@ -22,6 +21,7 @@ namespace Source.BattleSystem.UI
             var localPoint = CalculateInCanvasLocalPositionUsing(damageable.transform.position);
 
             SetHealthBarsLocalPositionAndScale(healthBarObjectRectTransform, localPoint);
+            ResizeHealthBar(damageable, healthBarObjectRectTransform);
             InitializeHealthBarWith(damageable, healthBarObject.GetComponentInChildren<HealthBar>());
         }
         
@@ -63,6 +63,16 @@ namespace Source.BattleSystem.UI
         private static void SetHealthBarLocalPosition(RectTransform healthBarObjectRectTransform, Vector2 localPoint)
         {
             healthBarObjectRectTransform.localPosition = localPoint;
+        }
+        
+        private void ResizeHealthBar(Damageable damageable, RectTransform healthBarObjectRectTransform)
+        {
+            if (!damageable.TryGetComponent<SpriteRenderer>(out var spriteRenderer)) return;
+            var spriteSize = spriteRenderer.bounds.size;
+            // Adjust the scale based on the sprite size
+            healthBarObjectRectTransform.sizeDelta = new Vector2(spriteSize.x, healthBarObjectRectTransform.sizeDelta.y);
+            // Optional: You can also adjust the health bar's local scale if needed
+            // healthBarObjectRectTransform.localScale = new Vector3(spriteSize.x, spriteSize.y, 1f);
         }
 
         private void MovementChanged(object sender, IsoCharacterMover.MovementActionEventArgs e)

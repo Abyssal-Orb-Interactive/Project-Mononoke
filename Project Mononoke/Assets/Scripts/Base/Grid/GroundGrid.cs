@@ -49,6 +49,19 @@ namespace Base.Grid
                 _ => false
             };
         }
+        
+        public bool IsCellFlyableAt(Vector3Int coordinate)
+        {
+            if (HasBuildingAt(coordinate)) return false;
+
+            var cell =  GetCellAt(coordinate);
+             
+            return cell.Type switch
+            {
+                CellType.Air => true,
+                _ => false
+            };
+        }
 
         public Vector3Int WorldToGrid(Vector3 worldCoordinate)
         {
