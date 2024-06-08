@@ -1,49 +1,32 @@
 using System;
-using Source.Character;
 using UnityEngine;
 
 namespace Source.BattleSystem
 {
-    public class StatsHolder : MonoBehaviour, IDamageable, IDamager
+    public class StatsHolder : MonoBehaviour, IDamager
     {
-        private float _maxHealthPoints = 0f;
         private float _unarmedAttackDamage = 0f;
-        private float _currentHealthPoints = 0f;
-        public Fractions Fraction { get; private set; } = Fractions.Plodomorphs;
-        public float CurrentHealthPointsInPercents => _currentHealthPoints / _maxHealthPoints;
+        private Damageable _damageable = null;
+        public Fractions Fraction { get; private set; } = Fractions.Neutral;
+        public event Action<IDamager> Attack = null;
+        public event Action<Damageable> EntityDead = null;  
 
-        public event Action<StatsHolder> EntityDead = null;
-        public event Action<float> HealthPointsChanged = null;
-        public event Action<IDamager> Attack = null; 
-
-        public void Initialize(float healthPoints, float unarmedAttackDamage, Fractions fraction)
+        public void Initialize(Damageable damageable, float unarmedAttackDamage, Fractions fraction)
         {
-            _maxHealthPoints = healthPoints;
-            _currentHealthPoints = _maxHealthPoints;
+            _damageable = damageable;
+            _damageable.EntityDead += OnDamageableDeath;
             _unarmedAttackDamage = unarmedAttackDamage;
             Fraction = fraction;
+        }
+
+        private void OnDamageableDeath(Damageable damageable)
+        {
+            EntityDead?.Invoke(damageable);
         }
 
         public void TriggerAttack()
         {
             Attack?.Invoke(this);
-        }
-        
-        public void TakeDamage(IDamager damageSource)
-        {
-            if (_currentHealthPoints <= 0)
-            {
-                EntityDead?.Invoke(this);
-                gameObject.SetActive(false);
-                return;
-            }
-            _currentHealthPoints -= damageSource.GetDamage();
-            HealthPointsChanged?.Invoke(CurrentHealthPointsInPercents);
-            if (_currentHealthPoints <= 0)
-            {
-                EntityDead?.Invoke(this);
-                gameObject.SetActive(false);
-            }
         }
 
         public float GetDamage()

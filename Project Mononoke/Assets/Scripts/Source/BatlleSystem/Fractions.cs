@@ -2,7 +2,8 @@ namespace Source.BattleSystem
 {
     public enum Fractions
     {
-        Plodomorphs,
-        Lesoviks
+        Neutral = 0,
+        Plodomorphs = 1,
+        Lesoviks = 2
     }
 }

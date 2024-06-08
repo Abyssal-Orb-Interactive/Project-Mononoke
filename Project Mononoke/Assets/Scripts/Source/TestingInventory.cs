@@ -45,6 +45,7 @@ namespace Scripts.Source
         [SerializeField] private GameObject _minionPrefab = null;
         [SerializeField] private TestArmy _army = null;
         [SerializeField] private FormationPositionsHolder _formationPositionsHolder = null;
+        [SerializeField] private Damageable _damageable = null;
         [SerializeField] private StatsHolder _statsHolder = null;
         [SerializeField] private CollidersHolder _collidersHolder = null;
         [SerializeField] private CollidersHolder _aiCollidersHolder = null;
@@ -86,12 +87,14 @@ namespace Scripts.Source
             _aiCollidersHolder.Initialize(_aiCollider );
             _aiPickUpper.Initialize(aiInventory, aiManipulator, _aiCollidersHolder);
             _aiHandlingItemVisualizer.InitializeWith(aiManipulator);
-            _statsHolder.Initialize(3, 2, Fractions.Lesoviks);
+            _damageable.Initialize(3);
+            _statsHolder.Initialize(_damageable, 2, Fractions.Lesoviks);
             _ai.Initialize(_aiCollidersHolder, _aiPickUpper, _statsHolder, _aiDamageArea);
-            _healthBarsCanvas.AddHealthBarTo(_statsHolder);
+            _healthBarsCanvas.AddHealthBarTo(_damageable);
             var formation = new Wedge(3);
             _formationPositionsHolder.Initialize(formation, _placer, _mover);
             _aiSearchAreaTrigger.Initialize(_ai);
+            
         }
 
         private void Update() 
@@ -119,6 +122,11 @@ namespace Scripts.Source
             if (Input.GetKeyDown(KeyCode.F))
             {
                 _army.ReturnAllDispatchedUnitsToFormation();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.M))
+            {   
+                BuildingRequestsBus.MakeRequest(new IBuildRequester.BuildRequestEventArgs(1, new Vector3(0,0.5f)));
             }
         }
     }

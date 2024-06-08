@@ -18,6 +18,6 @@ namespace Source.BuildingModule
         [field: SerializeField] public string Name { get; private set; } = null;
         [field: SerializeField] public int ID { get; private set; } = -1;
         [field: SerializeField] public Vector2Int Sizes { get; private set; } = Vector2Int.zero;
-        [field: SerializeField] public Seedbed Prefab { get; private set; } = null;
+        [field: SerializeField] public Building Prefab { get; private set; } = null;
     }
 }

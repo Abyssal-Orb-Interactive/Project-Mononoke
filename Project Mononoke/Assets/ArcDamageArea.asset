@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcDamageArea
   m_EditorClassIdentifier: 
   <Radius>k__BackingField: 5
-  <StartAngle>k__BackingField: 0
-  <EndAngle>k__BackingField: 90
+  <StartAngle>k__BackingField: 45
+  <EndAngle>k__BackingField: 135
   <NumberOfSegments>k__BackingField: 10
-  <Facing>k__BackingField: 7
+  <Facing>k__BackingField: 1

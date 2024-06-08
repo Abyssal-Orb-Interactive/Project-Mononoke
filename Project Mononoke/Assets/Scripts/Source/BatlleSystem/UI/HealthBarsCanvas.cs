@@ -9,20 +9,20 @@ namespace Source.BattleSystem.UI
         [SerializeField] private GameObject _healthBarPrefab = null;
         private Dictionary<IsoCharacterMover, RectTransform> _spawnedHealthBarsForMobileObjects = null;
 
-        public void AddHealthBarTo(StatsHolder statsHolder)
+        public void AddHealthBarTo(Damageable damageable)
         {
             var healthBarObject = SpawnHealthBarObject(out var healthBarObjectRectTransform);
-            if (statsHolder.TryGetComponent<IsoCharacterMover>(out var mover))
+            if (damageable.TryGetComponent<IsoCharacterMover>(out var mover))
             {
                 _spawnedHealthBarsForMobileObjects ??= new Dictionary<IsoCharacterMover, RectTransform>();
                 _spawnedHealthBarsForMobileObjects.Add(mover, healthBarObjectRectTransform);
                 mover.MovementChanged += MovementChanged;
             }
 
-            var localPoint = CalculateInCanvasLocalPositionUsing(statsHolder.transform.position);
+            var localPoint = CalculateInCanvasLocalPositionUsing(damageable.transform.position);
 
             SetHealthBarsLocalPositionAndScale(healthBarObjectRectTransform, localPoint);
-            InitializeHealthBarWith(statsHolder, healthBarObject.GetComponentInChildren<HealthBar>());
+            InitializeHealthBarWith(damageable, healthBarObject.GetComponentInChildren<HealthBar>());
         }
         
         private GameObject SpawnHealthBarObject(out RectTransform healthBarObjectRectTransform)
@@ -77,9 +77,9 @@ namespace Source.BattleSystem.UI
             SetHealthBarLocalPosition(_spawnedHealthBarsForMobileObjects[mover], localPoint);
         }
 
-        private static void InitializeHealthBarWith(StatsHolder statsHolder, HealthBar healthBar)
+        private static void InitializeHealthBarWith(Damageable damageable, HealthBar healthBar)
         {
-            healthBar.Initialize(statsHolder);
+            healthBar.Initialize(damageable);
         }
     }
 }

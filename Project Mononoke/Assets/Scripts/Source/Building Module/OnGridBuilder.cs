@@ -34,13 +34,13 @@ namespace Source.BuildingModule
         public bool TryBuildBuildingWith(int ID, Vector3 position)
         {
             var gridPosition = _grid.WorldToGrid(position);
-
+            Debug.Log(_grid.HasBuildingAt(gridPosition) );
+            Debug.Log(_grid.IsCellPassableAt(gridPosition));
             if (_grid.HasBuildingAt(gridPosition) || !_grid.IsCellPassableAt(gridPosition)) return false;
 
-                var buildingData = _templatesDatabase.BuildingsData.FirstOrDefault(data => data.ID == ID);
+            var buildingData = _templatesDatabase.BuildingsData.FirstOrDefault(data => data.ID == ID);
 
             if (buildingData == null) return false;
-            
             var buildingPrefab = buildingData.Prefab;
             Transform container = _containerAssociator.Associations[ID];
 
@@ -48,7 +48,7 @@ namespace Source.BuildingModule
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
             var seedBed = building as Seedbed;
-            seedBed.Initialize(_inventoryPresenter);
+            seedBed?.Initialize(_inventoryPresenter);
 
             return _grid.TryAddBuilding(building, gridPosition);
         }

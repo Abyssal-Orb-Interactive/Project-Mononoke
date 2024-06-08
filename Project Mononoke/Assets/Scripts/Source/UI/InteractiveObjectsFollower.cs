@@ -52,12 +52,14 @@ namespace Source.UI
         {
             _currentBuilding = building;
             if(!_currentBuilding.ReadyToInteract) return;
-            var screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
+            var worldPosition = building.transform.position;
+            var screenPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPosition);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponentInParent<Transform>() as RectTransform, screenPosition,
+                Camera.main, out var localPoint);
             var size = _transform.sizeDelta;
             var offset = new Vector3(0, size.y * 0.5f, 0);
-            _transform.position = screenPos + offset;
+            _transform.localPosition = localPoint;
             ToggleWith(true);
-            
         }
 
         private void ToggleWith(bool signal)

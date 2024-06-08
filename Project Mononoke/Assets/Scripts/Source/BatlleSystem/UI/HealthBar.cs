@@ -6,7 +6,7 @@ namespace Source.BattleSystem.UI
     [RequireComponent(typeof(Image))]
     public class HealthBar : MonoBehaviour
     {
-        [SerializeField] private StatsHolder _statsHolder = null;
+        [SerializeField] private Damageable _damageable = null;
         [SerializeField] private Image _barSprite = null;
 
         private void OnValidate()
@@ -14,10 +14,10 @@ namespace Source.BattleSystem.UI
             _barSprite ??= GetComponent<Image>();
         }
 
-        public void Initialize(StatsHolder statsHolder)
+        public void Initialize(Damageable damageable)
         {
-            _statsHolder = statsHolder;
-            _statsHolder.HealthPointsChanged += OnHealthPointsChanging;
+            _damageable = damageable;
+            _damageable.HealthPointsChanged += OnHealthPointsChanging;
         }
 
         private void OnHealthPointsChanging(float percentsOfHealth)

@@ -49,14 +49,22 @@ namespace Source.BattleSystem
                 var y = Mathf.Sin(radian) * Radius;
 
                 // Rotate the vertices based on the current rotation angle
-                var rotatedX = x * Mathf.Cos(rotationAngle) - y * Mathf.Sin(rotationAngle);
-                var rotatedY = x * Mathf.Sin(rotationAngle) + y * Mathf.Cos(rotationAngle);
-                var vertex = new Vector2(rotatedX, rotatedY);
-                var isoVertex = new Vector2Iso(vertex);
+                var rotatedVertex = RotatePoint(new Vector2(x, y), rotationAngle);
+                var isoVertex = new Vector2Iso(rotatedVertex);
                 _vertices.Add(new Vector2(isoVertex.X, isoVertex.Y));
             }
             
             _vertices.Add(Vector2.zero);
+        }
+        
+        private Vector2 RotatePoint(Vector2 point, float angleDegrees)
+        {
+            var angleRadians = angleDegrees * Mathf.Deg2Rad;
+            var cos = Mathf.Cos(angleRadians);
+            var sin = Mathf.Sin(angleRadians);
+            var x = point.x * cos - point.y * sin;
+            var y = point.x * sin + point.y * cos;
+            return new Vector2(x, y);
         }
     }
 }

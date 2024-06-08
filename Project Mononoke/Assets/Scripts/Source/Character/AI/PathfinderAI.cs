@@ -50,7 +50,7 @@ namespace Source.Character.AI
             StartAnalyzingInformationSources();
         }
 
-        private void OnDeath(StatsHolder statsHolder)
+        private void OnDeath(Damageable statsHolder)
         {
             _isDead = true;
             StopFollowing();
@@ -81,8 +81,10 @@ namespace Source.Character.AI
 
         private void OnTargetInDamageZone(IDamageable damageable)
         {
-            var stats = damageable as StatsHolder;
-            if(stats != null && stats.Fraction != _statsHolder.Fraction) _statsHolder.TriggerAttack();
+            var damageableComponent = damageable as Damageable;
+            var stats = damageableComponent.GetComponentInChildren<StatsHolder>();
+            
+            if(damageable != null && stats.Fraction != _statsHolder.Fraction) _statsHolder.TriggerAttack();
         }
 
         private void StopFollowingAndInteract(object something)
@@ -99,21 +101,21 @@ namespace Source.Character.AI
                    break;
                //case StatsHolder statsHolder:
                    //if(_statsHolder.Fraction == statsHolder.Fraction || !_enemyDead) break;
-                   StopFollowing();
-                   _enemyDead = false;
+                   //StopFollowing();
+                   //_enemyDead = false;
                  //  statsHolder.EntityDead += StatsHolderOnEntityDead;
-                   while (!_enemyDead && !_isDead)
-                   {
+                   //while (!_enemyDead && !_isDead)
+                   //{
                      //  statsHolder.TakeDamage(_statsHolder);
-                       Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
-                   }
-                   break;
+                     // Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
+                   //}
+                   //break;
                default:
                    return;
            }
         }
 
-        private void StatsHolderOnEntityDead(StatsHolder entity)
+        private void StatsHolderOnEntityDead(Damageable entity)
         {
             Debug.Log("Dead");
             _enemyDead = true;
