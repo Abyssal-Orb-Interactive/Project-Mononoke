@@ -30,7 +30,7 @@ namespace Source.BuildingModule.Buildings
 
         private void CalculatePresentsOfOneStage()
         {
-            _presentsOfOneStage = 100 / (NumberOfStages - 1);
+            _presentsOfOneStage = 1 / (NumberOfStages - 1);
         }
 
         private void TryGoToNextStage()

@@ -30,7 +30,7 @@ namespace Base.Timers
         public float DelayTimeInSeconds => _counter.TargetValue.Value;
         public float RemainingTime => DelayTimeInSeconds - ElapsedTime;
 
-        public float ElapsedTimeInPresents => ElapsedTime / DelayTimeInSeconds * 100;
+        public float ElapsedTimeInPresents => ElapsedTime / DelayTimeInSeconds;
 
         public bool IsPaused { get; protected set; } = true;
 
