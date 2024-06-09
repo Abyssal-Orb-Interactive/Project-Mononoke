@@ -27,6 +27,7 @@ namespace Base.DIContainer
         [SerializeField] private ItemChooseMenu _itemChooseMenu = null;
         [SerializeField] private InventoryTableView _view = null;
         [SerializeField] private PathfinderAI _ai = null;
+        [SerializeField] private Transform _playerTransform = null;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -38,6 +39,7 @@ namespace Base.DIContainer
             builder.RegisterInstance(_characterMover);
             builder.RegisterInstance(_itemChooseMenu);
             builder.RegisterInstance(_view);
+            builder.RegisterInstance(_playerTransform);
 
 
             // Registering Components

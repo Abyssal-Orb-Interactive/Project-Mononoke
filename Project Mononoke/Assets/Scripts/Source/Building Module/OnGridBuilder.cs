@@ -34,8 +34,6 @@ namespace Source.BuildingModule
         private bool TryBuildBuildingWith(int ID, Vector3 position)
         {
             var gridPosition = _grid.WorldToGrid(position);
-            Debug.Log(_grid.HasBuildingAt(gridPosition) );
-            Debug.Log(_grid.IsCellPassableAt(gridPosition));
             if (_grid.HasBuildingAt(gridPosition) || !_grid.IsCellPassableAt(gridPosition)) return false;
 
             var buildingData = _templatesDatabase.BuildingsData.FirstOrDefault(data => data.ID == ID);

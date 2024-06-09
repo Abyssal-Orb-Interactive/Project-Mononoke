@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4311863687724484424}
   - component: {fileID: 1262035741201521631}
   - component: {fileID: 9041859498917017774}
+  - component: {fileID: 6990705981766610506}
   m_Layer: 0
   m_Name: TestItem
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 895334887
+  m_SortingLayerID: -326428767
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
@@ -138,3 +139,50 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 4311863687724484424}
   _collider: {fileID: 1262035741201521631}
   _pickUpAnimationDuration: 1
+--- !u!114 &6990705981766610506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496777662682552200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17076c71c3c94b0f898f8a3cddc41dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.9873817
+      outSlope: 1.9873817
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5031746
+      value: 1
+      inSlope: -0.012698889
+      outSlope: -0.012698889
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.0127795
+      outSlope: -2.0127795
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _animationDuration: 3
+  _maxHieght: 0.5

@@ -1,4 +1,5 @@
 using Source.BuildingModule;
+using Source.PickUpModule;
 using UnityEngine;
 using VContainer;
 
@@ -18,12 +19,15 @@ namespace Source.ItemsModule
             _placer = placer;
         }
         
-        public static void Create(Item item, Vector3 position)
+        public static ItemView Create(Item item, Vector3 position)
         {
-            if(!CheckFabricCreationStatus(item)) return;
+            if(!CheckFabricCreationStatus(item)) return null;
             
             var itemView = _placer.PlaceObject(new ObjectPlacementInformation<ItemView>(_itemViewPrefab, position, Quaternion.identity , _itemViewsContainer));
             itemView.Initialize(item);
+            itemView.GetComponent<ParabolicMotionAnimationPlayer>().Initialize();
+
+            return itemView;
         }
 
         private static bool CheckFabricCreationStatus(Item item)

@@ -4,40 +4,36 @@ using UnityEngine;
 
 namespace Source.PickUpModule
 {
-    public static class FallingCurveVertexesGenerator
+    public class FallingCurveVertexesGenerator
     {
-        private static AnimationCurve _curveTemplate = null;
-        private static float _durationInSeconds = 0;
-        private static float _yHeight = 0;
-        private static bool _isTimerEnds = false;
+        private AnimationCurve _curveTemplate = null;
+        private float _durationInSeconds = 0;
 
-        public static void Initialize(AnimationCurve curveTemplate, float durationInSeconds, float yHeight)
+
+        public FallingCurveVertexesGenerator(AnimationCurve curveTemplate, float durationInSeconds)
         {
             _curveTemplate = curveTemplate;
             _durationInSeconds = durationInSeconds;
-            _yHeight = yHeight;
         }
 
-        public static IEnumerable<Vector3> GetCurveVertexes()
+        public IEnumerable<Vector3> GetCurveVertexesBetween(Vector3 startPosition, Vector3 targetPosition, float yHeight)
         {
-            var vertices = new List<Vector3>();
-            var timer = TimersFabric.Create(Timer.TimerType.ScaledFrame, _durationInSeconds);
-            _isTimerEnds = false;
-            timer.TimerFinished += OnTimerFinished;
+            var vertexes = new List<Vector3>();
+            var elapsedTime = 0f;
+            var timeStep = Time.fixedDeltaTime;
 
-            while (!_isTimerEnds)
+            while (elapsedTime < _durationInSeconds)
             {
-                var templateY = _curveTemplate.Evaluate(timer.ElapsedTimeInPresents);
-                var realY = templateY * _yHeight;
-                vertices.Add(new Vector3(0f, realY));
+                var t = elapsedTime / _durationInSeconds;
+                var templateY = _curveTemplate.Evaluate(t);
+                var realY = templateY * yHeight;
+                var position = Vector3.Lerp(startPosition, targetPosition, t);
+                position.y += realY;
+                vertexes.Add(position);
+                elapsedTime += timeStep;
             }
 
-            return vertices;
-        }
-
-        private static void OnTimerFinished()
-        {
-            _isTimerEnds = true;
+            return vertexes;
         }
     }
 }

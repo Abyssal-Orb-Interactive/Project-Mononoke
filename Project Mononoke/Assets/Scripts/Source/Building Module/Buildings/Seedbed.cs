@@ -1,10 +1,14 @@
 using System;
+using Base.Input;
+using Base.Math;
 using Source.BuildingModule.Buildings.Visual;
+using Source.Character.Movement;
 using Source.InventoryModule;
 using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;
 using VContainer;
+using Random = UnityEngine.Random;
 
 namespace Source.BuildingModule.Buildings
 {
@@ -90,14 +94,20 @@ namespace Source.BuildingModule.Buildings
                 case Stages.Grown:
                     if (!_seedData.FruitDatabase.TryGetItemDataBy(_seedData.FruitDatabaseID, out var fruit)) return;
                     _plant.ClearVisual();
+                    var worldPos = transform.position;
+                    var cartesianWorldPosition = new Vector3Iso(worldPos.x, worldPos.y, worldPos.z).ToCartesian();
                     for (var i = 0; i < _seedData.GrownFruits; i++)
                     {
-                        ItemViewFabric.Create(new Item(fruit), new Vector3(0.5f, 1));
+                        var randomDirection = Random.Range(0, 6);
+                        var itemView =  ItemViewFabric.Create(new Item(fruit), cartesianWorldPosition);
+                        itemView.GetComponent<ParabolicMotionAnimationPlayer>().PlayAnimationBetween(transform.position, transform.position + DirectionToVector3IsoConverter.ToVector((MovementDirection)randomDirection));
                     }
 
                     for (var i = 0; i < _seedData.GrownSeeds; i++)
                     {
-                        ItemViewFabric.Create(new Item(_seedData), new Vector3(0.5f, 1));
+                        var randomDirection = Random.Range(0, 6);
+                        var itemView =  ItemViewFabric.Create(new Item(fruit), cartesianWorldPosition);
+                        itemView.GetComponent<ParabolicMotionAnimationPlayer>().PlayAnimationBetween(transform.position, transform.position + DirectionToVector3IsoConverter.ToVector((MovementDirection)randomDirection));
                     }
                     _stage = Stages.Empty;
                     _seedData = null;

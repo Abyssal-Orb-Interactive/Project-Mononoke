@@ -32,7 +32,7 @@ namespace Source.PickUpModule
             if (data == null) return false;
             if(data.Weight > _strength || data.Volume > _volume) return false;
             
-            if (_item != null) ItemViewFabric.Create(_item, new Vector3(1,1));
+            if (_item != null) return false;
 
             Take(item);
             return true;

@@ -14,18 +14,17 @@ namespace Source.BattleSystem
         [field: SerializeField] public float StartAngle { get; private set; } = 0f;
         [field: SerializeField] public float EndAngle { get; private set; } = 90f;
         [field: SerializeField] public int NumberOfSegments { get; private set; } = 10;
-        [field: SerializeField] public MovementDirection Facing { get; private set; } = MovementDirection.East;
-        
+
         private List<Vector2> _vertices = null;
 
         private void OnValidate()
         {
-            CalculateVerticesWith(Facing);
+            CalculateVerticesWith(MovementDirection.North);
         }
 
-        public override IEnumerable<Vector2> GetVertices()
+        public override IEnumerable<Vector2> GetVertices(MovementDirection facing)
         {
-            CalculateVerticesWith(Facing);
+            CalculateVerticesWith(facing);
             return _vertices;
         }
         

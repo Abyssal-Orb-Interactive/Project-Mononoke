@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using Base.Input;
-using Base.Math;
 using Source.Character.Movement;
 using UnityEngine;
 
@@ -12,11 +10,22 @@ namespace Source.BattleSystem
     {
         [SerializeField] private DamageAreaTemplate _areaTemplate = null;
         [SerializeField] private float _weaponLenght = 1f;
+        private IsoCharacterMover _characterMover = null;
 
         private MovementDirection _facing = MovementDirection.NorthWest;
 
         private void Start()
         {
+            BuildCollider();
+            _characterMover = transform.gameObject.GetComponentInParent<IsoCharacterMover>();
+            _characterMover.MovementChanged += OnMovementChanged;
+        }
+
+        private void OnMovementChanged(object sender, IsoCharacterMover.MovementActionEventArgs e)
+        {
+            if(_facing == e.Facing) return;
+
+            _facing = e.Facing;
             BuildCollider();
         }
 
@@ -24,7 +33,7 @@ namespace Source.BattleSystem
         {
             if(_areaTemplate == null) return;
             
-            var vertices = _areaTemplate.GetVertices();
+            var vertices = _areaTemplate.GetVertices(_facing);
             var polygonalCollider = GetComponent<PolygonCollider2D>();
 
             polygonalCollider.SetPath(0, vertices.Select(vertex => new Vector2(vertex.x * _weaponLenght, vertex.y * _weaponLenght)).ToArray());
