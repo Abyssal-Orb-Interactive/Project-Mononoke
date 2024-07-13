@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e34046e293f7a14589a26929b44c1ef
+guid: a668cd1e33816b9489ddaeb73d309e8d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,6 +107,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -145,11 +158,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mouse Selected Cell Indicator
+      name: barrel_0
       rect:
         serializedVersion: 2
         x: 0
@@ -157,20 +183,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+      pivot: {x: 0.5, y: 0.046875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f47de86130e5ec4eb234533b28ffba5
-      internalID: 552078075
+      spriteID: bba93ed506bc9ce4384708ce23b53b4c
+      internalID: -1064185374
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mouse Pinter Indicator
+      name: barrel_1
       rect:
         serializedVersion: 2
         x: 64
@@ -178,14 +204,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+      pivot: {x: 0.5, y: 0.046875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4764a8aab6815b64eaccde05141a0302
-      internalID: -1749787064
+      spriteID: 5fc4c96d71720f94896cef2430480eb1
+      internalID: 1667070397
       vertices: []
       indices: 
       edges: []
@@ -201,8 +227,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Mouse Pinter Indicator: -1749787064
-      Mouse Selected Cell Indicator: 552078075
+      barrel_0: -1064185374
+      barrel_1: 1667070397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
