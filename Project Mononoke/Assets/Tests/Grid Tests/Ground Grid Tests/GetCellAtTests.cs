@@ -1,6 +1,6 @@
 using Base.Grid;
 using NUnit.Framework;
-using Tests.NativeTestsLanguageInfrastructure;
+using Tests.NativeTestsLanguageInfrastructure.Ground_Grid;
 
 namespace Tests.Grid_Tests.Ground_Grid_Tests
 {

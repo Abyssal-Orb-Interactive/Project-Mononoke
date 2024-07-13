@@ -1,7 +1,7 @@
 using Base.Grid;
 using FluentAssertions;
 
-namespace Tests.NativeTestsLanguageInfrastructure
+namespace Tests.NativeTestsLanguageInfrastructure.Ground_Grid
 {
     public static partial class Check
     {

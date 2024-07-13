@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Base.Math;
+using Source.BattleSystem;
 using Source.Character.AI;
+using Source.Character.AI.BattleAI;
 using Source.Character.Minions_Manager;
 using UnityEngine;
 
@@ -25,25 +27,31 @@ namespace Source.Formations
         private void SetFormation()
         {
             _formationMarkersPositions = _formation.Markers.ToList();
-
-            if (_spawnedUnits.Count == 0)
-            {
-                if (_formationMarkersPositions.Count > _spawnedUnits.Count + _dispatchQueue?.Count)
-                {
-                    var remainingTransforms = _formationMarkersPositions.Skip(_spawnedUnits.Count);
-                    Spawn(remainingTransforms);
-                }
-                else if (_formationMarkersPositions.Count < _spawnedUnits.Count + _dispatchQueue?.Count)
-                {
-                    Kill(_spawnedUnits.Count - _formationMarkersPositions.Count);
-                }   
-            }
             
+            
+
             for (var i = 0; i < _spawnedUnits.Count; i++)
             {
                 if (_spawnedUnits[i].Equals(null)) continue;
                 _spawnedUnits[i].AI.StartFollowing(_formationMarkersPositions[i].position, 0.5f);
             }
+        }
+
+        public bool TryGetFreePosition(out Transform position)
+        {
+            if (_spawnedUnits.Count + _dispatchQueue.Count >= _formationMarkersPositions.Count)
+            {
+                position = null;
+                return false;
+            }
+            
+            position = GetFreePosition();
+            return true;
+        }
+
+        private Transform GetFreePosition()
+        {
+            return _formationMarkersPositions[_spawnedUnits.Count];
         }
 
         private void Spawn(IEnumerable<Transform> transforms)
@@ -54,15 +62,26 @@ namespace Source.Formations
                 var worldPos = formationPositionTransform.position;
                 var worldCartesianPos = new Vector3Iso(worldPos.x, worldPos.y, worldPos.z).ToCartesian();
                 var unit = MinionsFactory.Create(worldCartesianPos);
-                var ai = unit.GetComponent<PathfinderAI>();
-                ai.StopAnalyzingInformationSources();
-                var inFormationUnit = new InFormationPathfinder(ai, formationPositionTransform, _targetPositionCoordinator);
-                _spawnedUnits.Add(inFormationUnit);
-                inFormationUnit.ReturningToFormation += ReturnDispatchedUnitToFormation;
-                
+                TryAddToArmy(unit, formationPositionTransform);
             }
+        }
 
-            _dispatchUnitIndex = transformsList.Count() - 1;
+        public bool TryAddToArmy(GameObject unit, Transform formationPositionTransform)
+        {
+            if (!unit.TryGetComponent<PathfinderAI>(out var ai)) return false;
+            AddToFormation(ai, formationPositionTransform);
+            return true;
+        }
+
+        private void AddToFormation(PathfinderAI AI, Transform formationPositionTransform)
+        {
+            AI.StopAnalyzingInformationSources();
+            var battleAI = AI.GetComponent<BattleAI>();
+            battleAI.StopListeningAreasSignals();
+            var inFormationUnit = new InFormationPathfinder(AI, formationPositionTransform, _targetPositionCoordinator, battleAI);
+            _spawnedUnits.Add(inFormationUnit);
+            inFormationUnit.ReturningToFormation += ReturnDispatchedUnitToFormation;
+            _dispatchUnitIndex = _spawnedUnits.Count - 1;
         }
 
         private void ReturnDispatchedUnitToFormation(InFormationPathfinder unit)

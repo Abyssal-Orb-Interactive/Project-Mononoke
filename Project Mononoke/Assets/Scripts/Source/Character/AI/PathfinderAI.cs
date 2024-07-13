@@ -7,7 +7,6 @@ using Cysharp.Threading.Tasks;
 using Pathfinding;
 using Source.BattleSystem;
 using Source.BuildingModule;
-using Source.Character.Minions_Manager;
 using Source.Character.Movement;
 using Source.ItemsModule;
 using Source.PickUpModule;
@@ -30,8 +29,6 @@ namespace Source.Character.AI
         private StatsHolder _statsHolder = null;
         private bool _enemyDead = true;
         private bool _isDead = false;
-        private DamageArea _damageArea = null;
-
         public event Action<MovementInputEventArgs> MovementDesired, MovementCancelled;
         public event Action PathStarted, PathCancelled, ItemInManipulator;
         private void OnValidate()
@@ -40,12 +37,12 @@ namespace Source.Character.AI
         }
 
         [Inject]
-        public void Initialize(CollidersHolder collidersHolder, PickUpper pickUpper, StatsHolder statsHolder, DamageArea damageArea)
+        public void Initialize(CollidersHolder collidersHolder, PickUpper pickUpper, StatsHolder statsHolder)
         {
+            
             _pickUpper = pickUpper;
             _collidersHolder = collidersHolder;
             _statsHolder = statsHolder;
-            _damageArea = damageArea;
             _statsHolder.EntityDead += OnDeath;
             StartAnalyzingInformationSources();
         }
@@ -65,7 +62,6 @@ namespace Source.Character.AI
         public void StopAnalyzingInformationSources()
         {
             StopListeningColliders();
-            _damageArea.TargetInZone += OnTargetInDamageZone;
         }
 
         public void StopListeningColliders()
@@ -76,15 +72,6 @@ namespace Source.Character.AI
         public void StartAnalyzingInformationSources()
         {
             StartListeningColliders();
-            _damageArea.TargetInZone += OnTargetInDamageZone;
-        }
-
-        private void OnTargetInDamageZone(IDamageable damageable)
-        {
-            var damageableComponent = damageable as Damageable;
-            var stats = damageableComponent.GetComponentInChildren<StatsHolder>();
-            
-            if(damageable != null && stats.Fraction != _statsHolder.Fraction) _statsHolder.TriggerAttack();
         }
 
         private void StopFollowingAndInteract(object something)
@@ -99,27 +86,9 @@ namespace Source.Character.AI
                    StopFollowing();
                    building.StartInteractiveAction(_pickUpper);
                    break;
-               //case StatsHolder statsHolder:
-                   //if(_statsHolder.Fraction == statsHolder.Fraction || !_enemyDead) break;
-                   //StopFollowing();
-                   //_enemyDead = false;
-                 //  statsHolder.EntityDead += StatsHolderOnEntityDead;
-                   //while (!_enemyDead && !_isDead)
-                   //{
-                     //  statsHolder.TakeDamage(_statsHolder);
-                     // Debug.Log(_statsHolder.CurrentHealthPointsInPercents);
-                   //}
-                   //break;
                default:
                    return;
            }
-        }
-
-        private void StatsHolderOnEntityDead(Damageable entity)
-        {
-            Debug.Log("Dead");
-            _enemyDead = true;
-            entity.EntityDead -= StatsHolderOnEntityDead;
         }
 
         public async void StartFollowingPath(Vector3 targetPosition)
@@ -149,7 +118,6 @@ namespace Source.Character.AI
         
         private async UniTaskVoid FollowPathAsync()
         {
-            
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
                 CalculateNormalizedCartesianDirectionTo(_waypointSwitcher.CurrentWaypointPosition);
@@ -193,8 +161,10 @@ namespace Source.Character.AI
 
         public void Rotate(MovementDirection direction)
         {
-            MovementDesired?.Invoke(new MovementInputEventArgs(DirectionToVector3IsoConverter.ToVector(direction) * 0.01f));
+            MovementDesired?.Invoke(new MovementInputEventArgs(DirectionToVector3Converter.ToVector(direction)));
+            MovementCancelled?.Invoke(new MovementInputEventArgs(Vector2.zero));
         }
+
 
         public void Dispose()
         {
@@ -228,7 +198,6 @@ namespace Source.Character.AI
 
         public void Disable()
         {
-            throw new NotImplementedException();
         }
     }
 }

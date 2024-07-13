@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Source.PickUpModule
 
         private FallingCurveVertexesGenerator _vertexesGenerator = null;
 
+        public event Action AnimationStarted, AnimationEnded;
+
         public void Initialize()
         {
             _vertexesGenerator = new FallingCurveVertexesGenerator(_animation, _animationDuration);
@@ -21,6 +24,7 @@ namespace Source.PickUpModule
         {
             var anchors = GetAnimationsAnchorsFor(startPosition, targetPosition);
             await PlayAnimationAsync(anchors);
+            AnimationEnded?.Invoke();
         }
 
         private IEnumerable<Vector3> GetAnimationsAnchorsFor(Vector3 startPosition,Vector3 targetPosition)
@@ -30,6 +34,7 @@ namespace Source.PickUpModule
         
         private async UniTask PlayAnimationAsync(IEnumerable<Vector3> anchors)
         {
+            AnimationStarted?.Invoke();
             foreach (var anchor in anchors)
             {
                 transform.position = anchor;

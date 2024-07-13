@@ -42,7 +42,7 @@ namespace Source.Character
         private Vector3Int GetInGridPosition()
         {
             var offset = DirectionToVector3IsoConverter.ToVector(_facing);
-            var position = _mover.GetCurrentLogicalPosition();
+            var position = _mover.GetPositionData().Position;
             var targetPosition = position + offset;
             var inGridPosition = _grid.WorldToGrid(targetPosition);
             return inGridPosition;

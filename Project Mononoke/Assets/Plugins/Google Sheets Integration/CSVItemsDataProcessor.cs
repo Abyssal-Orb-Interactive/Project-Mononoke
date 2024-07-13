@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using Source.ItemsModule;
 using UnityEngine;
 using UnityEngine.U2D;
-using static Source.ItemsModule.TrashItemsDatabaseSO;
 using UnityEngine.AddressableAssets;
 
 namespace Plugins.GoogleSheetsIntegration
@@ -41,11 +40,11 @@ namespace Plugins.GoogleSheetsIntegration
 
                 var name = cells[NAME_COLUMN_INDEX];
 
-                if(!TryParseFloat(cells[WEIGHT_COLUMN_INDEX], out float weight)) break; 
-                if(!TryParseFloat(cells[VOLUME_COLUMN_INDEX], out float volume)) break;
-                if(!TryParseFloat(cells[PRICE_COLUMN_INDEX], out float price)) break;
-                if(!TryParseFloat(cells[DURABILITY_COLUMN_INDEX], out float durability)) break;
-                if(!TryParseInt(cells[STACK_CAPACITY_COLUMN_INDEX], out int stackCapacity)) break;
+                if(!TryParseFloat(cells[WEIGHT_COLUMN_INDEX], out var weight)) break; 
+                if(!TryParseFloat(cells[VOLUME_COLUMN_INDEX], out var volume)) break;
+                if(!TryParseFloat(cells[PRICE_COLUMN_INDEX], out var price)) break;
+                if(!TryParseFloat(cells[DURABILITY_COLUMN_INDEX], out var durability)) break;
+                if(!TryParseInt(cells[STACK_CAPACITY_COLUMN_INDEX], out var stackCapacity)) break;
 
                 var atlasAddressablesKey = cells[ICON_ATLAS_ADDRESSABLES_KEY_COLUMN_INDEX];
                 var atlas = await LoadAssetAsync<SpriteAtlas>(atlasAddressablesKey);
@@ -72,13 +71,10 @@ namespace Plugins.GoogleSheetsIntegration
         private static bool TryParseInt(string intString, out int result)
         {   
             result = -1;
-            if (!int.TryParse(intString, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.GetCultureInfo(CULTURE_INFO), out result))
-            {
-                Debug.LogWarning($"Can't parse int in {intString}, wrong cell data");
-                return false;
-            }
+            if (int.TryParse(intString, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.GetCultureInfo(CULTURE_INFO), out result)) return true;
+            Debug.LogWarning($"Can't parse int in {intString}, wrong cell data");
+            return false;
 
-            return true;
         }
     
         private static bool TryParseFloat(string floatString, out float result)
@@ -97,7 +93,7 @@ namespace Plugins.GoogleSheetsIntegration
     
         private static char GetPlatformSpecificLineEnd()
         {
-            char lineEnding = '\n';
+            var lineEnding = '\n';
             #if UNITY_IOS
             lineEnding = '\r';
             #endif

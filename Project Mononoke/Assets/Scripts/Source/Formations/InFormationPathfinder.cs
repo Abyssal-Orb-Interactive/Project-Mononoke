@@ -2,7 +2,9 @@ using System;
 using Base.Input;
 using Base.Math;
 using Cysharp.Threading.Tasks;
+using Source.BattleSystem;
 using Source.Character.AI;
+using Source.Character.AI.BattleAI;
 using Source.Character.Minions_Manager;
 using UnityEngine;
 
@@ -10,58 +12,101 @@ namespace Source.Formations
 {
     public class InFormationPathfinder
     {
-        private const float DELAY_BEFORE_RETURNING_TO_FORMATION_IN_SECONDS = 30f; 
-        private MinionsTargetPositionCoordinator _targetPositionCoordinator  = null;
+        private const float DelayBeforeReturningToFormationInSeconds = 30f;
+
+        private MinionsTargetPositionCoordinator _targetPositionCoordinator;
+        private Transform _inFormationPositionTransform;
+
+        private Transform _targetTransform = null;
+        
+        private bool _listeningBattleAI = false;
+
         public PathfinderAI AI { get; }
-        private Transform _inFormationPositionTransform { get; }
+        public BattleAI BattleAI { get; }
 
-        public event Action<InFormationPathfinder> ReturningToFormation = null;
+        public event Action<InFormationPathfinder> ReturningToFormation;
 
-        public InFormationPathfinder(PathfinderAI pathfinderAI, Transform inFormationPositionTransform, MinionsTargetPositionCoordinator targetPositionCoordinator)
+        public InFormationPathfinder(PathfinderAI pathfinderAI, Transform inFormationPositionTransform,
+            MinionsTargetPositionCoordinator targetPositionCoordinator, BattleAI battleAI)
         {
             AI = pathfinderAI;
-            AI.ItemInManipulator += ReturnToCoordinator;
+            BattleAI = battleAI;
             _inFormationPositionTransform = inFormationPositionTransform;
             _targetPositionCoordinator = targetPositionCoordinator;
-        }
-
-        private void ReturnToCoordinator()
-        {
-            AI.PathCancelled -= ReturnToFormationWithDelay;
-            AI.StartFollowingPath(_targetPositionCoordinator.transform.position);
-            AI.PathCancelled += ReturnToFormation;
-        }
-        
-        private async void ReturnToFormationWithDelay()
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(DELAY_BEFORE_RETURNING_TO_FORMATION_IN_SECONDS));
-            ReturnToFormation();
-        }
-
-        public void ReturnToFormation()
-        {
-            AI.PathCancelled -= ReturnToFormationWithDelay;
-            AI.PathCancelled -= ReturnToFormation;
-            AI.StartFollowingPath(_inFormationPositionTransform.position);
-            AI.PathCancelled += AddToFormation;
-        }
-        
-        public void StartListeningTargetChanging()
-        {
-            _targetPositionCoordinator.TargetPositionChanged += AI.StartFollowingPath;
-        }
-
-        private void StopListeningTargetChanging()
-        {
-            _targetPositionCoordinator.TargetPositionChanged -= AI.StartFollowingPath;
+            AI.ItemInManipulator += ReturnToCoordinator;
         }
 
         public void Dispatch()
         {
             AI.StartAnalyzingInformationSources();
+            StartListeningBattleAI();
             StartListeningTargetChanging();
+            BattleAI.StartListeningAreasSignals();
             AI.PathStarted += StopListeningTargetChanging;
             AI.PathCancelled += ReturnToFormationWithDelay;
+        }
+
+        private void StartListeningBattleAI()
+        {
+            _listeningBattleAI = true;
+            BattleAI.ClosestEnemyDeath += OnEnemyDeath;
+        }
+
+        private void OnEnemyDeath()
+        {
+            StopListeningBattleAI();
+            BattleAI.StopListeningAreasSignals();
+            AI.StartFollowingPath(_inFormationPositionTransform.position);
+            AI.PathCancelled += AddToFormation;
+        }
+
+        private void StopListeningBattleAI()
+        {
+            _listeningBattleAI = false;
+            BattleAI.ClosestEnemyDeath -= OnEnemyDeath;
+        }
+        
+        private void ReturnToCoordinator()
+        {
+            StopListeningBattleAI();
+            AI.PathCancelled -= ReturnToFormationWithDelay;
+            AI.StartFollowingPath(_targetPositionCoordinator.transform.position);
+            AI.PathCancelled += ReturnToFormation;
+        }
+
+        private async void ReturnToFormationWithDelay()
+        {
+            if(_listeningBattleAI) return;
+            await UniTask.Delay(TimeSpan.FromSeconds(DelayBeforeReturningToFormationInSeconds));
+            StopListeningBattleAI();
+            ReturnToFormation();
+        }
+
+        public void ReturnToFormation()
+        {
+            if(_listeningBattleAI) return;
+            BattleAI.StopListeningAreasSignals();
+            StopListeningBattleAI();
+            AI.PathCancelled -= ReturnToFormationWithDelay;
+            AI.PathCancelled -= ReturnToFormation;
+            AI.StartFollowingPath(_inFormationPositionTransform.position);
+            AI.PathCancelled += AddToFormation;
+        }
+
+        public void StartListeningTargetChanging()
+        {
+            _targetPositionCoordinator.TargetPositionChanged += StartFollowingTarget;
+        }
+
+        private void StartFollowingTarget(Vector3 target)
+        {
+            AI.StopFollowing();
+            AI.StartFollowingPath(target);
+        }
+
+        private void StopListeningTargetChanging()
+        {
+            _targetPositionCoordinator.TargetPositionChanged -= StartFollowingTarget;
         }
 
         private void AddToFormation()
@@ -71,13 +116,15 @@ namespace Source.Formations
             AI.Rotate(GetNormalizedCartesianDirectionTo(_inFormationPositionTransform.position));
             AI.StopAnalyzingInformationSources();
             StopListeningTargetChanging();
+            StopListeningBattleAI();
+            BattleAI.StopListeningAreasSignals();
             ReturningToFormation?.Invoke(this);
         }
-        
+
         private MovementDirection GetNormalizedCartesianDirectionTo(Vector3 targetPosition)
         {
-            var worldPosition = AI.gameObject.transform.position;
-            var worldDirection = targetPosition - new Vector3(worldPosition.x, worldPosition.y-0.15f, worldPosition.z);
+            var worldPosition = AI.transform.position;
+            var worldDirection = targetPosition - new Vector3(worldPosition.x, worldPosition.y - 0.15f, worldPosition.z);
             var isometricDirection = new Vector3Iso(worldDirection.x, worldDirection.y, worldDirection.z);
             var cartesianDirection = isometricDirection.ToCartesian();
             return InputVectorToDirectionConverter.GetMovementDirectionFor(cartesianDirection.normalized);

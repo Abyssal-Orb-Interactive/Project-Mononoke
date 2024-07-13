@@ -1,3 +1,4 @@
+using System.Collections;
 using Base.DataStructuresModule;
 using Source.ItemsModule;
 
@@ -12,17 +13,18 @@ namespace Source.InventoryModule
                 stack = null;
                 return false;
             }
-            var queue = new PriorityQueue<Item>();
+            var queue = new PriorityQueue<Item>(stackCapacity);
             stack = new InventoryItemsStack(stackIndex, queue);
             return true;
         }
 
-        public class InventoryItemsStack
+        public class InventoryItemsStack : IEnumerable
         {
             public int StackIndex { get; }
             private readonly PriorityQueue<Item> _stack;
 
             public int Count => _stack.Count;
+            public int Capacity => _stack.Capacity;
 
             public InventoryItemsStack(int stackIndex, PriorityQueue<Item> queue)
             {
@@ -54,6 +56,11 @@ namespace Source.InventoryModule
             public bool TryPopItem(out Item item)
             {
                 return _stack.TryDequeue(out item);
+            }
+
+            public IEnumerator GetEnumerator()
+            {
+                return _stack.GetEnumerator();
             }
         }
     }

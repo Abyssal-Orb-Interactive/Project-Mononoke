@@ -5,7 +5,6 @@ using Base.TileMap;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings.UI;
 using Source.Character;
-using Source.Character.AI;
 using Source.Character.Movement;
 using Source.InventoryModule;
 using Source.InventoryModule.UI;
@@ -26,8 +25,8 @@ namespace Base.DIContainer
         [SerializeField] private IsoCharacterMover _characterMover = null;
         [SerializeField] private ItemChooseMenu _itemChooseMenu = null;
         [SerializeField] private InventoryTableView _view = null;
-        [SerializeField] private PathfinderAI _ai = null;
         [SerializeField] private Transform _playerTransform = null;
+
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -41,11 +40,10 @@ namespace Base.DIContainer
             builder.RegisterInstance(_view);
             builder.RegisterInstance(_playerTransform);
 
-
             // Registering Components
-            builder.Register<TestActions>(Lifetime.Singleton);
-            builder.Register<TestActionsWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<InputHandler>(Lifetime.Singleton);
+            builder.Register<TestActions>(Lifetime.Scoped);
+            builder.Register<TestActionsWrapper>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<InputHandler>(Lifetime.Scoped);
             builder.Register<UnityTileMapWrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TileCollectionAnalyzer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GroundGrid>(Lifetime.Singleton);
@@ -54,6 +52,7 @@ namespace Base.DIContainer
             builder.Register<InventoryPresenter>(Lifetime.Singleton);
             builder.Register<OnGridBuilder>(Lifetime.Singleton);
             builder.Register<GridAnalyzer>(Lifetime.Singleton);
+            
         }
     }
 }

@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Base.Input;
 using Source.BuildingModule;
 using Source.BuildingModule.Buildings.UI;
-using Source.Character.Movement;
 using Source.InventoryModule.UI;
 using Source.ItemsModule;
-using Source.PickUpModule;
-using UnityEngine;
 using static Source.InventoryModule.ItemsStackFabric;
 
 namespace Source.InventoryModule
@@ -20,17 +16,15 @@ namespace Source.InventoryModule
         private readonly ItemChooseMenu _itemChooseMenu = null;
         private Building _interactionBuilding = null;
 
-        private Transform _holdersTransform = null;
-
         public event Action<StackDataForUI> ItemEquipped = null;
-        public event Action<Item, Building> ItemChosen = null; 
+        public event Action<Item, Building> ItemChosen = null;
+        public event Action<Item> ItemDropped = null;
 
-        public InventoryPresenter(Inventory inventory, InventoryTableView view, ItemChooseMenu chooseMenu, Transform holdersTransform)
+        public InventoryPresenter(Inventory inventory, InventoryTableView view, ItemChooseMenu chooseMenu)
         {
             _inventory = inventory;
             _view = view;
             _itemChooseMenu = chooseMenu;
-            _holdersTransform = holdersTransform;
 
             _inventory.ItemAdded += OnItemAdded;
             _inventory.ItemRemoved += OnItemRemoved;
@@ -71,13 +65,11 @@ namespace Source.InventoryModule
 
         private void OnUIItemDropped(StackDataForUI stackData)
         {
+            if(stackData == null) return;
             for (var i = 0; i < stackData.StackCount; i++)
             {
-                if(!_inventory.TryGetItem(stackData.ItemData.ID, stackData.StackIndex, out var item)) return;
-                var targetPosition = _holdersTransform.position +
-                                     DirectionToVector3IsoConverter.ToVector(MovementDirection.East) * 0.5f;
-                var itemView = ItemViewFabric.Create(item, _holdersTransform.position);
-                itemView.GetComponent<ParabolicMotionAnimationPlayer>().PlayAnimationBetween(_holdersTransform.position, targetPosition);
+                if(!_inventory.TryGetItem(stackData.ItemData.ID, stackData.StackIndex, out var item)) continue;
+                ItemDropped?.Invoke(item);
             }
         }
 
@@ -125,6 +117,11 @@ namespace Source.InventoryModule
                 ItemData = itemData;
                 StackIndex = stackIndex;
                 StackCount = stackCount;
+            }
+
+            public override string ToString()
+            {
+                return ItemData.ToString() + StackIndex + StackCount;
             }
         }
     }

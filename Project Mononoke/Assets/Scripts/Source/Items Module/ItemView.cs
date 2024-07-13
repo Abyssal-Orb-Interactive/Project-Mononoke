@@ -15,8 +15,10 @@ namespace Source.ItemsModule
     [SerializeField] private SpriteRenderer _spriteRenderer = null;
     [SerializeField] private CircleCollider2D _collider = null;
     [SerializeField] private float _pickUpAnimationDuration = 1f;
+    [field: SerializeField] public bool IsPickUpable { get; private set; } = true;
 
-    [Inject] public void Initialize(Item item)
+    [Inject]
+    public void Initialize(Item item)
     {
         Item = item;
         UpdateSprite();
@@ -26,6 +28,11 @@ namespace Source.ItemsModule
     {
         _spriteRenderer ??= GetComponent<SpriteRenderer>();
         _collider ??= GetComponent<CircleCollider2D>();
+    }
+
+    public void TogglePickUpable(bool signal)
+    {
+        IsPickUpable = signal;
     }
 
     private void UpdateSprite()
@@ -45,8 +52,6 @@ namespace Source.ItemsModule
 
     public void BeginPickUp()
     {
-        Debug.Log("D");
-        
         _collider.enabled = false;
         StartCoroutine(PickUpAnimation());
     }

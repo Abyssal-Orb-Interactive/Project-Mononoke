@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 namespace Source.BuildingModule.Buildings
 {
     [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(ItemLauncher))]
     public class Seedbed : Building
     {
         public enum Stages
@@ -28,6 +29,7 @@ namespace Source.BuildingModule.Buildings
         private SeedData _seedData = null;
         [SerializeField] private PlantSprite _plantSprite = null;
         private InventoryPresenter _inventoryPresenter = null;
+        private ItemLauncher _launcher = null;
 
         private void OnValidate()
         {
@@ -39,6 +41,7 @@ namespace Source.BuildingModule.Buildings
         {
             _inventoryPresenter = inventoryPresenter;
             _inventoryPresenter.ItemChosen += OnItemChosen;
+            _launcher = GetComponent<ItemLauncher>();
         }
 
         private void OnItemChosen(Item item, Building building)
@@ -94,20 +97,13 @@ namespace Source.BuildingModule.Buildings
                 case Stages.Grown:
                     if (!_seedData.FruitDatabase.TryGetItemDataBy(_seedData.FruitDatabaseID, out var fruit)) return;
                     _plant.ClearVisual();
-                    var worldPos = transform.position;
-                    var cartesianWorldPosition = new Vector3Iso(worldPos.x, worldPos.y, worldPos.z).ToCartesian();
                     for (var i = 0; i < _seedData.GrownFruits; i++)
                     {
-                        var randomDirection = Random.Range(0, 6);
-                        var itemView =  ItemViewFabric.Create(new Item(fruit), cartesianWorldPosition);
-                        itemView.GetComponent<ParabolicMotionAnimationPlayer>().PlayAnimationBetween(transform.position, transform.position + DirectionToVector3IsoConverter.ToVector((MovementDirection)randomDirection));
+                        _launcher.DropAndGetEndingDropPosition(new Item(fruit));
                     }
-
                     for (var i = 0; i < _seedData.GrownSeeds; i++)
                     {
-                        var randomDirection = Random.Range(0, 6);
-                        var itemView =  ItemViewFabric.Create(new Item(fruit), cartesianWorldPosition);
-                        itemView.GetComponent<ParabolicMotionAnimationPlayer>().PlayAnimationBetween(transform.position, transform.position + DirectionToVector3IsoConverter.ToVector((MovementDirection)randomDirection));
+                        _launcher.DropAndGetEndingDropPosition(new Item(_seedData));
                     }
                     _stage = Stages.Empty;
                     _seedData = null;

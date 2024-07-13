@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Scripts.Source.Craft_Module;
 using Source.ItemsModule;
+using UnityEngine;
 using static Source.InventoryModule.ItemsStackFabric;
 
 namespace Source.InventoryModule
@@ -31,13 +34,32 @@ namespace Source.InventoryModule
         _inventory = new Dictionary<string, List<InventoryItemsStack>>(30);
       }
 
+      public bool HasAllItemsFor(Receipt receipt)
+      {
+        return receipt.Ingredients.All(ingredient => HasQuantityOf(ingredient.ItemId, ingredient.Quantity));
+      }
+
+      public bool HasQuantityOf(string itemID, int quantity)
+      {
+        if (quantity < 0) return false;
+        if (!_inventory.ContainsKey(itemID)) return false;
+        var quantityInInventory = 0;
+        foreach (var stack in _inventory[itemID])
+        {
+          quantityInInventory += stack.Count;
+          if (quantityInInventory >= quantity) return true;
+        }
+
+        return false;
+      }
+
       public bool TryAddItem(Item item)
         {
           if (EnterAddingParametersIsInvalid(item)) return false;
           var itemData = item.Data;
 
           if (ItemDoesNotFitsInInventoryBy(itemData.Weight, itemData.Volume)) return false;
-
+          
           if (InventoryDoesNotContainsStacksOf(itemData.ID, out var stacks))
           {
             if (CantAddRecordForStacksBy(itemData.ID, out stacks)) return false;
@@ -53,7 +75,7 @@ namespace Source.InventoryModule
           var stackForAdding = stacks[indexOfStackForAdding];
           if (StackCantAddItem(item, stackForAdding)) return false;
 
-          DecreaseAvailableWeightAndVolumeUsing(itemData);      
+          DecreaseAvailableWeightAndVolumeUsing(itemData);
           ItemAdded?.Invoke(stackForAdding, indexOfStackForAdding);
           return true;
         }
@@ -152,7 +174,12 @@ namespace Source.InventoryModule
           return false;
         }
 
-        var stack = stacks[0];
+        if (stacks.Count == 0)
+        {
+          item = null;
+          return false;
+        }
+        var stack = stacks.First();
 
         if (StackCantPopItem(out item, stack)) return false;
 
@@ -177,7 +204,33 @@ namespace Source.InventoryModule
         return !stack.TryPopItem(out item);
       }
 
-      public IEnumerator<InventoryItemsStack> GetEnumerator()
+      public List<Item> GetAllItemsAndClearInventory()
+      {
+            var allItems = new List<Item>();
+
+            foreach (var itemID in _inventory.Keys.ToList()) // Use ToList to avoid modifying the collection while iterating
+            {
+                if (InventoryDoesNotContainsStacksOf(itemID, out var stacks)) continue;
+
+                for (var i = stacks.Count - 1; i >= 0; i--)
+                {
+                    var stack = stacks[i];
+                    while (stack.TryPopItem(out var item))
+                    {
+                        allItems.Add(item);
+                        ItemRemoved?.Invoke(stack, i, item);
+                    }
+                }
+                _inventory.Remove(itemID);
+            }
+
+            _availableWeight = _weightCapacity;
+            _availableVolume = _volumeCapacity;
+
+            return allItems;
+        }
+
+        public IEnumerator<InventoryItemsStack> GetEnumerator()
       {
         throw new NotImplementedException();
       }

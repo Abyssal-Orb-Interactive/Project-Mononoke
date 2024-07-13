@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SeedsDatabase
   m_EditorClassIdentifier: 
   _savedData:
-  - <Name>k__BackingField: Melon
-    <ID>k__BackingField: Onion
+  - <Name>k__BackingField: Tomato Seed
+    <ID>k__BackingField: Tomato Seed
     <Prefab>k__BackingField: {fileID: 0}
     <Weight>k__BackingField: 1
     <Volume>k__BackingField: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
     <UIData>k__BackingField:
       _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
       _spriteName: Test Seeds
-      <Description>k__BackingField: Simple Melon
+      <Description>k__BackingField: Simple Tomato Seed
     <MinGrownTimeInSeconds>k__BackingField: 6
     <MaxGrownTimeInSeconds>k__BackingField: 12
     <MinGrownFruits>k__BackingField: 2
@@ -41,3 +41,59 @@ MonoBehaviour:
     - {fileID: 1709837038, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
     <FruitDatabase>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
     <FruitDatabaseID>k__BackingField: Tomato
+  - <Name>k__BackingField: Onion Seed
+    <ID>k__BackingField: Onion Seed
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 1
+    <Volume>k__BackingField: 1
+    <Price>k__BackingField: 15
+    <Durability>k__BackingField: 2
+    <MaxStackCapacity>k__BackingField: 16
+    <UIData>k__BackingField:
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Test Seeds
+      <Description>k__BackingField: Simple Onion Seed
+    <MinGrownTimeInSeconds>k__BackingField: 6
+    <MaxGrownTimeInSeconds>k__BackingField: 12
+    <MinGrownFruits>k__BackingField: 2
+    <MaxGrownFruits>k__BackingField: 5
+    <MinSeedsFromFruit>k__BackingField: 3
+    <MaxSeedsFromFruit>k__BackingField: 4
+    <PlantGrowthStagesSprites>k__BackingField:
+    - {fileID: -609152549, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: -966460032, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1101824806, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1138127392, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 614243499, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: -1137575979, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1709837038, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    <FruitDatabase>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
+    <FruitDatabaseID>k__BackingField: Onion
+  - <Name>k__BackingField: Carrot Seed
+    <ID>k__BackingField: Carrot Seed
+    <Prefab>k__BackingField: {fileID: 0}
+    <Weight>k__BackingField: 1
+    <Volume>k__BackingField: 1
+    <Price>k__BackingField: 15
+    <Durability>k__BackingField: 2
+    <MaxStackCapacity>k__BackingField: 16
+    <UIData>k__BackingField:
+      _iconAtlas: {fileID: 100100200, guid: 8fcb63a76050b77468a0be9a2c41b8bf, type: 3}
+      _spriteName: Test Seeds
+      <Description>k__BackingField: Simple Carrot Seed
+    <MinGrownTimeInSeconds>k__BackingField: 6
+    <MaxGrownTimeInSeconds>k__BackingField: 12
+    <MinGrownFruits>k__BackingField: 2
+    <MaxGrownFruits>k__BackingField: 5
+    <MinSeedsFromFruit>k__BackingField: 3
+    <MaxSeedsFromFruit>k__BackingField: 4
+    <PlantGrowthStagesSprites>k__BackingField:
+    - {fileID: -609152549, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: -966460032, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1101824806, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1138127392, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 614243499, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: -1137575979, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    - {fileID: 1709837038, guid: 9607d69e2dc28e44c872431fb77ee362, type: 3}
+    <FruitDatabase>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
+    <FruitDatabaseID>k__BackingField: Carrot

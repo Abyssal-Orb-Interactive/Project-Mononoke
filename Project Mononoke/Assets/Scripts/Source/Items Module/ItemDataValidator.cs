@@ -1,16 +1,17 @@
 using System.Collections.Generic;
+using Base.Databases;
 using UnityEngine;
 
 namespace Source.ItemsModule
 {
-    public static class ItemDataValidator
+    public class ItemDataValidator : IDatabaseItemValidator<ItemData>
     {
         private const float MINIMAL_FLOAT_VALUE = 0.01f;
         private const int MINIMAL_STACK_CAPACITY = 1;
         private const int MAX_WARNINGS_NUMBER = 7;
         private  static readonly List<string> _warningsBuffer = new(MAX_WARNINGS_NUMBER);
-        
-        public static bool CheckDataCorrectness<T>(IItemData data, IReadOnlyDictionary<string, T> database) where T : IItemData
+
+        public bool CheckDataCorrectness(ItemData data, IReadOnlyDictionary<string, ItemData> database)
         {
             _warningsBuffer.Clear();
             var itemName = data.Name;
@@ -45,45 +46,43 @@ namespace Source.ItemsModule
                 _warningsBuffer.Add( $"All Items in database must have unique ID, ID of {data.Name} already registered for another item, {data.Name} will be excluded and unavailable to game entities from database to avoid possible conflicts");
             }
 
-            if (_warningsBuffer.Count <= 0) return true;
+            return _warningsBuffer.Count <= 0;
             #if DEBUG
             Debug.LogWarning($"Item {data.Name} in database has the following issues:\n{string.Join("\n", _warningsBuffer)}");
             #endif
-            return false;
-
         }
 
-        private static string GenerateDataCorrectnessWarning(string attribute, string itemName, string comparison = "is greater or equal", string actualCompressionWithBorderValue = "lesser" ,float boundaryValue = MINIMAL_FLOAT_VALUE)
+        private string GenerateDataCorrectnessWarning(string attribute, string itemName, string comparison = "is greater or equal", string actualCompressionWithBorderValue = "lesser" ,float boundaryValue = MINIMAL_FLOAT_VALUE)
         {
             return $"All Items in database must have {attribute} {comparison} {boundaryValue}, {attribute} of item {itemName} is {actualCompressionWithBorderValue} than {boundaryValue}, {itemName} will be excluded and unavailable to game entities from database to avoid possible conflicts";
         }
 
-        private static bool CheckWeightCorrectness(float weight)
+        private bool CheckWeightCorrectness(float weight)
         {
             return weight >= MINIMAL_FLOAT_VALUE;
         }
 
-        private static bool CheckVolumeCorrectness(float volume)
+        private bool CheckVolumeCorrectness(float volume)
         {
             return volume >= MINIMAL_FLOAT_VALUE;
         }
 
-        private static bool CheckPriceCorrectness(float price)
+        private bool CheckPriceCorrectness(float price)
         {
             return price >= MINIMAL_FLOAT_VALUE;
         }
 
-        private static bool CheckDurabilityCorrectness(float durability)
+        private bool CheckDurabilityCorrectness(float durability)
         {
             return durability >= MINIMAL_FLOAT_VALUE;
         }
 
-        private static bool CheckStackSizeCorrectness(int maxStackSize)
+        private bool CheckStackSizeCorrectness(int maxStackSize)
         {
             return maxStackSize >= MINIMAL_STACK_CAPACITY;
         }
 
-        private static bool IsIDUnique<T>(string ID, string name, IReadOnlyDictionary<string, T> database) where T : IItemData
+        private bool IsIDUnique<T>(string ID, string name, IReadOnlyDictionary<string, T> database) where T : IItemData
         {
             return !database.ContainsKey(ID) || database[ID].Name == name;
         }

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Base.Grid;
 using Base.Input;
+using Base.Input.Actions;
 using Source.BattleSystem;
 using Source.BuildingModule;
 using Source.Character.AI;
@@ -49,11 +51,10 @@ namespace Source.Character.Minions_Manager
             collidersHolder.Initialize(minionCollider);
             minionPickUpper.Initialize(minionInventory, minionManipulator, collidersHolder);
             var damageable = minion.GetComponentInChildren<Damageable>();
-            damageable.Initialize(3);
+            damageable.Initialize(3, Fractions.Plodomorphs);
             statsHolder.Initialize(damageable,2, Fractions.Plodomorphs);
-            var minionDamageZone = minion.GetComponentInChildren<DamageArea>();
-            minionDamageZone.Initialize(statsHolder);
-            minionAI.Initialize(collidersHolder, minionPickUpper, statsHolder, minionDamageZone);
+            var minionDamageZone = minion.GetComponentInChildren<Damage2DTriggerArea>();
+            minionAI.Initialize(collidersHolder, minionPickUpper, statsHolder);
             return minion;
         }
     }

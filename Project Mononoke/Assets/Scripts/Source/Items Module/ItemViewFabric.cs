@@ -18,12 +18,13 @@ namespace Source.ItemsModule
             _itemViewsContainer = itemViewsContainer;
             _placer = placer;
         }
-        
-        public static ItemView Create(Item item, Vector3 position)
+
+        public static ItemView Create(Item item, Vector3 position, bool isPickUpable = true)
         {
             if(!CheckFabricCreationStatus(item)) return null;
             
             var itemView = _placer.PlaceObject(new ObjectPlacementInformation<ItemView>(_itemViewPrefab, position, Quaternion.identity , _itemViewsContainer));
+            itemView.TogglePickUpable(isPickUpable);
             itemView.Initialize(item);
             itemView.GetComponent<ParabolicMotionAnimationPlayer>().Initialize();
 
