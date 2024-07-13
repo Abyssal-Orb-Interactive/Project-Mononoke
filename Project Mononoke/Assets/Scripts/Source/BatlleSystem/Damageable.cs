@@ -9,29 +9,30 @@ namespace Source.BattleSystem
         private float _currentHealthPoints = 0f;
         
         public float CurrentHealthPointsInPercents => _currentHealthPoints / _maxHealthPoints;
-        
-        public event Action<Damageable> EntityDead = null;
+        public Fractions Fraction { get; private set; }
+
+        public event Action<IDamageable> Death;
         public event Action<float> HealthPointsChanged = null;
         
-        public void Initialize(float healthPoints)
+        public void Initialize(float healthPoints, Fractions fraction)
         {
             _maxHealthPoints = healthPoints;
             _currentHealthPoints = _maxHealthPoints;
+            Fraction = fraction;
         }
-        
+
         public void TakeDamage(IDamager damageSource)
         {
             if (_currentHealthPoints <= 0)
             {
-                EntityDead?.Invoke(this);
-                gameObject.SetActive(false);
                 return;
             }
             _currentHealthPoints -= damageSource.GetDamage();
             HealthPointsChanged?.Invoke(CurrentHealthPointsInPercents);
+            
             if (_currentHealthPoints <= 0)
             {
-                EntityDead?.Invoke(this);
+                Death?.Invoke(this);
                 gameObject.SetActive(false);
             }
         }
