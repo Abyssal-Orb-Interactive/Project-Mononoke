@@ -1,6 +1,6 @@
 using Base.Grid;
 using NUnit.Framework;
-using Tests.NativeTestsLanguageInfrastructure;
+using Tests.NativeTestsLanguageInfrastructure.TileMapAnalyzer;
 
 namespace Tests.TileMapAnalyzerTests
 {
