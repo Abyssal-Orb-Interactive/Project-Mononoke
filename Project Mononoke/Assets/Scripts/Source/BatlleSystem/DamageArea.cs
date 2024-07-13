@@ -4,62 +4,72 @@ using UnityEngine;
 
 namespace Source.BattleSystem
 {
-    [RequireComponent(typeof(Damage2DTriggerArea))]
+    [RequireComponent(typeof(Collider2D))]
     public class DamageArea : MonoBehaviour, IDisposable
     {
-        [SerializeField] private Damage2DTriggerArea damage2DTriggerArea = null;
-        [SerializeField] private HashSet<IDamageable> _damageables = null;
-        private IDamager _damager = null;
+        private HashSet<IDamageable> _damageablesInDamageArea = null;
+        private IDamager _damageSource = null;
+
+        public event Action<IDamageable> TargetInZone = null;
 
         public void Initialize(IDamager damager)
         {
-            damage2DTriggerArea ??= GetComponent<Damage2DTriggerArea>();
-            _damager ??= damager;
-            _damageables = new HashSet<IDamageable>();
-            SubscribeOnDamageAreaTriggers();
-            SubscribeOnDamagerAttack();
+            _damageSource = damager;
+            _damageablesInDamageArea = new HashSet<IDamageable>();
+            SubscribeToDamageSourceAttacks();
         }
 
-        private void SubscribeOnDamagerAttack()
+        private void SubscribeToDamageSourceAttacks()
         {
-            _damager.Attack += OnAttack;
+            if(_damageSource == null) return;
+            _damageSource.Attack += OnAttack;
         }
         
-        private void UnsubscribeOnDamagerAttack()
+        private void UnsubscribeFromDamageSourceAttacks()
         {
-            _damager.Attack -= OnAttack;
+            if(_damageSource == null) return;
+            _damageSource.Attack -= OnAttack;
         }
 
-        private void SubscribeOnDamageAreaTriggers()
+        private void OnAttack(IDamager obj)
         {
-            damage2DTriggerArea.TargetEnteredInArea += OnTargetIn2DTriggerArea;
-            damage2DTriggerArea.TargetExitFromArea += OnTargetExitFrom2DTriggerArea;
-        }
-        
-        private void UnsubscribeOnDamageAreaTriggers()
-        {
-            damage2DTriggerArea.TargetEnteredInArea -= OnTargetIn2DTriggerArea;
-            damage2DTriggerArea.TargetExitFromArea -= OnTargetExitFrom2DTriggerArea;
+            ApplyAttackToAllDamagablesInArea();
         }
 
-        private void OnAttack(IDamager damager)
+        private void ApplyAttackToAllDamagablesInArea()
         {
-            var damagablesSnapshot = new IDamageable[_damageables.Count];
-            _damageables.CopyTo(damagablesSnapshot);
-            foreach (var damageable in damagablesSnapshot)
+            var damageablesSnapshot = new HashSet<IDamageable>(_damageablesInDamageArea);
+            
+            foreach (var damageable in damageablesSnapshot)
             {
-                damageable.TakeDamage(damager);
+                damageable.TakeDamage(_damageSource);
             }
         }
 
-        private void OnTargetExitFrom2DTriggerArea(IDamageable enemy)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            _damageables.Remove(enemy);
+            if(_damageSource == null) return;
+            if (!other.TryGetComponent<IDamageable>(out var target)) return;
+            _damageablesInDamageArea.Add(target);
+            TargetInZone?.Invoke(target);
         }
 
-        private void OnTargetIn2DTriggerArea(IDamageable enemy)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            _damageables.Add(enemy);
+            if(_damageSource == null) return;
+            if (!other.TryGetComponent<IDamageable>(out var target)) return;
+
+            if (_damageablesInDamageArea.Contains(target)) _damageablesInDamageArea.Remove(target);
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeFromDamageSourceAttacks();
+        }
+
+        private void OnEnable()
+        {
+            SubscribeToDamageSourceAttacks();
         }
 
         private void OnDestroy()
@@ -69,13 +79,8 @@ namespace Source.BattleSystem
 
         public void Dispose()
         {
-            UnsubscribeOnDamagerAttack();
-            UnsubscribeOnDamageAreaTriggers();
-            damage2DTriggerArea?.Dispose();
-            damage2DTriggerArea = null;
-            _damager = null;
-            _damageables.Clear();
-            _damageables = null;
+            UnsubscribeFromDamageSourceAttacks();
+            TargetInZone = null;
             GC.SuppressFinalize(this);
         }
     }

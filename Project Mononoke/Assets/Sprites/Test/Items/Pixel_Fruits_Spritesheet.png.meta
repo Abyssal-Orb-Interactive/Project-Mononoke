@@ -145,32 +145,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: tvOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -322,7 +296,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fruits_Berry
+      name: Pixel_Fruits_Spritesheet_7
       rect:
         serializedVersion: 2
         x: 112
@@ -857,7 +831,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fruits_Berry: 2090029036
       Fruits_Tomato: 1181165460
       Pixel_Fruits_Spritesheet_0: 954695117
       Pixel_Fruits_Spritesheet_1: 378559479
@@ -887,6 +860,7 @@ TextureImporter:
       Pixel_Fruits_Spritesheet_4: 1137437120
       Pixel_Fruits_Spritesheet_5: -1188888935
       Pixel_Fruits_Spritesheet_6: -2070625387
+      Pixel_Fruits_Spritesheet_7: 2090029036
       Pixel_Fruits_Spritesheet_8: 1940001751
       Pixel_Fruits_Spritesheet_9: -45018970
   mipmapLimitGroupName: 

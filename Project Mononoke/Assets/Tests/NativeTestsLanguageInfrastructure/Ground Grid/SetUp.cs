@@ -3,7 +3,7 @@ using Base.TileMap;
 using NSubstitute;
 using UnityEngine;
 
-namespace Tests.NativeTestsLanguageInfrastructure.Ground_Grid
+namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class SetUp
     {
@@ -14,7 +14,7 @@ namespace Tests.NativeTestsLanguageInfrastructure.Ground_Grid
         }
         
         public static void TileMapAnalyzerSubstitute()
-        { 
+        {
             TestParameter.TileMapAnalyzerSubstitute = Substitute.For<ICellTypeSource>();
             TestParameter.TileMapAnalyzerSubstitute.GetCellTypeAt(Arg.Any<Vector3>()).Returns(TestParameter.ExpectedCellType);
         }

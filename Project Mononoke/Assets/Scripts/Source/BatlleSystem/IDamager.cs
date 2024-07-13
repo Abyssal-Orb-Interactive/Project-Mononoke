@@ -6,6 +6,5 @@ namespace Source.BattleSystem
     {
         public event Action<IDamager> Attack;
         public float GetDamage();
-        public Fractions Fraction { get; }
     }
 }

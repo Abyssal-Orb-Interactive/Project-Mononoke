@@ -13,7 +13,7 @@ namespace Source.UI
 
         private void OnValidate()
         {
-            _canvas = gameObject.transform.parent.GetComponent<Canvas>();
+            _canvas = gameObject.transform.root.GetComponent<Canvas>();
             _cursor ??= Mouse.current;
             //_UIElement = GetComponentInChildren<ItemUIElement>();
             Toggle(false);

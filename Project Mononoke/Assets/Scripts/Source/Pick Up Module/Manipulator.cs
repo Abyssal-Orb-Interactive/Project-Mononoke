@@ -7,28 +7,32 @@ namespace Source.PickUpModule
 {
     public class Manipulator
     {
-        private readonly float _strength = 0f;
-        private readonly float _capacity = 0f;
-        public Item Item { get; private set; } = null;
+        private readonly float _strength = 5f;
+        private readonly float _volume = 2f;
+        private Item _item = null;
+
+        public Item Item => _item;
 
         public event Action<Item> InManipulatorItemChanged; 
 
-        public Manipulator(float strength, float capacity)
+        public Manipulator(float strength, float volume)
         {
-            if (strength <= 0) throw new ArgumentException("Manipulator's strength must be bigger then 0");
-            if (capacity <= 0) throw new ArgumentException("Manipulator's capacity must be bigger then 0");
-            
-            _strength = strength;
-            _capacity = capacity;
+            if (strength < 0) _strength = 0;
+            else if (volume < 0) _volume = 0;
+            else
+            {
+                _strength = strength;
+                _volume = volume;
+            }
         }
 
         public bool TryTake(Item item)
         {
-            var data = item?.Data;
+            var data = item.Data;
             if (data == null) return false;
-            if(data.Weight > _strength || data.Volume > _capacity) return false;
+            if(data.Weight > _strength || data.Volume > _volume) return false;
             
-            if (Item != null) return false;
+            if (_item != null) return false;
 
             Take(item);
             return true;
@@ -36,22 +40,22 @@ namespace Source.PickUpModule
 
         private void Take(Item item)
         {
-            Item = item;
+            _item = item;
             InManipulatorItemChanged?.Invoke(item);
         }
 
         public void UseTackedItemMatterIn(object context)
         {
-            Item?.UseMatterIn(context);
+            _item?.UseMatterIn(context);
         }
 
         public bool TryStashIn(Inventory inventory)
         {
-            if (inventory == null || !HasItem()) return false;
+            if (inventory == null || _item == null) return false;
 
-            if (!inventory.TryAddItem(Item)) return false;
+            if (!inventory.TryAddItem(_item)) return false;
             
-            Item = null;
+            _item = null;
             InManipulatorItemChanged?.Invoke(null);
 
             return true;
@@ -59,7 +63,7 @@ namespace Source.PickUpModule
 
         public bool HasItem()
         {
-            return Item != null;
+            return _item != null;
         }
     }
 }

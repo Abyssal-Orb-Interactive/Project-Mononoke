@@ -38,7 +38,7 @@ namespace Source.Character.Minions_Manager
         {
             
             var isoOneFacingVector = DirectionToVector3IsoConverter.ToVector(_facing);
-            var coordinatorPosition = _mover.GetPositionData().Position;
+            var coordinatorPosition = _mover.GetCurrentLogicalPosition();
             return coordinatorPosition + isoOneFacingVector * _targetDesignationRadius;
         }
     }

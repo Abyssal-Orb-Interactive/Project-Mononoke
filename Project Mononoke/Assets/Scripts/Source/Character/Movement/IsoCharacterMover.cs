@@ -1,5 +1,6 @@
 using System;
 using Base.Input;
+using Base.Math;
 using UnityEngine;
 using InputHandler = Base.Input.InputHandler;
 using VContainer;
@@ -31,30 +32,43 @@ namespace Source.Character.Movement
         public EventHandler<MovementActionEventArgs> MovementChanged;
         
         [SerializeField] private float _speed = 10f;
-        [SerializeField] private float _spriteToLegsOffset = 0.3f;
-        [SerializeField] private Rigidbody2D _rigidbody = null;
-        
+
+        private Rigidbody2D _rigidbody = null;
         private InputHandler _inputHandler = null;
         private MovementDirection _moveDirection;
         private GroundGrid _grid = null;
         private bool _movementDesired = false;
 
+        private void OnValidate()
+        {
+            GetRigidbody();
+        }
+
+        private void GetRigidbody()
+        {
+            _rigidbody ??= GetComponent<Rigidbody2D>();
+        }
+
         [Inject] public void Initialize(GroundGrid grid, InputHandler inputHandler)
         {
             _grid = grid;
             _inputHandler = inputHandler;
-            _rigidbody = GetComponent<Rigidbody2D>();
-            
             StartInputHandling();
         }
 
+        public Vector3 GetCurrentLogicalPosition()
+        {
+            var pos = GetCurrentPosition();
+            return new Vector3(pos.x, pos.y - 0.3f, pos.z);
+        }
+        
         private Vector3 GetCurrentPosition()
         {
-            if (_rigidbody == null) _rigidbody.GetComponent<Rigidbody2D>();
+            GetRigidbody();
             return _rigidbody.position;
         }
 
-        public void UpdatePosition()
+        private void Update()
         {
             MoveTo(_moveDirection);
         }
@@ -72,7 +86,7 @@ namespace Source.Character.Movement
             {
                 Rotate(direction);
                 return;
-            }
+            } 
             var targetPosition = CalculateInGridTargetPosition(direction, out var inGridPosition);
             if (!_grid.IsCellPassableAt(inGridPosition))
             {
@@ -88,14 +102,14 @@ namespace Source.Character.Movement
             var offset = DirectionToVector3IsoConverter.ToVector(direction) * (_speed * Time.deltaTime); 
             var position = GetCurrentPosition();
             var targetPosition = position + offset;
-            var legsTargetPosition = new Vector3(targetPosition.x, targetPosition.y - _spriteToLegsOffset, targetPosition.z);
+            var legsTargetPosition = new Vector3(targetPosition.x, targetPosition.y - 0.3f, targetPosition.z);
             inGridPosition = _grid.WorldToGrid(legsTargetPosition);
             return targetPosition;
         }
 
         public PositionData GetPositionData()
         {
-            var worldPosition = GetCurrentPosition();
+            var worldPosition = GetCurrentLogicalPosition();
             return new PositionData(_moveDirection, worldPosition);
         }
 
@@ -104,10 +118,7 @@ namespace Source.Character.Movement
             if(args.Action != InputHandler.InputActionEventArgs.ActionType.Movement) return;
             Rotate((MovementDirection)args.ActionData);
             _movementDesired = args.Status == InputHandler.InputActionEventArgs.ActionStatus.Started;
-            MovementChanged?.Invoke(this,
-                _movementDesired == false
-                    ? new MovementActionEventArgs(MovementStatus.Ended, _moveDirection)
-                    : new MovementActionEventArgs(MovementStatus.Started, _moveDirection));
+            if(_movementDesired == false) MovementChanged?.Invoke(this, new MovementActionEventArgs(MovementStatus.Ended, _moveDirection));
         }
 
         private void StartInputHandling()
@@ -145,15 +156,6 @@ namespace Source.Character.Movement
         {
             StopInputHandling();
             _inputHandler = null;
-        }
-
-        private void OnDrawGizmos()
-        {
-            var position = GetCurrentPosition();
-            var legsPos = new Vector3(position.x, position.y - _spriteToLegsOffset, position.z);
-            
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawCube(legsPos, new Vector3(0.1f, 0.1f, 0.1f));
         }
     }
 }

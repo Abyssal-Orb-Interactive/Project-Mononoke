@@ -13,33 +13,12 @@ MonoBehaviour:
   m_Name: ReceiptsDatabase
   m_EditorClassIdentifier: 
   _savedData:
-  - <ID>k__BackingField: Gray Minion Reciept
+  - ReceiptID: Tomato Dup
     <Ingredients>k__BackingField:
     - <ItemId>k__BackingField: Tomato
-      <Database>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
-      <Quantity>k__BackingField: 3
-    <Results>k__BackingField:
-    - <ItemId>k__BackingField: Gray Minion
-      <Database>k__BackingField: {fileID: 11400000, guid: a5910479635f6e94896e7c5dd5cedb22, type: 2}
+      <ItemsDatabaseAddresablesKey>k__BackingField: Trash Items Database
       <Quantity>k__BackingField: 1
-    <ReceiptType>k__BackingField: 1
-  - <ID>k__BackingField: Orange Minion Reciept
-    <Ingredients>k__BackingField:
-    - <ItemId>k__BackingField: Carrot
-      <Database>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
-      <Quantity>k__BackingField: 3
     <Results>k__BackingField:
-    - <ItemId>k__BackingField: Orange Minion
-      <Database>k__BackingField: {fileID: 11400000, guid: a5910479635f6e94896e7c5dd5cedb22, type: 2}
-      <Quantity>k__BackingField: 1
-    <ReceiptType>k__BackingField: 1
-  - <ID>k__BackingField: Blue Minion Reciept
-    <Ingredients>k__BackingField:
-    - <ItemId>k__BackingField: Onion
-      <Database>k__BackingField: {fileID: 11400000, guid: 92452aa1c28bb8f4aae39e03ca9fba8b, type: 2}
+    - <ItemId>k__BackingField: Tomato
+      <ItemsDatabaseAddresablesKey>k__BackingField: Trash Items Database
       <Quantity>k__BackingField: 3
-    <Results>k__BackingField:
-    - <ItemId>k__BackingField: Blue Minion
-      <Database>k__BackingField: {fileID: 11400000, guid: a5910479635f6e94896e7c5dd5cedb22, type: 2}
-      <Quantity>k__BackingField: 1
-    <ReceiptType>k__BackingField: 1

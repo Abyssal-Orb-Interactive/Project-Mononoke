@@ -1,5 +1,5 @@
 using System;
-using Base.Databases;
+using Source.ItemsModule;
 using UnityEngine;
 
 namespace Scripts.Source.Craft_Module
@@ -7,13 +7,15 @@ namespace Scripts.Source.Craft_Module
     [Serializable]
     public class Ingredient
     {
-        [field: SerializeField] public string ItemId { get; private set; }
-        [field: SerializeField] private DatabaseSOBase Database{ get; set; }
-        [field: SerializeField] public int Quantity { get; private set; }
-        
-        public DatabaseSO<T> GetDatabase<T>() where T : IDatabaseItem
+        [field: SerializeField] public string ItemId { get; private set; } = null;
+        [field: SerializeField] public string ItemsDatabaseAddresablesKey { get; private set; } = null;
+        [field: SerializeField] public int Quantity { get; private set; } = 0;
+
+        public Ingredient(string itemId, string itemsDatabaseAddresablesKey, int quantity)
         {
-            return Database as DatabaseSO<T>;
+            ItemId = itemId;
+            ItemsDatabaseAddresablesKey = itemsDatabaseAddresablesKey;
+            Quantity = quantity;
         }
     }
 }

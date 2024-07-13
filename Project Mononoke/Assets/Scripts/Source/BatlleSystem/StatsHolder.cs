@@ -14,14 +14,14 @@ namespace Source.BattleSystem
         public void Initialize(Damageable damageable, float unarmedAttackDamage, Fractions fraction)
         {
             _damageable = damageable;
-            _damageable.Death += OnDamageableDeath;
+            _damageable.EntityDead += OnDamageableDeath;
             _unarmedAttackDamage = unarmedAttackDamage;
             Fraction = fraction;
         }
 
-        private void OnDamageableDeath(IDamageable damageable)
+        private void OnDamageableDeath(Damageable damageable)
         {
-            EntityDead?.Invoke((Damageable)damageable);
+            EntityDead?.Invoke(damageable);
         }
 
         public void TriggerAttack()

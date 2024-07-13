@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Base.Math;
 using Base.TileMap;
 using Source.BuildingModule;
@@ -15,8 +13,6 @@ namespace Base.Grid
         private readonly ICellTypeSource _cellTypeSource = null;
         public IEnumerable<Vector3Int> CellCoordinates => _grid.Keys;
         public IEnumerable<IReadonlyCell> Cells => _grid.Values;
-
-        public event Action<Vector3Int> GridConfigurationChanged = null; 
 
         private GroundGrid(){}
 
@@ -33,14 +29,7 @@ namespace Base.Grid
             var cellType = _cellTypeSource.GetCellTypeAt(coordinate);
             cell = new Cell(cellType);
             _grid.Add(coordinate, cell);
-            cell.CellConfigurationChanged += OnCellChanged;
             return cell;
-        }
-
-        private void OnCellChanged(Cell cell)
-        {
-            var cellCoord = _grid.FirstOrDefault(pair => pair.Value == cell).Key;
-            GridConfigurationChanged?.Invoke(cellCoord);
         }
 
         public bool HasBuildingAt(Vector3Int coordinate)
@@ -50,7 +39,7 @@ namespace Base.Grid
 
         public bool IsCellPassableAt(Vector3Int coordinate)
         {
-            if (HasBuildingAt(coordinate)) return false;
+            if (HasBuildingAt(coordinate) && GetBuildingAt(coordinate) is not Seedbed) return false;
 
             var cell =  GetCellAt(coordinate);
              

@@ -3,7 +3,7 @@ using Base.TileMap;
 using NSubstitute;
 using UnityEngine;
 
-namespace Tests.NativeTestsLanguageInfrastructure.TileMapAnalyzer
+namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class SetUp
     {

@@ -44,10 +44,9 @@ namespace Source.Formations
                 var rotatedPosition = RotateFormationPosition(position);
                 var formationPositionCoordinates = rotatedPosition + holderCartesianPosition;
 
-                var marker = _objectPlacer.PlaceObject(new ObjectPlacementInformation<GameObject>(
+                _spawnedPositionMarkers.Add(_objectPlacer.PlaceObject(new ObjectPlacementInformation<GameObject>(
                     _positionMarkerPrefab,
-                    formationPositionCoordinates, Quaternion.identity, transform)).transform;
-                _spawnedPositionMarkers.Add(marker);
+                    formationPositionCoordinates, Quaternion.identity, transform)).transform);
             }
         }
 

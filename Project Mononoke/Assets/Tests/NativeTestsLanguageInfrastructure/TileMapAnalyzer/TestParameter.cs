@@ -2,7 +2,7 @@ using Base.Grid;
 using Base.TileMap;
 using UnityEngine;
 
-namespace Tests.NativeTestsLanguageInfrastructure.TileMapAnalyzer
+namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class TestParameter
     {

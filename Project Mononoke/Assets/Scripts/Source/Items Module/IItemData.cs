@@ -1,9 +1,8 @@
-using Base.Databases;
 using UnityEngine;
 
 namespace Source.ItemsModule
 {
-    public interface IItemData : IDatabaseItem
+    public interface IItemData
     {
         string Name { get; }
         string ID { get; }

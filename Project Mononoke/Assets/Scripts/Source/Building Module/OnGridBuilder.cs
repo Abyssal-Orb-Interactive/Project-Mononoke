@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Base.Grid;
-using Scripts.Source.Craft_Module;
 using Source.BuildingModule.Buildings;
 using Source.InventoryModule;
-using Source.ItemsModule;
 using UnityEngine;
 using static Source.BuildingModule.IBuildRequester;
 
@@ -49,13 +46,10 @@ namespace Source.BuildingModule
 
             var building = _objectPlacer.PlaceObject(objectPlacementInformation);
             var seedBed = building as Seedbed;
+            var minionsSpawner = building as MinionsSpawner;
             seedBed?.Initialize(_inventoryPresenter);
+            minionsSpawner?.Initialize(new Inventory());
 
-            if (building.TryGetComponent<ItemLauncher>(out var thrower))
-            {
-                thrower.Initialize(_grid);
-            }
-            
             return _grid.TryAddBuilding(building, gridPosition);
         }
 

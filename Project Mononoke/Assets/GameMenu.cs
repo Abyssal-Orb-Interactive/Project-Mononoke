@@ -8,7 +8,8 @@ public class GameMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            _inventoryUI.SetActive(!_inventoryUI.active);
+            if(_inventoryUI.active == false) _inventoryUI.SetActive(true);
+            else _inventoryUI.SetActive(false);
         }
     }
 }

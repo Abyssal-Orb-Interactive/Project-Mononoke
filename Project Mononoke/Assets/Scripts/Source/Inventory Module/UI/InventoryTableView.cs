@@ -10,6 +10,7 @@ namespace Source.InventoryModule.UI
     public class InventoryTableView : MonoBehaviour
     {
         [SerializeField] private ItemUIElement _itemUIElementPrefab = null;
+        [SerializeField] private UIItemDescriptionWindow _descriptionWindow = null;
         [SerializeField] private RectTransform _itemUIElementsContainer = null;
         [SerializeField] private OnGridObjectPlacer _objectPlacer = null;
         [SerializeField] private MousePointerMover _mousePointer = null;
@@ -20,7 +21,6 @@ namespace Source.InventoryModule.UI
         private int _currentDraggingItemIndex = -1;
 
         public event Action<StackDataForUI> ItemDropped, ItemEquipped;
-        public event Action ItemsSwapped = null; 
 
         public void InitializeInventoryPresenterWithCells(int cellCount)
         {
@@ -102,7 +102,6 @@ namespace Source.InventoryModule.UI
             var dataBuffer = _inventoryPresenterCells[_currentDraggingItemIndex].StackData;
             _inventoryPresenterCells[_currentDraggingItemIndex].InitializeWith(_inventoryPresenterCells[index].StackData);
             _inventoryPresenterCells[index].InitializeWith(dataBuffer);
-            ItemsSwapped?.Invoke();
         }
 
         private void HandleBeginDrag(ItemUIElement element)
@@ -123,7 +122,7 @@ namespace Source.InventoryModule.UI
             _mousePointer.SetData(item);
         }
 
-        protected virtual void HandleItemSelection(ItemUIElement element)
+        private void HandleItemSelection(ItemUIElement element)
         {
             ResetSelection();
             _itemActionsMenu.Toggle(false);
@@ -131,10 +130,12 @@ namespace Source.InventoryModule.UI
             var index = _inventoryPresenterCells.IndexOf(element);
             if(index == -1) return;
             element.Select();
+            _descriptionWindow.InitializeWith(element.StackData.ItemData);
         }
 
-        protected virtual void ResetSelection()
+        private void ResetSelection()
         {
+            _descriptionWindow.Reset();
             _itemActionsMenu.Toggle(false);
             DeselectAllItems();
         }
@@ -145,6 +146,11 @@ namespace Source.InventoryModule.UI
             {
                 element.Deselect();
             }
+        }
+
+        private void OnEnable()
+        {
+            _descriptionWindow.Reset();
         }
     }
 }

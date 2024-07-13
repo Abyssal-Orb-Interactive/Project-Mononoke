@@ -1,7 +1,7 @@
 using Base.Grid;
 using FluentAssertions;
 
-namespace Tests.NativeTestsLanguageInfrastructure.TileMapAnalyzer
+namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class Check
     {

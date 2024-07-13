@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using Base.Timers;
 using UnityEngine;
 
 namespace Source.PickUpModule
@@ -12,7 +12,6 @@ namespace Source.PickUpModule
 
         public FallingCurveVertexesGenerator(AnimationCurve curveTemplate, float durationInSeconds)
         {
-            if (durationInSeconds < 0f) throw new ArgumentException("Duration can't bew negative");
             _curveTemplate = curveTemplate;
             _durationInSeconds = durationInSeconds;
         }

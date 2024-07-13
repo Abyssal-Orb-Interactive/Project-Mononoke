@@ -2,7 +2,7 @@ using Base.Grid;
 using Base.TileMap;
 using UnityEngine;
 
-namespace Tests.NativeTestsLanguageInfrastructure.Ground_Grid
+namespace Tests.NativeTestsLanguageInfrastructure
 {
     public static partial class TestParameter
     {
@@ -10,6 +10,5 @@ namespace Tests.NativeTestsLanguageInfrastructure.Ground_Grid
         public static Vector3Int AssumedCellCoordinate = Vector3Int.zero;
         public static ICellTypeSource TileMapAnalyzerSubstitute = null;
         public static GroundGrid Grid = null;
-        public static CellType ExpectedCellType = CellType.Air;
     }
 }

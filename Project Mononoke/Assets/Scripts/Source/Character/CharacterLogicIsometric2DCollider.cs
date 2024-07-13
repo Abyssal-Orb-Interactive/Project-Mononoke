@@ -8,7 +8,7 @@ namespace Source.Character
     public class CharacterLogicIsometric2DCollider : MonoBehaviour
     {
         private GridAnalyzer _gridAnalyzer = null;
-        private Building _currentBuilding = null;
+        private Building _currentBuilding;
         public event Action<Building> BuildingInCollider, BuildingOutCollider;
         [Inject] public void Initialize(GridAnalyzer gridAnalyzer)
         {
@@ -19,7 +19,6 @@ namespace Source.Character
         {
             if (_gridAnalyzer.TryFindBuildingNextToCharacter(out var building))
             {
-                if(_currentBuilding == building) return;
                 _currentBuilding = building;
                 BuildingInCollider?.Invoke(_currentBuilding);
             }

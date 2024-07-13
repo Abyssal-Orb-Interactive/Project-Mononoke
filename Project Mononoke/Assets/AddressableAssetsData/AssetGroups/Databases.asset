@@ -23,12 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - database
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a5910479635f6e94896e7c5dd5cedb22
-    m_Address: Characters Database
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - database
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 26718287dfda8404abf66e5bb14057d3, type: 2}
   m_SchemaSet:

@@ -20,4 +20,4 @@ MonoBehaviour:
   - <Name>k__BackingField: Minions Spawner
     <ID>k__BackingField: 1
     <Sizes>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: -2873132263190596840, guid: efd12134c4c41694e99aa0ac354ade67, type: 3}
+    <Prefab>k__BackingField: {fileID: 3432506535918356264, guid: efd12134c4c41694e99aa0ac354ade67, type: 3}

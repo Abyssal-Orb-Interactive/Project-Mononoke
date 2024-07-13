@@ -11,24 +11,20 @@ namespace Source.PickUpModule
    public class PickUpper : MonoBehaviour
    {
       public Inventory Inventory {get; private set;} = new(weightCapacity: 100, volumeCapacity: 100);
-      public Manipulator Manipulator { get; private set; } = new(strength: 5, capacity: 2);
+      public Manipulator Manipulator { get; private set; } = new(strength: 5, volume: 2);
       private InventoryPresenter _inventoryPresenter = null;
       private CollidersHolder _collidersHolder = null;
 
       public event Action<Item> ItemPickUpped = null;
-      public event Action ItemEquipped = null;
-      public event Action ItemStashed = null;
       
       public void Initialize(Inventory inventory, Manipulator manipulator, CollidersHolder collidersHolder)
       {
-         if(inventory == null || Manipulator == null || collidersHolder == null) return;
-         
          Inventory = inventory;
          Manipulator = manipulator;
          _collidersHolder = collidersHolder;
          _collidersHolder.SomethingInCollider += ProcessCollision;
       }
-      
+
       private void ProcessCollision(object something)
       {
          Inventory ??= new Inventory();
@@ -58,14 +54,12 @@ namespace Source.PickUpModule
       {
          _inventoryPresenter.ItemEquipped -= OnItemEquipped;
       }
-      
+
       private void OnItemEquipped(InventoryPresenter.StackDataForUI itemData)
       {
-         if(!TryTakeItemFromInventoryWithManipulator(itemData.ItemData.ID)) return;
-         ItemEquipped?.Invoke();
+         TryTakeItemFromInventoryWithManipulator(itemData.ItemData.ID);
       }
 
-      //!
       public bool TryTakeItemFromInventoryWithManipulator(string ID)
       {
          if (Manipulator.HasItem()) Manipulator.TryStashIn(Inventory);
@@ -81,10 +75,7 @@ namespace Source.PickUpModule
 
       public bool TryStashInPickUpperInventory()
       {
-         if (!Manipulator.TryStashIn(Inventory)) return false;
-         
-         ItemStashed?.Invoke();
-         return true;
+          return  Manipulator.TryStashIn(Inventory);
       }
 
       public bool TryGiveTo(Inventory inventory)
