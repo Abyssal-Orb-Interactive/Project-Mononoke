@@ -74,7 +74,6 @@ namespace Scripts.Source
         private void Start()
         {
             _minionsTargetPositionCoordinator.Initialize(_mover);
-            MinionsFactory.Initialize(_minionPrefab, _placer, new GameObject("Army").transform, _lifetimeScope);
             _timeInvoker = TimeInvoker.Instance;
             var manipulator = new Manipulator(5,3);
             _collidersHolder.Initialize(_isometric2DCollider);
