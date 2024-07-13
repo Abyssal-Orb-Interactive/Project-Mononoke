@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VContainer;
 
 namespace Base.Input.Actions
 {
@@ -7,7 +8,7 @@ namespace Base.Input.Actions
     {
         private readonly TestActions _actions = null;
 
-        public TestActionsWrapper(TestActions actions)
+        [Inject] public TestActionsWrapper(TestActions actions)
         {
             _actions = actions;
         }
