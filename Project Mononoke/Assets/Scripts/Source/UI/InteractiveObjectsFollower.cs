@@ -57,8 +57,8 @@ namespace Source.UI
             RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponentInParent<Transform>() as RectTransform, screenPosition,
                 Camera.main, out var localPoint);
             var size = _transform.sizeDelta;
-            var offset = new Vector3(0, size.y * 0.5f, 0);
-            _transform.localPosition = localPoint;
+            var offset = new Vector2(0, size.y * 0.5f);
+            _transform.localPosition = localPoint + offset;
             ToggleWith(true);
         }
 

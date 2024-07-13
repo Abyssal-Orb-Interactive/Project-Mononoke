@@ -1,11 +1,9 @@
 using System;
-using Source.ItemsModule;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Source.InventoryModule.InventoryPresenter;
-using static Source.ItemsModule.TrashItemsDatabaseSO;
 
 namespace Source.InventoryModule.UI
 {
@@ -41,7 +39,7 @@ namespace Source.InventoryModule.UI
             _border.SetActive(false);
         } 
 
-        public void InitializeWith(StackDataForUI stackData) //Add quantity
+        public void InitializeWith(StackDataForUI stackData)
         {
            
             if(stackData == null || stackData.StackCount == 0) 
@@ -49,6 +47,7 @@ namespace Source.InventoryModule.UI
                 ResetData();
                 return;
             }
+            
             StackData = stackData;
             var data = stackData.ItemData;
             _icon.GetComponent<Image>().sprite = data.UIData.Icon;

@@ -1,6 +1,7 @@
 using System;
 using Source.BattleSystem;
 using Source.BuildingModule;
+using Source.Character.AI;
 using Source.ItemsModule;
 using Source.PickUpModule;
 using UnityEngine;

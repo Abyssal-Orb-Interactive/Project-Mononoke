@@ -21,7 +21,7 @@ namespace Source.Formations
 
         private void CalculateFormationPositions()
         {
-            var topOffset = new Vector3(0.5f, _rowsNumber - 0.5f, 0);
+            var topOffset = new Vector3(0.5f, _rowsNumber - 3f, 0);
             _positions = new List<Vector3>();
             for (var y = 0; y < _rowsNumber; y++)
             {
