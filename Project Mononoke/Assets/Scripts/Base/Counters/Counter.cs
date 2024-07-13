@@ -24,6 +24,7 @@ namespace Base.Counters
             TargetValue = targetValue;
             StartValue = startValue;
             Reset();
+            
             if (IsCounterInvalid()) throw new ArgumentException("Values of this counter is invalid");
         }
 
@@ -41,7 +42,7 @@ namespace Base.Counters
         {
             CurrentValue = CurrentValue.Add(_countingFunction());
             OnValueChanged();
-            if (CurrentValue.CompareTo(TargetValue) == 0) OnTargetReached();
+            if (CurrentValue.CompareTo(TargetValue) >= 0) OnTargetReached();
             if (IsCounterInvalid()) OnTargetReached();
             
            
