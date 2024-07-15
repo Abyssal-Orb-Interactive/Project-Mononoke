@@ -123,9 +123,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &1617677501521598704
 MonoBehaviour:
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9ca1c70eee4d0283bda6388e82daa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 1
   _spriteToLegsOffset: 0
   _rigidbody: {fileID: 0}
 --- !u!114 &4015501239706062747
@@ -263,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2e40494b814ff4a5381201eb6afed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage2DTriggerArea: {fileID: 0}
   _search2DTriggerArea: {fileID: 2987563068623459820}
   _closeCombat2DTriggerArea: {fileID: 3849861957190768060}
   _attackCooldown: 3

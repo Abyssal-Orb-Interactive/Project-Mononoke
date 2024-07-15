@@ -20,13 +20,13 @@ namespace Base.GameLoop
         
         public async UniTask FrameUpdate()
         {
-            _mover.UpdatePosition();
             _logicCollider.FrameByFrameCalculate();
             await UniTask.Yield();
         }
 
         public async UniTask PhysicsUpdate()
         {
+            _mover.UpdatePosition();
             await UniTask.Yield();
         }
 
