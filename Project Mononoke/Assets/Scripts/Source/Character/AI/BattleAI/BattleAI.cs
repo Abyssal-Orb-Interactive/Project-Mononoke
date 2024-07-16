@@ -112,8 +112,7 @@ namespace Source.Character.AI.BattleAI
         {
             foreach (var enemy in _inCloseCombatAreaDamagables)
             {
-                var component = enemy as MonoBehaviour;
-                if(component == null) continue;
+                if(enemy is not MonoBehaviour component) continue;
                 var distance = Vector3.Distance(GetHitterCartesianPos(), GetEnemyCartesianPos(component));
                 if (distance > _distanceToClosestEnemy) continue;
                 _distanceToClosestEnemy = distance;
@@ -123,8 +122,7 @@ namespace Source.Character.AI.BattleAI
 
         private void OnEnemyDeath(IDamageable enemy)
         {
-            var component = enemy as MonoBehaviour;
-            if(component == null) return;
+            if(enemy is not MonoBehaviour component) continue;
             ClosestEnemyDeath?.Invoke();
             if (component.TryGetComponent<IsoCharacterMover>(out var mover)) mover.MovementChanged -= OnTargetMoved;
             _closestEnenmy = null;
